@@ -1,0 +1,4376 @@
+[
+  {
+    "code": "A-033",
+    "name": "Foxtail Millet",
+    "qty": "1kg",
+    "price": 195.0,
+    "category": "Millets & Grains",
+    "id": "p0001",
+    "image": "/images/p0001.svg"
+  },
+  {
+    "code": "A-034",
+    "name": "Little Millet",
+    "qty": "1kg",
+    "price": 180.0,
+    "category": "Millets & Grains",
+    "id": "p0002",
+    "image": "/images/p0002.svg"
+  },
+  {
+    "code": "A-035",
+    "name": "Kodo Millet",
+    "qty": "1kg",
+    "price": 170.0,
+    "category": "Millets & Grains",
+    "id": "p0003",
+    "image": "/images/p0003.svg"
+  },
+  {
+    "code": "A-036",
+    "name": "Barnyard Millet",
+    "qty": "1kg",
+    "price": 190.0,
+    "category": "Millets & Grains",
+    "id": "p0004",
+    "image": "/images/p0004.svg"
+  },
+  {
+    "code": "A-037",
+    "name": "Finger Millet",
+    "qty": "1kg",
+    "price": 90.0,
+    "category": "Millets & Grains",
+    "id": "p0005",
+    "image": "/images/p0005.svg"
+  },
+  {
+    "code": "G-485",
+    "name": "Vellai Solam",
+    "qty": "500gm",
+    "price": 65.0,
+    "category": "Millets & Grains",
+    "id": "p0006",
+    "image": "/images/p0006.svg"
+  },
+  {
+    "code": "G-487",
+    "name": "Mappilai Sambha Rice",
+    "qty": "1kg",
+    "price": 140.0,
+    "category": "Millets & Grains",
+    "id": "p0007",
+    "image": "/images/p0007.svg"
+  },
+  {
+    "code": "G-488",
+    "name": "Vellai Ponni Rice",
+    "qty": "1kg",
+    "price": 125.0,
+    "category": "Millets & Grains",
+    "id": "p0008",
+    "image": "/images/p0008.svg"
+  },
+  {
+    "code": "G-489",
+    "name": "Seeraga Sambha Rice",
+    "qty": "1kg",
+    "price": 170.0,
+    "category": "Millets & Grains",
+    "id": "p0009",
+    "image": "/images/p0009.svg"
+  },
+  {
+    "code": "G-490",
+    "name": "Idly Rice",
+    "qty": "1kg",
+    "price": 105.0,
+    "category": "Millets & Grains",
+    "id": "p0010",
+    "image": "/images/p0010.svg"
+  },
+  {
+    "code": "G-491",
+    "name": "Kullakaar Rice",
+    "qty": "1kg",
+    "price": 130.0,
+    "category": "Millets & Grains",
+    "id": "p0011",
+    "image": "/images/p0011.svg"
+  },
+  {
+    "code": "G-493",
+    "name": "Puli",
+    "qty": "500gm",
+    "price": 180.0,
+    "category": "Millets & Grains",
+    "id": "p0012",
+    "image": "/images/p0012.svg"
+  },
+  {
+    "code": "G-497",
+    "name": "Gothumai",
+    "qty": "1kg",
+    "price": 105.0,
+    "category": "Millets & Grains",
+    "id": "p0013",
+    "image": "/images/p0013.svg"
+  },
+  {
+    "code": "G-500",
+    "name": "Kudam Puli",
+    "qty": "250gm",
+    "price": 140.0,
+    "category": "Millets & Grains",
+    "id": "p0014",
+    "image": "/images/p0014.svg"
+  },
+  {
+    "code": "G-615",
+    "name": "Kattu Anam Rice",
+    "qty": "1kg",
+    "price": 195.0,
+    "category": "Millets & Grains",
+    "id": "p0015",
+    "image": "/images/p0015.svg"
+  },
+  {
+    "code": "A-038",
+    "name": "Native Pearl",
+    "qty": "1kg",
+    "price": 230.0,
+    "category": "Millets & Grains",
+    "id": "p0016",
+    "image": "/images/p0016.svg"
+  },
+  {
+    "code": "G-616",
+    "name": "Aathur Kichili Sambha Rice",
+    "qty": "1kg",
+    "price": 130.0,
+    "category": "Millets & Grains",
+    "id": "p0017",
+    "image": "/images/p0017.svg"
+  },
+  {
+    "code": "G-617",
+    "name": "Thuyamalli Rice",
+    "qty": "1kg",
+    "price": 120.0,
+    "category": "Millets & Grains",
+    "id": "p0018",
+    "image": "/images/p0018.svg"
+  },
+  {
+    "code": "G-618",
+    "name": "Mappilai Sambha Avul",
+    "qty": "500gm",
+    "price": 80.0,
+    "category": "Millets & Grains",
+    "id": "p0019",
+    "image": "/images/p0019.svg"
+  },
+  {
+    "code": "G-619",
+    "name": "Poongar Rice",
+    "qty": "1kg",
+    "price": 130.0,
+    "category": "Millets & Grains",
+    "id": "p0020",
+    "image": "/images/p0020.svg"
+  },
+  {
+    "code": "G-626",
+    "name": "Black Rice",
+    "qty": "1kg",
+    "price": 320.0,
+    "category": "Millets & Grains",
+    "id": "p0021",
+    "image": "/images/p0021.svg"
+  },
+  {
+    "code": "G-718",
+    "name": "Vellai Ponni Arisi",
+    "qty": "25kg",
+    "price": 3100.0,
+    "category": "Millets & Grains",
+    "id": "p0022",
+    "image": "/images/p0022.svg"
+  },
+  {
+    "code": "G-651",
+    "name": "Foxtail Millet Aval",
+    "qty": "250gm",
+    "price": 85.0,
+    "category": "Millets & Grains",
+    "id": "p0023",
+    "image": "/images/p0023.svg"
+  },
+  {
+    "code": "G-652",
+    "name": "Cholam Aval",
+    "qty": "200gm",
+    "price": 65.0,
+    "category": "Millets & Grains",
+    "id": "p0024",
+    "image": "/images/p0024.svg"
+  },
+  {
+    "code": "G-496",
+    "name": "Karuppu Ulunthu",
+    "qty": "500gm",
+    "price": 110.0,
+    "category": "Pulses & Dals",
+    "id": "p0025",
+    "image": "/images/p0025.svg"
+  },
+  {
+    "code": "G-494",
+    "name": "Nilakadalai",
+    "qty": "500gm",
+    "price": 130.0,
+    "category": "Pulses & Dals",
+    "id": "p0026",
+    "image": "/images/p0026.svg"
+  },
+  {
+    "code": "G-495",
+    "name": "Thuvaram Paruppu",
+    "qty": "1kg",
+    "price": 300.0,
+    "category": "Pulses & Dals",
+    "id": "p0027",
+    "image": "/images/p0027.svg"
+  },
+  {
+    "code": "G-611",
+    "name": "Uruttu Ulunthu",
+    "qty": "500gm",
+    "price": 140.0,
+    "category": "Pulses & Dals",
+    "id": "p0028",
+    "image": "/images/p0028.svg"
+  },
+  {
+    "code": "G-612",
+    "name": "Paasi Paruppu",
+    "qty": "500gm",
+    "price": 120.0,
+    "category": "Pulses & Dals",
+    "id": "p0029",
+    "image": "/images/p0029.svg"
+  },
+  {
+    "code": "G-613",
+    "name": "Kadalai Paruppu",
+    "qty": "500gm",
+    "price": 90.0,
+    "category": "Pulses & Dals",
+    "id": "p0030",
+    "image": "/images/p0030.svg"
+  },
+  {
+    "code": "G-625",
+    "name": "Green Gram",
+    "qty": "500gm",
+    "price": 115.0,
+    "category": "Pulses & Dals",
+    "id": "p0031",
+    "image": "/images/p0031.svg"
+  },
+  {
+    "code": "G-1015",
+    "name": "Kollu",
+    "qty": "500gm",
+    "price": 82.0,
+    "category": "Pulses & Dals",
+    "id": "p0032",
+    "image": "/images/p0032.svg"
+  },
+  {
+    "code": "G-1017",
+    "name": "Konda Kadalai",
+    "qty": "500gm",
+    "price": 95.0,
+    "category": "Pulses & Dals",
+    "id": "p0033",
+    "image": "/images/p0033.svg"
+  },
+  {
+    "code": "G-1019",
+    "name": "Pottukadalai",
+    "qty": "500gm",
+    "price": 105.0,
+    "category": "Pulses & Dals",
+    "id": "p0034",
+    "image": "/images/p0034.svg"
+  },
+  {
+    "code": "G-021",
+    "name": "Herbal Gourmet Sugar",
+    "qty": "500gm",
+    "price": 70.0,
+    "category": "Sweeteners",
+    "id": "p0035",
+    "image": "/images/p0035.svg"
+  },
+  {
+    "code": "G-111",
+    "name": "Palm Candy",
+    "qty": "100gm",
+    "price": 100.0,
+    "category": "Sweeteners",
+    "id": "p0036",
+    "image": "/images/p0036.svg"
+  },
+  {
+    "code": "G-424",
+    "name": "Jaggery",
+    "qty": "5kg",
+    "price": 450.0,
+    "category": "Sweeteners",
+    "id": "p0037",
+    "image": "/images/p0037.svg"
+  },
+  {
+    "code": "G-431",
+    "name": "Jaggery",
+    "qty": "1kg",
+    "price": 95.0,
+    "category": "Sweeteners",
+    "id": "p0038",
+    "image": "/images/p0038.svg"
+  },
+  {
+    "code": "G-622",
+    "name": "Jaggery Urundu",
+    "qty": "500gm",
+    "price": 75.0,
+    "category": "Sweeteners",
+    "id": "p0039",
+    "image": "/images/p0039.svg"
+  },
+  {
+    "code": "G-1191",
+    "name": "Hill Honey",
+    "qty": "200gm",
+    "price": 199.0,
+    "category": "Honey",
+    "id": "p0040",
+    "image": "/images/p0040.svg"
+  },
+  {
+    "code": "G-049",
+    "name": "Hill Honey",
+    "qty": "500gm",
+    "price": 399.0,
+    "category": "Honey",
+    "id": "p0041",
+    "image": "/images/p0041.svg"
+  },
+  {
+    "code": "G-215",
+    "name": "Thulasi Honey",
+    "qty": "250gm",
+    "price": 240.0,
+    "category": "Honey",
+    "id": "p0042",
+    "image": "/images/p0042.svg"
+  },
+  {
+    "code": "G-216",
+    "name": "Jamun Honey",
+    "qty": "250gm",
+    "price": 270.0,
+    "category": "Honey",
+    "id": "p0043",
+    "image": "/images/p0043.svg"
+  },
+  {
+    "code": "S-037",
+    "name": "Sukku Malli Coffee",
+    "qty": "100gm",
+    "price": 120.0,
+    "category": "Beverages",
+    "id": "p0044",
+    "image": "/images/p0044.svg"
+  },
+  {
+    "code": "G-019",
+    "name": "Herbal Tea Powder",
+    "qty": "100gm",
+    "price": 110.0,
+    "category": "Beverages",
+    "id": "p0045",
+    "image": "/images/p0045.svg"
+  },
+  {
+    "code": "G-398",
+    "name": "Instant Herbal Tea",
+    "qty": "100gm",
+    "price": 75.0,
+    "category": "Beverages",
+    "id": "p0046",
+    "image": "/images/p0046.svg"
+  },
+  {
+    "code": "G-426",
+    "name": "Karuppati Coffee",
+    "qty": "100gm",
+    "price": 190.0,
+    "category": "Beverages",
+    "id": "p0047",
+    "image": "/images/p0047.svg"
+  },
+  {
+    "code": "G-427",
+    "name": "Herbal Soup Powder",
+    "qty": "100gm",
+    "price": 100.0,
+    "category": "Beverages",
+    "id": "p0048",
+    "image": "/images/p0048.svg"
+  },
+  {
+    "code": "G-448",
+    "name": "Kollu Juice",
+    "qty": "500ml",
+    "price": 141.0,
+    "category": "Beverages",
+    "id": "p0049",
+    "image": "/images/p0049.svg"
+  },
+  {
+    "code": "G-545",
+    "name": "Pirandai Juice",
+    "qty": "500ml",
+    "price": 141.0,
+    "category": "Beverages",
+    "id": "p0050",
+    "image": "/images/p0050.svg"
+  },
+  {
+    "code": "G-546",
+    "name": "Thamarai Juice",
+    "qty": "500ml",
+    "price": 180.0,
+    "category": "Beverages",
+    "id": "p0051",
+    "image": "/images/p0051.svg"
+  },
+  {
+    "code": "G-825",
+    "name": "Palm Jaggery Powder",
+    "qty": "400gm",
+    "price": 220.0,
+    "category": "Beverages",
+    "id": "p0052",
+    "image": "/images/p0052.svg"
+  },
+  {
+    "code": "G-1023",
+    "name": "Lemon Sarpath",
+    "qty": "200gm",
+    "price": 200.0,
+    "category": "Beverages",
+    "id": "p0053",
+    "image": "/images/p0053.svg"
+  },
+  {
+    "code": "G-1022",
+    "name": "Nannari Sarpath",
+    "qty": "200gm",
+    "price": 165.0,
+    "category": "Beverages",
+    "id": "p0054",
+    "image": "/images/p0054.svg"
+  },
+  {
+    "code": "G-1020",
+    "name": "Nelli Sarpath",
+    "qty": "200gm",
+    "price": 175.0,
+    "category": "Beverages",
+    "id": "p0055",
+    "image": "/images/p0055.svg"
+  },
+  {
+    "code": "G-1021",
+    "name": "Semparuthi Sarpath",
+    "qty": "200gm",
+    "price": 200.0,
+    "category": "Beverages",
+    "id": "p0056",
+    "image": "/images/p0056.svg"
+  },
+  {
+    "code": "G-1178",
+    "name": "Honey Rose Kulkand",
+    "qty": "300gm",
+    "price": 450.0,
+    "category": "Beverages",
+    "id": "p0057",
+    "image": "/images/p0057.svg"
+  },
+  {
+    "code": "G-1179",
+    "name": "Rose Milk",
+    "qty": "500ml",
+    "price": 400.0,
+    "category": "Beverages",
+    "id": "p0058",
+    "image": "/images/p0058.svg"
+  },
+  {
+    "code": "G-1181",
+    "name": "Finger Millet Soup",
+    "qty": "300gm",
+    "price": 145.0,
+    "category": "Beverages",
+    "id": "p0059",
+    "image": "/images/p0059.svg"
+  },
+  {
+    "code": "G-831",
+    "name": "Sukku Kapi",
+    "qty": "200gm",
+    "price": 110.0,
+    "category": "Beverages",
+    "id": "p0060",
+    "image": "/images/p0060.svg"
+  },
+  {
+    "code": "G-1076",
+    "name": "Apple Cider Vinegar",
+    "qty": "200ml",
+    "price": 225.0,
+    "category": "Beverages",
+    "id": "p0061",
+    "image": "/images/p0061.svg"
+  },
+  {
+    "code": "G-295",
+    "name": "Blood Purifier",
+    "qty": "200ml",
+    "price": 400.0,
+    "category": "Healthcare",
+    "id": "p0062",
+    "image": "/images/p0062.svg"
+  },
+  {
+    "code": "G-1250",
+    "name": "Blood Purifier",
+    "qty": "500ml",
+    "price": 950.0,
+    "category": "Healthcare",
+    "id": "p0063",
+    "image": "/images/p0063.svg"
+  },
+  {
+    "code": "G-1231",
+    "name": "Aammii Uyir Sakthi Banam",
+    "qty": "200ml",
+    "price": 330.0,
+    "category": "Healthcare",
+    "id": "p0064",
+    "image": "/images/p0064.svg"
+  },
+  {
+    "code": "Combo28",
+    "name": "Blood Purifier Combo",
+    "qty": "500ml x2",
+    "price": 1650.0,
+    "category": "Healthcare",
+    "id": "p0065",
+    "image": "/images/p0065.svg"
+  },
+  {
+    "code": "Op37",
+    "name": "Enima Kit",
+    "qty": "1pc",
+    "price": 180.0,
+    "category": "Healthcare",
+    "id": "p0066",
+    "image": "/images/p0066.svg"
+  },
+  {
+    "code": "T-036",
+    "name": "Electric Balm",
+    "qty": "8ml",
+    "price": 45.0,
+    "category": "Healthcare",
+    "id": "p0067",
+    "image": "/images/p0067.svg"
+  },
+  {
+    "code": "G-032",
+    "name": "Goddess Nut",
+    "qty": "250gm",
+    "price": 190.0,
+    "category": "Healthcare",
+    "id": "p0068",
+    "image": "/images/p0068.svg"
+  },
+  {
+    "code": "G-432",
+    "name": "Aero Balm",
+    "qty": "15gm",
+    "price": 33.0,
+    "category": "Healthcare",
+    "id": "p0069",
+    "image": "/images/p0069.svg"
+  },
+  {
+    "code": "G-433",
+    "name": "Asvaganthathi Lehyam",
+    "qty": "250gm",
+    "price": 175.0,
+    "category": "Healthcare",
+    "id": "p0070",
+    "image": "/images/p0070.svg"
+  },
+  {
+    "code": "G-1175",
+    "name": "Thirikadugu Chooranam",
+    "qty": "100gm",
+    "price": 190.0,
+    "category": "Healthcare",
+    "id": "p0071",
+    "image": "/images/p0071.svg"
+  },
+  {
+    "code": "G-1176",
+    "name": "Gopuram Thangi Mooligai Thailam",
+    "qty": "100ml",
+    "price": 360.0,
+    "category": "Healthcare",
+    "id": "p0072",
+    "image": "/images/p0072.svg"
+  },
+  {
+    "code": "G-1227",
+    "name": "Vilosanam Kit",
+    "qty": "1pc",
+    "price": 2450.0,
+    "category": "Healthcare",
+    "id": "p0073",
+    "image": "/images/p0073.svg"
+  },
+  {
+    "code": "G-291",
+    "name": "Vaazlai Neer",
+    "qty": "500ml",
+    "price": 245.0,
+    "category": "Healthcare",
+    "id": "p0074",
+    "image": "/images/p0074.svg"
+  },
+  {
+    "code": "G-434",
+    "name": "Crack Cure Ointment",
+    "qty": "15gm",
+    "price": 28.0,
+    "category": "Healthcare",
+    "id": "p0075",
+    "image": "/images/p0075.svg"
+  },
+  {
+    "code": "G-435",
+    "name": "Ear Drops",
+    "qty": "10ml",
+    "price": 20.0,
+    "category": "Healthcare",
+    "id": "p0076",
+    "image": "/images/p0076.svg"
+  },
+  {
+    "code": "G-438",
+    "name": "Kadukkai Lehyam",
+    "qty": "125gm",
+    "price": 90.0,
+    "category": "Healthcare",
+    "id": "p0077",
+    "image": "/images/p0077.svg"
+  },
+  {
+    "code": "G-442",
+    "name": "Moolamirtha Lehyam",
+    "qty": "250gm",
+    "price": 164.0,
+    "category": "Healthcare",
+    "id": "p0078",
+    "image": "/images/p0078.svg"
+  },
+  {
+    "code": "G-444",
+    "name": "Sowbhagya Sundhi Lehyam",
+    "qty": "250gm",
+    "price": 145.0,
+    "category": "Healthcare",
+    "id": "p0079",
+    "image": "/images/p0079.svg"
+  },
+  {
+    "code": "G-445",
+    "name": "Tooth Drops",
+    "qty": "5ml",
+    "price": 30.0,
+    "category": "Healthcare",
+    "id": "p0080",
+    "image": "/images/p0080.svg"
+  },
+  {
+    "code": "G-507",
+    "name": "Kabha Sura Kudineer",
+    "qty": "50gm",
+    "price": 75.0,
+    "category": "Healthcare",
+    "id": "p0081",
+    "image": "/images/p0081.svg"
+  },
+  {
+    "code": "G-654",
+    "name": "Baby Gripe Water",
+    "qty": "100ml",
+    "price": 28.0,
+    "category": "Healthcare",
+    "id": "p0082",
+    "image": "/images/p0082.svg"
+  },
+  {
+    "code": "G-655",
+    "name": "Dermoherb",
+    "qty": "15ml",
+    "price": 28.0,
+    "category": "Healthcare",
+    "id": "p0083",
+    "image": "/images/p0083.svg"
+  },
+  {
+    "code": "G-656",
+    "name": "Herbal Drink",
+    "qty": "200gm",
+    "price": 84.0,
+    "category": "Healthcare",
+    "id": "p0084",
+    "image": "/images/p0084.svg"
+  },
+  {
+    "code": "G-657",
+    "name": "Herbex Cough Syrup",
+    "qty": "100ml",
+    "price": 42.0,
+    "category": "Healthcare",
+    "id": "p0085",
+    "image": "/images/p0085.svg"
+  },
+  {
+    "code": "G-659",
+    "name": "Karpura Thailam",
+    "qty": "100ml",
+    "price": 90.0,
+    "category": "Healthcare",
+    "id": "p0086",
+    "image": "/images/p0086.svg"
+  },
+  {
+    "code": "G-661",
+    "name": "Massage Oil",
+    "qty": "100ml",
+    "price": 136.0,
+    "category": "Healthcare",
+    "id": "p0087",
+    "image": "/images/p0087.svg"
+  },
+  {
+    "code": "G-660",
+    "name": "Liceol Powder",
+    "qty": "50gm",
+    "price": 50.0,
+    "category": "Healthcare",
+    "id": "p0088",
+    "image": "/images/p0088.svg"
+  },
+  {
+    "code": "G-664",
+    "name": "Puluvetty Thylam",
+    "qty": "100ml",
+    "price": 65.0,
+    "category": "Healthcare",
+    "id": "p0089",
+    "image": "/images/p0089.svg"
+  },
+  {
+    "code": "G-666",
+    "name": "Vatha Kesari Thylam",
+    "qty": "100ml",
+    "price": 90.0,
+    "category": "Healthcare",
+    "id": "p0090",
+    "image": "/images/p0090.svg"
+  },
+  {
+    "code": "G-689",
+    "name": "Amla Legiyam",
+    "qty": "200gm",
+    "price": 330.0,
+    "category": "Healthcare",
+    "id": "p0091",
+    "image": "/images/p0091.svg"
+  },
+  {
+    "code": "G-985",
+    "name": "Energy Water Pack",
+    "qty": "1 Pack",
+    "price": 275.0,
+    "category": "Healthcare",
+    "id": "p0092",
+    "image": "/images/p0092.svg"
+  },
+  {
+    "code": "G-439",
+    "name": "Cool Oil",
+    "qty": "100ml",
+    "price": 100.0,
+    "category": "Healthcare",
+    "id": "p0093",
+    "image": "/images/p0093.svg"
+  },
+  {
+    "code": "G-241",
+    "name": "Drumstick Seed Oil",
+    "qty": "100ml",
+    "price": 950.0,
+    "category": "Healthcare",
+    "id": "p0094",
+    "image": "/images/p0094.svg"
+  },
+  {
+    "code": "G-314",
+    "name": "Davana Oil",
+    "qty": "50ml",
+    "price": 175.0,
+    "category": "Healthcare",
+    "id": "p0095",
+    "image": "/images/p0095.svg"
+  },
+  {
+    "code": "G-257",
+    "name": "Mixed Veg Pickle",
+    "qty": "300gm",
+    "price": 85.0,
+    "category": "Pickles",
+    "id": "p0096",
+    "image": "/images/p0096.svg"
+  },
+  {
+    "code": "G-464",
+    "name": "Mango Pickle",
+    "qty": "300gm",
+    "price": 80.0,
+    "category": "Pickles",
+    "id": "p0097",
+    "image": "/images/p0097.svg"
+  },
+  {
+    "code": "G-465",
+    "name": "Citron Pickle",
+    "qty": "300gm",
+    "price": 80.0,
+    "category": "Pickles",
+    "id": "p0098",
+    "image": "/images/p0098.svg"
+  },
+  {
+    "code": "G-466",
+    "name": "Ginger Pickle",
+    "qty": "300gm",
+    "price": 85.0,
+    "category": "Pickles",
+    "id": "p0099",
+    "image": "/images/p0099.svg"
+  },
+  {
+    "code": "G-1088",
+    "name": "Small Onion Pickle",
+    "qty": "300gm",
+    "price": 100.0,
+    "category": "Pickles",
+    "id": "p0100",
+    "image": "/images/p0100.svg"
+  },
+  {
+    "code": "G-1104",
+    "name": "Lemon Pickle",
+    "qty": "300gm",
+    "price": 80.0,
+    "category": "Pickles",
+    "id": "p0101",
+    "image": "/images/p0101.svg"
+  },
+  {
+    "code": "G-1105",
+    "name": "Garlic Pickle",
+    "qty": "300gm",
+    "price": 100.0,
+    "category": "Pickles",
+    "id": "p0102",
+    "image": "/images/p0102.svg"
+  },
+  {
+    "code": "G-1107",
+    "name": "Tomato Pickle",
+    "qty": "300gm",
+    "price": 85.0,
+    "category": "Pickles",
+    "id": "p0103",
+    "image": "/images/p0103.svg"
+  },
+  {
+    "code": "G-1197",
+    "name": "Vadu Mangai",
+    "qty": "300gm",
+    "price": 160.0,
+    "category": "Pickles",
+    "id": "p0104",
+    "image": "/images/p0104.svg"
+  },
+  {
+    "code": "G-1198",
+    "name": "Green Chilly Pickle",
+    "qty": "300gm",
+    "price": 100.0,
+    "category": "Pickles",
+    "id": "p0105",
+    "image": "/images/p0105.svg"
+  },
+  {
+    "code": "G-022",
+    "name": "Rock Salt Free Flow",
+    "qty": "500gm",
+    "price": 50.0,
+    "category": "Salt",
+    "id": "p0106",
+    "image": "/images/p0106.svg"
+  },
+  {
+    "code": "G-109",
+    "name": "Iodine Less Salt",
+    "qty": "1kg",
+    "price": 30.0,
+    "category": "Salt",
+    "id": "p0107",
+    "image": "/images/p0107.svg"
+  },
+  {
+    "code": "G-213",
+    "name": "Rock Salt Granules",
+    "qty": "500gm",
+    "price": 50.0,
+    "category": "Salt",
+    "id": "p0108",
+    "image": "/images/p0108.svg"
+  },
+  {
+    "code": "G-1195",
+    "name": "Cashew Nut",
+    "qty": "200gm",
+    "price": 320.0,
+    "category": "Dry Fruits & Nuts",
+    "id": "p0109",
+    "image": "/images/p0109.svg"
+  },
+  {
+    "code": "G-1193",
+    "name": "Almonds",
+    "qty": "200gm",
+    "price": 340.0,
+    "category": "Dry Fruits & Nuts",
+    "id": "p0110",
+    "image": "/images/p0110.svg"
+  },
+  {
+    "code": "G-272",
+    "name": "Sabja Seed",
+    "qty": "200gm",
+    "price": 140.0,
+    "category": "Dry Fruits & Nuts",
+    "id": "p0111",
+    "image": "/images/p0111.svg"
+  },
+  {
+    "code": "G-274",
+    "name": "Honey Amla",
+    "qty": "1pc",
+    "price": 12.0,
+    "category": "Dry Fruits & Nuts",
+    "id": "p0112",
+    "image": "/images/p0112.svg"
+  },
+  {
+    "code": "G-1194",
+    "name": "Black Raisins",
+    "qty": "200gm",
+    "price": 170.0,
+    "category": "Dry Fruits & Nuts",
+    "id": "p0113",
+    "image": "/images/p0113.svg"
+  },
+  {
+    "code": "G-1199",
+    "name": "Harmony Dates",
+    "qty": "200gm",
+    "price": 120.0,
+    "category": "Dry Fruits & Nuts",
+    "id": "p0114",
+    "image": "/images/p0114.svg"
+  },
+  {
+    "code": "G-294",
+    "name": "Flax Seed Roasted",
+    "qty": "150gm",
+    "price": 70.0,
+    "category": "Dry Fruits & Nuts",
+    "id": "p0115",
+    "image": "/images/p0115.svg"
+  },
+  {
+    "code": "G-1200",
+    "name": "Dry Figs",
+    "qty": "200gm",
+    "price": 380.0,
+    "category": "Dry Fruits & Nuts",
+    "id": "p0116",
+    "image": "/images/p0116.svg"
+  },
+  {
+    "code": "G-1077",
+    "name": "Amla Candy",
+    "qty": "100gm",
+    "price": 95.0,
+    "category": "Dry Fruits & Nuts",
+    "id": "p0117",
+    "image": "/images/p0117.svg"
+  },
+  {
+    "code": "S-038",
+    "name": "Protein Milk",
+    "qty": "150gm",
+    "price": 95.0,
+    "category": "Health Mix",
+    "id": "p0118",
+    "image": "/images/p0118.svg"
+  },
+  {
+    "code": "S-040",
+    "name": "Hemoglobin Booster",
+    "qty": "100gm",
+    "price": 160.0,
+    "category": "Health Mix",
+    "id": "p0119",
+    "image": "/images/p0119.svg"
+  },
+  {
+    "code": "G-278",
+    "name": "Beetroot Malt",
+    "qty": "250gm",
+    "price": 240.0,
+    "category": "Health Mix",
+    "id": "p0120",
+    "image": "/images/p0120.svg"
+  },
+  {
+    "code": "G-422",
+    "name": "Fruit Malt",
+    "qty": "250gm",
+    "price": 350.0,
+    "category": "Health Mix",
+    "id": "p0121",
+    "image": "/images/p0121.svg"
+  },
+  {
+    "code": "G-1192",
+    "name": "Aammii Multi Malt",
+    "qty": "250gm",
+    "price": 275.0,
+    "category": "Health Mix",
+    "id": "p0122",
+    "image": "/images/p0122.svg"
+  },
+  {
+    "code": "G-544",
+    "name": "Nutro Foods",
+    "qty": "500gm",
+    "price": 222.0,
+    "category": "Health Mix",
+    "id": "p0123",
+    "image": "/images/p0123.svg"
+  },
+  {
+    "code": "G-663",
+    "name": "Nutro Food Health Mix Malt",
+    "qty": "750gm",
+    "price": 267.0,
+    "category": "Health Mix",
+    "id": "p0124",
+    "image": "/images/p0124.svg"
+  },
+  {
+    "code": "G-550",
+    "name": "Aloe Jam",
+    "qty": "250gm",
+    "price": 160.0,
+    "category": "Health Mix",
+    "id": "p0125",
+    "image": "/images/p0125.svg"
+  },
+  {
+    "code": "G-927",
+    "name": "Karuppu Kavuni Kanji",
+    "qty": "500gm",
+    "price": 340.0,
+    "category": "Health Mix",
+    "id": "p0126",
+    "image": "/images/p0126.svg"
+  },
+  {
+    "code": "G-1059",
+    "name": "V Groot",
+    "qty": "250g",
+    "price": 330.0,
+    "category": "Health Mix",
+    "id": "p0127",
+    "image": "/images/p0127.svg"
+  },
+  {
+    "code": "G-1130",
+    "name": "Nistai 21 Millet Health Mix",
+    "qty": "250g",
+    "price": 180.0,
+    "category": "Health Mix",
+    "id": "p0128",
+    "image": "/images/p0128.svg"
+  },
+  {
+    "code": "G-1130b",
+    "name": "Ragi Choco Malt",
+    "qty": "250g",
+    "price": 200.0,
+    "category": "Health Mix",
+    "id": "p0129",
+    "image": "/images/p0129.svg"
+  },
+  {
+    "code": "G-1182",
+    "name": "Black Urad Dal Kanji Mix",
+    "qty": "300g",
+    "price": 165.0,
+    "category": "Health Mix",
+    "id": "p0130",
+    "image": "/images/p0130.svg"
+  },
+  {
+    "code": "G-1248",
+    "name": "Aammii Detox Rice Paste",
+    "qty": "200g",
+    "price": 180.0,
+    "category": "Health Mix",
+    "id": "p0131",
+    "image": "/images/p0131.svg"
+  },
+  {
+    "code": "T-026",
+    "name": "Sambar Powder",
+    "qty": "100gm",
+    "price": 90.0,
+    "category": "Spices",
+    "id": "p0132",
+    "image": "/images/p0132.svg"
+  },
+  {
+    "code": "G-008",
+    "name": "Herbal Turmeric Powder",
+    "qty": "250gm",
+    "price": 100.0,
+    "category": "Spices",
+    "id": "p0133",
+    "image": "/images/p0133.svg"
+  },
+  {
+    "code": "G-020",
+    "name": "Natural Pepper",
+    "qty": "100gm",
+    "price": 135.0,
+    "category": "Spices",
+    "id": "p0134",
+    "image": "/images/p0134.svg"
+  },
+  {
+    "code": "G-303",
+    "name": "Black Cumin Seeds",
+    "qty": "150gm",
+    "price": 90.0,
+    "category": "Spices",
+    "id": "p0135",
+    "image": "/images/p0135.svg"
+  },
+  {
+    "code": "G-474",
+    "name": "Kadugu",
+    "qty": "250gm",
+    "price": 55.0,
+    "category": "Spices",
+    "id": "p0136",
+    "image": "/images/p0136.svg"
+  },
+  {
+    "code": "G-475",
+    "name": "Venthayam",
+    "qty": "250gm",
+    "price": 55.0,
+    "category": "Spices",
+    "id": "p0137",
+    "image": "/images/p0137.svg"
+  },
+  {
+    "code": "G-476",
+    "name": "Turmeric Virali",
+    "qty": "250gm",
+    "price": 90.0,
+    "category": "Spices",
+    "id": "p0138",
+    "image": "/images/p0138.svg"
+  },
+  {
+    "code": "G-476b",
+    "name": "Briyani Leaves",
+    "qty": "100gm",
+    "price": 40.0,
+    "category": "Spices",
+    "id": "p0139",
+    "image": "/images/p0139.svg"
+  },
+  {
+    "code": "G-928",
+    "name": "Sombhu",
+    "qty": "100gm",
+    "price": 55.0,
+    "category": "Spices",
+    "id": "p0140",
+    "image": "/images/p0140.svg"
+  },
+  {
+    "code": "G-479",
+    "name": "Vasambhu",
+    "qty": "100gm",
+    "price": 45.0,
+    "category": "Spices",
+    "id": "p0141",
+    "image": "/images/p0141.svg"
+  },
+  {
+    "code": "G-480",
+    "name": "Jeeragam",
+    "qty": "100gm",
+    "price": 95.0,
+    "category": "Spices",
+    "id": "p0142",
+    "image": "/images/p0142.svg"
+  },
+  {
+    "code": "G-481",
+    "name": "Omam",
+    "qty": "100gm",
+    "price": 50.0,
+    "category": "Spices",
+    "id": "p0143",
+    "image": "/images/p0143.svg"
+  },
+  {
+    "code": "G-482",
+    "name": "Patai",
+    "qty": "100gm",
+    "price": 55.0,
+    "category": "Spices",
+    "id": "p0144",
+    "image": "/images/p0144.svg"
+  },
+  {
+    "code": "G-483",
+    "name": "Sukku",
+    "qty": "100gm",
+    "price": 85.0,
+    "category": "Spices",
+    "id": "p0145",
+    "image": "/images/p0145.svg"
+  },
+  {
+    "code": "G-484",
+    "name": "Kirambhu",
+    "qty": "50gm",
+    "price": 95.0,
+    "category": "Spices",
+    "id": "p0146",
+    "image": "/images/p0146.svg"
+  },
+  {
+    "code": "G-508",
+    "name": "Pepper Powder",
+    "qty": "100gm",
+    "price": 130.0,
+    "category": "Spices",
+    "id": "p0147",
+    "image": "/images/p0147.svg"
+  },
+  {
+    "code": "G-933",
+    "name": "Karam Masala",
+    "qty": "100gm",
+    "price": 70.0,
+    "category": "Spices",
+    "id": "p0148",
+    "image": "/images/p0148.svg"
+  },
+  {
+    "code": "G-926",
+    "name": "Perungayam Powder",
+    "qty": "50gm",
+    "price": 170.0,
+    "category": "Spices",
+    "id": "p0149",
+    "image": "/images/p0149.svg"
+  },
+  {
+    "code": "G-791",
+    "name": "Cardamom Green",
+    "qty": "15gm",
+    "price": 85.0,
+    "category": "Spices",
+    "id": "p0150",
+    "image": "/images/p0150.svg"
+  },
+  {
+    "code": "T-025",
+    "name": "Rasam Powder",
+    "qty": "100gm",
+    "price": 90.0,
+    "category": "Spices",
+    "id": "p0151",
+    "image": "/images/p0151.svg"
+  },
+  {
+    "code": "G-1180",
+    "name": "Moringa Leaf Idli Podi",
+    "qty": "100gm",
+    "price": 95.0,
+    "category": "Spices",
+    "id": "p0152",
+    "image": "/images/p0152.svg"
+  },
+  {
+    "code": "G-1180b",
+    "name": "Flex Seed & Horse Gram Idly Podi",
+    "qty": "100gm",
+    "price": 130.0,
+    "category": "Spices",
+    "id": "p0153",
+    "image": "/images/p0153.svg"
+  },
+  {
+    "code": "G-501",
+    "name": "Country Cow Ghee",
+    "qty": "200ml",
+    "price": 325.0,
+    "category": "Oils & Ghee",
+    "id": "p0154",
+    "image": "/images/p0154.svg"
+  },
+  {
+    "code": "G-502",
+    "name": "Country Cow Ghee",
+    "qty": "500ml",
+    "price": 765.0,
+    "category": "Oils & Ghee",
+    "id": "p0155",
+    "image": "/images/p0155.svg"
+  },
+  {
+    "code": "G-503",
+    "name": "Country Cow Ghee",
+    "qty": "1ltr",
+    "price": 1490.0,
+    "category": "Oils & Ghee",
+    "id": "p0156",
+    "image": "/images/p0156.svg"
+  },
+  {
+    "code": "G-014",
+    "name": "Coconut Oil",
+    "qty": "500ml",
+    "price": 350.0,
+    "category": "Oils & Ghee",
+    "id": "p0157",
+    "image": "/images/p0157.svg"
+  },
+  {
+    "code": "G-015",
+    "name": "Coconut Oil",
+    "qty": "1ltr",
+    "price": 650.0,
+    "category": "Oils & Ghee",
+    "id": "p0158",
+    "image": "/images/p0158.svg"
+  },
+  {
+    "code": "G-016",
+    "name": "Groundnut Oil",
+    "qty": "500ml",
+    "price": 190.0,
+    "category": "Oils & Ghee",
+    "id": "p0159",
+    "image": "/images/p0159.svg"
+  },
+  {
+    "code": "G-063",
+    "name": "Groundnut Oil",
+    "qty": "1ltr",
+    "price": 360.0,
+    "category": "Oils & Ghee",
+    "id": "p0160",
+    "image": "/images/p0160.svg"
+  },
+  {
+    "code": "G-017",
+    "name": "Gingelly Oil",
+    "qty": "500ml",
+    "price": 255.0,
+    "category": "Oils & Ghee",
+    "id": "p0161",
+    "image": "/images/p0161.svg"
+  },
+  {
+    "code": "G-064",
+    "name": "Gingelly Oil",
+    "qty": "1ltr",
+    "price": 490.0,
+    "category": "Oils & Ghee",
+    "id": "p0162",
+    "image": "/images/p0162.svg"
+  },
+  {
+    "code": "G-279",
+    "name": "Neem Oil",
+    "qty": "200ml",
+    "price": 95.0,
+    "category": "Oils & Ghee",
+    "id": "p0163",
+    "image": "/images/p0163.svg"
+  },
+  {
+    "code": "G-280",
+    "name": "Iluppai Oil",
+    "qty": "200ml",
+    "price": 95.0,
+    "category": "Oils & Ghee",
+    "id": "p0164",
+    "image": "/images/p0164.svg"
+  },
+  {
+    "code": "G-018",
+    "name": "Castor Oil",
+    "qty": "250ml",
+    "price": 170.0,
+    "category": "Oils & Ghee",
+    "id": "p0165",
+    "image": "/images/p0165.svg"
+  },
+  {
+    "code": "G-1122",
+    "name": "Groundnut Oil",
+    "qty": "5kg",
+    "price": 1690.0,
+    "category": "Oils & Ghee",
+    "id": "p0166",
+    "image": "/images/p0166.svg"
+  },
+  {
+    "code": "B-003",
+    "name": "Groundnut Oil Bulk",
+    "qty": "15kg",
+    "price": 4400.0,
+    "category": "Oils & Ghee",
+    "id": "p0167",
+    "image": "/images/p0167.svg"
+  },
+  {
+    "code": "FD-015",
+    "name": "Finger Millet Noodles",
+    "qty": "200gm",
+    "price": 80.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0168",
+    "image": "/images/p0168.svg"
+  },
+  {
+    "code": "FD-016",
+    "name": "Pearl Noodles",
+    "qty": "200gm",
+    "price": 80.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0169",
+    "image": "/images/p0169.svg"
+  },
+  {
+    "code": "FD-017",
+    "name": "Little Millet Noodles",
+    "qty": "200gm",
+    "price": 80.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0170",
+    "image": "/images/p0170.svg"
+  },
+  {
+    "code": "FD-018",
+    "name": "Kodo Noodles",
+    "qty": "200gm",
+    "price": 80.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0171",
+    "image": "/images/p0171.svg"
+  },
+  {
+    "code": "FD-019",
+    "name": "Barnyard Noodles",
+    "qty": "200gm",
+    "price": 80.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0172",
+    "image": "/images/p0172.svg"
+  },
+  {
+    "code": "FD-020",
+    "name": "Soya Noodles",
+    "qty": "200gm",
+    "price": 80.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0173",
+    "image": "/images/p0173.svg"
+  },
+  {
+    "code": "FD-021",
+    "name": "Multi Millet Noodles",
+    "qty": "200gm",
+    "price": 80.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0174",
+    "image": "/images/p0174.svg"
+  },
+  {
+    "code": "FD-022",
+    "name": "Red Rice Noodles",
+    "qty": "200gm",
+    "price": 80.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0175",
+    "image": "/images/p0175.svg"
+  },
+  {
+    "code": "FD-023",
+    "name": "Foxtail Noodles",
+    "qty": "200gm",
+    "price": 80.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0176",
+    "image": "/images/p0176.svg"
+  },
+  {
+    "code": "FD-024",
+    "name": "Wheat Noodles",
+    "qty": "200gm",
+    "price": 80.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0177",
+    "image": "/images/p0177.svg"
+  },
+  {
+    "code": "FD-025",
+    "name": "Horse Gram Noodles",
+    "qty": "200gm",
+    "price": 80.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0178",
+    "image": "/images/p0178.svg"
+  },
+  {
+    "code": "FD-001",
+    "name": "Finger Millet Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0179",
+    "image": "/images/p0179.svg"
+  },
+  {
+    "code": "FD-002",
+    "name": "Pearl Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0180",
+    "image": "/images/p0180.svg"
+  },
+  {
+    "code": "FD-003",
+    "name": "Little Millet Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0181",
+    "image": "/images/p0181.svg"
+  },
+  {
+    "code": "FD-004",
+    "name": "Kodo Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0182",
+    "image": "/images/p0182.svg"
+  },
+  {
+    "code": "FD-005",
+    "name": "Barnyard Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0183",
+    "image": "/images/p0183.svg"
+  },
+  {
+    "code": "FD-006",
+    "name": "Soya Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0184",
+    "image": "/images/p0184.svg"
+  },
+  {
+    "code": "FD-007",
+    "name": "Multi Millet Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0185",
+    "image": "/images/p0185.svg"
+  },
+  {
+    "code": "FD-008",
+    "name": "Foxtail Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0186",
+    "image": "/images/p0186.svg"
+  },
+  {
+    "code": "FD-009",
+    "name": "Wheat Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0187",
+    "image": "/images/p0187.svg"
+  },
+  {
+    "code": "FD-010",
+    "name": "Curry Leaves Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0188",
+    "image": "/images/p0188.svg"
+  },
+  {
+    "code": "FD-011",
+    "name": "Drumstick Leaves Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0189",
+    "image": "/images/p0189.svg"
+  },
+  {
+    "code": "FD-012",
+    "name": "Red Rice Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0190",
+    "image": "/images/p0190.svg"
+  },
+  {
+    "code": "FD-013",
+    "name": "Tomato Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0191",
+    "image": "/images/p0191.svg"
+  },
+  {
+    "code": "FD-014",
+    "name": "Lemon Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0192",
+    "image": "/images/p0192.svg"
+  },
+  {
+    "code": "FD-026",
+    "name": "Horse Gram Vermicelli",
+    "qty": "180gm",
+    "price": 60.0,
+    "category": "Noodles & Vermicelli",
+    "id": "p0193",
+    "image": "/images/p0193.svg"
+  },
+  {
+    "code": "G-533",
+    "name": "Rice Vadagam",
+    "qty": "100gm",
+    "price": 50.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0194",
+    "image": "/images/p0194.svg"
+  },
+  {
+    "code": "G-534",
+    "name": "Garlic Vadagam",
+    "qty": "100gm",
+    "price": 50.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0195",
+    "image": "/images/p0195.svg"
+  },
+  {
+    "code": "G-535",
+    "name": "Tomato Vadagam",
+    "qty": "100gm",
+    "price": 50.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0196",
+    "image": "/images/p0196.svg"
+  },
+  {
+    "code": "G-536",
+    "name": "Mint Vadagam",
+    "qty": "100gm",
+    "price": 50.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0197",
+    "image": "/images/p0197.svg"
+  },
+  {
+    "code": "G-537",
+    "name": "Onion Vadagam",
+    "qty": "100gm",
+    "price": 50.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0198",
+    "image": "/images/p0198.svg"
+  },
+  {
+    "code": "G-572",
+    "name": "Javvarisi Vadagam",
+    "qty": "100gm",
+    "price": 50.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0199",
+    "image": "/images/p0199.svg"
+  },
+  {
+    "code": "G-573",
+    "name": "Beetroot Vadagam",
+    "qty": "100gm",
+    "price": 50.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0200",
+    "image": "/images/p0200.svg"
+  },
+  {
+    "code": "G-574",
+    "name": "Moar Milagai Vathal",
+    "qty": "50gm",
+    "price": 25.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0201",
+    "image": "/images/p0201.svg"
+  },
+  {
+    "code": "G-575",
+    "name": "Ulunthu Appalam",
+    "qty": "100gm",
+    "price": 50.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0202",
+    "image": "/images/p0202.svg"
+  },
+  {
+    "code": "G-576",
+    "name": "Pepper Appalam",
+    "qty": "100gm",
+    "price": 50.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0203",
+    "image": "/images/p0203.svg"
+  },
+  {
+    "code": "G-577",
+    "name": "Kilangu Appalam",
+    "qty": "200gm",
+    "price": 105.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0204",
+    "image": "/images/p0204.svg"
+  },
+  {
+    "code": "G-578",
+    "name": "Arisi Appalam",
+    "qty": "200gm",
+    "price": 105.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0205",
+    "image": "/images/p0205.svg"
+  },
+  {
+    "code": "G-580",
+    "name": "Carrot Vadagam",
+    "qty": "100gm",
+    "price": 50.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0206",
+    "image": "/images/p0206.svg"
+  },
+  {
+    "code": "G-1144",
+    "name": "Aammii Organic Appalam",
+    "qty": "200gm",
+    "price": 70.0,
+    "category": "Vadagam & Appalam",
+    "id": "p0207",
+    "image": "/images/p0207.svg"
+  },
+  {
+    "code": "G-259",
+    "name": "Charcoal Face Pack",
+    "qty": "100gm",
+    "price": 110.0,
+    "category": "Face Pack",
+    "id": "p0208",
+    "image": "/images/p0208.svg"
+  },
+  {
+    "code": "G-260",
+    "name": "Banana Face Pack",
+    "qty": "100gm",
+    "price": 110.0,
+    "category": "Face Pack",
+    "id": "p0209",
+    "image": "/images/p0209.svg"
+  },
+  {
+    "code": "G-261",
+    "name": "Orange Face Pack",
+    "qty": "100gm",
+    "price": 110.0,
+    "category": "Face Pack",
+    "id": "p0210",
+    "image": "/images/p0210.svg"
+  },
+  {
+    "code": "G-262",
+    "name": "Rose Face Pack",
+    "qty": "100gm",
+    "price": 110.0,
+    "category": "Face Pack",
+    "id": "p0211",
+    "image": "/images/p0211.svg"
+  },
+  {
+    "code": "G-263",
+    "name": "Sandal Face Pack",
+    "qty": "100gm",
+    "price": 160.0,
+    "category": "Face Pack",
+    "id": "p0212",
+    "image": "/images/p0212.svg"
+  },
+  {
+    "code": "G-264",
+    "name": "Senna Flower & Kuppaimeni Face Pack",
+    "qty": "100gm",
+    "price": 110.0,
+    "category": "Face Pack",
+    "id": "p0213",
+    "image": "/images/p0213.svg"
+  },
+  {
+    "code": "G-436",
+    "name": "Face Pack Powder",
+    "qty": "70gm",
+    "price": 160.0,
+    "category": "Face Pack",
+    "id": "p0214",
+    "image": "/images/p0214.svg"
+  },
+  {
+    "code": "G-1149",
+    "name": "Beetroot Face Pack",
+    "qty": "100gm",
+    "price": 140.0,
+    "category": "Face Pack",
+    "id": "p0215",
+    "image": "/images/p0215.svg"
+  },
+  {
+    "code": "G-1150",
+    "name": "Golden Face Pack",
+    "qty": "100gm",
+    "price": 160.0,
+    "category": "Face Pack",
+    "id": "p0216",
+    "image": "/images/p0216.svg"
+  },
+  {
+    "code": "G-041",
+    "name": "Pure Coconut Oil Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0217",
+    "image": "/images/p0217.svg"
+  },
+  {
+    "code": "G-042",
+    "name": "Senna Flower Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0218",
+    "image": "/images/p0218.svg"
+  },
+  {
+    "code": "G-043",
+    "name": "Arappu Soapnut Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0219",
+    "image": "/images/p0219.svg"
+  },
+  {
+    "code": "G-044",
+    "name": "Aloe Vera Margo Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0220",
+    "image": "/images/p0220.svg"
+  },
+  {
+    "code": "G-045",
+    "name": "Green Gram Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0221",
+    "image": "/images/p0221.svg"
+  },
+  {
+    "code": "G-046",
+    "name": "Besan Flour Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0222",
+    "image": "/images/p0222.svg"
+  },
+  {
+    "code": "G-047",
+    "name": "Multani Mutti Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0223",
+    "image": "/images/p0223.svg"
+  },
+  {
+    "code": "G-081",
+    "name": "Kasthuri Manjal Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0224",
+    "image": "/images/p0224.svg"
+  },
+  {
+    "code": "G-247",
+    "name": "Putruman Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0225",
+    "image": "/images/p0225.svg"
+  },
+  {
+    "code": "G-248",
+    "name": "Aloe Vera & Cucumber Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0226",
+    "image": "/images/p0226.svg"
+  },
+  {
+    "code": "G-249",
+    "name": "Coconut Milk Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0227",
+    "image": "/images/p0227.svg"
+  },
+  {
+    "code": "G-250",
+    "name": "Papaya Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0228",
+    "image": "/images/p0228.svg"
+  },
+  {
+    "code": "G-276",
+    "name": "Kuppaimeni Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0229",
+    "image": "/images/p0229.svg"
+  },
+  {
+    "code": "G-1139",
+    "name": "Thiruneer Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0230",
+    "image": "/images/p0230.svg"
+  },
+  {
+    "code": "G-1140",
+    "name": "Charcoal Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0231",
+    "image": "/images/p0231.svg"
+  },
+  {
+    "code": "G-1141",
+    "name": "Nalangumaavu Soap",
+    "qty": "90gm",
+    "price": 85.0,
+    "category": "Soap",
+    "id": "p0232",
+    "image": "/images/p0232.svg"
+  },
+  {
+    "code": "G-001",
+    "name": "Herbal Soapnut Powder",
+    "qty": "100gm",
+    "price": 60.0,
+    "category": "Personal Care",
+    "id": "p0233",
+    "image": "/images/p0233.svg"
+  },
+  {
+    "code": "G-002",
+    "name": "Herbal Soapnut Powder",
+    "qty": "250gm",
+    "price": 140.0,
+    "category": "Personal Care",
+    "id": "p0234",
+    "image": "/images/p0234.svg"
+  },
+  {
+    "code": "G-004",
+    "name": "Herbal Arappu Powder",
+    "qty": "250gm",
+    "price": 70.0,
+    "category": "Personal Care",
+    "id": "p0235",
+    "image": "/images/p0235.svg"
+  },
+  {
+    "code": "G-005",
+    "name": "Herbal Arappu Powder",
+    "qty": "500gm",
+    "price": 130.0,
+    "category": "Personal Care",
+    "id": "p0236",
+    "image": "/images/p0236.svg"
+  },
+  {
+    "code": "G-006",
+    "name": "Herbal Tooth Powder",
+    "qty": "50gm",
+    "price": 60.0,
+    "category": "Personal Care",
+    "id": "p0237",
+    "image": "/images/p0237.svg"
+  },
+  {
+    "code": "G-038",
+    "name": "24 Herbal Bath Powder",
+    "qty": "200gm",
+    "price": 100.0,
+    "category": "Personal Care",
+    "id": "p0238",
+    "image": "/images/p0238.svg"
+  },
+  {
+    "code": "G-1196",
+    "name": "Rajamooligai Tooth Powder Kids",
+    "qty": "25gm",
+    "price": 80.0,
+    "category": "Personal Care",
+    "id": "p0239",
+    "image": "/images/p0239.svg"
+  },
+  {
+    "code": "G-298",
+    "name": "Dandruff Hair Pack",
+    "qty": "75gm",
+    "price": 145.0,
+    "category": "Personal Care",
+    "id": "p0240",
+    "image": "/images/p0240.svg"
+  },
+  {
+    "code": "G-300",
+    "name": "Nalangumavu",
+    "qty": "75gm",
+    "price": 145.0,
+    "category": "Personal Care",
+    "id": "p0241",
+    "image": "/images/p0241.svg"
+  },
+  {
+    "code": "G-302",
+    "name": "Baby Body Wash",
+    "qty": "75gm",
+    "price": 145.0,
+    "category": "Personal Care",
+    "id": "p0242",
+    "image": "/images/p0242.svg"
+  },
+  {
+    "code": "G-313",
+    "name": "Hair Therapy Herbal Shampoo",
+    "qty": "100ml",
+    "price": 89.0,
+    "category": "Personal Care",
+    "id": "p0243",
+    "image": "/images/p0243.svg"
+  },
+  {
+    "code": "G-183",
+    "name": "Herbal Cancerous Soil",
+    "qty": "1kg",
+    "price": 150.0,
+    "category": "Personal Care",
+    "id": "p0244",
+    "image": "/images/p0244.svg"
+  },
+  {
+    "code": "G-414",
+    "name": "Kajal",
+    "qty": "5gm",
+    "price": 110.0,
+    "category": "Personal Care",
+    "id": "p0245",
+    "image": "/images/p0245.svg"
+  },
+  {
+    "code": "G-840",
+    "name": "Rajamooligai Tooth Powder",
+    "qty": "25gm",
+    "price": 80.0,
+    "category": "Personal Care",
+    "id": "p0246",
+    "image": "/images/p0246.svg"
+  },
+  {
+    "code": "G-925",
+    "name": "Cowdung Cake Tooth Powder",
+    "qty": "40gm",
+    "price": 19.0,
+    "category": "Personal Care",
+    "id": "p0247",
+    "image": "/images/p0247.svg"
+  },
+  {
+    "code": "T-007",
+    "name": "Vermilion",
+    "qty": "25gm",
+    "price": 40.0,
+    "category": "Personal Care",
+    "id": "p0248",
+    "image": "/images/p0248.svg"
+  },
+  {
+    "code": "T-016",
+    "name": "Reusable Napkin XL",
+    "qty": "1pc",
+    "price": 200.0,
+    "category": "Personal Care",
+    "id": "p0249",
+    "image": "/images/p0249.svg"
+  },
+  {
+    "code": "T-017",
+    "name": "Reusable Napkin XXL",
+    "qty": "1pc",
+    "price": 200.0,
+    "category": "Personal Care",
+    "id": "p0250",
+    "image": "/images/p0250.svg"
+  },
+  {
+    "code": "G-013",
+    "name": "Perennial Bunchgrass Scrub",
+    "qty": "25gm",
+    "price": 35.0,
+    "category": "Personal Care",
+    "id": "p0251",
+    "image": "/images/p0251.svg"
+  },
+  {
+    "code": "G-299",
+    "name": "Pean Kolli Lice Remover",
+    "qty": "75gm",
+    "price": 145.0,
+    "category": "Personal Care",
+    "id": "p0252",
+    "image": "/images/p0252.svg"
+  },
+  {
+    "code": "G-301",
+    "name": "Red Rice Bath Powder",
+    "qty": "75gm",
+    "price": 145.0,
+    "category": "Personal Care",
+    "id": "p0253",
+    "image": "/images/p0253.svg"
+  },
+  {
+    "code": "G-430",
+    "name": "Natural Hair Dye",
+    "qty": "200gm",
+    "price": 230.0,
+    "category": "Personal Care",
+    "id": "p0254",
+    "image": "/images/p0254.svg"
+  },
+  {
+    "code": "G-437",
+    "name": "Herbo Bath Powder",
+    "qty": "100gm",
+    "price": 58.0,
+    "category": "Personal Care",
+    "id": "p0255",
+    "image": "/images/p0255.svg"
+  },
+  {
+    "code": "G-542",
+    "name": "Orange Essential Oil",
+    "qty": "15ml",
+    "price": 115.0,
+    "category": "Personal Care",
+    "id": "p0256",
+    "image": "/images/p0256.svg"
+  },
+  {
+    "code": "G-810",
+    "name": "Carrot Oil",
+    "qty": "60ml",
+    "price": 185.0,
+    "category": "Personal Care",
+    "id": "p0257",
+    "image": "/images/p0257.svg"
+  },
+  {
+    "code": "G-847",
+    "name": "Bamboo Tooth Brush",
+    "qty": "1",
+    "price": 70.0,
+    "category": "Personal Care",
+    "id": "p0258",
+    "image": "/images/p0258.svg"
+  },
+  {
+    "code": "G-932",
+    "name": "Aloevera Dry Skin Gel",
+    "qty": "30gm",
+    "price": 71.0,
+    "category": "Personal Care",
+    "id": "p0259",
+    "image": "/images/p0259.svg"
+  },
+  {
+    "code": "G-923",
+    "name": "Nistai Face Powder",
+    "qty": "50gm",
+    "price": 175.0,
+    "category": "Personal Care",
+    "id": "p0260",
+    "image": "/images/p0260.svg"
+  },
+  {
+    "code": "G-1145",
+    "name": "Neem Wooden Comb",
+    "qty": "1",
+    "price": 100.0,
+    "category": "Personal Care",
+    "id": "p0261",
+    "image": "/images/p0261.svg"
+  },
+  {
+    "code": "G-1146",
+    "name": "Bamboo Tongue Cleaner",
+    "qty": "1",
+    "price": 60.0,
+    "category": "Personal Care",
+    "id": "p0262",
+    "image": "/images/p0262.svg"
+  },
+  {
+    "code": "G-1161",
+    "name": "Garlic Pillow",
+    "qty": "1",
+    "price": 490.0,
+    "category": "Personal Care",
+    "id": "p0263",
+    "image": "/images/p0263.svg"
+  },
+  {
+    "code": "G-1160",
+    "name": "Onion Pillow",
+    "qty": "1",
+    "price": 490.0,
+    "category": "Personal Care",
+    "id": "p0264",
+    "image": "/images/p0264.svg"
+  },
+  {
+    "code": "G-1189",
+    "name": "Rose Water",
+    "qty": "100ml",
+    "price": 120.0,
+    "category": "Personal Care",
+    "id": "p0265",
+    "image": "/images/p0265.svg"
+  },
+  {
+    "code": "G-390",
+    "name": "Nistai Hair Oil",
+    "qty": "200ml",
+    "price": 240.0,
+    "category": "Personal Care",
+    "id": "p0266",
+    "image": "/images/p0266.svg"
+  },
+  {
+    "code": "G-423",
+    "name": "Karunochi Oil",
+    "qty": "100ml",
+    "price": 690.0,
+    "category": "Personal Care",
+    "id": "p0267",
+    "image": "/images/p0267.svg"
+  },
+  {
+    "code": "G-658",
+    "name": "Hibiscus Hair Oil",
+    "qty": "100ml",
+    "price": 80.0,
+    "category": "Personal Care",
+    "id": "p0268",
+    "image": "/images/p0268.svg"
+  },
+  {
+    "code": "G-217",
+    "name": "Ayurveda Coconut Oil Mix",
+    "qty": "600ml",
+    "price": 75.0,
+    "category": "Personal Care",
+    "id": "p0269",
+    "image": "/images/p0269.svg"
+  },
+  {
+    "code": "G-010",
+    "name": "Indian Gall-nut Powder",
+    "qty": "100gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0270",
+    "image": "/images/p0270.svg"
+  },
+  {
+    "code": "G-030",
+    "name": "Herbal Tripura Surana",
+    "qty": "200gm",
+    "price": 80.0,
+    "category": "Herbal Powder",
+    "id": "p0271",
+    "image": "/images/p0271.svg"
+  },
+  {
+    "code": "G-133",
+    "name": "Avuri Leaf Powder",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0272",
+    "image": "/images/p0272.svg"
+  },
+  {
+    "code": "G-135",
+    "name": "Aswakhandha Powder",
+    "qty": "50gm",
+    "price": 55.0,
+    "category": "Herbal Powder",
+    "id": "p0273",
+    "image": "/images/p0273.svg"
+  },
+  {
+    "code": "G-143",
+    "name": "Arugampul Powder",
+    "qty": "50gm",
+    "price": 25.0,
+    "category": "Herbal Powder",
+    "id": "p0274",
+    "image": "/images/p0274.svg"
+  },
+  {
+    "code": "G-146",
+    "name": "Aththipalam Powder",
+    "qty": "50gm",
+    "price": 35.0,
+    "category": "Herbal Powder",
+    "id": "p0275",
+    "image": "/images/p0275.svg"
+  },
+  {
+    "code": "G-150",
+    "name": "Amukkara Powder",
+    "qty": "50gm",
+    "price": 70.0,
+    "category": "Herbal Powder",
+    "id": "p0276",
+    "image": "/images/p0276.svg"
+  },
+  {
+    "code": "G-151",
+    "name": "Avaarampoo Powder",
+    "qty": "50gm",
+    "price": 35.0,
+    "category": "Herbal Powder",
+    "id": "p0277",
+    "image": "/images/p0277.svg"
+  },
+  {
+    "code": "G-152",
+    "name": "Jathikkai Powder",
+    "qty": "25gm",
+    "price": 60.0,
+    "category": "Herbal Powder",
+    "id": "p0278",
+    "image": "/images/p0278.svg"
+  },
+  {
+    "code": "G-154",
+    "name": "Athimadhuram Powder",
+    "qty": "50gm",
+    "price": 45.0,
+    "category": "Herbal Powder",
+    "id": "p0279",
+    "image": "/images/p0279.svg"
+  },
+  {
+    "code": "G-158",
+    "name": "Aada Thodai Leaf Powder",
+    "qty": "50gm",
+    "price": 25.0,
+    "category": "Herbal Powder",
+    "id": "p0280",
+    "image": "/images/p0280.svg"
+  },
+  {
+    "code": "G-171",
+    "name": "Asoka Patai Powder",
+    "qty": "50gm",
+    "price": 20.0,
+    "category": "Herbal Powder",
+    "id": "p0281",
+    "image": "/images/p0281.svg"
+  },
+  {
+    "code": "G-172",
+    "name": "Chembaruthi Poo Powder",
+    "qty": "25gm",
+    "price": 45.0,
+    "category": "Herbal Powder",
+    "id": "p0282",
+    "image": "/images/p0282.svg"
+  },
+  {
+    "code": "G-173",
+    "name": "Elavanga Patai Powder",
+    "qty": "50gm",
+    "price": 50.0,
+    "category": "Herbal Powder",
+    "id": "p0283",
+    "image": "/images/p0283.svg"
+  },
+  {
+    "code": "G-292",
+    "name": "Angaya Powder",
+    "qty": "100gm",
+    "price": 120.0,
+    "category": "Herbal Powder",
+    "id": "p0284",
+    "image": "/images/p0284.svg"
+  },
+  {
+    "code": "G-473",
+    "name": "Amla Powder",
+    "qty": "50gm",
+    "price": 35.0,
+    "category": "Herbal Powder",
+    "id": "p0285",
+    "image": "/images/p0285.svg"
+  },
+  {
+    "code": "G-842",
+    "name": "Manjal Karisalangkanni Powder",
+    "qty": "50gm",
+    "price": 45.0,
+    "category": "Herbal Powder",
+    "id": "p0286",
+    "image": "/images/p0286.svg"
+  },
+  {
+    "code": "G-900",
+    "name": "Sitharathai Powder",
+    "qty": "25gm",
+    "price": 35.0,
+    "category": "Herbal Powder",
+    "id": "p0287",
+    "image": "/images/p0287.svg"
+  },
+  {
+    "code": "G-843",
+    "name": "Musu Musukkai Powder",
+    "qty": "50gm",
+    "price": 25.0,
+    "category": "Herbal Powder",
+    "id": "p0288",
+    "image": "/images/p0288.svg"
+  },
+  {
+    "code": "G-1173",
+    "name": "Poolankilangu Powder",
+    "qty": "25gm",
+    "price": 50.0,
+    "category": "Herbal Powder",
+    "id": "p0289",
+    "image": "/images/p0289.svg"
+  },
+  {
+    "code": "G-137",
+    "name": "Marutham Patai Powder",
+    "qty": "50gm",
+    "price": 25.0,
+    "category": "Herbal Powder",
+    "id": "p0290",
+    "image": "/images/p0290.svg"
+  },
+  {
+    "code": "G-139",
+    "name": "Karisalankanni Powder",
+    "qty": "50gm",
+    "price": 40.0,
+    "category": "Herbal Powder",
+    "id": "p0291",
+    "image": "/images/p0291.svg"
+  },
+  {
+    "code": "G-136",
+    "name": "Nilavarai Powder",
+    "qty": "50gm",
+    "price": 50.0,
+    "category": "Herbal Powder",
+    "id": "p0292",
+    "image": "/images/p0292.svg"
+  },
+  {
+    "code": "G-138",
+    "name": "Naaval Seed Powder",
+    "qty": "50gm",
+    "price": 25.0,
+    "category": "Herbal Powder",
+    "id": "p0293",
+    "image": "/images/p0293.svg"
+  },
+  {
+    "code": "G-140",
+    "name": "Murungai Leaf Powder",
+    "qty": "50gm",
+    "price": 35.0,
+    "category": "Herbal Powder",
+    "id": "p0294",
+    "image": "/images/p0294.svg"
+  },
+  {
+    "code": "G-141",
+    "name": "Neermulli Seed Powder",
+    "qty": "50gm",
+    "price": 50.0,
+    "category": "Herbal Powder",
+    "id": "p0295",
+    "image": "/images/p0295.svg"
+  },
+  {
+    "code": "G-142",
+    "name": "Orange Skin Powder",
+    "qty": "50gm",
+    "price": 25.0,
+    "category": "Herbal Powder",
+    "id": "p0296",
+    "image": "/images/p0296.svg"
+  },
+  {
+    "code": "G-144",
+    "name": "Maasikkai Powder",
+    "qty": "25gm",
+    "price": 50.0,
+    "category": "Herbal Powder",
+    "id": "p0297",
+    "image": "/images/p0297.svg"
+  },
+  {
+    "code": "G-147",
+    "name": "Kazharchikkai Powder",
+    "qty": "25gm",
+    "price": 55.0,
+    "category": "Herbal Powder",
+    "id": "p0298",
+    "image": "/images/p0298.svg"
+  },
+  {
+    "code": "G-148",
+    "name": "Maruthani Leaf Powder",
+    "qty": "50gm",
+    "price": 35.0,
+    "category": "Herbal Powder",
+    "id": "p0299",
+    "image": "/images/p0299.svg"
+  },
+  {
+    "code": "G-153",
+    "name": "Roja Poo Powder",
+    "qty": "50gm",
+    "price": 50.0,
+    "category": "Herbal Powder",
+    "id": "p0300",
+    "image": "/images/p0300.svg"
+  },
+  {
+    "code": "G-155",
+    "name": "Multhani Matti Powder",
+    "qty": "50gm",
+    "price": 15.0,
+    "category": "Herbal Powder",
+    "id": "p0301",
+    "image": "/images/p0301.svg"
+  },
+  {
+    "code": "G-156",
+    "name": "Poonaikkaali Seed Powder",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0302",
+    "image": "/images/p0302.svg"
+  },
+  {
+    "code": "G-157",
+    "name": "Kasthuri Manjal Powder",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0303",
+    "image": "/images/p0303.svg"
+  },
+  {
+    "code": "G-159",
+    "name": "Nerunjil Powder",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0304",
+    "image": "/images/p0304.svg"
+  },
+  {
+    "code": "G-161",
+    "name": "Seemai Nilavembu Powder",
+    "qty": "50gm",
+    "price": 60.0,
+    "category": "Herbal Powder",
+    "id": "p0305",
+    "image": "/images/p0305.svg"
+  },
+  {
+    "code": "G-162",
+    "name": "Mudakkathaan Powder",
+    "qty": "50gm",
+    "price": 25.0,
+    "category": "Herbal Powder",
+    "id": "p0306",
+    "image": "/images/p0306.svg"
+  },
+  {
+    "code": "G-164",
+    "name": "Keezhanelli Powder",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0307",
+    "image": "/images/p0307.svg"
+  },
+  {
+    "code": "G-165",
+    "name": "Nilavembu Powder",
+    "qty": "50gm",
+    "price": 35.0,
+    "category": "Herbal Powder",
+    "id": "p0308",
+    "image": "/images/p0308.svg"
+  },
+  {
+    "code": "G-166",
+    "name": "Kuppaimeni Powder",
+    "qty": "50gm",
+    "price": 25.0,
+    "category": "Herbal Powder",
+    "id": "p0309",
+    "image": "/images/p0309.svg"
+  },
+  {
+    "code": "G-167",
+    "name": "Orethal Thamarai Powder",
+    "qty": "25gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0310",
+    "image": "/images/p0310.svg"
+  },
+  {
+    "code": "G-168",
+    "name": "Pachai Paasiparuppu Powder",
+    "qty": "50gm",
+    "price": 20.0,
+    "category": "Herbal Powder",
+    "id": "p0311",
+    "image": "/images/p0311.svg"
+  },
+  {
+    "code": "G-174",
+    "name": "Omam Powder",
+    "qty": "50gm",
+    "price": 40.0,
+    "category": "Herbal Powder",
+    "id": "p0312",
+    "image": "/images/p0312.svg"
+  },
+  {
+    "code": "G-175",
+    "name": "Koraikkilangu Powder",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0313",
+    "image": "/images/p0313.svg"
+  },
+  {
+    "code": "G-176",
+    "name": "Kandangkatthiri Powder",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0314",
+    "image": "/images/p0314.svg"
+  },
+  {
+    "code": "G-178",
+    "name": "Karunjeeragam Powder",
+    "qty": "50gm",
+    "price": 45.0,
+    "category": "Herbal Powder",
+    "id": "p0315",
+    "image": "/images/p0315.svg"
+  },
+  {
+    "code": "G-181",
+    "name": "Murungai Seed Powder",
+    "qty": "25gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0316",
+    "image": "/images/p0316.svg"
+  },
+  {
+    "code": "G-182",
+    "name": "Karuveppilai Powder",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0317",
+    "image": "/images/p0317.svg"
+  },
+  {
+    "code": "G-184",
+    "name": "Malasikkal Powder",
+    "qty": "100gm",
+    "price": 160.0,
+    "category": "Herbal Powder",
+    "id": "p0318",
+    "image": "/images/p0318.svg"
+  },
+  {
+    "code": "G-185",
+    "name": "Poochi Marunthu",
+    "qty": "50gm",
+    "price": 120.0,
+    "category": "Herbal Powder",
+    "id": "p0319",
+    "image": "/images/p0319.svg"
+  },
+  {
+    "code": "G-804",
+    "name": "Kothamalli Powder",
+    "qty": "50gm",
+    "price": 35.0,
+    "category": "Herbal Powder",
+    "id": "p0320",
+    "image": "/images/p0320.svg"
+  },
+  {
+    "code": "G-131",
+    "name": "Siru Kuranjan Leaf Powder",
+    "qty": "50gm",
+    "price": 45.0,
+    "category": "Herbal Powder",
+    "id": "p0321",
+    "image": "/images/p0321.svg"
+  },
+  {
+    "code": "G-134",
+    "name": "Vendhaiyam Powder",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0322",
+    "image": "/images/p0322.svg"
+  },
+  {
+    "code": "G-145",
+    "name": "Vasambu Powder",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0323",
+    "image": "/images/p0323.svg"
+  },
+  {
+    "code": "G-149",
+    "name": "Thippili Powder",
+    "qty": "25gm",
+    "price": 55.0,
+    "category": "Herbal Powder",
+    "id": "p0324",
+    "image": "/images/p0324.svg"
+  },
+  {
+    "code": "G-160",
+    "name": "Vilva Leaf Powder",
+    "qty": "50gm",
+    "price": 25.0,
+    "category": "Herbal Powder",
+    "id": "p0325",
+    "image": "/images/p0325.svg"
+  },
+  {
+    "code": "G-163",
+    "name": "Sukku Powder",
+    "qty": "50gm",
+    "price": 50.0,
+    "category": "Herbal Powder",
+    "id": "p0326",
+    "image": "/images/p0326.svg"
+  },
+  {
+    "code": "G-170",
+    "name": "Siriyanangai Powder",
+    "qty": "50gm",
+    "price": 35.0,
+    "category": "Herbal Powder",
+    "id": "p0327",
+    "image": "/images/p0327.svg"
+  },
+  {
+    "code": "G-177",
+    "name": "Vallarai Powder",
+    "qty": "50gm",
+    "price": 35.0,
+    "category": "Herbal Powder",
+    "id": "p0328",
+    "image": "/images/p0328.svg"
+  },
+  {
+    "code": "G-179",
+    "name": "Thulasi Powder",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0329",
+    "image": "/images/p0329.svg"
+  },
+  {
+    "code": "G-180",
+    "name": "Thanneer Vitan Kilangu Powder",
+    "qty": "50gm",
+    "price": 65.0,
+    "category": "Herbal Powder",
+    "id": "p0330",
+    "image": "/images/p0330.svg"
+  },
+  {
+    "code": "G-275",
+    "name": "Thuvalai Podi",
+    "qty": "50gm",
+    "price": 35.0,
+    "category": "Herbal Powder",
+    "id": "p0331",
+    "image": "/images/p0331.svg"
+  },
+  {
+    "code": "G-239",
+    "name": "Trimix Powder",
+    "qty": "100gm",
+    "price": 110.0,
+    "category": "Herbal Powder",
+    "id": "p0332",
+    "image": "/images/p0332.svg"
+  },
+  {
+    "code": "G-393",
+    "name": "Seenthil Powder",
+    "qty": "50gm",
+    "price": 25.0,
+    "category": "Herbal Powder",
+    "id": "p0333",
+    "image": "/images/p0333.svg"
+  },
+  {
+    "code": "G-628",
+    "name": "Athimathuram",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0334",
+    "image": "/images/p0334.svg"
+  },
+  {
+    "code": "G-631",
+    "name": "Dried Avarampoo",
+    "qty": "50gm",
+    "price": 20.0,
+    "category": "Herbal Powder",
+    "id": "p0335",
+    "image": "/images/p0335.svg"
+  },
+  {
+    "code": "G-633",
+    "name": "Kadukkai",
+    "qty": "50gm",
+    "price": 20.0,
+    "category": "Herbal Powder",
+    "id": "p0336",
+    "image": "/images/p0336.svg"
+  },
+  {
+    "code": "G-634",
+    "name": "Karuppu Ellu",
+    "qty": "50gm",
+    "price": 25.0,
+    "category": "Herbal Powder",
+    "id": "p0337",
+    "image": "/images/p0337.svg"
+  },
+  {
+    "code": "G-641",
+    "name": "Padikaram",
+    "qty": "100gm",
+    "price": 20.0,
+    "category": "Herbal Powder",
+    "id": "p0338",
+    "image": "/images/p0338.svg"
+  },
+  {
+    "code": "G-643",
+    "name": "Murungai Pisin",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0339",
+    "image": "/images/p0339.svg"
+  },
+  {
+    "code": "G-644",
+    "name": "Rose Petals Dried",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0340",
+    "image": "/images/p0340.svg"
+  },
+  {
+    "code": "G-647",
+    "name": "Pachai Karpooram",
+    "qty": "25gm",
+    "price": 90.0,
+    "category": "Herbal Powder",
+    "id": "p0341",
+    "image": "/images/p0341.svg"
+  },
+  {
+    "code": "G-665",
+    "name": "Valai Thandu Podi",
+    "qty": "50gm",
+    "price": 30.0,
+    "category": "Herbal Powder",
+    "id": "p0342",
+    "image": "/images/p0342.svg"
+  },
+  {
+    "code": "G-833",
+    "name": "Stop Drinking Podi",
+    "qty": "50gm",
+    "price": 90.0,
+    "category": "Herbal Powder",
+    "id": "p0343",
+    "image": "/images/p0343.svg"
+  },
+  {
+    "code": "G-834",
+    "name": "Trikadugu Chooranam",
+    "qty": "100gm",
+    "price": 190.0,
+    "category": "Herbal Powder",
+    "id": "p0344",
+    "image": "/images/p0344.svg"
+  },
+  {
+    "code": "G-205",
+    "name": "Peanut Butter",
+    "qty": "120gm",
+    "price": 145.0,
+    "category": "Readymade Mix",
+    "id": "p0345",
+    "image": "/images/p0345.svg"
+  },
+  {
+    "code": "G-458",
+    "name": "Dhal Rice Powder",
+    "qty": "100gm",
+    "price": 50.0,
+    "category": "Readymade Mix",
+    "id": "p0346",
+    "image": "/images/p0346.svg"
+  },
+  {
+    "code": "G-469",
+    "name": "Vathal Kulambhu Paste",
+    "qty": "300gm",
+    "price": 100.0,
+    "category": "Readymade Mix",
+    "id": "p0347",
+    "image": "/images/p0347.svg"
+  },
+  {
+    "code": "G-470",
+    "name": "Puliyodharai Paste",
+    "qty": "300gm",
+    "price": 110.0,
+    "category": "Readymade Mix",
+    "id": "p0348",
+    "image": "/images/p0348.svg"
+  },
+  {
+    "code": "G-471",
+    "name": "Lemon Rice Paste",
+    "qty": "300gm",
+    "price": 110.0,
+    "category": "Readymade Mix",
+    "id": "p0349",
+    "image": "/images/p0349.svg"
+  },
+  {
+    "code": "G-1106",
+    "name": "Tomato Rice Paste",
+    "qty": "300gm",
+    "price": 110.0,
+    "category": "Readymade Mix",
+    "id": "p0350",
+    "image": "/images/p0350.svg"
+  },
+  {
+    "code": "G-457",
+    "name": "Idly Chilli Powder",
+    "qty": "100gm",
+    "price": 54.0,
+    "category": "Readymade Mix",
+    "id": "p0351",
+    "image": "/images/p0351.svg"
+  },
+  {
+    "code": "G-1087",
+    "name": "Garlic Dhal Powder",
+    "qty": "100gm",
+    "price": 60.0,
+    "category": "Readymade Mix",
+    "id": "p0352",
+    "image": "/images/p0352.svg"
+  },
+  {
+    "code": "G-1089",
+    "name": "Coriander Thokku",
+    "qty": "300gm",
+    "price": 120.0,
+    "category": "Readymade Mix",
+    "id": "p0353",
+    "image": "/images/p0353.svg"
+  },
+  {
+    "code": "G-1090",
+    "name": "Curry Leaf Thokku",
+    "qty": "300gm",
+    "price": 110.0,
+    "category": "Readymade Mix",
+    "id": "p0354",
+    "image": "/images/p0354.svg"
+  },
+  {
+    "code": "G-1091",
+    "name": "Mint Leaf Thokku",
+    "qty": "300gm",
+    "price": 110.0,
+    "category": "Readymade Mix",
+    "id": "p0355",
+    "image": "/images/p0355.svg"
+  },
+  {
+    "code": "G-1108",
+    "name": "Lemon Rice Powder",
+    "qty": "100gm",
+    "price": 60.0,
+    "category": "Readymade Mix",
+    "id": "p0356",
+    "image": "/images/p0356.svg"
+  },
+  {
+    "code": "G-1109",
+    "name": "Puliyodharai Rice Powder",
+    "qty": "100gm",
+    "price": 60.0,
+    "category": "Readymade Mix",
+    "id": "p0357",
+    "image": "/images/p0357.svg"
+  },
+  {
+    "code": "G-1110",
+    "name": "Curry Leaf Rice Powder",
+    "qty": "100gm",
+    "price": 60.0,
+    "category": "Readymade Mix",
+    "id": "p0358",
+    "image": "/images/p0358.svg"
+  },
+  {
+    "code": "G-1031",
+    "name": "Agathi Keerai Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0359",
+    "image": "/images/p0359.svg"
+  },
+  {
+    "code": "G-1032",
+    "name": "Beans Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0360",
+    "image": "/images/p0360.svg"
+  },
+  {
+    "code": "G-1027",
+    "name": "Beetroot Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0361",
+    "image": "/images/p0361.svg"
+  },
+  {
+    "code": "G-1041",
+    "name": "Bottle Gourd Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0362",
+    "image": "/images/p0362.svg"
+  },
+  {
+    "code": "G-1045",
+    "name": "Brinjal Seed Long",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0363",
+    "image": "/images/p0363.svg"
+  },
+  {
+    "code": "G-1044",
+    "name": "Brinjal Seed Short",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0364",
+    "image": "/images/p0364.svg"
+  },
+  {
+    "code": "G-1036",
+    "name": "Carrot Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0365",
+    "image": "/images/p0365.svg"
+  },
+  {
+    "code": "G-1042",
+    "name": "Chilly Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0366",
+    "image": "/images/p0366.svg"
+  },
+  {
+    "code": "G-1024",
+    "name": "Cluster Beans Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0367",
+    "image": "/images/p0367.svg"
+  },
+  {
+    "code": "G-1043",
+    "name": "Coriander Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0368",
+    "image": "/images/p0368.svg"
+  },
+  {
+    "code": "G-1033",
+    "name": "Cucumber Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0369",
+    "image": "/images/p0369.svg"
+  },
+  {
+    "code": "G-1039",
+    "name": "Drumstick Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0370",
+    "image": "/images/p0370.svg"
+  },
+  {
+    "code": "G-1026",
+    "name": "Lady Finger Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0371",
+    "image": "/images/p0371.svg"
+  },
+  {
+    "code": "G-1028",
+    "name": "Mulai Keerai Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0372",
+    "image": "/images/p0372.svg"
+  },
+  {
+    "code": "G-1040",
+    "name": "Palak Keerai Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0373",
+    "image": "/images/p0373.svg"
+  },
+  {
+    "code": "G-1038",
+    "name": "Radish Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0374",
+    "image": "/images/p0374.svg"
+  },
+  {
+    "code": "G-1025",
+    "name": "Sirukeerai Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0375",
+    "image": "/images/p0375.svg"
+  },
+  {
+    "code": "G-1034",
+    "name": "Snake Gourd Seed Long",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0376",
+    "image": "/images/p0376.svg"
+  },
+  {
+    "code": "G-1035",
+    "name": "Snake Gourd Seed Short",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0377",
+    "image": "/images/p0377.svg"
+  },
+  {
+    "code": "G-1029",
+    "name": "Thandukeerai Seed Green",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0378",
+    "image": "/images/p0378.svg"
+  },
+  {
+    "code": "G-1030",
+    "name": "Thandukeerai Seed Red",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0379",
+    "image": "/images/p0379.svg"
+  },
+  {
+    "code": "G-1037",
+    "name": "Tomato Seed",
+    "qty": "1 Packet",
+    "price": 20.0,
+    "category": "Seeds",
+    "id": "p0380",
+    "image": "/images/p0380.svg"
+  },
+  {
+    "code": "Op124",
+    "name": "Vegetable Mini Kit",
+    "qty": "KIT",
+    "price": 290.0,
+    "category": "Seeds",
+    "id": "p0381",
+    "image": "/images/p0381.svg"
+  },
+  {
+    "code": "G-504",
+    "name": "Vibuthi",
+    "qty": "100gm",
+    "price": 35.0,
+    "category": "Divine Products",
+    "id": "p0382",
+    "image": "/images/p0382.svg"
+  },
+  {
+    "code": "G-505",
+    "name": "Cowdung Cake Sambrani Powder",
+    "qty": "50gm",
+    "price": 35.0,
+    "category": "Divine Products",
+    "id": "p0383",
+    "image": "/images/p0383.svg"
+  },
+  {
+    "code": "G-506",
+    "name": "Sambrani Dhoops",
+    "qty": "20nos",
+    "price": 40.0,
+    "category": "Divine Products",
+    "id": "p0384",
+    "image": "/images/p0384.svg"
+  },
+  {
+    "code": "G-543",
+    "name": "Incense Stick",
+    "qty": "30nos",
+    "price": 40.0,
+    "category": "Divine Products",
+    "id": "p0385",
+    "image": "/images/p0385.svg"
+  },
+  {
+    "code": "G-1047",
+    "name": "Cowdung Cake Cup Sambrani",
+    "qty": "12nos",
+    "price": 140.0,
+    "category": "Divine Products",
+    "id": "p0386",
+    "image": "/images/p0386.svg"
+  },
+  {
+    "code": "G-245",
+    "name": "Pancha Deepa Oil",
+    "qty": "200ml",
+    "price": 90.0,
+    "category": "Divine Products",
+    "id": "p0387",
+    "image": "/images/p0387.svg"
+  },
+  {
+    "code": "G-1177",
+    "name": "Nistai Agarpathy 10 Flavorous",
+    "qty": "1pc",
+    "price": 195.0,
+    "category": "Divine Products",
+    "id": "p0388",
+    "image": "/images/p0388.svg"
+  },
+  {
+    "code": "G-551",
+    "name": "Copper Kappu Model 1",
+    "qty": "1pc",
+    "price": 340.0,
+    "category": "Copper Products",
+    "id": "p0389",
+    "image": "/images/p0389.svg"
+  },
+  {
+    "code": "G-570",
+    "name": "Copper Kappu Model 2",
+    "qty": "1pc",
+    "price": 370.0,
+    "category": "Copper Products",
+    "id": "p0390",
+    "image": "/images/p0390.svg"
+  },
+  {
+    "code": "G-571",
+    "name": "Copper Kappu Model 3",
+    "qty": "1pc",
+    "price": 200.0,
+    "category": "Copper Products",
+    "id": "p0391",
+    "image": "/images/p0391.svg"
+  },
+  {
+    "code": "G-807",
+    "name": "Copper Kappu OM Printing",
+    "qty": "1pc",
+    "price": 345.0,
+    "category": "Copper Products",
+    "id": "p0392",
+    "image": "/images/p0392.svg"
+  },
+  {
+    "code": "G-808",
+    "name": "Copper Kappu Shiva Shiva Printing",
+    "qty": "1pc",
+    "price": 360.0,
+    "category": "Copper Products",
+    "id": "p0393",
+    "image": "/images/p0393.svg"
+  },
+  {
+    "code": "G-1170",
+    "name": "Copper Kappu Om Namashivaya",
+    "qty": "1pc",
+    "price": 390.0,
+    "category": "Copper Products",
+    "id": "p0394",
+    "image": "/images/p0394.svg"
+  },
+  {
+    "code": "G-1251",
+    "name": "Acupressure Wooden Set of 3",
+    "qty": "1 No",
+    "price": 120.0,
+    "category": "Wellness Tools",
+    "id": "p0395",
+    "image": "/images/p0395.svg"
+  },
+  {
+    "code": "G-994",
+    "name": "Karungali Malai 6mm",
+    "qty": "6mm",
+    "price": 1000.0,
+    "category": "Wellness Tools",
+    "id": "p0396",
+    "image": "/images/p0396.svg"
+  },
+  {
+    "code": "G-995",
+    "name": "Karungali Malai 8mm",
+    "qty": "8mm",
+    "price": 1200.0,
+    "category": "Wellness Tools",
+    "id": "p0397",
+    "image": "/images/p0397.svg"
+  },
+  {
+    "code": "ATF45",
+    "name": "Anatomy Therapy (Kannada)",
+    "qty": "Book",
+    "price": 299.0,
+    "category": "Books & DVDs",
+    "id": "p0398",
+    "image": "/images/p0398.svg"
+  },
+  {
+    "code": "ATF50",
+    "name": "Rangaaduina Irakasiyam",
+    "qty": "Book",
+    "price": 100.0,
+    "category": "Books & DVDs",
+    "id": "p0399",
+    "image": "/images/p0399.svg"
+  },
+  {
+    "code": "ATF43",
+    "name": "Anatomy Therapy (English)",
+    "qty": "Book",
+    "price": 299.0,
+    "category": "Books & DVDs",
+    "id": "p0400",
+    "image": "/images/p0400.svg"
+  },
+  {
+    "code": "ATF44",
+    "name": "Anatomy Therapy (Telugu)",
+    "qty": "Book",
+    "price": 250.0,
+    "category": "Books & DVDs",
+    "id": "p0401",
+    "image": "/images/p0401.svg"
+  },
+  {
+    "code": "ATF42",
+    "name": "Anatomy Therapy (Tamil)",
+    "qty": "Book",
+    "price": 299.0,
+    "category": "Books & DVDs",
+    "id": "p0402",
+    "image": "/images/p0402.svg"
+  },
+  {
+    "code": "ATF47",
+    "name": "Anatomy Therapy (Hindi)",
+    "qty": "Book",
+    "price": 250.0,
+    "category": "Books & DVDs",
+    "id": "p0403",
+    "image": "/images/p0403.svg"
+  },
+  {
+    "code": "ATF49",
+    "name": "World Science (English)",
+    "qty": "Book",
+    "price": 50.0,
+    "category": "Books & DVDs",
+    "id": "p0404",
+    "image": "/images/p0404.svg"
+  },
+  {
+    "code": "ATF162",
+    "name": "Paanu Veedu - Kalvi Murai",
+    "qty": "Book",
+    "price": 299.0,
+    "category": "Books & DVDs",
+    "id": "p0405",
+    "image": "/images/p0405.svg"
+  },
+  {
+    "code": "ATF178",
+    "name": "Anatomy 5-day Practice Guide",
+    "qty": "Book",
+    "price": 25.0,
+    "category": "Books & DVDs",
+    "id": "p0406",
+    "image": "/images/p0406.svg"
+  },
+  {
+    "code": "G-937",
+    "name": "Thatra Love Making Position",
+    "qty": "Book",
+    "price": 350.0,
+    "category": "Books & DVDs",
+    "id": "p0407",
+    "image": "/images/p0407.svg"
+  },
+  {
+    "code": "G-1093",
+    "name": "Business Making India (Tamil)",
+    "qty": "Book",
+    "price": 270.0,
+    "category": "Books & DVDs",
+    "id": "p0408",
+    "image": "/images/p0408.svg"
+  },
+  {
+    "code": "G-1096",
+    "name": "Kottu Mozhi - Astrology Sathya",
+    "qty": "Book",
+    "price": 375.0,
+    "category": "Books & DVDs",
+    "id": "p0409",
+    "image": "/images/p0409.svg"
+  },
+  {
+    "code": "OP1",
+    "name": "Neengalum Gnani Agalam",
+    "qty": "Book",
+    "price": 100.0,
+    "category": "Books & DVDs",
+    "id": "p0410",
+    "image": "/images/p0410.svg"
+  },
+  {
+    "code": "OP2",
+    "name": "Gnana Viduthalai",
+    "qty": "Book",
+    "price": 100.0,
+    "category": "Books & DVDs",
+    "id": "p0411",
+    "image": "/images/p0411.svg"
+  },
+  {
+    "code": "OP3",
+    "name": "Kalaigal Anaithtirkkum Theervu",
+    "qty": "Book",
+    "price": 250.0,
+    "category": "Books & DVDs",
+    "id": "p0412",
+    "image": "/images/p0412.svg"
+  },
+  {
+    "code": "OP4",
+    "name": "Summa Iru",
+    "qty": "Book",
+    "price": 70.0,
+    "category": "Books & DVDs",
+    "id": "p0413",
+    "image": "/images/p0413.svg"
+  },
+  {
+    "code": "OP5",
+    "name": "Naan Yaar Bagavath Iya",
+    "qty": "Book",
+    "price": 30.0,
+    "category": "Books & DVDs",
+    "id": "p0414",
+    "image": "/images/p0414.svg"
+  },
+  {
+    "code": "OP6",
+    "name": "Jen Kadhaikal",
+    "qty": "Book",
+    "price": 100.0,
+    "category": "Books & DVDs",
+    "id": "p0415",
+    "image": "/images/p0415.svg"
+  },
+  {
+    "code": "OP7",
+    "name": "Sath Dharisanam",
+    "qty": "Book",
+    "price": 250.0,
+    "category": "Books & DVDs",
+    "id": "p0416",
+    "image": "/images/p0416.svg"
+  },
+  {
+    "code": "OP8",
+    "name": "Dhyanathai Vidu Gnanathai Piru",
+    "qty": "Book",
+    "price": 250.0,
+    "category": "Books & DVDs",
+    "id": "p0417",
+    "image": "/images/p0417.svg"
+  },
+  {
+    "code": "OP10",
+    "name": "Anma Gnana Irakasiyam",
+    "qty": "Book",
+    "price": 60.0,
+    "category": "Books & DVDs",
+    "id": "p0418",
+    "image": "/images/p0418.svg"
+  },
+  {
+    "code": "Op12",
+    "name": "Gnana Malarvu",
+    "qty": "Book",
+    "price": 40.0,
+    "category": "Books & DVDs",
+    "id": "p0419",
+    "image": "/images/p0419.svg"
+  },
+  {
+    "code": "OP13",
+    "name": "Thedi Yoga Veedu Illai",
+    "qty": "Book",
+    "price": 50.0,
+    "category": "Books & DVDs",
+    "id": "p0420",
+    "image": "/images/p0420.svg"
+  },
+  {
+    "code": "OP131",
+    "name": "Dhyanam - Anushidana Anmigam Part 1",
+    "qty": "Book",
+    "price": 150.0,
+    "category": "Books & DVDs",
+    "id": "p0421",
+    "image": "/images/p0421.svg"
+  },
+  {
+    "code": "OP132",
+    "name": "Niiye Meiyporulul - Anushidana Anmigam Part 2",
+    "qty": "Book",
+    "price": 200.0,
+    "category": "Books & DVDs",
+    "id": "p0422",
+    "image": "/images/p0422.svg"
+  },
+  {
+    "code": "Op191",
+    "name": "Ennaiyum Sinthiththalum",
+    "qty": "Book",
+    "price": 10.0,
+    "category": "Books & DVDs",
+    "id": "p0423",
+    "image": "/images/p0423.svg"
+  },
+  {
+    "code": "OP62",
+    "name": "Maruthuvathilirunthu Manamatra Nilai",
+    "qty": "Book",
+    "price": 520.0,
+    "category": "Books & DVDs",
+    "id": "p0424",
+    "image": "/images/p0424.svg"
+  },
+  {
+    "code": "OP109",
+    "name": "Siva Suthiram",
+    "qty": "Book",
+    "price": 550.0,
+    "category": "Books & DVDs",
+    "id": "p0425",
+    "image": "/images/p0425.svg"
+  },
+  {
+    "code": "OP110",
+    "name": "Marainthu Irukum Unmaigal",
+    "qty": "Book",
+    "price": 230.0,
+    "category": "Books & DVDs",
+    "id": "p0426",
+    "image": "/images/p0426.svg"
+  },
+  {
+    "code": "OP112",
+    "name": "Unnaale Katka Mudiyum",
+    "qty": "Book",
+    "price": 350.0,
+    "category": "Books & DVDs",
+    "id": "p0427",
+    "image": "/images/p0427.svg"
+  },
+  {
+    "code": "OP136",
+    "name": "Ethirppilleye Vazhungal",
+    "qty": "Book",
+    "price": 250.0,
+    "category": "Books & DVDs",
+    "id": "p0428",
+    "image": "/images/p0428.svg"
+  },
+  {
+    "code": "OP142",
+    "name": "Mirudathin Puthagam",
+    "qty": "Book",
+    "price": 275.0,
+    "category": "Books & DVDs",
+    "id": "p0429",
+    "image": "/images/p0429.svg"
+  },
+  {
+    "code": "G-453",
+    "name": "Unnaale Katka Mudiyum Part 2",
+    "qty": "Book",
+    "price": 420.0,
+    "category": "Books & DVDs",
+    "id": "p0430",
+    "image": "/images/p0430.svg"
+  },
+  {
+    "code": "OP-143",
+    "name": "Kamatthilirunthu Kadulukkku",
+    "qty": "Book",
+    "price": 650.0,
+    "category": "Books & DVDs",
+    "id": "p0431",
+    "image": "/images/p0431.svg"
+  },
+  {
+    "code": "OP27",
+    "name": "Pengalee Ungalukkaga",
+    "qty": "Book",
+    "price": 250.0,
+    "category": "Books & DVDs",
+    "id": "p0432",
+    "image": "/images/p0432.svg"
+  },
+  {
+    "code": "OP28",
+    "name": "Sukha Pirasavam",
+    "qty": "Book",
+    "price": 400.0,
+    "category": "Books & DVDs",
+    "id": "p0433",
+    "image": "/images/p0433.svg"
+  },
+  {
+    "code": "OP29",
+    "name": "Neengalum English Maruthuvar Agalam",
+    "qty": "Book",
+    "price": 200.0,
+    "category": "Books & DVDs",
+    "id": "p0434",
+    "image": "/images/p0434.svg"
+  },
+  {
+    "code": "OP125",
+    "name": "Marundugalaal Varum Noigal",
+    "qty": "Book",
+    "price": 250.0,
+    "category": "Books & DVDs",
+    "id": "p0435",
+    "image": "/images/p0435.svg"
+  },
+  {
+    "code": "OP126",
+    "name": "Puthiya Akupuncture",
+    "qty": "Book",
+    "price": 450.0,
+    "category": "Books & DVDs",
+    "id": "p0436",
+    "image": "/images/p0436.svg"
+  },
+  {
+    "code": "OP127",
+    "name": "Neengalum Akupuncture Doctor Agalam",
+    "qty": "Book",
+    "price": 250.0,
+    "category": "Books & DVDs",
+    "id": "p0437",
+    "image": "/images/p0437.svg"
+  },
+  {
+    "code": "Op151",
+    "name": "Iraivazhi Maruthuvan Part 1",
+    "qty": "Book",
+    "price": 200.0,
+    "category": "Books & DVDs",
+    "id": "p0438",
+    "image": "/images/p0438.svg"
+  },
+  {
+    "code": "Op152",
+    "name": "Iraivazhi Maruthuvan Part 2",
+    "qty": "Book",
+    "price": 250.0,
+    "category": "Books & DVDs",
+    "id": "p0439",
+    "image": "/images/p0439.svg"
+  },
+  {
+    "code": "G-312",
+    "name": "Iraivazhi Maruthuvan Benefits Guide",
+    "qty": "Book",
+    "price": 250.0,
+    "category": "Books & DVDs",
+    "id": "p0440",
+    "image": "/images/p0440.svg"
+  },
+  {
+    "code": "OP16",
+    "name": "Irakasiyam (Tamil)",
+    "qty": "Book",
+    "price": 499.0,
+    "category": "Books & DVDs",
+    "id": "p0441",
+    "image": "/images/p0441.svg"
+  },
+  {
+    "code": "Op17",
+    "name": "Irakasiyam (English)",
+    "qty": "Book",
+    "price": 699.0,
+    "category": "Books & DVDs",
+    "id": "p0442",
+    "image": "/images/p0442.svg"
+  },
+  {
+    "code": "OP18",
+    "name": "Sakthi (Tamil)",
+    "qty": "Book",
+    "price": 699.0,
+    "category": "Books & DVDs",
+    "id": "p0443",
+    "image": "/images/p0443.svg"
+  },
+  {
+    "code": "OP19",
+    "name": "Sakthi (Tamil & English)",
+    "qty": "Book",
+    "price": 999.0,
+    "category": "Books & DVDs",
+    "id": "p0444",
+    "image": "/images/p0444.svg"
+  },
+  {
+    "code": "OP20",
+    "name": "Mayajaalam (Tamil)",
+    "qty": "Book",
+    "price": 499.0,
+    "category": "Books & DVDs",
+    "id": "p0445",
+    "image": "/images/p0445.svg"
+  },
+  {
+    "code": "OP21",
+    "name": "Mayajaalam (English)",
+    "qty": "Book",
+    "price": 495.0,
+    "category": "Books & DVDs",
+    "id": "p0446",
+    "image": "/images/p0446.svg"
+  },
+  {
+    "code": "OP22",
+    "name": "Kathanayagan (Tamil)",
+    "qty": "Book",
+    "price": 699.0,
+    "category": "Books & DVDs",
+    "id": "p0447",
+    "image": "/images/p0447.svg"
+  },
+  {
+    "code": "OP23",
+    "name": "Kathanayagan (English)",
+    "qty": "Book",
+    "price": 799.0,
+    "category": "Books & DVDs",
+    "id": "p0448",
+    "image": "/images/p0448.svg"
+  },
+  {
+    "code": "Op26",
+    "name": "Kathalin Mozhi",
+    "qty": "Book",
+    "price": 350.0,
+    "category": "Books & DVDs",
+    "id": "p0449",
+    "image": "/images/p0449.svg"
+  },
+  {
+    "code": "OP65",
+    "name": "Inththa Vinodai",
+    "qty": "Book",
+    "price": 288.0,
+    "category": "Books & DVDs",
+    "id": "p0450",
+    "image": "/images/p0450.svg"
+  },
+  {
+    "code": "OP66",
+    "name": "Athe Vinodai",
+    "qty": "Book",
+    "price": 288.0,
+    "category": "Books & DVDs",
+    "id": "p0451",
+    "image": "/images/p0451.svg"
+  },
+  {
+    "code": "OP67",
+    "name": "Agathayaavu - 1",
+    "qty": "Book",
+    "price": 90.0,
+    "category": "Books & DVDs",
+    "id": "p0452",
+    "image": "/images/p0452.svg"
+  },
+  {
+    "code": "OP68",
+    "name": "Agathayaavu - 2",
+    "qty": "Book",
+    "price": 90.0,
+    "category": "Books & DVDs",
+    "id": "p0453",
+    "image": "/images/p0453.svg"
+  },
+  {
+    "code": "OP69",
+    "name": "Agathayaavu - 3",
+    "qty": "Book",
+    "price": 85.0,
+    "category": "Books & DVDs",
+    "id": "p0454",
+    "image": "/images/p0454.svg"
+  },
+  {
+    "code": "OP72",
+    "name": "Manavalakkalai - 2",
+    "qty": "Book",
+    "price": 135.0,
+    "category": "Books & DVDs",
+    "id": "p0455",
+    "image": "/images/p0455.svg"
+  },
+  {
+    "code": "OP73",
+    "name": "Manavalakkalai - 3",
+    "qty": "Book",
+    "price": 155.0,
+    "category": "Books & DVDs",
+    "id": "p0456",
+    "image": "/images/p0456.svg"
+  },
+  {
+    "code": "OP71",
+    "name": "Manavalakkalai - 1",
+    "qty": "Book",
+    "price": 150.0,
+    "category": "Books & DVDs",
+    "id": "p0457",
+    "image": "/images/p0457.svg"
+  },
+  {
+    "code": "OP74",
+    "name": "Arutdanthai Pathilgal",
+    "qty": "Book",
+    "price": 55.0,
+    "category": "Books & DVDs",
+    "id": "p0458",
+    "image": "/images/p0458.svg"
+  },
+  {
+    "code": "OP75",
+    "name": "Arutdanthai Pathilgal - 2",
+    "qty": "Book",
+    "price": 70.0,
+    "category": "Books & DVDs",
+    "id": "p0459",
+    "image": "/images/p0459.svg"
+  },
+  {
+    "code": "OP76",
+    "name": "Eliya Murai Udarpayirchi",
+    "qty": "Book",
+    "price": 35.0,
+    "category": "Books & DVDs",
+    "id": "p0460",
+    "image": "/images/p0460.svg"
+  },
+  {
+    "code": "OP77",
+    "name": "Kayagalpam",
+    "qty": "Book",
+    "price": 50.0,
+    "category": "Books & DVDs",
+    "id": "p0461",
+    "image": "/images/p0461.svg"
+  },
+  {
+    "code": "OP78",
+    "name": "Vazhkka Vazha Uyarvu Padigal 5",
+    "qty": "Book",
+    "price": 70.0,
+    "category": "Books & DVDs",
+    "id": "p0462",
+    "image": "/images/p0462.svg"
+  },
+  {
+    "code": "Op79",
+    "name": "Manam",
+    "qty": "Book",
+    "price": 55.0,
+    "category": "Books & DVDs",
+    "id": "p0463",
+    "image": "/images/p0463.svg"
+  },
+  {
+    "code": "OP80",
+    "name": "Naan Yaar",
+    "qty": "Book",
+    "price": 70.0,
+    "category": "Books & DVDs",
+    "id": "p0464",
+    "image": "/images/p0464.svg"
+  },
+  {
+    "code": "OP81",
+    "name": "Pirapukkku Munnume Irapukku Pinnume",
+    "qty": "Book",
+    "price": 70.0,
+    "category": "Books & DVDs",
+    "id": "p0465",
+    "image": "/images/p0465.svg"
+  },
+  {
+    "code": "OP82",
+    "name": "Bakthiyum Gnaanamum",
+    "qty": "Book",
+    "price": 110.0,
+    "category": "Books & DVDs",
+    "id": "p0466",
+    "image": "/images/p0466.svg"
+  },
+  {
+    "code": "OP83",
+    "name": "Andamum Pindamum",
+    "qty": "Book",
+    "price": 45.0,
+    "category": "Books & DVDs",
+    "id": "p0467",
+    "image": "/images/p0467.svg"
+  },
+  {
+    "code": "OP84",
+    "name": "Arutdanthai Nakaichuvai Unnarvu",
+    "qty": "Book",
+    "price": 85.0,
+    "category": "Books & DVDs",
+    "id": "p0468",
+    "image": "/images/p0468.svg"
+  },
+  {
+    "code": "OP85",
+    "name": "Pennin Perumai",
+    "qty": "Book",
+    "price": 40.0,
+    "category": "Books & DVDs",
+    "id": "p0469",
+    "image": "/images/p0469.svg"
+  },
+  {
+    "code": "OP106",
+    "name": "Unavu Murai",
+    "qty": "Book",
+    "price": 45.0,
+    "category": "Books & DVDs",
+    "id": "p0470",
+    "image": "/images/p0470.svg"
+  },
+  {
+    "code": "G-315",
+    "name": "Vedathiri Vedathiriyam",
+    "qty": "Book",
+    "price": 100.0,
+    "category": "Books & DVDs",
+    "id": "p0471",
+    "image": "/images/p0471.svg"
+  },
+  {
+    "code": "G-991",
+    "name": "Book of Youngish English",
+    "qty": "Books",
+    "price": 160.0,
+    "category": "Books & DVDs",
+    "id": "p0472",
+    "image": "/images/p0472.svg"
+  },
+  {
+    "code": "G-992",
+    "name": "Dhiyanam Book",
+    "qty": "Books",
+    "price": 110.0,
+    "category": "Books & DVDs",
+    "id": "p0473",
+    "image": "/images/p0473.svg"
+  },
+  {
+    "code": "G-993",
+    "name": "Elanthalirkalin Puththgam",
+    "qty": "Books",
+    "price": 160.0,
+    "category": "Books & DVDs",
+    "id": "p0474",
+    "image": "/images/p0474.svg"
+  },
+  {
+    "code": "G-986",
+    "name": "Kazhivarai Irukkai Book",
+    "qty": "Books",
+    "price": 225.0,
+    "category": "Books & DVDs",
+    "id": "p0475",
+    "image": "/images/p0475.svg"
+  },
+  {
+    "code": "G-984",
+    "name": "Mozhipriyan Booklet",
+    "qty": "Books",
+    "price": 100.0,
+    "category": "Books & DVDs",
+    "id": "p0476",
+    "image": "/images/p0476.svg"
+  },
+  {
+    "code": "G-988",
+    "name": "Neenda Ayulukku 101 Vazhikal",
+    "qty": "Books",
+    "price": 170.0,
+    "category": "Books & DVDs",
+    "id": "p0477",
+    "image": "/images/p0477.svg"
+  },
+  {
+    "code": "G-990",
+    "name": "Parenting Revo English Book",
+    "qty": "Books",
+    "price": 120.0,
+    "category": "Books & DVDs",
+    "id": "p0478",
+    "image": "/images/p0478.svg"
+  },
+  {
+    "code": "G-987",
+    "name": "The Toilet Seat Book",
+    "qty": "Books",
+    "price": 299.0,
+    "category": "Books & DVDs",
+    "id": "p0479",
+    "image": "/images/p0479.svg"
+  },
+  {
+    "code": "G-1151",
+    "name": "Peak Mental Performance",
+    "qty": "Books",
+    "price": 300.0,
+    "category": "Books & DVDs",
+    "id": "p0480",
+    "image": "/images/p0480.svg"
+  },
+  {
+    "code": "G-1148",
+    "name": "Pancha Suthi Muraiyum Prathosa Virathamum",
+    "qty": "Books",
+    "price": 1000.0,
+    "category": "Books & DVDs",
+    "id": "p0481",
+    "image": "/images/p0481.svg"
+  },
+  {
+    "code": "G-1147",
+    "name": "Sivapuranam - Puthin Suresh",
+    "qty": "Books",
+    "price": 1800.0,
+    "category": "Books & DVDs",
+    "id": "p0482",
+    "image": "/images/p0482.svg"
+  },
+  {
+    "code": "G-1185",
+    "name": "Boga Yogam - Puthin Suresh",
+    "qty": "Books",
+    "price": 350.0,
+    "category": "Books & DVDs",
+    "id": "p0483",
+    "image": "/images/p0483.svg"
+  },
+  {
+    "code": "G-1186",
+    "name": "Pallu Velakatheenga - Puthin Suresh",
+    "qty": "Books",
+    "price": 230.0,
+    "category": "Books & DVDs",
+    "id": "p0484",
+    "image": "/images/p0484.svg"
+  },
+  {
+    "code": "G-1187",
+    "name": "Sithargalin Nithya Panjasuthi Murai",
+    "qty": "Books",
+    "price": 320.0,
+    "category": "Books & DVDs",
+    "id": "p0485",
+    "image": "/images/p0485.svg"
+  },
+  {
+    "code": "G-1188",
+    "name": "Marunthena Vendavaam - Puthin Suresh",
+    "qty": "Books",
+    "price": 160.0,
+    "category": "Books & DVDs",
+    "id": "p0486",
+    "image": "/images/p0486.svg"
+  }
+]
