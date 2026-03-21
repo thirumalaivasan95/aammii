@@ -10,6 +10,12 @@
 </head>
 <body>
 
+<!-- PULL-TO-REFRESH INDICATOR -->
+<div class="ptr-indicator" id="ptrIndicator">
+  <span class="ptr-icon">↓</span>
+  <span class="ptr-text" id="ptrText">Pull to refresh</span>
+</div>
+
 <!-- STICKY HEADER -->
 <header class="header" id="siteHeader">
   <div class="header-inner">
@@ -22,7 +28,7 @@
     </a>
     <div class="search-bar">
       <span class="search-icon">⌕</span>
-      <input type="text" id="searchInput" placeholder="Search 450 products…" oninput="filterProducts()"/>
+      <input type="text" id="searchInput" placeholder="Search 486 products…" oninput="filterProducts()"/>
     </div>
     <nav class="header-nav">
       <a href="#categories" class="nav-link">Categories</a>
@@ -54,7 +60,7 @@
       <span class="hero-title-line1">Aammii</span>
       <span class="hero-title-line2">Natural Shop</span>
     </h1>
-    <p class="hero-subtitle">450 natural products · 24 categories · sourced from nature</p>
+    <p class="hero-subtitle">486 natural products · 26 categories · sourced from nature</p>
     <div class="hero-actions">
       <label class="upload-btn" id="uploadLabel">
         <span>📄</span>
@@ -69,9 +75,9 @@
       <span class="progress-label" id="progressLabel">Scanning…</span>
     </div>
     <div class="hero-stats">
-      <div class="stat"><span class="stat-num" data-target="450">0</span><span class="stat-label">Products</span></div>
+      <div class="stat"><span class="stat-num" data-target="486">0</span><span class="stat-label">Products</span></div>
       <div class="stat-div"></div>
-      <div class="stat"><span class="stat-num" data-target="24">0</span><span class="stat-label">Categories</span></div>
+      <div class="stat"><span class="stat-num" data-target="26">0</span><span class="stat-label">Categories</span></div>
       <div class="stat-div"></div>
       <div class="stat"><span class="stat-num" data-target="100">0</span><span class="stat-label">% Natural</span></div>
     </div>
@@ -99,10 +105,31 @@
 <section class="categories-section" id="categories">
   <div class="section-header">
     <h2 class="section-title">Shop by Category</h2>
-    <p class="section-sub">24 curated collections of nature's finest</p>
+    <p class="section-sub">26 curated collections of nature's finest</p>
   </div>
   <div class="cat-grid" id="catGrid"><!-- injected by JS --></div>
 </section>
+
+<!-- QUICK FILTERS BAR -->
+<div class="quick-filters-bar hidden" id="quickFiltersBar">
+  <div class="quick-filters-scroll">
+    <button class="qf-chip" data-filter="instock" onclick="toggleQuickFilter(this,'instock')">
+      ✓ In Stock
+    </button>
+    <button class="qf-chip" data-filter="price" onclick="openPriceModal()">
+      ₹ Price Range
+    </button>
+    <button class="qf-chip" data-filter="bestseller" onclick="toggleQuickFilter(this,'bestseller')">
+      🔥 Best Sellers
+    </button>
+    <button class="qf-chip" data-filter="toprated" onclick="toggleQuickFilter(this,'toprated')">
+      ⭐ Top Rated
+    </button>
+    <button class="qf-chip" data-filter="new" onclick="toggleQuickFilter(this,'new')">
+      🆕 New Arrivals
+    </button>
+  </div>
+</div>
 
 <!-- FILTER BAR -->
 <div class="filter-bar hidden" id="filterBar">
@@ -148,6 +175,57 @@
 </aside>
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="toast" id="toast"></div>
+
+<!-- PRICE RANGE MODAL -->
+<div class="modal-backdrop" id="priceModalBackdrop" onclick="closePriceModal()"></div>
+<div class="price-modal" id="priceModal">
+  <div class="price-modal-header">
+    <h3>₹ Price Range</h3>
+    <button class="modal-close-btn" onclick="closePriceModal()">✕</button>
+  </div>
+  <div class="price-modal-body">
+    <div class="range-group">
+      <label class="range-label">Minimum Price</label>
+      <input type="range" class="price-slider" id="minPrice" min="0" max="5000" value="0" step="50" oninput="updatePriceRange()"/>
+      <div class="range-value">₹<span id="minPriceVal">0</span></div>
+    </div>
+    <div class="range-group">
+      <label class="range-label">Maximum Price</label>
+      <input type="range" class="price-slider" id="maxPrice" min="0" max="5000" value="5000" step="50" oninput="updatePriceRange()"/>
+      <div class="range-value">₹<span id="maxPriceVal">5000</span></div>
+    </div>
+    <div class="price-preview">
+      Showing products from <strong>₹<span id="previewMin">0</span></strong> to <strong>₹<span id="previewMax">5000</span></strong>
+    </div>
+  </div>
+  <div class="price-modal-footer">
+    <button class="reset-price-btn" onclick="resetPriceFilter()">Reset</button>
+    <button class="apply-price-btn" onclick="applyPriceFilter()">Apply Filter</button>
+  </div>
+</div>
+
+<!-- BOTTOM NAVIGATION BAR -->
+<nav class="bottom-nav" id="bottomNav">
+  <button class="bn-item active" id="bn-home" onclick="bottomNavTab('home')">
+    <span class="bn-icon">🏠</span>
+    <span class="bn-label">Home</span>
+  </button>
+  <button class="bn-item" id="bn-categories" onclick="bottomNavTab('categories')">
+    <span class="bn-icon">📂</span>
+    <span class="bn-label" id="bnCatLabel">Categories</span>
+  </button>
+  <button class="bn-item" id="bn-cart" onclick="bottomNavTab('cart')">
+    <span class="bn-icon bn-cart-icon">
+      🛒
+      <span class="bn-cart-badge" id="bnCartBadge">0</span>
+    </span>
+    <span class="bn-label">Cart</span>
+  </button>
+  <button class="bn-item" id="bn-account" onclick="bottomNavTab('account')">
+    <span class="bn-icon">👤</span>
+    <span class="bn-label">Account</span>
+  </button>
+</nav>
 
 <script src="app.js"></script>
 </body>
