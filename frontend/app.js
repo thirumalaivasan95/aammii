@@ -8,6 +8,49 @@ const API = `${location.protocol}//${location.hostname}:5000`;
 // ── State ──────────────────────────────────────────────────────────────────
 let allProducts = [], filteredProducts = [], cart = {}, activeCategory = "all";
 
+// ── Dark Mode ──────────────────────────────────────────────────────────────
+(function initTheme() {
+  const saved = localStorage.getItem("aammii-theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const dark = saved ? saved === "dark" : prefersDark;
+  if (dark) {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+  // Icon is set after DOM is ready; see applyThemeIcon()
+})();
+
+function applyThemeIcon() {
+  const icon = document.getElementById("themeIcon");
+  if (!icon) return;
+  const dark = document.documentElement.getAttribute("data-theme") === "dark";
+  icon.textContent = dark ? "☀️" : "🌙";
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const nowDark = html.getAttribute("data-theme") === "dark";
+  if (nowDark) {
+    html.removeAttribute("data-theme");
+    localStorage.setItem("aammii-theme", "light");
+  } else {
+    html.setAttribute("data-theme", "dark");
+    localStorage.setItem("aammii-theme", "dark");
+  }
+  applyThemeIcon();
+}
+
+// Respect OS-level changes while the tab is open
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+  if (!localStorage.getItem("aammii-theme")) {
+    if (e.matches) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+    applyThemeIcon();
+  }
+});
+
 // ── Category meta ──────────────────────────────────────────────────────────
 const CAT_META = {
   "Millets & Grains":    {emoji:"🌾",color:"#6b4226"},
@@ -48,6 +91,9 @@ const productGrid = $("productGrid"), filterBar = $("filterBar"),
       uploadProgress = $("uploadProgress"), progressBar = $("progressBar"),
       progressLabel = $("progressLabel"), uploadText = $("uploadText"),
       catGrid = $("catGrid");
+
+// Set theme icon once DOM refs are ready
+applyThemeIcon();
 
 // ── Scroll header effect ───────────────────────────────────────────────────
 window.addEventListener("scroll", () => {

@@ -9,6 +9,7 @@ A full-stack e-commerce web app built for **Aammii Tharcharbu Santhai Pvt. Ltd.*
 - **486 preloaded products** across 24 categories, extracted from the official Aammii catalogue
 - **PDF upload** — supports text-based, image-based, and scanned PDFs
 - **Smart PDF detection** — recognises the Aammii catalogue and loads all products instantly
+- **🌙 Dark mode** — one-click toggle in the header; respects your OS preference automatically; choice is remembered across sessions
 - **Full-page hero** with animated background orbs, floating category badges, and live stats counter
 - **24-card category grid** with emoji icons and hover animations
 - **Product grid** with auto-generated SVG images, category badges, and product codes
@@ -56,6 +57,17 @@ http://localhost:5000
 
 ---
 
+## 🌙 Dark Mode
+
+Click the **🌙 / ☀️** button in the top-right of the header to switch between light and dark themes.
+
+- **Auto-detect** — on first visit the theme matches your OS/system preference (`prefers-color-scheme`)
+- **Persistent** — your choice is saved to `localStorage` and remembered across sessions
+- **Instant** — theme is applied before the page renders to avoid a flash of the wrong mode
+- The hero section is always dark by design; dark mode applies to the category grid, product cards, filter bar, and cart panel
+
+---
+
 ## 📁 Project Structure
 
 ```
@@ -69,8 +81,8 @@ project/
 │
 ├── frontend/
 │   ├── index.html                # Full-page shop UI
-│   ├── style.css                 # Dark earthy design system
-│   └── app.js                    # Cart, search, filter, order logic
+│   ├── style.css                 # Dark earthy design system + dark mode
+│   └── app.js                    # Cart, search, filter, order, dark-mode logic
 │
 ├── uploads/
 │   ├── products.json             # 486 preloaded Aammii products ← required
@@ -172,6 +184,7 @@ curl -X POST http://localhost:5000/api/order \
 - **Aesthetic:** Dark earthy organic marketplace with warm gold accents
 - **Fonts:** Playfair Display (headings) + DM Sans (body)
 - **Palette:** Deep brown, forest green, warm gold, cream
+- **Dark mode:** Deep charcoal backgrounds (`#141010`) with warm card surfaces (`#231d18`) — same gold and green accents, higher shadow contrast
 - **Hero:** Full-viewport with animated gradient orbs, floating category pills, live product count
 - **Cards:** Colour-coded SVG images per category, hover lift effects
 - **Cart:** Slide-in panel with quantity controls and real-time totals
