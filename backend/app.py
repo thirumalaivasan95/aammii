@@ -10,6 +10,9 @@ for d in [IMGS,UPL,ORD]: os.makedirs(d,exist_ok=True)
 
 app=Flask(__name__,static_folder=FRONT); CORS(app)
 
+# IST = UTC + 5:30  (no external library needed)
+IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
+
 @app.route("/")
 def idx(): return send_from_directory(FRONT,"index.html")
 @app.route("/<path:f>")
@@ -29,7 +32,7 @@ CAT_PAL={
   "Vadagam & Appalam":("#8b4513","#c8956c","🥙"),"Readymade Mix":("#d4a043","#f4c87a","🍱"),
   "Face Pack":("#9b59b6","#c39bd3","✨"),"Seeds":("#27ae60","#82e0aa","🌱"),
   "Divine Products":("#9b59b6","#c39bd3","🕯"),"Copper Products":("#d4a043","#f4c87a","🥇"),
-  "Wellness Tools":("#2980b9","#85c1e9","🧘"),"Books & DVDs":("#3d5a80","#aed6f1","📚"),
+  "Wellness Tools":("#2980b9","#85c1e9","🧘"),"Books & DVDs":("#3d5a80","#aed6f1","📚"),"Home Care":("#2ecc71","#82e0aa","🧴"),
 }
 _D=[("#4a7c59","#7cb997","🌿"),("#6b4226","#c8956c","🌾"),("#d4a043","#f4c87a","🍯"),("#c0392b","#e88080","🌶")]
 
@@ -76,7 +79,6 @@ def upload():
     if not pf.filename.lower().endswith(".pdf"): return jsonify({"error":"Must be a PDF"}),400
     try: pf.save(os.path.join(UPL,"catalogue.pdf"))
     except: pass
-    # Always serve preloaded data
     prods=load()
     if prods:
         return jsonify({"count":len(prods),"products":prods,"source":"preloaded",
@@ -92,29 +94,58 @@ def order():
     if not d or not d.get("items"): return jsonify({"error":"No items"}),400
     items=d["items"]
     oid="ORD-"+"".join(random.choices(string.ascii_uppercase+string.digits,k=6))
-    now=datetime.datetime.now()
+
+    # Always use IST regardless of where the server is hosted
+    now=datetime.datetime.now(IST)
+
     grand=sum(i["qty"]*i["price"] for i in items)
-    S="─"*60
-    lines=["╔"+"═"*60+"╗",
-           "║"+"           AAMMII THARCHARBU SANTHAI".center(60)+"║",
-           "║"+"               Natural Lifestyle Products".center(60)+"║",
-           "║"+"        www.aammii.com  |  +91 95006 55548".center(60)+"║",
-           "╚"+"═"*60+"╝","",
-           f"  Order ID  : {oid}",
-           f"  Date      : {now.strftime('%Y-%m-%d')}",
-           f"  Time      : {now.strftime('%H:%M:%S')}","",S,
-           f"  {'Product':<34} {'Qty':>4}  {'Price':>9}  {'Total':>9}",S]
+
+    # ── Invoice header ──────────────────────────────────────────────────────
+    # Width = 62 chars total: ║ + 60 content chars + ║
+    W = 60
+    top    = "╔" + "═"*W + "╗"
+    bot    = "╚" + "═"*W + "╝"
+    sep    = "─"*62
+
+    def row(text):
+        """Centre text in W chars, wrap with ║ … ║"""
+        return "║" + text.center(W) + "║"
+
+    lines=[
+        top,
+        row("AAMMII THARCHARBU SANTHAI"),
+        row("Natural Lifestyle Products"),
+        row("www.aammii.com  |  +91 95006 55548"),
+        bot,
+        "",
+        f"  Order ID  : {oid}",
+        f"  Date      : {now.strftime('%Y-%m-%d')}",
+        f"  Time      : {now.strftime('%H:%M:%S')} IST",
+        "",
+        sep,
+        f"  {'Product':<34} {'Qty':>4}  {'Price':>9}  {'Total':>9}",
+        sep,
+    ]
+
     for i in items:
         n=i["name"][:34]; q=i["qty"]; pr=i["price"]
         lines.append(f"  {n:<34} {q:>4}  ₹{pr:>8.2f}  ₹{q*pr:>8.2f}")
-    lines+=[S,f"  {'GRAND TOTAL':<46} ₹{grand:>8.2f}",S,
-            "","  Thank you for choosing Aammii Natural Products!",""]
+
+    lines+=[
+        sep,
+        f"  {'GRAND TOTAL':<46} ₹{grand:>8.2f}",
+        sep,
+        "",
+        "  Thank you for choosing Aammii Natural Products!",
+        "",
+    ]
+
     fn=f"{oid}.txt"; fp=os.path.join(ORD,fn)
     with open(fp,"w",encoding="utf-8") as f: f.write("\n".join(lines))
     return send_file(fp,as_attachment=True,download_name=fn,mimetype="text/plain")
 
 if __name__=="__main__":
-    print("\n  🌿  Aammii Natural Shop  —  486 products")
+    print("\n  🌿  Aammii Natural Shop  —  450 products")
     print("  ─────────────────────────────────")
     prebuild()
     print("  🚀  http://localhost:5000\n")

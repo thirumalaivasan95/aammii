@@ -3,7 +3,7 @@
  */
 
 // ── API: always Flask at 5000 ──────────────────────────────────────────────
-const API = "https://aammii.onrender.com";
+const API = `${location.protocol}//${location.hostname}:5000`;
 
 // ── State ──────────────────────────────────────────────────────────────────
 let allProducts = [], filteredProducts = [], cart = {}, activeCategory = "all";
@@ -77,6 +77,7 @@ const CAT_META = {
   "Copper Products":     {emoji:"🥇",color:"#d4a043"},
   "Wellness Tools":      {emoji:"🧘",color:"#2980b9"},
   "Books & DVDs":        {emoji:"📚",color:"#3d5a80"},
+  "Home Care":           {emoji:"🧴",color:"#2ecc71"},
 };
 
 // ── DOM refs ───────────────────────────────────────────────────────────────
