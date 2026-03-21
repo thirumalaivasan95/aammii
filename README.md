@@ -1,10 +1,11 @@
-# 🌿 Aammii Natural Shop
+# 🌿 Aammii Natural Shop — Production v5.0
 
-A full-stack e-commerce web app built for **Aammii Tharcharbu Santhai Pvt. Ltd.** — upload any product catalogue PDF and get a fully interactive natural products store instantly.
+**Full-stack e-commerce site for Aammii Tharcharbu Santhai Pvt. Ltd.**
+Apple-quality design × Amazon structure × Heritage botanical aesthetic × Live payment portal.
 
 ---
 
-## ✨ Features
+## ✨ What's New in v5.0
 
 - **486 preloaded products** across 24 categories, extracted from the official Aammii catalogue
 - **PDF upload** — supports text-based, image-based, and scanned PDFs
@@ -23,37 +24,19 @@ A full-stack e-commerce web app built for **Aammii Tharcharbu Santhai Pvt. Ltd.*
 
 ## 🚀 Quick Start
 
-### 1. Install Python dependencies
-
 ```bash
-pip install flask flask-cors pdfplumber pillow pdf2image pytesseract
-```
+# 1. Place your products.json in uploads/
+cp path/to/products.json uploads/products.json
 
-> For OCR support on scanned PDFs, also install Tesseract:
-> - **Ubuntu/Debian:** `sudo apt install tesseract-ocr`
-> - **macOS:** `brew install tesseract`
-> - **Windows:** [Download from GitHub](https://github.com/UB-Mannheim/tesseract/wiki)
+# 2. Set Razorpay keys (get from https://razorpay.com)
+export RAZORPAY_KEY_ID="rzp_live_XXXXXXXXXXXXXXXX"
+export RAZORPAY_KEY_SECRET="your_secret_here"
 
-### 2. Start the server
-
-```bash
+# 3. Run
 bash run.sh
 ```
 
-Or start manually:
-
-```bash
-cd backend
-python3 app.py
-```
-
-### 3. Open in browser
-
-```
-http://localhost:5000
-```
-
-> ⚠️ Always open port **5000** — not 5500 (that's VS Code Live Server). Flask serves both the frontend and the API.
+Open: **http://localhost:5000**
 
 ---
 
@@ -71,13 +54,15 @@ Click the **🌙 / ☀️** button in the top-right of the header to switch betw
 ## 📁 Project Structure
 
 ```
-project/
-├── run.sh                        # One-command startup script
-├── README.md                     # This file
+aammii-shop/
+├── run.sh                    # One-command startup
+├── aammii.db                 # SQLite DB (auto-created)
 │
 ├── backend/
-│   ├── app.py                    # Flask server + REST API
-│   └── pdf_parser.py             # PDF → JSON extractor (text + OCR fallback)
+│   ├── app.py                # Flask app · all API routes
+│   ├── database.py           # Schema · seed · helpers
+│   ├── config.py             # Keys · paths · settings
+│   └── admin.py              # CLI admin tool
 │
 ├── frontend/
 │   ├── index.html                # Full-page shop UI
@@ -85,101 +70,137 @@ project/
 │   └── app.js                    # Cart, search, filter, order, dark-mode logic
 │
 ├── uploads/
-│   ├── products.json             # 486 preloaded Aammii products ← required
-│   └── catalogue.pdf             # Last uploaded PDF (auto-saved)
+│   └── products.json         # Seed data (486 products)
 │
-├── generated_images/             # Auto-generated SVG product images
-│
-└── orders/
-    └── ORD-XXXXXX.txt            # Downloaded order invoices
+├── generated_images/         # Auto-generated SVG product images
+└── orders/                   # (legacy text invoices, kept for compat)
 ```
 
 ---
 
-## 🗂️ Product Categories (24 total)
+## 💳 Payment Setup (Razorpay)
 
-| Category | Products | Category | Products |
-|---|---|---|---|
-| 📚 Books & DVDs | 89 | 🌿 Herbal Powder | 75 |
-| 🌸 Personal Care | 37 | 🩺 Healthcare | 34 |
-| 🍜 Noodles & Vermicelli | 26 | 🌾 Millets & Grains | 24 |
-| 🌱 Seeds | 23 | 🌶 Spices | 22 |
-| 🍵 Beverages | 18 | 🧼 Soap | 16 |
-| 💊 Health Mix | 14 | 🫙 Oils & Ghee | 14 |
-| 🥙 Vadagam & Appalam | 14 | 🍱 Readymade Mix | 14 |
-| 🫘 Pulses & Dals | 10 | 🥒 Pickles | 10 |
-| ✨ Face Pack | 9 | 🥜 Dry Fruits & Nuts | 9 |
-| 🕯 Divine Products | 7 | 🥇 Copper Products | 6 |
-| 🍯 Sweeteners | 5 | 🍯 Honey | 4 |
-| 🧂 Salt | 3 | 🧘 Wellness Tools | 3 |
+1. Sign up at **https://razorpay.com** (free)
+2. Go to **Settings → API Keys → Generate Test Key**
+3. Set environment variables:
+
+```bash
+export RAZORPAY_KEY_ID="rzp_test_XXXXXXXXXXXXXXXX"
+export RAZORPAY_KEY_SECRET="your_secret_here"
+```
+
+4. For **live payments**, use `rzp_live_...` keys
+
+**Supported payment methods (automatic):**
+- 📱 UPI (GPay, PhonePe, BHIM, Paytm)
+- 💳 Credit / Debit cards (Visa, Mastercard, Amex, RuPay)
+- 🏦 Net Banking (all major banks)
+- 👛 Wallets (Amazon Pay, Mobikwik, FreeCharge)
 
 ---
 
-## 🔌 API Reference
+## 🛠️ Admin CLI
+
+```bash
+cd backend
+
+# Overview stats
+python3 admin.py stats
+
+# List all products
+python3 admin.py list-products
+
+# List out-of-stock products
+python3 admin.py list-products --oos
+
+# List products in a category
+python3 admin.py list-products --category="Millets & Grains"
+
+# Update stock (use 999 for unlimited)
+python3 admin.py set-stock <product_id> 50
+python3 admin.py set-stock <product_id> 0     # → out of stock
+
+# Mark as new launch
+python3 admin.py set-new-launch <product_id> 1
+python3 admin.py set-new-launch <product_id> 0
+
+# Add a new product (interactive)
+python3 admin.py add-product
+
+# View orders
+python3 admin.py list-orders
+python3 admin.py list-orders --status=placed
+```
+
+---
+
+## 🔌 REST API
+
+### Products
 
 | Endpoint | Method | Description |
 |---|---|---|
-| `GET /` | GET | Serves the frontend |
-| `POST /api/upload` | POST | Accepts PDF, returns product list |
-| `GET /api/products` | GET | Returns cached/preloaded product list |
-| `GET /images/<file>` | GET | Serves SVG product images |
-| `POST /api/order` | POST | Accepts cart, returns `.txt` invoice |
+| `GET /api/products` | GET | Paginated list. Params: `category`, `q`, `sort`, `page`, `limit`, `new_launch`, `in_stock` |
+| `GET /api/products/new-launches` | GET | Up to 12 new-launch products |
+| `GET /api/products/<id>` | GET | Single product detail |
+| `POST /api/admin/products` | POST | Add product (needs `X-Admin-Key` header) |
+| `PATCH /api/admin/products/<id>` | PATCH | Update product fields |
+| `PATCH /api/admin/products/<id>/stock` | PATCH | Quick stock update |
 
-### Upload a PDF
+### Payment & Orders
 
+| Endpoint | Method | Description |
+|---|---|---|
+| `POST /api/payment/create-order` | POST | Creates Razorpay order, returns checkout params |
+| `POST /api/payment/verify` | POST | Verifies signature, saves order to DB |
+| `POST /api/payment/cod` | POST | Cash-on-delivery order (no payment verification) |
+| `GET /api/orders/<order_number>` | GET | Order detail + items |
+
+---
+
+## 📦 Adding Products
+
+### Option A — Edit products.json and re-seed
+1. Edit `uploads/products.json`
+2. Delete `aammii.db`
+3. Restart the server (DB will be re-seeded)
+
+### Option B — CLI
 ```bash
-curl -F "pdf=@catalogue.pdf" http://localhost:5000/api/upload
+cd backend
+python3 admin.py add-product
 ```
 
-**Response:**
-```json
-{
-  "count": 486,
-  "source": "preloaded",
-  "note": "Aammii catalogue recognised — 486 products loaded!",
-  "products": [...]
-}
-```
-
-### Place an Order
-
+### Option C — REST API
 ```bash
-curl -X POST http://localhost:5000/api/order \
+curl -X POST http://localhost:5000/api/admin/products \
   -H "Content-Type: application/json" \
-  -d '{"items":[{"name":"Foxtail Millet","qty":2,"price":195.0}]}'
+  -H "X-Admin-Key: aammii-secret-change-in-prod-2024" \
+  -d '{
+    "name": "Organic Moringa Powder",
+    "code": "HB-099",
+    "category": "Herbal Powder",
+    "price": 280,
+    "qty_unit": "100g",
+    "stock_quantity": 200,
+    "is_new_launch": 1
+  }'
 ```
 
 ---
 
-## 📋 Sample Invoice
+## 🎨 Design System
 
-```
-╔════════════════════════════════════════════════════════════╗
-║                  AAMMII THARCHARBU SANTHAI                 ║
-║                      Natural Lifestyle Products            ║
-║              www.aammii.com  |  +91 95006 55548            ║
-╚════════════════════════════════════════════════════════════╝
-
-  Order ID  : ORD-A3F9C2
-  Date      : 2026-03-14
-  Time      : 14:32:07
-
-────────────────────────────────────────────────────────────
-  Product                            Qty     Price     Total
-────────────────────────────────────────────────────────────
-  Foxtail Millet                       2   ₹195.00   ₹390.00
-  Hill Honey                           1   ₹399.00   ₹399.00
-  Beetroot Malt                        1   ₹240.00   ₹240.00
-────────────────────────────────────────────────────────────
-  GRAND TOTAL                                       ₹1029.00
-────────────────────────────────────────────────────────────
-
-  Thank you for choosing Aammii Natural Products!
-```
+- **Palette (Light):** Warm cream `#FAF6EE` · Forest green `#2B5E3C` · Amber `#C47A22`
+- **Palette (Dark):** Charcoal `#100E0A` · Forest `#4A8C5E` · Amber `#D4923C`
+- **Display font:** Fraunces (variable serif — retro, elegant)
+- **Body font:** Sora (clean modern sans)
+- **Texture:** Subtle paper grain overlay via SVG filter
+- **Structure:** Sticky header → New Launches → Marquee → Category grid → Product grid with sidebar filters → Cart drawer → Checkout modal
 
 ---
 
-## 🎨 Design
+## 🌐 Production Deployment
 
 - **Aesthetic:** Dark earthy organic marketplace with warm gold accents
 - **Fonts:** Playfair Display (headings) + DM Sans (body)
@@ -189,26 +210,36 @@ curl -X POST http://localhost:5000/api/order \
 - **Cards:** Colour-coded SVG images per category, hover lift effects
 - **Cart:** Slide-in panel with quantity controls and real-time totals
 
----
+```bash
+# Install nginx + gunicorn
+pip install gunicorn
 
-## 🛠️ How PDF Upload Works
+# Run with gunicorn
+cd backend
+gunicorn -w 4 -b 0.0.0.0:5000 app:app
 
-The app uses a three-layer strategy:
+# nginx reverse proxy config
+# (point localhost:80 → localhost:5000)
+```
 
-1. **pdfplumber** — tries to extract structured text tables from the PDF
-2. **OCR fallback** — if no text is found, converts pages to images and uses Tesseract
-3. **Smart preload** — if the PDF is the Aammii catalogue (detected by keywords), the 486-product preloaded database is served instantly, bypassing parsing entirely
+### Environment Variables
 
-This means the app works reliably even with image-heavy or bilingual Tamil+English PDFs that standard parsers cannot read.
+```bash
+SECRET_KEY=your-long-random-secret
+RAZORPAY_KEY_ID=rzp_live_XXXXXXXXXXXXXXXX
+RAZORPAY_KEY_SECRET=your_secret_here
+DEBUG=false
+```
+
+> ⚠️ Razorpay requires **HTTPS** for live payments. Use nginx + Let's Encrypt (certbot) to set up SSL.
 
 ---
 
 ## 📞 Contact
 
 **Aammii Tharcharbu Santhai Private Limited**
-No.49, Thirupathy Nagar, Near Perumal Temple, Kovaipudur, Coimbatore – 641 042. Tamil Nadu. INDIA.
-
-📞 +91 95006 55548 · 📧 aammiisanthai@gmail.com · 🌐 www.aammii.com
+No.49, Thirupathy Nagar, Near Perumal Temple, Kovaipudur, Coimbatore – 641 042. TN.
+📞 +91 95006 55548 · ✉️ aammiisanthai@gmail.com · 🌐 www.aammii.com
 
 ---
 

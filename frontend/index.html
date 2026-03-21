@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Aammii Shop — Natural Lifestyle Products</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="Aammii Natural Shop — 486 farm-to-home natural products. Millets, herbs, spices, personal care and more."/>
+<title>Aammii — Natural Lifestyle Products</title>
+
+<!-- Fonts: Fraunces (retro serif) + Sora (clean modern) -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<!-- STICKY HEADER -->
+<!-- ══ HEADER ════════════════════════════════════════════════════════════ -->
 <header class="header" id="siteHeader">
   <div class="header-inner">
     <a class="logo" href="#hero">
@@ -38,117 +41,381 @@
       <span class="cart-pill" id="cartPill">₹0</span>
     </button>
   </div>
+
+  <!-- Category nav bar -->
+  <div class="cat-nav-bar" id="catNavBar">
+    <div class="cat-nav-inner" id="catNavInner">
+      <button class="cat-pill active" data-cat="all" onclick="filterByCategory('all',this)">
+        <span>🌿</span> All Products
+      </button>
+      <!-- Dynamic pills injected here -->
+    </div>
+  </div>
 </header>
 
-<!-- HERO — FULL PAGE -->
-<section class="hero" id="hero">
-  <div class="hero-bg">
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-    <div class="hero-orb hero-orb-3"></div>
-    <div class="hero-grain"></div>
+<!-- ══ NEW LAUNCHES BAND ══════════════════════════════════════════════════ -->
+<section class="launches-section" id="launchSection">
+  <div class="launches-inner">
+    <div class="launches-header">
+      <div class="launches-badge">
+        <span class="badge-dot"></span>NEW ARRIVALS
+      </div>
+      <h2 class="launches-title">Just Landed <em>from Nature</em></h2>
+      <p class="launches-sub">Fresh additions to our harvest — be the first to try them</p>
+    </div>
+    <div class="launches-track-wrap">
+      <button class="launch-arrow launch-prev" id="launchPrev" onclick="slideLaunches(-1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <div class="launches-track" id="launchTrack">
+        <!-- Injected by JS -->
+      </div>
+      <button class="launch-arrow launch-next" id="launchNext" onclick="slideLaunches(1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+    <div class="launch-dots" id="launchDots"></div>
   </div>
-  <div class="hero-content">
-    <div class="hero-badge">🌱 Farm-to-Home · Pure &amp; Natural</div>
-    <h1 class="hero-title">
-      <span class="hero-title-line1">Aammii</span>
-      <span class="hero-title-line2">Natural Shop</span>
-    </h1>
-    <p class="hero-subtitle">486 natural products · 24 categories · sourced from nature</p>
-    <div class="hero-actions">
-      <label class="upload-btn" id="uploadLabel">
-        <span>📄</span>
-        <span id="uploadText">Upload Catalogue PDF</span>
-        <input type="file" id="pdfInput" accept=".pdf" onchange="uploadPDF(this)" hidden/>
-      </label>
-      <a href="#shopMain" class="browse-btn" onclick="scrollToShop()">Browse All Products ↓</a>
-    </div>
-    <div id="uploadStatus" class="upload-status hidden"></div>
-    <div id="uploadProgress" class="progress-wrap hidden">
-      <div class="progress-bar" id="progressBar"></div>
-      <span class="progress-label" id="progressLabel">Scanning…</span>
-    </div>
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-num" data-target="486">0</span><span class="stat-label">Products</span></div>
-      <div class="stat-div"></div>
-      <div class="stat"><span class="stat-num" data-target="24">0</span><span class="stat-label">Categories</span></div>
-      <div class="stat-div"></div>
-      <div class="stat"><span class="stat-num" data-target="100">0</span><span class="stat-label">% Natural</span></div>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <div class="hero-rings">
-      <div class="ring r1"></div>
-      <div class="ring r2"></div>
-      <div class="ring r3"></div>
-    </div>
-    <div class="hero-floats">
-      <div class="hf hf1">🌾 Millets</div>
-      <div class="hf hf2">🍯 Honey</div>
-      <div class="hf hf3">🌿 Herbs</div>
-      <div class="hf hf4">🌶 Spices</div>
-      <div class="hf hf5">🧼 Soaps</div>
-      <div class="hf hf6">📚 Books</div>
-    </div>
-    <div class="hero-center-icon">🌿</div>
-  </div>
-  <a class="scroll-hint" href="#categories">↓ Explore</a>
 </section>
 
-<!-- CATEGORIES GRID -->
-<section class="categories-section" id="categories">
-  <div class="section-header">
-    <h2 class="section-title">Shop by Category</h2>
-    <p class="section-sub">24 curated collections of nature's finest</p>
-  </div>
-  <div class="cat-grid" id="catGrid"><!-- injected by JS --></div>
-</section>
-
-<!-- FILTER BAR -->
-<div class="filter-bar hidden" id="filterBar">
-  <div class="filter-chips" id="filterChips">
-    <button class="chip active" onclick="filterByCategory('all',this)">All</button>
-  </div>
-  <div class="filter-right">
-    <div class="results-count" id="resultsInfo"></div>
-    <select id="sortSelect" onchange="sortProducts()" class="sort-select">
-      <option value="default">Sort: Default</option>
-      <option value="price-asc">Price ↑</option>
-      <option value="price-desc">Price ↓</option>
-      <option value="name-asc">Name A–Z</option>
-    </select>
+<!-- ══ HERO MARQUEE ═══════════════════════════════════════════════════════ -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>🌾 Farm-to-Home</span><span class="sep">·</span>
+    <span>🍯 Pure Honey</span><span class="sep">·</span>
+    <span>🌿 Herbal Remedies</span><span class="sep">·</span>
+    <span>🌶 Organic Spices</span><span class="sep">·</span>
+    <span>💊 Health Mixes</span><span class="sep">·</span>
+    <span>📚 Wellness Books</span><span class="sep">·</span>
+    <span>🌾 Farm-to-Home</span><span class="sep">·</span>
+    <span>🍯 Pure Honey</span><span class="sep">·</span>
+    <span>🌿 Herbal Remedies</span><span class="sep">·</span>
+    <span>🌶 Organic Spices</span><span class="sep">·</span>
+    <span>💊 Health Mixes</span><span class="sep">·</span>
+    <span>📚 Wellness Books</span><span class="sep">·</span>
   </div>
 </div>
 
-<!-- PRODUCT GRID -->
-<main class="shop-main hidden" id="shopMain">
-  <div class="product-grid" id="productGrid"></div>
-  <div class="no-results hidden" id="noResults"><span>😔</span> No products match.</div>
-</main>
-
-<!-- CART PANEL -->
-<aside class="cart-panel" id="cartPanel">
-  <div class="cart-head">
-    <h2>🛒 Your Cart</h2>
-    <button onclick="toggleCart()" class="cart-close">✕</button>
-  </div>
-  <div class="cart-body">
-    <div class="cart-empty" id="cartEmpty"><span>🌿</span><p>Your cart is empty</p></div>
-    <div id="cartItems"></div>
-  </div>
-  <div class="cart-foot">
-    <div class="cart-sum">
-      <div class="sum-row"><span>Items</span><span id="totalItems">0</span></div>
-      <div class="sum-row grand"><span>Total</span><span id="totalPrice">₹0.00</span></div>
+<!-- ══ CATEGORY SHOWCASE ══════════════════════════════════════════════════ -->
+<section class="cat-showcase" id="catShowcase">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2 class="section-title">Shop by Category</h2>
+      <p class="section-sub">24 curated collections</p>
     </div>
-    <button class="order-btn" id="placeOrderBtn" onclick="placeOrder()" disabled>
-      Place Order &amp; Download Invoice
+    <div class="cat-showcase-grid" id="catShowcaseGrid">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ══ FILTER + PRODUCT GRID ══════════════════════════════════════════════ -->
+<section class="shop-section" id="shopSection">
+  <div class="shop-wrap">
+    <!-- Left: Filters -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <h3>Filter</h3>
+        <button class="sidebar-clear" onclick="clearFilters()">Clear all</button>
+      </div>
+
+      <!-- Price range -->
+      <div class="filter-group">
+        <div class="filter-group-title" onclick="toggleFilterGroup(this)">
+          Price Range <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="filter-group-body open">
+          <div class="price-inputs">
+            <input type="number" id="priceMin" placeholder="Min ₹" min="0" oninput="applyFilters()"/>
+            <span>–</span>
+            <input type="number" id="priceMax" placeholder="Max ₹" min="0" oninput="applyFilters()"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Availability -->
+      <div class="filter-group">
+        <div class="filter-group-title open-by-default" onclick="toggleFilterGroup(this)">
+          Availability <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="filter-group-body open">
+          <label class="filter-check">
+            <input type="checkbox" id="inStockOnly" onchange="applyFilters()"/>
+            <span>In Stock only</span>
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" id="newLaunchFilter" onchange="applyFilters()"/>
+            <span>New Launches</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Categories (sidebar) -->
+      <div class="filter-group">
+        <div class="filter-group-title" onclick="toggleFilterGroup(this)">
+          Categories <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="filter-group-body" id="sidebarCatList">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right: Products -->
+    <div class="main-col">
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <button class="mobile-filter-btn" onclick="toggleSidebar()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="6" x2="20" y2="6"/>
+            <line x1="8" y1="12" x2="20" y2="12"/>
+            <line x1="12" y1="18" x2="20" y2="18"/>
+          </svg>
+          Filters
+        </button>
+        <span class="results-label" id="resultsLabel">All products</span>
+        <div class="toolbar-right">
+          <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+            <option value="default">Sort: Featured</option>
+            <option value="new">Newest First</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+            <option value="name-asc">Name A–Z</option>
+          </select>
+          <div class="view-toggle">
+            <button id="viewGrid" class="view-btn active" onclick="setView('grid')" title="Grid">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <rect x="3" y="3" width="7" height="7" rx="1"/>
+                <rect x="14" y="3" width="7" height="7" rx="1"/>
+                <rect x="3" y="14" width="7" height="7" rx="1"/>
+                <rect x="14" y="14" width="7" height="7" rx="1"/>
+              </svg>
+            </button>
+            <button id="viewList" class="view-btn" onclick="setView('list')" title="List">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <rect x="3" y="4" width="18" height="4" rx="1"/>
+                <rect x="3" y="10" width="18" height="4" rx="1"/>
+                <rect x="3" y="16" width="18" height="4" rx="1"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active filters chips -->
+      <div class="active-filters" id="activeFilters"></div>
+
+      <!-- Product Grid -->
+      <div class="product-grid" id="productGrid" data-view="grid">
+        <div class="grid-skeleton" id="gridSkeleton">
+          <div class="skel-card"></div><div class="skel-card"></div>
+          <div class="skel-card"></div><div class="skel-card"></div>
+          <div class="skel-card"></div><div class="skel-card"></div>
+        </div>
+      </div>
+
+      <!-- No results -->
+      <div class="no-results hidden" id="noResults">
+        <div class="no-results-icon">🌱</div>
+        <h3>No products found</h3>
+        <p>Try adjusting your filters or search query</p>
+        <button onclick="clearFilters()">Clear filters</button>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ════════════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">🌿 Aammii</div>
+      <p>Bringing nature's finest to your doorstep. Pure, natural, and sustainably sourced from Tamil Nadu.</p>
+      <div class="footer-social">
+        <span>📞 +91 95006 55548</span>
+        <span>✉️ aammiisanthai@gmail.com</span>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#" onclick="filterByCategory('Millets & Grains')">Millets & Grains</a>
+        <a href="#" onclick="filterByCategory('Herbal Powder')">Herbal Powder</a>
+        <a href="#" onclick="filterByCategory('Healthcare')">Healthcare</a>
+        <a href="#" onclick="filterByCategory('Personal Care')">Personal Care</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <a href="#">Track Order</a>
+        <a href="#">Returns</a>
+        <a href="#">FAQ</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Aammii Tharcharbu Santhai Pvt. Ltd. · Coimbatore, Tamil Nadu</span>
+    <div class="payment-icons">
+      <span class="pay-icon">GPay</span>
+      <span class="pay-icon">Paytm</span>
+      <span class="pay-icon">VISA</span>
+      <span class="pay-icon">MC</span>
+      <span class="pay-icon">UPI</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ CART DRAWER ════════════════════════════════════════════════════════ -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-head">
+    <h2>Your Cart <span class="cart-count-label" id="cartCountLabel">0 items</span></h2>
+    <button class="cart-close-btn" onclick="toggleCart()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty" id="cartEmpty">
+      <div class="cart-empty-icon">🌿</div>
+      <p>Your cart is empty</p>
+      <button onclick="toggleCart()">Continue Shopping</button>
+    </div>
+    <div id="cartItemsList"></div>
+  </div>
+  <div class="cart-footer" id="cartFooter">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <span id="cartSubtotal">₹0.00</span>
+    </div>
+    <div class="cart-delivery-note">Free delivery on orders above ₹500</div>
+    <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()" disabled>
+      Proceed to Checkout →
     </button>
   </div>
 </aside>
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+<!-- ══ CHECKOUT MODAL ════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="checkoutOverlay" onclick="closeCheckout()"></div>
+<div class="checkout-modal" id="checkoutModal">
+  <div class="checkout-head">
+    <button class="modal-back" onclick="closeCheckout()">← Back</button>
+    <h2 class="checkout-title">Checkout</h2>
+    <div class="checkout-steps" id="checkoutSteps">
+      <span class="step active" data-step="1">Details</span>
+      <span class="step-divider">›</span>
+      <span class="step" data-step="2">Payment</span>
+      <span class="step-divider">›</span>
+      <span class="step" data-step="3">Confirm</span>
+    </div>
+  </div>
+  <div class="checkout-body">
+
+    <!-- Step 1: Customer Details -->
+    <div class="checkout-step" id="step1">
+      <h3 class="step-title">Delivery Details</h3>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Full Name *</label>
+          <input type="text" id="custName" placeholder="Rajan Kumar"/>
+        </div>
+        <div class="form-field">
+          <label>Mobile Number *</label>
+          <input type="tel" id="custPhone" placeholder="+91 98765 43210"/>
+        </div>
+        <div class="form-field">
+          <label>Email (for invoice)</label>
+          <input type="email" id="custEmail" placeholder="rajan@example.com"/>
+        </div>
+        <div class="form-field form-field--full">
+          <label>Delivery Address *</label>
+          <textarea id="custAddress" placeholder="House no., Street, City, Pincode…" rows="3"></textarea>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="goToPayment()">Continue to Payment →</button>
+    </div>
+
+    <!-- Step 2: Payment -->
+    <div class="checkout-step hidden" id="step2">
+      <h3 class="step-title">Payment Method</h3>
+      <div class="payment-methods">
+        <label class="pay-method active" id="payOnline">
+          <input type="radio" name="payMethod" value="online" checked onchange="selectPayMethod(this)"/>
+          <div class="pay-method-body">
+            <div class="pay-method-icon">💳</div>
+            <div>
+              <strong>Pay Online</strong>
+              <span>UPI · GPay · Paytm · Cards · Net Banking</span>
+            </div>
+            <div class="pay-method-badges">
+              <span>GPay</span><span>Paytm</span><span>UPI</span><span>VISA</span>
+            </div>
+          </div>
+        </label>
+        <label class="pay-method" id="payCOD">
+          <input type="radio" name="payMethod" value="cod" onchange="selectPayMethod(this)"/>
+          <div class="pay-method-body">
+            <div class="pay-method-icon">🏠</div>
+            <div>
+              <strong>Cash on Delivery</strong>
+              <span>Pay when your order arrives</span>
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <!-- Order summary in checkout -->
+      <div class="checkout-summary" id="checkoutSummary">
+        <h4>Order Summary</h4>
+        <div id="checkoutItemsList"></div>
+        <div class="summary-totals">
+          <div class="sum-row"><span>Subtotal</span><span id="sumSubtotal">₹0</span></div>
+          <div class="sum-row"><span>Delivery</span><span id="sumDelivery">Free</span></div>
+          <div class="sum-row sum-total"><span>Total</span><span id="sumTotal">₹0</span></div>
+        </div>
+      </div>
+      <button class="btn-primary" id="payNowBtn" onclick="processPayment()">
+        <span id="payBtnLabel">Pay Now</span>
+      </button>
+    </div>
+
+    <!-- Step 3: Confirmation -->
+    <div class="checkout-step hidden" id="step3">
+      <div class="order-success">
+        <div class="success-anim">✅</div>
+        <h3>Order Placed!</h3>
+        <p class="order-num" id="confirmOrderNum">ORD-000001</p>
+        <p class="success-note" id="confirmNote">We'll deliver your natural products soon.</p>
+        <div class="success-actions">
+          <button class="btn-primary" onclick="closeCheckout();clearCart()">Continue Shopping</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ TOAST ════════════════════════════════════════════════════════════ -->
 <div class="toast" id="toast"></div>
 
+<!-- ══ MOBILE SIDEBAR OVERLAY ══════════════════════════════════════════ -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Razorpay SDK -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

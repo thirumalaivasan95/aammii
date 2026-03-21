@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Aammii Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset + Tokens ─────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F3EE;--surface:#FFFFFF;--surface2:#F0EDE6;
+  --text-1:#18110A;--text-2:#4A3828;--text-3:#7A6450;
+  --green:#2B5E3C;--green-l:#E8F4ED;--amber:#C47A22;--amber-l:#FDF3E3;
+  --red:#A33828;--red-l:#FDEEEB;--blue:#1A4A80;--blue-l:#EBF2FC;
+  --border:rgba(74,56,40,.12);--shadow:0 2px 12px rgba(0,0,0,.07);
+  --r:10px;--pill:999px;
+}
+[data-theme="dark"]{
+  --bg:#100E0A;--surface:#1A1610;--surface2:#221C14;
+  --text-1:#EEE4D4;--text-2:#C4B498;--text-3:#7A6450;
+  --green:#4A8C5E;--green-l:rgba(74,140,94,.12);
+  --amber:#D4923C;--amber-l:rgba(212,146,60,.12);
+  --red:#C44838;--red-l:rgba(196,72,56,.12);
+  --border:rgba(200,180,150,.1);--shadow:0 2px 12px rgba(0,0,0,.4);
+}
+body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text-1);min-height:100vh}
+a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit;border:none;background:none}
+.hidden{display:none!important}
+
+/* ── Layout ─────────────────────────────────────────────────────────── */
+.layout{display:flex;min-height:100vh}
+.sidebar{width:220px;background:var(--surface);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrink:0}
+.main{flex:1;min-width:0;padding:32px 36px;overflow-y:auto;max-height:100vh}
+
+/* ── Sidebar ─────────────────────────────────────────────────────────── */
+.brand{padding:20px 20px 16px;border-bottom:1px solid var(--border)}
+.brand-logo{font-family:'Fraunces',serif;font-size:19px;color:var(--green);font-weight:700}
+.brand-sub{font-size:10px;color:var(--text-3);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}
+.nav-section{padding:12px 0}
+.nav-label{font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:1.5px;
+  text-transform:uppercase;padding:6px 20px 4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;
+  font-size:13.5px;color:var(--text-2);cursor:pointer;transition:all .15s;border-left:3px solid transparent}
+.nav-item:hover{background:var(--surface2);color:var(--text-1)}
+.nav-item.active{background:var(--green-l);color:var(--green);border-left-color:var(--green);font-weight:600}
+.nav-item .ico{font-size:16px;width:20px;text-align:center}
+.sidebar-footer{margin-top:auto;padding:16px 20px;border-top:1px solid var(--border)}
+.back-to-shop{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-3);
+  padding:8px 12px;border-radius:var(--r);transition:all .2s;border:1.5px solid var(--border)}
+.back-to-shop:hover{color:var(--green);border-color:var(--green)}
+
+/* ── Page ─────────────────────────────────────────────────────────── */
+.page{display:none}.page.active{display:block}
+.page-title{font-family:'Fraunces',serif;font-size:26px;margin-bottom:6px}
+.page-sub{font-size:13.5px;color:var(--text-3);margin-bottom:28px}
+
+/* ── Stats grid ─────────────────────────────────────────────────────── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:28px}
+.stat-card{background:var(--surface);border-radius:var(--r);border:1.5px solid var(--border);
+  padding:18px 20px}
+.stat-card-label{font-size:12px;color:var(--text-3);font-weight:500;margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px}
+.stat-card-value{font-family:'Fraunces',serif;font-size:28px;font-weight:700;line-height:1}
+.stat-card.green .stat-card-value{color:var(--green)}
+.stat-card.amber .stat-card-value{color:var(--amber)}
+.stat-card.red   .stat-card-value{color:var(--red)}
+.stat-card.blue  .stat-card-value{color:var(--blue)}
+
+/* ── Section card ─────────────────────────────────────────────────── */
+.card{background:var(--surface);border-radius:var(--r);border:1.5px solid var(--border);
+  padding:24px;margin-bottom:20px}
+.card-title{font-family:'Fraunces',serif;font-size:17px;margin-bottom:4px}
+.card-sub{font-size:12.5px;color:var(--text-3);margin-bottom:20px}
+
+/* ── Upload zone ─────────────────────────────────────────────────── */
+.upload-zone{border:2px dashed var(--border);border-radius:var(--r);
+  padding:36px 20px;text-align:center;cursor:pointer;transition:all .2s;
+  position:relative;background:var(--surface2)}
+.upload-zone:hover,.upload-zone.dragover{border-color:var(--green);background:var(--green-l)}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-icon{font-size:36px;display:block;margin-bottom:10px}
+.upload-zone h4{font-size:14.5px;font-weight:600;margin-bottom:5px}
+.upload-zone p{font-size:12.5px;color:var(--text-3)}
+.file-name{font-size:13px;color:var(--green);margin-top:8px;font-weight:600}
+
+/* ── Mode radio ─────────────────────────────────────────────────────── */
+.mode-options{display:flex;gap:10px;margin:16px 0;flex-wrap:wrap}
+.mode-opt{flex:1;min-width:140px;border:1.5px solid var(--border);border-radius:var(--r);
+  padding:12px 14px;cursor:pointer;transition:all .2s}
+.mode-opt:has(input:checked){border-color:var(--green);background:var(--green-l)}
+.mode-opt input{display:none}
+.mode-opt strong{display:block;font-size:13px;margin-bottom:3px}
+.mode-opt span{font-size:11.5px;color:var(--text-3)}
+
+/* ── Btn ─────────────────────────────────────────────────────────── */
+.btn{padding:9px 20px;border-radius:var(--r);font-size:13.5px;font-weight:600;
+  transition:all .2s;display:inline-flex;align-items:center;gap:7px;cursor:pointer}
+.btn-green{background:var(--green);color:white;border:none;
+  box-shadow:0 2px 8px rgba(43,94,60,.25)}
+.btn-green:hover{opacity:.9;transform:translateY(-1px)}
+.btn-green:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-outline{background:transparent;color:var(--text-2);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--green);color:var(--green)}
+.btn-red{background:var(--red);color:white;border:none}
+.btn-sm{padding:5px 12px;font-size:12px}
+
+/* ── Progress bar ─────────────────────────────────────────────────── */
+.progress-wrap{height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;margin:16px 0}
+.progress-bar{height:100%;width:0%;background:var(--green);border-radius:3px;transition:width .4s}
+.import-log{background:var(--surface2);border-radius:var(--r);padding:14px;font-size:12.5px;
+  color:var(--text-2);font-family:monospace;line-height:1.7;max-height:160px;overflow-y:auto;margin-top:12px}
+.log-ok{color:var(--green)}.log-warn{color:var(--amber)}.log-err{color:var(--red)}
+
+/* ── Table ─────────────────────────────────────────────────────────── */
+.table-wrap{overflow-x:auto}
+.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table th{text-align:left;padding:10px 12px;font-size:11px;font-weight:700;
+  color:var(--text-3);text-transform:uppercase;letter-spacing:.8px;
+  border-bottom:2px solid var(--border);white-space:nowrap}
+.data-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--surface2)}
+
+/* Inline editable */
+.stock-input{width:70px;padding:4px 8px;border:1.5px solid var(--border);border-radius:6px;
+  font-size:12.5px;background:var(--bg);color:var(--text-1);outline:none;
+  font-family:'Sora',sans-serif;text-align:center}
+.stock-input:focus{border-color:var(--green)}
+.stock-input.oos{border-color:var(--red);color:var(--red)}
+
+/* Badges */
+.badge{display:inline-block;padding:2px 8px;border-radius:var(--pill);font-size:11px;font-weight:600;white-space:nowrap}
+.badge-green{background:var(--green-l);color:var(--green)}
+.badge-amber{background:var(--amber-l);color:var(--amber)}
+.badge-red{background:var(--red-l);color:var(--red)}
+.badge-gray{background:var(--surface2);color:var(--text-3)}
+
+/* Toggle switch */
+.toggle{position:relative;display:inline-block;width:38px;height:22px}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:#ccc;border-radius:11px;transition:.2s;cursor:pointer}
+.toggle-slider:before{content:'';position:absolute;height:16px;width:16px;
+  left:3px;bottom:3px;background:white;border-radius:50%;transition:.2s}
+.toggle input:checked+.toggle-slider{background:var(--amber)}
+.toggle input:checked+.toggle-slider:before{transform:translateX(16px)}
+
+/* Toolbar row */
+.toolbar-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.search-input{flex:1;min-width:200px;padding:8px 14px;border:1.5px solid var(--border);
+  border-radius:var(--pill);font-size:13px;background:var(--surface2);
+  color:var(--text-1);outline:none;font-family:'Sora',sans-serif}
+.search-input:focus{border-color:var(--green)}
+.filter-select{padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--r);
+  font-size:13px;background:var(--surface);color:var(--text-1);cursor:pointer;outline:none}
+
+/* Pagination mini */
+.mini-pager{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-3)}
+.mini-pager button{padding:4px 10px;border:1.5px solid var(--border);border-radius:6px;
+  font-size:12px;transition:all .15s}
+.mini-pager button:hover:not(:disabled){border-color:var(--green);color:var(--green)}
+.mini-pager button:disabled{opacity:.35}
+
+/* Toast */
+.toast-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);
+  background:var(--text-1);color:var(--bg);padding:10px 22px;border-radius:var(--pill);
+  font-size:13.5px;font-weight:500;z-index:999;opacity:0;pointer-events:none;
+  transition:all .3s;white-space:nowrap}
+.toast-bar.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* Instructions */
+.steps-list{display:flex;flex-direction:column;gap:14px;margin-top:4px}
+.step-item{display:flex;gap:14px;align-items:flex-start}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--green);
+  color:white;font-size:12px;font-weight:700;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body strong{display:block;font-size:13.5px;margin-bottom:3px}
+.step-body p{font-size:12.5px;color:var(--text-3);line-height:1.6}
+.step-body code{background:var(--surface2);border:1px solid var(--border);
+  border-radius:4px;padding:1px 6px;font-size:12px;color:var(--amber)}
+
+/* Notice box */
+.notice{display:flex;gap:12px;padding:14px 16px;border-radius:var(--r);
+  font-size:13px;line-height:1.55;border:1.5px solid}
+.notice-green{background:var(--green-l);border-color:rgba(43,94,60,.25);color:var(--green)}
+.notice-amber{background:var(--amber-l);border-color:rgba(196,122,34,.25);color:var(--amber)}
+.notice-blue{background:var(--blue-l);border-color:rgba(26,74,128,.2);color:var(--blue)}
+.notice-ico{font-size:18px;flex-shrink:0}
+.notice-text{flex:1}
+.notice-text strong{display:block;margin-bottom:2px}
+
+@media(max-width:700px){
+  .layout{flex-direction:column}
+  .sidebar{width:100%;height:auto;position:relative}
+  .main{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ═══ SIDEBAR ══════════════════════════════════════════════════════════ -->
+  <nav class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">🌿 Aammii</div>
+      <div class="brand-sub">Admin Panel</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Overview</div>
+      <div class="nav-item active" data-page="dashboard" onclick="showPage('dashboard',this)">
+        <span class="ico">📊</span> Dashboard
+      </div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Products</div>
+      <div class="nav-item" data-page="import" onclick="showPage('import',this)">
+        <span class="ico">⬆️</span> Import Products
+      </div>
+      <div class="nav-item" data-page="products" onclick="showPage('products',this)">
+        <span class="ico">📦</span> Manage Products
+      </div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Sales</div>
+      <div class="nav-item" data-page="orders" onclick="showPage('orders',this)">
+        <span class="ico">🧾</span> Orders
+      </div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Help</div>
+      <div class="nav-item" data-page="guide" onclick="showPage('guide',this)">
+        <span class="ico">📖</span> How-to Guide
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <a class="back-to-shop" href="/">← Back to Shop</a>
+    </div>
+  </nav>
+
+  <!-- ═══ MAIN CONTENT ══════════════════════════════════════════════════════ -->
+  <main class="main">
+
+    <!-- ── DASHBOARD ─────────────────────────────────────────────────────── -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-title">Dashboard</div>
+      <div class="page-sub">Overview of your Aammii Natural Shop</div>
+
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card green"><div class="stat-card-label">Products</div><div class="stat-card-value" id="s-products">—</div></div>
+        <div class="stat-card amber"><div class="stat-card-label">Out of Stock</div><div class="stat-card-value" id="s-oos">—</div></div>
+        <div class="stat-card blue"><div class="stat-card-label">New Launches</div><div class="stat-card-value" id="s-launches">—</div></div>
+        <div class="stat-card"><div class="stat-card-label">Categories</div><div class="stat-card-value" id="s-cats">—</div></div>
+        <div class="stat-card green"><div class="stat-card-label">Total Orders</div><div class="stat-card-value" id="s-orders">—</div></div>
+        <div class="stat-card amber"><div class="stat-card-label">Revenue (Paid)</div><div class="stat-card-value" id="s-revenue">—</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Quick Actions</div>
+        <div class="card-sub">Common tasks at a glance</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <button class="btn btn-green" onclick="showPage('import',document.querySelector('[data-page=import]'))">⬆️ Import products.json</button>
+          <button class="btn btn-outline" onclick="showPage('products',document.querySelector('[data-page=products]'))">📦 Manage stock</button>
+          <button class="btn btn-outline" onclick="showPage('orders',document.querySelector('[data-page=orders]'))">🧾 View orders</button>
+          <button class="btn btn-outline" onclick="showPage('guide',document.querySelector('[data-page=guide]'))">📖 How-to guide</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── IMPORT ─────────────────────────────────────────────────────────── -->
+    <div class="page" id="page-import">
+      <div class="page-title">Import Products</div>
+      <div class="page-sub">Upload your products.json file to load all products into the database</div>
+
+      <div class="notice notice-blue" style="margin-bottom:20px">
+        <span class="notice-ico">ℹ️</span>
+        <div class="notice-text">
+          <strong>Where is products.json?</strong>
+          It's the file in your <code>uploads/</code> folder with all 486 products. You can also drag it from anywhere on your computer. It should be a JSON array like <code>[{"name":"Foxtail Millet","price":195,...}]</code>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Upload products.json</div>
+        <div class="card-sub">Select or drag your catalogue file. Supported formats: Aammii products.json</div>
+
+        <!-- Drop zone -->
+        <div class="upload-zone" id="dropZone">
+          <input type="file" id="jsonFile" accept=".json" onchange="onFileSelect(this)"/>
+          <span class="upload-icon">📋</span>
+          <h4>Drop products.json here or click to browse</h4>
+          <p>JSON file · up to 50 MB · all 486 products supported</p>
+          <div class="file-name hidden" id="selectedFileName"></div>
+        </div>
+
+        <!-- Import mode -->
+        <div style="margin-top:20px">
+          <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-2)">Import Mode</div>
+          <div class="mode-options">
+            <label class="mode-opt">
+              <input type="radio" name="importMode" value="upsert" checked/>
+              <strong>🔄 Upsert (Recommended)</strong>
+              <span>Add new products + update existing ones. Safe to run multiple times.</span>
+            </label>
+            <label class="mode-opt">
+              <input type="radio" name="importMode" value="insert"/>
+              <strong>➕ Insert Only</strong>
+              <span>Only add new products. Skip any that already exist in DB.</span>
+            </label>
+            <label class="mode-opt">
+              <input type="radio" name="importMode" value="replace"/>
+              <strong>🔃 Replace All</strong>
+              <span>⚠️ Wipe all products and re-import from scratch.</span>
+            </label>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;margin-top:6px">
+          <button class="btn btn-green" id="importBtn" onclick="runImport()" disabled>
+            ⬆️ Import Now
+          </button>
+          <span class="hidden" id="importSpinner" style="font-size:13px;color:var(--text-3)">⏳ Importing…</span>
+        </div>
+
+        <div class="progress-wrap hidden" id="importProgress">
+          <div class="progress-bar" id="importProgressBar"></div>
+        </div>
+
+        <div class="import-log hidden" id="importLog"></div>
+      </div>
+
+      <!-- Manual products.json location tip -->
+      <div class="card">
+        <div class="card-title">📁 Alternative: Place File Manually</div>
+        <div class="card-sub">If you prefer not to upload through the browser</div>
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Copy your file</strong>
+              <p>Copy <code>products.json</code> into the <code>uploads/</code> folder of this project.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Delete the database</strong>
+              <p>Delete <code>aammii.db</code> from the project root so the server re-seeds on next start.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>Restart the server</strong>
+              <p>Run <code>bash run.sh</code> again. It will detect and import the JSON automatically.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PRODUCTS ────────────────────────────────────────────────────────── -->
+    <div class="page" id="page-products">
+      <div class="page-title">Manage Products</div>
+      <div class="page-sub">Update stock, toggle new launch status, and add products</div>
+
+      <div class="notice notice-amber" style="margin-bottom:20px">
+        <span class="notice-ico">⚠️</span>
+        <div class="notice-text">
+          <strong>How stock works:</strong>
+          Set to <strong>0</strong> to mark out-of-stock (shows OOS badge on site).
+          Set to <strong>999</strong> for unlimited/untracked stock. Any other number is tracked and decremented per order.
+        </div>
+      </div>
+
+      <div class="card" style="padding:16px 20px">
+        <div class="toolbar-row">
+          <input type="text" class="search-input" id="prodSearch" placeholder="Search by name or code…" oninput="debounceProdSearch()"/>
+          <select class="filter-select" id="prodCatFilter" onchange="loadProducts(1)">
+            <option value="">All Categories</option>
+          </select>
+          <button class="btn btn-green btn-sm" onclick="saveAllStock()">💾 Save Changes</button>
+          <button class="btn btn-outline btn-sm" onclick="loadProducts(1)">🔄 Refresh</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table" id="productsTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>New Launch</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="productsTbody">
+              <tr><td colspan="7" style="text-align:center;padding:30px;color:var(--text-3)">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:10px">
+          <span id="prodCountLabel" style="font-size:13px;color:var(--text-3)"></span>
+          <div class="mini-pager">
+            <button id="prodPrevBtn" onclick="loadProducts(prodPage-1)">← Prev</button>
+            <span id="prodPageLabel">Page 1</span>
+            <button id="prodNextBtn" onclick="loadProducts(prodPage+1)">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ORDERS ─────────────────────────────────────────────────────────── -->
+    <div class="page" id="page-orders">
+      <div class="page-title">Orders</div>
+      <div class="page-sub">All customer orders, newest first</div>
+
+      <div class="card" style="padding:16px 20px">
+        <div class="toolbar-row">
+          <select class="filter-select" id="orderStatusFilter" onchange="loadOrders(1)">
+            <option value="">All Orders</option>
+            <option value="placed">Placed</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <button class="btn btn-outline btn-sm" onclick="loadOrders(1)">🔄 Refresh</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Order #</th>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Total</th>
+                <th>Payment</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTbody">
+              <tr><td colspan="7" style="text-align:center;padding:30px;color:var(--text-3)">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:10px">
+          <span id="ordCountLabel" style="font-size:13px;color:var(--text-3)"></span>
+          <div class="mini-pager">
+            <button id="ordPrevBtn" onclick="loadOrders(ordPage-1)">← Prev</button>
+            <span id="ordPageLabel">Page 1</span>
+            <button id="ordNextBtn" onclick="loadOrders(ordPage+1)">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GUIDE ─────────────────────────────────────────────────────────── -->
+    <div class="page" id="page-guide">
+      <div class="page-title">How-to Guide</div>
+      <div class="page-sub">Step-by-step instructions for setting up and running your shop</div>
+
+      <!-- GETTING STARTED -->
+      <div class="card">
+        <div class="card-title">🚀 Getting Started — First Time Setup</div>
+        <div class="card-sub">Follow these steps once when you first set up the shop</div>
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Start the server</strong>
+              <p>Open a terminal in your project folder and run: <code>bash run.sh</code><br>
+              The server starts at <strong>http://localhost:5000</strong></p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Import your products</strong>
+              <p>Come to <strong>Admin → Import Products</strong> (this panel).<br>
+              Click "Browse" and select your <code>products.json</code> file.<br>
+              Choose <strong>Upsert</strong> mode and click <strong>Import Now</strong>.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>Set up payments (Razorpay)</strong>
+              <p>Sign up at <strong>razorpay.com</strong> (free). Go to Settings → API Keys.<br>
+              Set environment variables before running: <code>export RAZORPAY_KEY_ID="rzp_live_..."</code><br>
+              Supports GPay, Paytm, UPI, Credit/Debit cards automatically.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <strong>Visit your shop</strong>
+              <p>Open <strong>http://localhost:5000</strong> — all products will load automatically.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADDING PRODUCTS -->
+      <div class="card">
+        <div class="card-title">📦 How to Add or Update Products</div>
+        <div class="card-sub">Three ways to manage your product catalogue</div>
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-num">A</div>
+            <div class="step-body">
+              <strong>Upload products.json (easiest)</strong>
+              <p>Go to <strong>Import Products tab</strong> above. Upload your <code>products.json</code> file.<br>
+              Use <strong>Upsert</strong> to add new + update existing. Use <strong>Replace All</strong> to start fresh.<br>
+              The JSON should be an array: <code>[{"name":"Foxtail Millet","category":"Millets & Grains","price":195,"qty":"1 kg","code":"M-001"}, ...]</code></p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">B</div>
+            <div class="step-body">
+              <strong>Use the CLI admin tool</strong>
+              <p>In terminal: <code>cd backend && python3 admin.py add-product</code><br>
+              It will ask you for name, category, price, stock etc. interactively.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">C</div>
+            <div class="step-body">
+              <strong>REST API (for developers)</strong>
+              <p><code>POST /api/admin/products</code> with JSON body. Add header: <code>X-Admin-Key: [your secret]</code><br>
+              Fields: <code>name, category, price, code, qty_unit, stock_quantity, is_new_launch</code></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STOCK -->
+      <div class="card">
+        <div class="card-title">📉 Managing Stock & Out-of-Stock</div>
+        <div class="card-sub">How the stock system works</div>
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Go to Manage Products</strong>
+              <p>Each product row has an editable <strong>Stock</strong> field.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Edit the number</strong>
+              <p>Type <code>0</code> → shows "Out of Stock" overlay on the product card on the website.<br>
+              Type <code>999</code> → unlimited / untracked (default for most products).<br>
+              Any other number like <code>50</code> → auto-decrements per order.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>Click "Save Changes"</strong>
+              <p>All edits are saved in one click. The shop updates immediately — no restart needed.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW LAUNCHES -->
+      <div class="card">
+        <div class="card-title">✨ New Launches Carousel</div>
+        <div class="card-sub">The highlighted carousel at the top of your shop</div>
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Go to Manage Products</strong>
+              <p>Find the product you want to feature in the New Launches section.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Toggle "New Launch"</strong>
+              <p>Click the toggle in the <strong>New Launch</strong> column. It turns amber when active.<br>
+              The product immediately appears in the scrollable "Just Landed from Nature" carousel.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>Toggle it off</strong>
+              <p>Click the toggle again to remove it from the New Launches section.<br>
+              The product stays in the regular catalogue — it just leaves the carousel.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYMENTS -->
+      <div class="card">
+        <div class="card-title">💳 Going Live with Payments</div>
+        <div class="card-sub">Accept GPay, Paytm, UPI, cards and more</div>
+        <div class="notice notice-green" style="margin-bottom:16px">
+          <span class="notice-ico">✅</span>
+          <div class="notice-text">Razorpay is free to sign up. They charge ~2% per transaction (no monthly fee). Supports all Indian payment methods.</div>
+        </div>
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Sign up at razorpay.com</strong>
+              <p>Free account. Complete KYC for live payments (takes ~1 day).</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Get your API keys</strong>
+              <p>Dashboard → Settings → API Keys → Generate Key.<br>
+              Copy your <strong>Key ID</strong> and <strong>Key Secret</strong>.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>Set environment variables</strong>
+              <p>Before running the server, in your terminal:<br>
+              <code>export RAZORPAY_KEY_ID="rzp_live_XXXXXXXXXXXXXXXX"</code><br>
+              <code>export RAZORPAY_KEY_SECRET="your_secret_here"</code></p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <strong>Deploy with HTTPS</strong>
+              <p>Razorpay requires HTTPS for live payments. Use nginx + certbot (Let's Encrypt) on any VPS.<br>
+              OR use ngrok for quick testing: <code>ngrok http 5000</code></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /guide -->
+
+  </main>
+</div><!-- /layout -->
+
+<div class="toast-bar" id="toastBar"></div>
+
+<script>
+const API = `${location.protocol}//${location.hostname}:5000`;
+let prodPage = 1, prodTotalPages = 1;
+let ordPage  = 1, ordTotalPages  = 1;
+let stockEdits = {}; // {id: qty}
+let searchTimer;
+
+// ── Navigation ───────────────────────────────────────────────────────────
+function showPage(name, navEl) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (navEl) navEl.classList.add('active');
+
+  if (name === 'dashboard') loadStats();
+  if (name === 'products')  { loadCatFilter(); loadProducts(1); }
+  if (name === 'orders')    loadOrders(1);
+}
+
+// ── Stats ────────────────────────────────────────────────────────────────
+async function loadStats() {
+  try {
+    const d = await get('/api/admin/stats');
+    document.getElementById('s-products').textContent = d.total_products;
+    document.getElementById('s-oos').textContent      = d.out_of_stock;
+    document.getElementById('s-launches').textContent = d.new_launches;
+    document.getElementById('s-cats').textContent     = d.categories;
+    document.getElementById('s-orders').textContent   = d.total_orders;
+    document.getElementById('s-revenue').textContent  = '₹' + fmt(d.revenue_total);
+  } catch(e) { toast('⚠️ Could not load stats: ' + e.message); }
+}
+
+// ── Import ───────────────────────────────────────────────────────────────
+function onFileSelect(input) {
+  const f = input.files[0];
+  if (!f) return;
+  const fn = document.getElementById('selectedFileName');
+  fn.textContent = '📄 ' + f.name + ' (' + (f.size/1024).toFixed(1) + ' KB)';
+  fn.classList.remove('hidden');
+  document.getElementById('importBtn').disabled = false;
+  document.getElementById('dropZone').style.borderColor = 'var(--green)';
+}
+
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('dragover');
+  const f = e.dataTransfer.files[0];
+  if (f) {
+    const dt = new DataTransfer(); dt.items.add(f);
+    document.getElementById('jsonFile').files = dt.files;
+    onFileSelect(document.getElementById('jsonFile'));
+  }
+});
+
+async function runImport() {
+  const fileInput = document.getElementById('jsonFile');
+  if (!fileInput.files[0]) { toast('⚠️ Please select a file first'); return; }
+  const mode = document.querySelector('input[name="importMode"]:checked').value;
+
+  const btn = document.getElementById('importBtn');
+  const spin = document.getElementById('importSpinner');
+  const prog = document.getElementById('importProgress');
+  const bar  = document.getElementById('importProgressBar');
+  const log  = document.getElementById('importLog');
+
+  btn.disabled = true; spin.classList.remove('hidden');
+  prog.classList.remove('hidden'); log.classList.remove('hidden');
+  log.innerHTML = '<span class="log-warn">⏳ Uploading file…</span>';
+  bar.style.width = '20%';
+
+  const fd = new FormData();
+  fd.append('file', fileInput.files[0]);
+  fd.append('mode', mode);
+
+  try {
+    bar.style.width = '55%';
+    const res  = await fetch(`${API}/api/admin/import-json`, { method: 'POST', body: fd });
+    bar.style.width = '90%';
+    const data = await res.json();
+    bar.style.width = '100%';
+
+    if (!res.ok) throw new Error(data.error || 'Import failed');
+
+    log.innerHTML = `
+      <span class="log-ok">✅ ${data.message}</span><br>
+      <span>📥 Inserted: ${data.inserted}</span><br>
+      <span>🔄 Updated: ${data.updated}</span><br>
+      <span>⏭ Skipped: ${data.skipped}</span><br>
+      <span>📊 Total in DB: ${data.total_in_db}</span>
+      ${data.errors > 0 ? `<br><span class="log-err">⚠️ Errors: ${data.errors}</span>` : ''}
+    `;
+    toast('✅ Import complete — ' + data.total_in_db + ' products in shop');
+    setTimeout(() => { prog.classList.add('hidden'); }, 1000);
+  } catch (e) {
+    bar.style.width = '100%';
+    bar.style.background = 'var(--red)';
+    log.innerHTML = `<span class="log-err">❌ Error: ${e.message}</span>`;
+    toast('❌ Import failed: ' + e.message);
+  } finally {
+    btn.disabled = false; spin.classList.add('hidden');
+  }
+}
+
+// ── Products table ───────────────────────────────────────────────────────
+async function loadCatFilter() {
+  try {
+    const cats = await get('/api/categories');
+    const sel  = document.getElementById('prodCatFilter');
+    sel.innerHTML = '<option value="">All Categories</option>';
+    cats.forEach(c => {
+      const o = document.createElement('option');
+      o.value = c.name; o.textContent = c.emoji + ' ' + c.name;
+      sel.appendChild(o);
+    });
+  } catch {}
+}
+
+function debounceProdSearch() {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => loadProducts(1), 400);
+}
+
+async function loadProducts(page) {
+  prodPage = page || 1;
+  const q   = document.getElementById('prodSearch').value.trim();
+  const cat = document.getElementById('prodCatFilter').value;
+  const params = new URLSearchParams({ page: prodPage, limit: 50 });
+  if (q) params.set('q', q);
+  if (cat) params.set('category', cat);
+
+  const tbody = document.getElementById('productsTbody');
+  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--text-3)">Loading…</td></tr>';
+
+  try {
+    const data = await get('/api/admin/products?' + params);
+    prodTotalPages = data.pages;
+    document.getElementById('prodCountLabel').textContent = `${data.total} products`;
+    document.getElementById('prodPageLabel').textContent  = `Page ${prodPage} of ${prodTotalPages}`;
+    document.getElementById('prodPrevBtn').disabled = prodPage <= 1;
+    document.getElementById('prodNextBtn').disabled = prodPage >= prodTotalPages;
+
+    tbody.innerHTML = '';
+    data.products.forEach(p => {
+      const isOOS = p.stock_quantity === 0;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="font-weight:500;max-width:240px">${esc(p.name)}</td>
+        <td style="color:var(--text-3);font-size:12px">${esc(p.code||'—')}</td>
+        <td><span class="badge badge-gray">${esc(p.category)}</span></td>
+        <td style="font-weight:600;color:var(--amber)">₹${fmt(p.price)}</td>
+        <td>
+          <input type="number" class="stock-input${isOOS?' oos':''}" min="0" max="9999"
+            value="${p.stock_quantity}" data-id="${p.id}"
+            onchange="markStockEdit(this)" oninput="markStockEdit(this)"/>
+        </td>
+        <td>
+          <label class="toggle">
+            <input type="checkbox" ${p.is_new_launch?'checked':''} data-id="${p.id}"
+              onchange="toggleNewLaunch(this)"/>
+            <span class="toggle-slider"></span>
+          </label>
+        </td>
+        <td><span class="badge ${p.is_active?'badge-green':'badge-red'}">${p.is_active?'Active':'Hidden'}</span></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  } catch(e) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--red)">Error: ${e.message}</td></tr>`;
+  }
+}
+
+function markStockEdit(input) {
+  const id  = input.dataset.id;
+  const val = parseInt(input.value);
+  stockEdits[id] = isNaN(val) ? 999 : val;
+  input.classList.toggle('oos', val === 0);
+  input.style.borderColor = val === 0 ? 'var(--red)' : 'var(--amber)';
+}
+
+async function saveAllStock() {
+  if (!Object.keys(stockEdits).length) { toast('ℹ️ No changes to save'); return; }
+  const items = Object.entries(stockEdits).map(([id, stock_quantity]) => ({id, stock_quantity}));
+  try {
+    const res = await post('/api/admin/products/bulk-stock', items);
+    toast(`💾 Saved ${res.updated} stock update${res.updated!==1?'s':''}`);
+    stockEdits = {};
+    // Reset border colors
+    document.querySelectorAll('.stock-input').forEach(i => i.style.borderColor = '');
+  } catch(e) { toast('❌ Save failed: ' + e.message); }
+}
+
+async function toggleNewLaunch(checkbox) {
+  const id   = checkbox.dataset.id;
+  const flag = checkbox.checked ? 1 : 0;
+  try {
+    await patch(`/api/admin/products/${id}`, { is_new_launch: flag });
+    toast(flag ? '✨ Added to New Launches' : '↩️ Removed from New Launches');
+  } catch(e) {
+    toast('❌ ' + e.message);
+    checkbox.checked = !checkbox.checked; // revert
+  }
+}
+
+// ── Orders ───────────────────────────────────────────────────────────────
+async function loadOrders(page) {
+  ordPage = page || 1;
+  const status = document.getElementById('orderStatusFilter').value;
+  const params = new URLSearchParams({ page: ordPage, limit: 30 });
+  if (status) params.set('status', status);
+
+  const tbody = document.getElementById('ordersTbody');
+  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--text-3)">Loading…</td></tr>';
+
+  try {
+    const data = await get('/api/admin/orders?' + params);
+    ordTotalPages = Math.max(1, Math.ceil(data.total / 30));
+    document.getElementById('ordCountLabel').textContent = `${data.total} orders`;
+    document.getElementById('ordPageLabel').textContent  = `Page ${ordPage}`;
+    document.getElementById('ordPrevBtn').disabled = ordPage <= 1;
+    document.getElementById('ordNextBtn').disabled = ordPage >= ordTotalPages;
+
+    tbody.innerHTML = '';
+    if (!data.orders.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--text-3)">No orders yet</td></tr>';
+      return;
+    }
+    data.orders.forEach(o => {
+      const tr = document.createElement('tr');
+      const payBadge = o.payment_status === 'paid' ? 'badge-green' : o.payment_status === 'pending' ? 'badge-amber' : 'badge-gray';
+      const ordBadge = o.order_status === 'delivered' ? 'badge-green' : o.order_status === 'cancelled' ? 'badge-red' : 'badge-amber';
+      tr.innerHTML = `
+        <td style="font-weight:700;color:var(--green)">${esc(o.order_number)}</td>
+        <td>${esc(o.customer_name||'—')}</td>
+        <td>${esc(o.customer_phone||'—')}</td>
+        <td style="font-weight:600;color:var(--amber)">₹${fmt(o.total_amount)}</td>
+        <td><span class="badge ${payBadge}">${esc(o.payment_method)}</span></td>
+        <td><span class="badge ${ordBadge}">${esc(o.order_status)}</span></td>
+        <td style="color:var(--text-3);font-size:12px">${(o.created_at||'').slice(0,16)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  } catch(e) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--red)">Error: ${e.message}</td></tr>`;
+  }
+}
+
+// ── Utilities ────────────────────────────────────────────────────────────
+async function get(path) {
+  const r = await fetch(API + path);
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function post(path, body) {
+  const r = await fetch(API + path, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function patch(path, body) {
+  const r = await fetch(API + path, { method:'PATCH', headers:{'Content-Type':'application/json','X-Admin-Key':getAdminKey()}, body:JSON.stringify(body) });
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+function getAdminKey() {
+  return localStorage.getItem('aammii_admin_key') || 'aammii-secret-change-in-prod-2024';
+}
+
+let toastTm;
+function toast(msg) {
+  const t = document.getElementById('toastBar');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTm);
+  toastTm = setTimeout(() => t.classList.remove('show'), 3200);
+}
+function fmt(n) {
+  return Number(n).toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function esc(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Auto load ─────────────────────────────────────────────────────────────
+loadStats();
+</script>
+</body>
+</html>

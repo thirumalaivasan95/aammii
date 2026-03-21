@@ -376,3 +376,11 @@ a{text-decoration:none;color:inherit}
   .filter-bar{top:54px;padding:10px 14px}
   .hero{padding:90px 20px 50px}
 }
+@media (max-width: 480px) {
+  .launch-card { width: calc(85%); }
+  .launches-track { overflow-x: auto; scroll-snap-type: x mandatory; }
+  .launch-card { scroll-snap-align: start; }
+  .launch-arrow { display: none; }
+  .product-grid[data-view="grid"] { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .header-actions .theme-toggle { display: none; }
+}
