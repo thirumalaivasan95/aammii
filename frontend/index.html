@@ -10,13 +10,13 @@
 </head>
 <body>
 
-<!-- PULL-TO-REFRESH INDICATOR -->
+<!-- PULL-TO-REFRESH -->
 <div class="ptr-indicator" id="ptrIndicator">
   <span class="ptr-icon">↓</span>
   <span class="ptr-text" id="ptrText">Pull to refresh</span>
 </div>
 
-<!-- STICKY HEADER -->
+<!-- ── HEADER ─────────────────────────────────────────────── -->
 <header class="header" id="siteHeader">
   <div class="header-inner">
     <a class="logo" href="#hero">
@@ -26,17 +26,21 @@
         <span class="logo-tagline">Natural Shop</span>
       </div>
     </a>
+
     <div class="search-bar">
       <span class="search-icon">⌕</span>
       <input type="text" id="searchInput" placeholder="Search 486 products…" oninput="filterProducts()"/>
     </div>
+
     <nav class="header-nav">
       <a href="#categories" class="nav-link">Categories</a>
-      <a href="#shopMain" class="nav-link">Shop</a>
+      <a href="#shopMain"   class="nav-link">Shop</a>
     </nav>
+
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">
       <span id="themeIcon">🌙</span>
     </button>
+
     <button class="cart-btn" onclick="toggleCart()">
       <span class="cart-icon">🛒</span>
       <span class="cart-badge" id="cartBadge">0</span>
@@ -46,7 +50,7 @@
   </div>
 </header>
 
-<!-- HERO — FULL PAGE -->
+<!-- ── HERO ───────────────────────────────────────────────── -->
 <section class="hero" id="hero">
   <div class="hero-bg">
     <div class="hero-orb hero-orb-1"></div>
@@ -54,6 +58,7 @@
     <div class="hero-orb hero-orb-3"></div>
     <div class="hero-grain"></div>
   </div>
+
   <div class="hero-content">
     <div class="hero-badge">🌱 Farm-to-Home · Pure &amp; Natural</div>
     <h1 class="hero-title">
@@ -61,6 +66,7 @@
       <span class="hero-title-line2">Natural Shop</span>
     </h1>
     <p class="hero-subtitle">486 natural products · 26 categories · sourced from nature</p>
+
     <div class="hero-actions">
       <label class="upload-btn" id="uploadLabel">
         <span>📄</span>
@@ -69,11 +75,13 @@
       </label>
       <a href="#shopMain" class="browse-btn" onclick="scrollToShop()">Browse All Products ↓</a>
     </div>
+
     <div id="uploadStatus" class="upload-status hidden"></div>
     <div id="uploadProgress" class="progress-wrap hidden">
       <div class="progress-bar" id="progressBar"></div>
       <span class="progress-label" id="progressLabel">Scanning…</span>
     </div>
+
     <div class="hero-stats">
       <div class="stat"><span class="stat-num" data-target="486">0</span><span class="stat-label">Products</span></div>
       <div class="stat-div"></div>
@@ -82,6 +90,7 @@
       <div class="stat"><span class="stat-num" data-target="100">0</span><span class="stat-label">% Natural</span></div>
     </div>
   </div>
+
   <div class="hero-visual">
     <div class="hero-rings">
       <div class="ring r1"></div>
@@ -98,62 +107,50 @@
     </div>
     <div class="hero-center-icon">🌿</div>
   </div>
+
   <a class="scroll-hint" href="#categories">↓ Explore</a>
 </section>
 
-<!-- CATEGORIES GRID -->
+<!-- ── CATEGORIES ─────────────────────────────────────────── -->
 <section class="categories-section" id="categories">
   <div class="section-header">
     <h2 class="section-title">Shop by Category</h2>
     <p class="section-sub">26 curated collections of nature's finest</p>
   </div>
-  <div class="cat-grid" id="catGrid"><!-- injected by JS --></div>
+  <div class="cat-grid" id="catGrid"><!-- JS injected --></div>
 </section>
 
-<!-- QUICK FILTERS BAR -->
-<div class="quick-filters-bar hidden" id="quickFiltersBar">
-  <div class="quick-filters-scroll">
-    <button class="qf-chip" data-filter="instock" onclick="toggleQuickFilter(this,'instock')">
-      ✓ In Stock
-    </button>
-    <button class="qf-chip" data-filter="price" onclick="openPriceModal()">
-      ₹ Price Range
-    </button>
-    <button class="qf-chip" data-filter="bestseller" onclick="toggleQuickFilter(this,'bestseller')">
-      🔥 Best Sellers
-    </button>
-    <button class="qf-chip" data-filter="toprated" onclick="toggleQuickFilter(this,'toprated')">
-      ⭐ Top Rated
-    </button>
-    <button class="qf-chip" data-filter="new" onclick="toggleQuickFilter(this,'new')">
-      🆕 New Arrivals
-    </button>
+<!-- ── SHOP TOOLBAR (filter chips + sort) ─────────────────── -->
+<div class="shop-toolbar hidden" id="shopToolbar">
+
+  <!-- Row A: category chips -->
+  <div class="toolbar-filters" id="filterChips">
+    <button class="filter-chip active" onclick="filterByCategory('all', this)">All</button>
   </div>
+
+  <!-- Row B: count + sort -->
+  <div class="toolbar-meta">
+    <span class="toolbar-count" id="resultsInfo"></span>
+    <div class="sort-wrap">
+      <select id="sortSelect" onchange="sortProducts()" class="sort-select">
+        <option value="default">Sort: Default</option>
+        <option value="price-asc">Price ↑</option>
+        <option value="price-desc">Price ↓</option>
+        <option value="name-asc">Name A–Z</option>
+      </select>
+      <span class="sort-arrow">▾</span>
+    </div>
+  </div>
+
 </div>
 
-<!-- FILTER BAR -->
-<div class="filter-bar hidden" id="filterBar">
-  <div class="filter-chips" id="filterChips">
-    <button class="chip active" onclick="filterByCategory('all',this)">All</button>
-  </div>
-  <div class="filter-right">
-    <div class="results-count" id="resultsInfo"></div>
-    <select id="sortSelect" onchange="sortProducts()" class="sort-select">
-      <option value="default">Sort: Default</option>
-      <option value="price-asc">Price ↑</option>
-      <option value="price-desc">Price ↓</option>
-      <option value="name-asc">Name A–Z</option>
-    </select>
-  </div>
-</div>
-
-<!-- PRODUCT GRID -->
+<!-- ── PRODUCT GRID ────────────────────────────────────────── -->
 <main class="shop-main hidden" id="shopMain">
   <div class="product-grid" id="productGrid"></div>
   <div class="no-results hidden" id="noResults"><span>😔</span> No products match.</div>
 </main>
 
-<!-- CART PANEL -->
+<!-- ── CART PANEL ─────────────────────────────────────────── -->
 <aside class="cart-panel" id="cartPanel">
   <div class="cart-head">
     <h2>🛒 Your Cart</h2>
@@ -174,9 +171,8 @@
   </div>
 </aside>
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-<div class="toast" id="toast"></div>
 
-<!-- PRICE RANGE MODAL -->
+<!-- ── PRICE RANGE MODAL ──────────────────────────────────── -->
 <div class="modal-backdrop" id="priceModalBackdrop" onclick="closePriceModal()"></div>
 <div class="price-modal" id="priceModal">
   <div class="price-modal-header">
@@ -204,28 +200,8 @@
   </div>
 </div>
 
-<!-- BOTTOM NAVIGATION BAR -->
-<nav class="bottom-nav" id="bottomNav">
-  <button class="bn-item active" id="bn-home" onclick="bottomNavTab('home')">
-    <span class="bn-icon">🏠</span>
-    <span class="bn-label">Home</span>
-  </button>
-  <button class="bn-item" id="bn-categories" onclick="bottomNavTab('categories')">
-    <span class="bn-icon">📂</span>
-    <span class="bn-label" id="bnCatLabel">Categories</span>
-  </button>
-  <button class="bn-item" id="bn-cart" onclick="bottomNavTab('cart')">
-    <span class="bn-icon bn-cart-icon">
-      🛒
-      <span class="bn-cart-badge" id="bnCartBadge">0</span>
-    </span>
-    <span class="bn-label">Cart</span>
-  </button>
-  <button class="bn-item" id="bn-account" onclick="bottomNavTab('account')">
-    <span class="bn-icon">👤</span>
-    <span class="bn-label">Account</span>
-  </button>
-</nav>
+<!-- ── TOAST ──────────────────────────────────────────────── -->
+<div class="toast" id="toast"></div>
 
 <script src="app.js"></script>
 </body>
