@@ -3,7 +3,7 @@
  */
 
 // ── API: always Flask at 5000 ──────────────────────────────────────────────
-const API = `${location.protocol}//${location.hostname}:5000`;
+const API = "https://aammii.onrender.com";
 
 // ── State ──────────────────────────────────────────────────────────────────
 let allProducts = [], filteredProducts = [], cart = {}, activeCategory = "all";
