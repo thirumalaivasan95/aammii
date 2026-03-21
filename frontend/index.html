@@ -15,58 +15,31 @@
 
 <!-- ══ HEADER ════════════════════════════════════════════════════════════ -->
 <header class="header" id="siteHeader">
-  <div class="header-top">
-    <div class="header-inner">
-
-      <!-- Logo -->
-      <a class="logo" href="#" onclick="showHome()">
-        <div class="logo-leaf">🌿</div>
-        <div class="logo-text">
-          <span class="logo-name">Aammii</span>
-          <span class="logo-sub">Natural Shop</span>
-        </div>
-      </a>
-
-      <!-- Search -->
-      <div class="search-wrap" id="searchWrap">
-        <div class="search-box">
-          <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-          </svg>
-          <input type="text" id="searchInput" placeholder="Search natural products, herbs, millets…"
-                 oninput="onSearch(this.value)" onkeydown="if(event.key==='Enter')onSearch(this.value,true)"/>
-          <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
-        </div>
+  <div class="header-inner">
+    <a class="logo" href="#hero">
+      <span class="logo-mark">🌿</span>
+      <div class="logo-words">
+        <span class="logo-title">Aammii</span>
+        <span class="logo-tagline">Natural Shop</span>
       </div>
-
-      <!-- Right actions -->
-      <div class="header-actions">
-        <button class="action-btn theme-toggle" id="themeBtn" onclick="toggleTheme()" title="Toggle dark/light">
-          <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"/>
-            <line x1="12" y1="1" x2="12" y2="3"/>
-            <line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/>
-            <line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-          </svg>
-          <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-        </button>
-        <button class="action-btn cart-btn" id="cartBtn" onclick="toggleCart()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-          </svg>
-          <span class="cart-badge" id="cartBadge">0</span>
-        </button>
-      </div>
-
+    </a>
+    <div class="search-bar">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search 486 products…" oninput="filterProducts()"/>
     </div>
+    <nav class="header-nav">
+      <a href="#categories" class="nav-link">Categories</a>
+      <a href="#shopMain" class="nav-link">Shop</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">
+      <span id="themeIcon">🌙</span>
+    </button>
+    <button class="cart-btn" onclick="toggleCart()">
+      <span class="cart-icon">🛒</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+      <span class="cart-label">Cart</span>
+      <span class="cart-pill" id="cartPill">₹0</span>
+    </button>
   </div>
 
   <!-- Category nav bar -->

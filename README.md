@@ -7,17 +7,18 @@ Apple-quality design × Amazon structure × Heritage botanical aesthetic × Live
 
 ## ✨ What's New in v5.0
 
-| Feature | Detail |
-|---|---|
-| **SQLite Database** | Persistent, relational DB — products, orders, stock all tracked |
-| **Order IDs** | `ORD-000001`, `ORD-000002` … auto-incrementing, never reset |
-| **Razorpay Payments** | GPay · Paytm · UPI · Visa · MC · Net Banking — all in one |
-| **Dark / Light Mode** | Smooth toggle, persisted across sessions |
-| **New Launches** | Scrollable carousel at the top — flag any product as "new" |
-| **Out of Stock** | OOS overlay on cards, excluded from cart, auto-decrements stock |
-| **Heritage Design** | Fraunces serif + Sora sans · warm earth tones · grain texture |
-| **Modular Products** | CLI admin tool + REST API to add/edit products instantly |
-| **Responsive** | 4-column grid → 2-column → 1-column · mobile cart drawer |
+- **486 preloaded products** across 24 categories, extracted from the official Aammii catalogue
+- **PDF upload** — supports text-based, image-based, and scanned PDFs
+- **Smart PDF detection** — recognises the Aammii catalogue and loads all products instantly
+- **🌙 Dark mode** — one-click toggle in the header; respects your OS preference automatically; choice is remembered across sessions
+- **Full-page hero** with animated background orbs, floating category badges, and live stats counter
+- **24-card category grid** with emoji icons and hover animations
+- **Product grid** with auto-generated SVG images, category badges, and product codes
+- **Real-time search** across product name, code, and category
+- **Category filter chips** and price/name sorting
+- **Shopping cart** with quantity controls, subtotals, and live grand total
+- **Order invoice** — auto-downloads a formatted `.txt` invoice on checkout
+- **Responsive design** — works on desktop, tablet, and mobile
 
 ---
 
@@ -39,6 +40,17 @@ Open: **http://localhost:5000**
 
 ---
 
+## 🌙 Dark Mode
+
+Click the **🌙 / ☀️** button in the top-right of the header to switch between light and dark themes.
+
+- **Auto-detect** — on first visit the theme matches your OS/system preference (`prefers-color-scheme`)
+- **Persistent** — your choice is saved to `localStorage` and remembered across sessions
+- **Instant** — theme is applied before the page renders to avoid a flash of the wrong mode
+- The hero section is always dark by design; dark mode applies to the category grid, product cards, filter bar, and cart panel
+
+---
+
 ## 📁 Project Structure
 
 ```
@@ -53,9 +65,9 @@ aammii-shop/
 │   └── admin.py              # CLI admin tool
 │
 ├── frontend/
-│   ├── index.html            # Full SPA
-│   ├── style.css             # Design system (light + dark)
-│   └── app.js                # All JS: products, cart, checkout
+│   ├── index.html                # Full-page shop UI
+│   ├── style.css                 # Dark earthy design system + dark mode
+│   └── app.js                    # Cart, search, filter, order, dark-mode logic
 │
 ├── uploads/
 │   └── products.json         # Seed data (486 products)
@@ -190,7 +202,13 @@ curl -X POST http://localhost:5000/api/admin/products \
 
 ## 🌐 Production Deployment
 
-### Deploy to a VPS (recommended)
+- **Aesthetic:** Dark earthy organic marketplace with warm gold accents
+- **Fonts:** Playfair Display (headings) + DM Sans (body)
+- **Palette:** Deep brown, forest green, warm gold, cream
+- **Dark mode:** Deep charcoal backgrounds (`#141010`) with warm card surfaces (`#231d18`) — same gold and green accents, higher shadow contrast
+- **Hero:** Full-viewport with animated gradient orbs, floating category pills, live product count
+- **Cards:** Colour-coded SVG images per category, hover lift effects
+- **Cart:** Slide-in panel with quantity controls and real-time totals
 
 ```bash
 # Install nginx + gunicorn
@@ -225,4 +243,4 @@ No.49, Thirupathy Nagar, Near Perumal Temple, Kovaipudur, Coimbatore – 641 042
 
 ---
 
-*Built with Flask · SQLite · Razorpay · Fraunces · Sora · Vanilla JS*
+*Built with Flask · pdfplumber · Python · Vanilla JS*

@@ -11,44 +11,98 @@ const DELIVERY_THRESHOLD = 500;
 const ITEMS_PER_PAGE     = 48;
 
 // ── State ──────────────────────────────────────────────────────────────────
-const state = {
-  products:     [],
-  categories:   [],
-  newLaunches:  [],
-  cart:         {},          // {id: {product, qty}}
-  activeCategory: "all",
-  page:         1,
-  totalPages:   1,
-  totalProducts: 0,
-  view:         "grid",
-  launchOffset: 0,
-  launchsPerView: 5,
-  checkoutStep: 1,
-  selectedPayMethod: "online",
+let allProducts = [], filteredProducts = [], cart = {}, activeCategory = "all";
+
+// ── Dark Mode ──────────────────────────────────────────────────────────────
+(function initTheme() {
+  const saved = localStorage.getItem("aammii-theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const dark = saved ? saved === "dark" : prefersDark;
+  if (dark) {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+  // Icon is set after DOM is ready; see applyThemeIcon()
+})();
+
+function applyThemeIcon() {
+  const icon = document.getElementById("themeIcon");
+  if (!icon) return;
+  const dark = document.documentElement.getAttribute("data-theme") === "dark";
+  icon.textContent = dark ? "☀️" : "🌙";
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const nowDark = html.getAttribute("data-theme") === "dark";
+  if (nowDark) {
+    html.removeAttribute("data-theme");
+    localStorage.setItem("aammii-theme", "light");
+  } else {
+    html.setAttribute("data-theme", "dark");
+    localStorage.setItem("aammii-theme", "dark");
+  }
+  applyThemeIcon();
+}
+
+// Respect OS-level changes while the tab is open
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+  if (!localStorage.getItem("aammii-theme")) {
+    if (e.matches) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+    applyThemeIcon();
+  }
+});
+
+// ── Category meta ──────────────────────────────────────────────────────────
+const CAT_META = {
+  "Millets & Grains":    {emoji:"🌾",color:"#6b4226"},
+  "Pulses & Dals":       {emoji:"🫘",color:"#556b2f"},
+  "Sweeteners":          {emoji:"🍯",color:"#d4a043"},
+  "Honey":               {emoji:"🍯",color:"#c8922e"},
+  "Beverages":           {emoji:"🍵",color:"#1abc9c"},
+  "Spices":              {emoji:"🌶",color:"#c0392b"},
+  "Oils & Ghee":         {emoji:"🫙",color:"#8b4513"},
+  "Pickles":             {emoji:"🥒",color:"#556b2f"},
+  "Salt":                {emoji:"🧂",color:"#3d5a80"},
+  "Dry Fruits & Nuts":   {emoji:"🥜",color:"#784212"},
+  "Health Mix":          {emoji:"💊",color:"#1a5276"},
+  "Healthcare":          {emoji:"🩺",color:"#922b21"},
+  "Personal Care":       {emoji:"🌸",color:"#9b59b6"},
+  "Soap":                {emoji:"🧼",color:"#2980b9"},
+  "Herbal Powder":       {emoji:"🌿",color:"#4a7c59"},
+  "Noodles & Vermicelli":{emoji:"🍜",color:"#e67e22"},
+  "Vadagam & Appalam":   {emoji:"🥙",color:"#8b4513"},
+  "Readymade Mix":       {emoji:"🍱",color:"#d4a043"},
+  "Face Pack":           {emoji:"✨",color:"#9b59b6"},
+  "Seeds":               {emoji:"🌱",color:"#27ae60"},
+  "Divine Products":     {emoji:"🕯",color:"#9b59b6"},
+  "Copper Products":     {emoji:"🥇",color:"#d4a043"},
+  "Wellness Tools":      {emoji:"🧘",color:"#2980b9"},
+  "Books & DVDs":        {emoji:"📚",color:"#3d5a80"},
 };
 
-// ── DOM helpers ─────────────────────────────────────────────────────────────
-const $  = id => document.getElementById(id);
-const qsa = sel => [...document.querySelectorAll(sel)];
+// ── DOM refs ───────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+const productGrid = $("productGrid"), filterBar = $("filterBar"),
+      shopMain = $("shopMain"), cartPanel = $("cartPanel"),
+      cartOverlay = $("cartOverlay"), cartItemsEl = $("cartItems"),
+      cartEmpty = $("cartEmpty"), cartBadge = $("cartBadge"),
+      cartPill = $("cartPill"), totalItemsEl = $("totalItems"),
+      totalPriceEl = $("totalPrice"), placeOrderBtn = $("placeOrderBtn"),
+      noResults = $("noResults"), uploadStatus = $("uploadStatus"),
+      uploadProgress = $("uploadProgress"), progressBar = $("progressBar"),
+      progressLabel = $("progressLabel"), uploadText = $("uploadText"),
+      catGrid = $("catGrid");
 
-// ════════════════════════════════════════════════════════════════════════════
-// BOOT
-// ════════════════════════════════════════════════════════════════════════════
-document.addEventListener("DOMContentLoaded", async () => {
-  loadTheme();
-  loadCart();
-  await Promise.all([
-    fetchCategories(),
-    fetchNewLaunches(),
-    fetchProducts(),
-  ]);
-  buildCategoryNav();
-  buildCategoryShowcase();
-  buildSidebarCategories();
-  updateLaunchCarousel();
-  setupLaunchCarouselSize();
-  window.addEventListener("resize", setupLaunchCarouselSize);
-  window.addEventListener("scroll", onScroll);
+// Set theme icon once DOM refs are ready
+applyThemeIcon();
+
+// ── Scroll header effect ───────────────────────────────────────────────────
+window.addEventListener("scroll", () => {
+  document.getElementById("siteHeader").classList.toggle("scrolled", scrollY > 80);
 });
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -734,112 +788,5 @@ async function processPayment() {
     } else {
       await initiateRazorpay(items, customer);
     }
-  } catch (e) {
-    showToast(`❌ ${e.message}`, "error");
-    btn.disabled = false;
-    $("payBtnLabel").textContent = "Pay Now";
-  }
-}
-
-async function initiateRazorpay(items, customer) {
-  // 1. Create Razorpay order on backend
-  const orderData = await api("/api/payment/create-order", {
-    method: "POST",
-    body: JSON.stringify({ items, customer }),
-  });
-
-  // 2. Open Razorpay checkout
-  return new Promise((resolve, reject) => {
-    const rzpOptions = {
-      key:          orderData.key_id,
-      amount:       orderData.amount,
-      currency:     orderData.currency,
-      order_id:     orderData.razorpay_order_id,
-      name:         "Aammii Natural Shop",
-      description:  "Natural Lifestyle Products",
-      image:        "/favicon.ico",
-      prefill: {
-        name:    customer.name,
-        email:   customer.email,
-        contact: customer.phone,
-      },
-      theme:        { color: "#2B5E3C" },
-      modal: {
-        ondismiss: () => {
-          $("payNowBtn").disabled = false;
-          $("payBtnLabel").textContent = "Pay Now";
-          reject(new Error("Payment cancelled"));
-        },
-      },
-      handler: async (response) => {
-        try {
-          // 3. Verify on backend
-          const verifyData = await api("/api/payment/verify", {
-            method: "POST",
-            body: JSON.stringify({
-              razorpay_order_id:   response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature:  response.razorpay_signature,
-              items, customer,
-            }),
-          });
-          showOrderSuccess(verifyData.order_number, "Payment received ✅");
-          resolve(verifyData);
-        } catch (e) {
-          reject(e);
-        }
-      },
-    };
-
-    const rzp = new window.Razorpay(rzpOptions);
-    rzp.on("payment.failed", (resp) => {
-      reject(new Error(resp.error.description || "Payment failed"));
-    });
-    rzp.open();
-  });
-}
-
-function showOrderSuccess(orderNumber, note) {
-  $("confirmOrderNum").textContent = orderNumber;
-  $("confirmNote").textContent     = note;
-  goToCheckoutStep(3);
-  clearCart();
-  setTimeout(() => {
-    closeCheckout();
-    showToast(`🎉 Order ${orderNumber} placed!`);
-  }, 4000);
-}
-
-// ════════════════════════════════════════════════════════════════════════════
-// TOAST
-// ════════════════════════════════════════════════════════════════════════════
-let toastTimer;
-function showToast(msg) {
-  const t = $("toast");
-  t.textContent = msg;
-  t.classList.add("visible");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove("visible"), 3000);
-}
-
-// ════════════════════════════════════════════════════════════════════════════
-// MISC
-// ════════════════════════════════════════════════════════════════════════════
-function showHome() {
-  clearFilters();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function fmtPrice(n) {
-  return Number(n).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-
-function esc(s) {
-  if (s == null) return "";
-  return String(s)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
+  } catch (_) {}
+})();
