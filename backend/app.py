@@ -103,6 +103,9 @@ def upload():
                         "note":f"Aammii catalogue recognised — {len(prods)} products loaded!"})
     return jsonify({"error":"No products data found. Ensure uploads/products.json exists."}),422
 
+@app.route("/api/products")
+def get_prods(): return jsonify(load())
+
 @app.route("/api/order", methods=["POST"])
 def order():
     d = request.get_json(silent=True)
@@ -112,7 +115,7 @@ def order():
     now = datetime.datetime.now(IST)
     grand = sum(i["qty"] * i["price"] for i in items)
 
-    W   = 60
+    W = 60
     sep = "─" * 62
 
     def row(text):
