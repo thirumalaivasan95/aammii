@@ -103,9 +103,6 @@ def upload():
                         "note":f"Aammii catalogue recognised — {len(prods)} products loaded!"})
     return jsonify({"error":"No products data found. Ensure uploads/products.json exists."}),422
 
-@app.route("/api/products")
-def get_prods(): return jsonify(load())
-
 @app.route("/api/order", methods=["POST"])
 def order():
     d = request.get_json(silent=True)
@@ -115,39 +112,38 @@ def order():
     now = datetime.datetime.now(IST)
     grand = sum(i["qty"] * i["price"] for i in items)
 
-    W = 60
-    top = "╔" + "═" * W + "╗"
-    bot = "╚" + "═" * W + "╝"
+    W   = 60
     sep = "─" * 62
 
     def row(text):
         return "║" + text.center(W) + "║"
 
     lines = [
-        top,
+        "╔" + "═" * W + "╗",
         row("AAMMII THARCHARBU SANTHAI"),
         row("Natural Lifestyle Products"),
         row("www.aammii.com  |  +91 95006 55548"),
-        bot,
+        "╚" + "═" * W + "╝",
         "",
         f"  Order ID  : {oid}",
         f"  Date      : {now.strftime('%Y-%m-%d')}",
         f"  Time      : {now.strftime('%H:%M:%S')} IST",
         "",
         sep,
+        f"  {'Qty':>4}   {'Price':>9}   {'Total':>9}   Product",
+        sep,
     ]
 
     for i in items:
-        n  = i["name"]        # full "Tamil / English" name
+        full_name = i["name"]          # "கடுகு / Kadugu"
         q  = i["qty"]
         pr = i["price"]
-        lines.append(f"  {n}")
-        lines.append(f"    Qty: {q}   Price: ₹{pr:.2f}   Total: ₹{q * pr:.2f}")
-        lines.append("")
+        # amounts line first (ASCII only — aligns perfectly)
+        lines.append(f"  {q:>4}   ₹{pr:>8.2f}   ₹{q*pr:>8.2f}   {full_name}")
 
     lines += [
         sep,
-        f"  {'GRAND TOTAL':<46} ₹{grand:>8.2f}",
+        f"  {'':>4}   {'':>9}   {'GRAND TOTAL':>9}   ₹{grand:.2f}",
         sep,
         "",
         "  Thank you for choosing Aammii Natural Products!",
