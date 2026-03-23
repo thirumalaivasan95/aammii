@@ -106,30 +106,24 @@ def upload():
 @app.route("/api/products")
 def get_prods(): return jsonify(load())
 
-@app.route("/api/order",methods=["POST"])
+@app.route("/api/order", methods=["POST"])
 def order():
-    d=request.get_json(silent=True)
-    if not d or not d.get("items"): return jsonify({"error":"No items"}),400
-    items=d["items"]
-    oid="ORD-"+"".join(random.choices(string.ascii_uppercase+string.digits,k=6))
+    d = request.get_json(silent=True)
+    if not d or not d.get("items"): return jsonify({"error": "No items"}), 400
+    items = d["items"]
+    oid = "ORD-" + "".join(random.choices(string.ascii_uppercase + string.digits, k=6))
+    now = datetime.datetime.now(IST)
+    grand = sum(i["qty"] * i["price"] for i in items)
 
-    # Always use IST regardless of where the server is hosted
-    now=datetime.datetime.now(IST)
-
-    grand=sum(i["qty"]*i["price"] for i in items)
-
-    # ── Invoice header ──────────────────────────────────────────────────────
-    # Width = 62 chars total: ║ + 60 content chars + ║
     W = 60
-    top    = "╔" + "═"*W + "╗"
-    bot    = "╚" + "═"*W + "╝"
-    sep    = "─"*62
+    top = "╔" + "═" * W + "╗"
+    bot = "╚" + "═" * W + "╝"
+    sep = "─" * 62
 
     def row(text):
-        """Centre text in W chars, wrap with ║ … ║"""
         return "║" + text.center(W) + "║"
 
-    lines=[
+    lines = [
         top,
         row("AAMMII THARCHARBU SANTHAI"),
         row("Natural Lifestyle Products"),
@@ -141,28 +135,31 @@ def order():
         f"  Time      : {now.strftime('%H:%M:%S')} IST",
         "",
         sep,
-        f"  {'Product':<34} {'Qty':>4}  {'Price':>9}  {'Total':>9}",
-        sep,
     ]
 
     for i in items:
-        full_name = i["name"]
-        display_name = full_name.split(" / ")[1] if " / " in full_name else full_name
-        n = display_name[:34]; q=i["qty"]; pr=i["price"]
-        lines.append(f"  {n:<34} {q:>4}  ₹{pr:>8.2f}  ₹{q*pr:>8.2f}")
+        n  = i["name"]        # full "Tamil / English" name
+        q  = i["qty"]
+        pr = i["price"]
+        lines.append(f"  {n}")
+        lines.append(f"    Qty: {q}   Price: ₹{pr:.2f}   Total: ₹{q * pr:.2f}")
+        lines.append("")
 
-    lines+=[
+    lines += [
         sep,
         f"  {'GRAND TOTAL':<46} ₹{grand:>8.2f}",
         sep,
         "",
         "  Thank you for choosing Aammii Natural Products!",
+        "  வாழ்க வளமுடன்!",
         "",
     ]
 
-    fn=f"{oid}.txt"; fp=os.path.join(ORD,fn)
-    with open(fp,"w",encoding="utf-8") as f: f.write("\n".join(lines))
-    return send_file(fp,as_attachment=True,download_name=fn,mimetype="text/plain")
+    fn = f"{oid}.txt"
+    fp = os.path.join(ORD, fn)
+    with open(fp, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+    return send_file(fp, as_attachment=True, download_name=fn, mimetype="text/plain; charset=utf-8")
 
 if __name__=="__main__":
     print("\n  🌿  Aammii Natural Shop  —  450 products")
