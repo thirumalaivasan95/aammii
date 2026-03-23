@@ -36,24 +36,40 @@ CAT_PAL={
 }
 _D=[("#4a7c59","#7cb997","🌿"),("#6b4226","#c8956c","🌾"),("#d4a043","#f4c87a","🍯"),("#c0392b","#e88080","🌶")]
 
-def msvg(name,pid,cat=""):
-    fp=os.path.join(IMGS,f"{pid}.svg")
+def msvg(name, pid, cat=""):
+    fp = os.path.join(IMGS, f"{pid}.svg")
     if os.path.exists(fp): return f"/images/{pid}.svg"
-    bg,ac,em=CAT_PAL.get(cat,_D[abs(hash(name))%len(_D)])
-    d=name[:26]+("…" if len(name)>26 else "")
-    ws=d.split(); l1=" ".join(ws[:3]); l2=" ".join(ws[3:6]) if len(ws)>3 else ""
-    svg=(f'<svg xmlns="http://www.w3.org/2000/svg" width="280" height="160" viewBox="0 0 280 160">'
-         f'<defs><linearGradient id="g{pid}" x1="0" y1="0" x2="1" y2="1">'
-         f'<stop offset="0%" stop-color="{bg}"/><stop offset="100%" stop-color="{ac}"/>'
-         f'</linearGradient></defs>'
-         f'<rect width="280" height="160" fill="url(#g{pid})" rx="12"/>'
-         f'<rect x="8" y="8" width="264" height="144" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1" rx="8"/>'
-         f'<circle cx="140" cy="65" r="32" fill="rgba(255,255,255,0.12)"/>'
-         f'<text x="140" y="79" text-anchor="middle" font-size="38">{em}</text>'
-         f'<text x="140" y="108" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.95)" font-family="Arial,sans-serif" font-weight="700">{l1}</text>'
-         +(f'<text x="140" y="126" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.8)" font-family="Arial,sans-serif">{l2}</text>' if l2 else "")
-         +'</svg>')
-    with open(fp,"w",encoding="utf-8") as f: f.write(svg)
+    bg, ac, em = CAT_PAL.get(cat, _D[abs(hash(name)) % len(_D)])
+
+    # Use only the Tamil part (before " / ") for the card label
+    tamil_part = name.split(" / ")[0] if " / " in name else name
+    english_part = name.split(" / ")[1] if " / " in name else ""
+
+    # Safe truncation by character count on the Tamil string
+    d = tamil_part[:20] + ("…" if len(tamil_part) > 20 else "")
+    ws = d.split(); l1 = " ".join(ws[:3]); l2 = " ".join(ws[3:]) if len(ws) > 3 else ""
+
+    # English sub-label (shorter)
+    en = english_part[:28] + ("…" if len(english_part) > 28 else "")
+
+    # Font stack that supports Tamil on most systems
+    font = "Noto Sans Tamil,Latha,Tamil MN,Arial Unicode MS,sans-serif"
+
+    svg = (
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="280" height="160" viewBox="0 0 280 160">'
+        f'<defs><linearGradient id="g{pid}" x1="0" y1="0" x2="1" y2="1">'
+        f'<stop offset="0%" stop-color="{bg}"/><stop offset="100%" stop-color="{ac}"/>'
+        f'</linearGradient></defs>'
+        f'<rect width="280" height="160" fill="url(#g{pid})" rx="12"/>'
+        f'<rect x="8" y="8" width="264" height="144" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1" rx="8"/>'
+        f'<circle cx="140" cy="58" r="28" fill="rgba(255,255,255,0.12)"/>'
+        f'<text x="140" y="72" text-anchor="middle" font-size="32">{em}</text>'
+        f'<text x="140" y="100" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.95)" font-family="{font}" font-weight="700">{l1}</text>'
+        + (f'<text x="140" y="116" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)" font-family="{font}">{l2}</text>' if l2 else "")
+        + (f'<text x="140" y="136" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)" font-family="Arial,sans-serif">{en}</text>' if en else "")
+        + '</svg>'
+    )
+    with open(fp, "w", encoding="utf-8") as f: f.write(svg)
     return f"/images/{pid}.svg"
 
 def load():
@@ -63,13 +79,15 @@ def load():
     except: return []
 
 def prebuild():
-    prods=load()
-    c=0
+    prods = load()
+    c = 0
     for p in prods:
-        pid=p.get("id")
-        if pid and not os.path.exists(os.path.join(IMGS,f"{pid}.svg")):
-            msvg(p.get("name",""),pid,p.get("category",""))
-            c+=1
+        pid = p.get("id")
+        if pid:
+            fp = os.path.join(IMGS, f"{pid}.svg")
+            # Regenerate all — names have changed to Tamil-first
+            msvg(p.get("name", ""), pid, p.get("category", ""))
+            c += 1
     if c: print(f"  🎨  Generated {c} SVG images")
 
 @app.route("/api/upload",methods=["POST"])
@@ -128,7 +146,9 @@ def order():
     ]
 
     for i in items:
-        n=i["name"][:34]; q=i["qty"]; pr=i["price"]
+        full_name = i["name"]
+        display_name = full_name.split(" / ")[1] if " / " in full_name else full_name
+        n = display_name[:34]; q=i["qty"]; pr=i["price"]
         lines.append(f"  {n:<34} {q:>4}  ₹{pr:>8.2f}  ₹{q*pr:>8.2f}")
 
     lines+=[
