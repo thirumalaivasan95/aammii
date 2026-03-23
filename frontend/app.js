@@ -323,7 +323,11 @@ function sortProducts(reRender = true) {
   const a = reRender ? filteredProducts : [...filteredProducts];
   if (v === "price-asc")  a.sort((x, y) => x.price - y.price);
   if (v === "price-desc") a.sort((x, y) => y.price - x.price);
-  if (v === "name-asc")   a.sort((x, y) => x.name.localeCompare(y.name));
+  if (v === "name-asc") a.sort((x, y) => {
+    const nameA = x.name.includes(" / ") ? x.name.split(" / ")[1] : x.name;
+    const nameB = y.name.includes(" / ") ? y.name.split(" / ")[1] : y.name;
+    return nameA.localeCompare(nameB);
+  });
   filteredProducts = a;
   renderProducts(filteredProducts);
 }
@@ -383,7 +387,8 @@ function addToCart(id) {
   }
 
   updateCartUI();
-  showToast(`🛒 ${p.name.slice(0, 28)} added`);
+  const displayName = p.name.includes(" / ") ? p.name.split(" / ")[1] : p.name;
+  showToast(`🛒 ${displayName.slice(0, 28)} added`);
 }
 
 function removeFromCart(id) { delete cart[id]; updateCartUI(); }

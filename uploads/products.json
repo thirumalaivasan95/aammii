@@ -2,7 +2,7 @@
   {
     "id": "A-033",
     "code": "A-033",
-    "name": "Foxtail Millet",
+    "name": "திணை அரிசி / Foxtail Millet",
     "qty": "1kg",
     "price": 195.0,
     "category": "Millets & Grains",
@@ -11,7 +11,7 @@
   {
     "id": "A-034",
     "code": "A-034",
-    "name": "Little Millet",
+    "name": "சாமை அரிசி / Little Millet",
     "qty": "1kg",
     "price": 180.0,
     "category": "Millets & Grains",
@@ -20,7 +20,7 @@
   {
     "id": "A-035",
     "code": "A-035",
-    "name": "Kodo Millet",
+    "name": "வரகு அரிசி / Kodo Millet",
     "qty": "1kg",
     "price": 170.0,
     "category": "Millets & Grains",
@@ -29,7 +29,7 @@
   {
     "id": "A-036",
     "code": "A-036",
-    "name": "Barnyard Millet",
+    "name": "குதிரைவாலி அரிசி / Barnyard Millet",
     "qty": "1kg",
     "price": 190.0,
     "category": "Millets & Grains",
@@ -38,7 +38,7 @@
   {
     "id": "A-037",
     "code": "A-037",
-    "name": "Finger Millet",
+    "name": "ராகி அரிசி / Finger Millet",
     "qty": "1kg",
     "price": 90.0,
     "category": "Millets & Grains",
@@ -47,7 +47,7 @@
   {
     "id": "G-485",
     "code": "G-485",
-    "name": "Vellai Solam",
+    "name": "வெள்ளை சோளம் / Vellai Solam",
     "qty": "500gm",
     "price": 65.0,
     "category": "Millets & Grains",
@@ -56,7 +56,7 @@
   {
     "id": "G-487",
     "code": "G-487",
-    "name": "Mappilai Sambha Rice",
+    "name": "மாப்பிள்ளை சம்பா அரிசி / Mappilai Sambha Rice",
     "qty": "1kg",
     "price": 140.0,
     "category": "Millets & Grains",
@@ -65,7 +65,7 @@
   {
     "id": "G-488",
     "code": "G-488",
-    "name": "Vellai Ponni Rice",
+    "name": "வெள்ளை பொன்னி அரிசி / Vellai Ponni Rice",
     "qty": "1kg",
     "price": 125.0,
     "category": "Millets & Grains",
@@ -74,7 +74,7 @@
   {
     "id": "G-489",
     "code": "G-489",
-    "name": "Seeraga Sambha Rice",
+    "name": "சீரக சம்பா அரிசி / Seeraga Sambha Rice",
     "qty": "1kg",
     "price": 170.0,
     "category": "Millets & Grains",
@@ -83,7 +83,7 @@
   {
     "id": "G-490",
     "code": "G-490",
-    "name": "Idly Rice",
+    "name": "இட்லி அரிசி / Idly Rice",
     "qty": "1kg",
     "price": 105.0,
     "category": "Millets & Grains",
@@ -92,7 +92,7 @@
   {
     "id": "G-491",
     "code": "G-491",
-    "name": "Kullakaar Rice",
+    "name": "குள்ளக்கார் அரிசி / Kullakaar Rice",
     "qty": "1kg",
     "price": 130.0,
     "category": "Millets & Grains",
@@ -101,7 +101,7 @@
   {
     "id": "G-493",
     "code": "G-493",
-    "name": "Puli (Tamarind)",
+    "name": "புளி / Puli",
     "qty": "500gm",
     "price": 180.0,
     "category": "Millets & Grains",
@@ -110,7 +110,7 @@
   {
     "id": "G-497",
     "code": "G-497",
-    "name": "Gothumai (Wheat)",
+    "name": "கோதுமை / Gothumai",
     "qty": "1kg",
     "price": 105.0,
     "category": "Millets & Grains",
@@ -119,7 +119,7 @@
   {
     "id": "G-615",
     "code": "G-615",
-    "name": "Kattu Anam Rice",
+    "name": "காட்டுயானம் அரிசி / Kattu Anam Rice",
     "qty": "1kg",
     "price": 195.0,
     "category": "Millets & Grains",
@@ -128,7 +128,7 @@
   {
     "id": "A-038",
     "code": "A-038",
-    "name": "Native Pearl Millet",
+    "name": "நாட்டுக்கம்பு / Native Pearl Millet",
     "qty": "1kg",
     "price": 230.0,
     "category": "Millets & Grains",
@@ -137,7 +137,7 @@
   {
     "id": "G-616",
     "code": "G-616",
-    "name": "Aathur Kichili Sambha Rice",
+    "name": "ஆத்தூர் கிச்சிலிச் சம்பா / Aathur Kichili Sambha Rice",
     "qty": "1kg",
     "price": 130.0,
     "category": "Millets & Grains",
@@ -146,7 +146,7 @@
   {
     "id": "G-617",
     "code": "G-617",
-    "name": "Thuyamalli Rice",
+    "name": "தூயமல்லி அரிசி / Thuyamalli Rice",
     "qty": "1kg",
     "price": 120.0,
     "category": "Millets & Grains",
@@ -155,7 +155,7 @@
   {
     "id": "G-618",
     "code": "G-618",
-    "name": "Mappilai Sambha Avul",
+    "name": "மாப்பிள்ளை சம்பா அவுல் / Mappilai Sambha Avul",
     "qty": "500gm",
     "price": 80.0,
     "category": "Millets & Grains",
@@ -164,16 +164,25 @@
   {
     "id": "G-619",
     "code": "G-619",
-    "name": "Poongar Rice",
+    "name": "பூங்கார் அரிசி / Poongar Rice",
     "qty": "1kg",
     "price": 130.0,
     "category": "Millets & Grains",
     "image": "/images/G-619.svg"
   },
   {
+    "id": "G-625",
+    "code": "G-625",
+    "name": "பச்சை பயிறு / Green Gram",
+    "qty": "500gm",
+    "price": 115.0,
+    "category": "Millets & Grains",
+    "image": "/images/G-625.svg"
+  },
+  {
     "id": "G-626",
     "code": "G-626",
-    "name": "Black Rice",
+    "name": "கருப்பு கவுனி அரிசி / Black Rice",
     "qty": "1kg",
     "price": 320.0,
     "category": "Millets & Grains",
@@ -182,7 +191,7 @@
   {
     "id": "G-718",
     "code": "G-718",
-    "name": "Vellai Ponni Arisi",
+    "name": "வெள்ளை பொன்னி அரிசி / Vellai Ponni Arisi",
     "qty": "25kg",
     "price": 3100.0,
     "category": "Millets & Grains",
@@ -191,7 +200,7 @@
   {
     "id": "G-1095",
     "code": "G-1095",
-    "name": "Foxtail Millet Aval",
+    "name": "திணை அவல் / Foxtail Millet Aval",
     "qty": "250gm",
     "price": 85.0,
     "category": "Millets & Grains",
@@ -200,7 +209,7 @@
   {
     "id": "G-652",
     "code": "G-652",
-    "name": "Cholam Aval",
+    "name": "சோள அவல் / Cholam Aval",
     "qty": "200gm",
     "price": 65.0,
     "category": "Millets & Grains",
@@ -209,7 +218,7 @@
   {
     "id": "G-496",
     "code": "G-496",
-    "name": "Karuppu Ulunthu",
+    "name": "கருப்பு உளுந்து / Karuppu Ulunthu",
     "qty": "500gm",
     "price": 110.0,
     "category": "Pulses & Dals",
@@ -218,7 +227,7 @@
   {
     "id": "G-494",
     "code": "G-494",
-    "name": "Nilakadalai",
+    "name": "நிலக்கடலை / Nilakadalai",
     "qty": "500gm",
     "price": 130.0,
     "category": "Pulses & Dals",
@@ -227,7 +236,7 @@
   {
     "id": "G-495",
     "code": "G-495",
-    "name": "Thuvaram Paruppu",
+    "name": "துவரம் பருப்பு / Thuvaram Paruppu",
     "qty": "1kg",
     "price": 300.0,
     "category": "Pulses & Dals",
@@ -236,7 +245,7 @@
   {
     "id": "G-500",
     "code": "G-500",
-    "name": "Kudam Puli",
+    "name": "குடம் புளி / Kudam Puli",
     "qty": "250gm",
     "price": 140.0,
     "category": "Pulses & Dals",
@@ -245,7 +254,7 @@
   {
     "id": "G-611",
     "code": "G-611",
-    "name": "Uruttu Uluthu",
+    "name": "உருட்டு உளுந்து / Uruttu Uluthu",
     "qty": "500gm",
     "price": 140.0,
     "category": "Pulses & Dals",
@@ -254,7 +263,7 @@
   {
     "id": "G-612",
     "code": "G-612",
-    "name": "Paasi Paruppu",
+    "name": "பாசிப்பருப்பு / Paasi Paruppu",
     "qty": "500gm",
     "price": 120.0,
     "category": "Pulses & Dals",
@@ -263,25 +272,16 @@
   {
     "id": "G-613",
     "code": "G-613",
-    "name": "Kadalai Paruppu",
+    "name": "கடலைப்பருப்பு / Kadalai Paruppu",
     "qty": "500gm",
     "price": 90.0,
     "category": "Pulses & Dals",
     "image": "/images/G-613.svg"
   },
   {
-    "id": "G-625",
-    "code": "G-625",
-    "name": "Green Gram",
-    "qty": "500gm",
-    "price": 115.0,
-    "category": "Pulses & Dals",
-    "image": "/images/G-625.svg"
-  },
-  {
     "id": "G-1015",
     "code": "G-1015",
-    "name": "Kollu (Horse Gram)",
+    "name": "கொள்ளு / Kollu",
     "qty": "500gm",
     "price": 82.0,
     "category": "Pulses & Dals",
@@ -290,7 +290,7 @@
   {
     "id": "G-1017",
     "code": "G-1017",
-    "name": "Konda Kadalai",
+    "name": "கொண்டக்கடலை / Konda Kadalai",
     "qty": "500gm",
     "price": 95.0,
     "category": "Pulses & Dals",
@@ -299,7 +299,7 @@
   {
     "id": "G-1019",
     "code": "G-1019",
-    "name": "Pottukadalai",
+    "name": "பொட்டுக்கடலை / Pottukadalai",
     "qty": "500gm",
     "price": 105.0,
     "category": "Pulses & Dals",
@@ -308,7 +308,7 @@
   {
     "id": "G-021",
     "code": "G-021",
-    "name": "Herbal Gourmet Sugar",
+    "name": "சோற்றுப்பால் சர்க்கரை / Herbal Gourmet Sugar",
     "qty": "500gm",
     "price": 70.0,
     "category": "Sweeteners",
@@ -317,7 +317,7 @@
   {
     "id": "G-111",
     "code": "G-111",
-    "name": "Palm Candy",
+    "name": "பனங்கற்கண்டு / Palm Candy",
     "qty": "100gm",
     "price": 100.0,
     "category": "Sweeteners",
@@ -326,7 +326,7 @@
   {
     "id": "G-424",
     "code": "G-424",
-    "name": "Jaggery",
+    "name": "நாட்டுச்சர்க்கரை / Jaggery",
     "qty": "5kg",
     "price": 450.0,
     "category": "Sweeteners",
@@ -335,7 +335,7 @@
   {
     "id": "G-431",
     "code": "G-431",
-    "name": "Jaggery",
+    "name": "நாட்டுச்சர்க்கரை / Jaggery",
     "qty": "1kg",
     "price": 95.0,
     "category": "Sweeteners",
@@ -344,7 +344,7 @@
   {
     "id": "G-622",
     "code": "G-622",
-    "name": "Jaggery (Urundam Vellam)",
+    "name": "உருண்டை வெல்லம் / Jaggery (Urundam Vellam)",
     "qty": "500gm",
     "price": 75.0,
     "category": "Sweeteners",
@@ -353,7 +353,7 @@
   {
     "id": "G-1191",
     "code": "G-1191",
-    "name": "Hill Honey",
+    "name": "மலைத் தேன் / Hill Honey",
     "qty": "200gm",
     "price": 199.0,
     "category": "Honey",
@@ -362,7 +362,7 @@
   {
     "id": "G-049",
     "code": "G-049",
-    "name": "Hill Honey",
+    "name": "மலைத் தேன் / Hill Honey",
     "qty": "500gm",
     "price": 399.0,
     "category": "Honey",
@@ -371,7 +371,7 @@
   {
     "id": "G-215",
     "code": "G-215",
-    "name": "Thulasi Honey",
+    "name": "துளசி தேன் / Thulasi Honey",
     "qty": "250gm",
     "price": 240.0,
     "category": "Honey",
@@ -380,7 +380,7 @@
   {
     "id": "G-216",
     "code": "G-216",
-    "name": "Jamun Honey",
+    "name": "நாவல் தேன் / Jamun Honey",
     "qty": "250gm",
     "price": 270.0,
     "category": "Honey",
@@ -389,7 +389,7 @@
   {
     "id": "S-037",
     "code": "S-037",
-    "name": "Sukku Malli Coffee",
+    "name": "சுக்கு மல்லி காபி / Sukku Malli Coffee",
     "qty": "100gm",
     "price": 120.0,
     "category": "Beverages",
@@ -398,7 +398,7 @@
   {
     "id": "G-019",
     "code": "G-019",
-    "name": "Herbal Tea Powder",
+    "name": "மூலிகை டீ பொடி / Herbal Tea Powder",
     "qty": "100gm",
     "price": 110.0,
     "category": "Beverages",
@@ -407,7 +407,7 @@
   {
     "id": "G-398",
     "code": "G-398",
-    "name": "Instant Herbal Tea",
+    "name": "உடனடி மூலிகை தேநீர் / Instant Herbal Tea",
     "qty": "100gm",
     "price": 75.0,
     "category": "Beverages",
@@ -416,7 +416,7 @@
   {
     "id": "G-426",
     "code": "G-426",
-    "name": "Karuppati Coffee",
+    "name": "கருப்பட்டி காபி / Karuppati Coffee",
     "qty": "100gm",
     "price": 190.0,
     "category": "Beverages",
@@ -425,7 +425,7 @@
   {
     "id": "G-427",
     "code": "G-427",
-    "name": "Herbal Soup Powder",
+    "name": "மூலிகை சூப் பொடி / Herbal Soup Powder",
     "qty": "100gm",
     "price": 100.0,
     "category": "Beverages",
@@ -434,7 +434,7 @@
   {
     "id": "G-448",
     "code": "G-448",
-    "name": "Kollu Juice",
+    "name": "கொள்ளு சாறு / Kollu Juice",
     "qty": "500ml",
     "price": 141.0,
     "category": "Beverages",
@@ -443,7 +443,7 @@
   {
     "id": "G-545",
     "code": "G-545",
-    "name": "Pirandai Juice",
+    "name": "பிரண்டைச்சாறு / Pirandai Juice",
     "qty": "500ml",
     "price": 141.0,
     "category": "Beverages",
@@ -452,7 +452,7 @@
   {
     "id": "G-546",
     "code": "G-546",
-    "name": "Thamarai Juice",
+    "name": "தாமரை சாறு / Thamarai Juice",
     "qty": "500ml",
     "price": 180.0,
     "category": "Beverages",
@@ -461,7 +461,7 @@
   {
     "id": "G-825",
     "code": "G-825",
-    "name": "Palm Jaggery Powder",
+    "name": "பனங்கருப்பட்டி தூள் / Palm Jaggery Powder",
     "qty": "400gm",
     "price": 220.0,
     "category": "Beverages",
@@ -470,7 +470,7 @@
   {
     "id": "G-1023",
     "code": "G-1023",
-    "name": "Lemon Sarpath",
+    "name": "எலுமிச்சை சர்பத் / Lemon Sarpath",
     "qty": "200gm",
     "price": 200.0,
     "category": "Beverages",
@@ -479,7 +479,7 @@
   {
     "id": "G-1022",
     "code": "G-1022",
-    "name": "Nannari Sarpath",
+    "name": "நன்னாரி சர்பத் / Nannari Sarpath",
     "qty": "200gm",
     "price": 165.0,
     "category": "Beverages",
@@ -488,7 +488,7 @@
   {
     "id": "G-1020",
     "code": "G-1020",
-    "name": "Nelli Sarpath",
+    "name": "நெல்லி சர்பத் / Nelli Sarpath",
     "qty": "200gm",
     "price": 175.0,
     "category": "Beverages",
@@ -497,7 +497,7 @@
   {
     "id": "G-1021",
     "code": "G-1021",
-    "name": "Semparuthi Sarpath",
+    "name": "செம்பருத்தி சர்பத் / Semparuthi Sarpath",
     "qty": "200gm",
     "price": 200.0,
     "category": "Beverages",
@@ -506,7 +506,7 @@
   {
     "id": "G-1178",
     "code": "G-1178",
-    "name": "Honey Rose Kulkand",
+    "name": "தேன் ரோஜா குல்கண்ட் / Honey Rose Kulkand",
     "qty": "300gm",
     "price": 450.0,
     "category": "Beverages",
@@ -515,7 +515,7 @@
   {
     "id": "G-1179",
     "code": "G-1179",
-    "name": "Rose Milk",
+    "name": "ரோஸ் மில்க் / Rose Milk",
     "qty": "500ml",
     "price": 400.0,
     "category": "Beverages",
@@ -524,7 +524,7 @@
   {
     "id": "G-1181",
     "code": "G-1181",
-    "name": "Finger Millet Soup",
+    "name": "ராகி சூப் / Finger Millet Soup",
     "qty": "300gm",
     "price": 145.0,
     "category": "Beverages",
@@ -533,7 +533,7 @@
   {
     "id": "G-831",
     "code": "G-831",
-    "name": "Sukku Coffee",
+    "name": "சுக்கு காபி / Sukku Coffee",
     "qty": "200gm",
     "price": 110.0,
     "category": "Beverages",
@@ -542,7 +542,7 @@
   {
     "id": "G-1076",
     "code": "G-1076",
-    "name": "Apple Cider Vinegar",
+    "name": "ஆப்பிள் சிடர் வினிகர் / Apple Cider Vinegar",
     "qty": "200ml",
     "price": 225.0,
     "category": "Beverages",
@@ -551,7 +551,7 @@
   {
     "id": "G-295",
     "code": "G-295",
-    "name": "Blood Purifier",
+    "name": "இரத்த சுத்தி பானம் / Blood Purifier",
     "qty": "200ml",
     "price": 400.0,
     "category": "Healthcare",
@@ -560,7 +560,7 @@
   {
     "id": "G-1250",
     "code": "G-1250",
-    "name": "Blood Purifier",
+    "name": "இரத்த சுத்தி பானம் / Blood Purifier",
     "qty": "500ml",
     "price": 950.0,
     "category": "Healthcare",
@@ -569,7 +569,7 @@
   {
     "id": "G-1231",
     "code": "G-1231",
-    "name": "Aammii Uyir Sakthi Banam",
+    "name": "உயிர் சத்தி பானம் / Aammii Uyir Sakthi Banam",
     "qty": "200ml",
     "price": 330.0,
     "category": "Healthcare",
@@ -578,7 +578,7 @@
   {
     "id": "Combo28",
     "code": "Combo28",
-    "name": "Blood Purifier Combo",
+    "name": "இரத்த சுத்தி கொம்போ / Blood Purifier Combo",
     "qty": "500ml x 2",
     "price": 1650.0,
     "category": "Healthcare",
@@ -587,7 +587,7 @@
   {
     "id": "Op37",
     "code": "Op37",
-    "name": "Enima Kit",
+    "name": "இனிமா கிட் / Enima Kit",
     "qty": "1pc",
     "price": 180.0,
     "category": "Healthcare",
@@ -596,7 +596,7 @@
   {
     "id": "T-036",
     "code": "T-036",
-    "name": "Electric Balm",
+    "name": "மின்சார தைலம் / Electric Balm",
     "qty": "8ml",
     "price": 45.0,
     "category": "Healthcare",
@@ -605,7 +605,7 @@
   {
     "id": "G-032",
     "code": "G-032",
-    "name": "Goddess Nut",
+    "name": "தேற்றான் கொட்டை / Goddess Nut",
     "qty": "250gm",
     "price": 190.0,
     "category": "Healthcare",
@@ -614,7 +614,7 @@
   {
     "id": "G-432",
     "code": "G-432",
-    "name": "Aero Balm",
+    "name": "ஏரோபாம் களிம்பு / Aero Balm",
     "qty": "15gm",
     "price": 33.0,
     "category": "Healthcare",
@@ -623,7 +623,7 @@
   {
     "id": "G-433",
     "code": "G-433",
-    "name": "Asvaganthathi Lehyam",
+    "name": "அஸ்வகந்தாதி லேகியம் / Asvaganthathi Lehyam",
     "qty": "250gm",
     "price": 175.0,
     "category": "Healthcare",
@@ -632,7 +632,7 @@
   {
     "id": "G-1175",
     "code": "G-1175",
-    "name": "Thirikadugu Chooranam",
+    "name": "திரிகடுகு சூரணம் / Thirikadugu Chooranam",
     "qty": "100gm",
     "price": 190.0,
     "category": "Healthcare",
@@ -641,7 +641,7 @@
   {
     "id": "G-1176",
     "code": "G-1176",
-    "name": "Gopuram Thangi Mooligai Thailam",
+    "name": "கோபுரம் தாங்கி மூலிகை தைலம் / Gopuram Thangi Mooligai Thailam",
     "qty": "100ml",
     "price": 360.0,
     "category": "Healthcare",
@@ -650,7 +650,7 @@
   {
     "id": "G-1227",
     "code": "G-1227",
-    "name": "Vilosanam Kit",
+    "name": "விலோசனம் கிட் / Vilosanam Kit",
     "qty": "1pc",
     "price": 2450.0,
     "category": "Healthcare",
@@ -659,7 +659,7 @@
   {
     "id": "G-291",
     "code": "G-291",
-    "name": "Vaazlai Neer",
+    "name": "வாழை குடிநீர் / Vaazlai Neer",
     "qty": "500ml",
     "price": 245.0,
     "category": "Healthcare",
@@ -668,7 +668,7 @@
   {
     "id": "G-434",
     "code": "G-434",
-    "name": "Crack Cure Ointment",
+    "name": "கிராக் கியூர் களிம்பு / Crack Cure Ointment",
     "qty": "15gm",
     "price": 28.0,
     "category": "Healthcare",
@@ -677,7 +677,7 @@
   {
     "id": "G-435",
     "code": "G-435",
-    "name": "Ear Drops",
+    "name": "இயர் ட்ராப்ஸ் / Ear Drops",
     "qty": "10ml",
     "price": 20.0,
     "category": "Healthcare",
@@ -686,7 +686,7 @@
   {
     "id": "G-438",
     "code": "G-438",
-    "name": "Kadukkai Lehyam",
+    "name": "கடுக்காய் லேகியம் / Kadukkai Lehyam",
     "qty": "125gm",
     "price": 90.0,
     "category": "Healthcare",
@@ -695,7 +695,7 @@
   {
     "id": "G-442",
     "code": "G-442",
-    "name": "Moolamirtha Lehyam",
+    "name": "மூலமிர்த லேகியம் / Moolamirtha Lehyam",
     "qty": "250gm",
     "price": 164.0,
     "category": "Healthcare",
@@ -704,7 +704,7 @@
   {
     "id": "G-444",
     "code": "G-444",
-    "name": "Sowbhagya Sundhi Lehyam",
+    "name": "சௌபாக்கியசுந்தி லேகியம் / Sowbhagya Sundhi Lehyam",
     "qty": "250gm",
     "price": 145.0,
     "category": "Healthcare",
@@ -713,7 +713,7 @@
   {
     "id": "G-445",
     "code": "G-445",
-    "name": "Tooth Drops",
+    "name": "டூத் ட்ராப்ஸ் / Tooth Drops",
     "qty": "5ml",
     "price": 30.0,
     "category": "Healthcare",
@@ -722,7 +722,7 @@
   {
     "id": "G-507",
     "code": "G-507",
-    "name": "Kabha Sura Kudineer",
+    "name": "கபசுர குடிநீர் / Kabha Sura Kudineer",
     "qty": "50gm",
     "price": 75.0,
     "category": "Healthcare",
@@ -731,7 +731,7 @@
   {
     "id": "G-654",
     "code": "G-654",
-    "name": "Baby Gripe Water",
+    "name": "பேபி கிரிப் வாட்டர் / Baby Gripe Water",
     "qty": "100ml",
     "price": 28.0,
     "category": "Healthcare",
@@ -740,7 +740,7 @@
   {
     "id": "G-655",
     "code": "G-655",
-    "name": "Dermoherb",
+    "name": "டெர்மோஹெர்ப் / Dermoherb",
     "qty": "15ml",
     "price": 28.0,
     "category": "Healthcare",
@@ -749,7 +749,7 @@
   {
     "id": "G-656",
     "code": "G-656",
-    "name": "Herbal Drink",
+    "name": "ஹெர்பல் டிரிங் / Herbal Drink",
     "qty": "200gm",
     "price": 84.0,
     "category": "Healthcare",
@@ -758,7 +758,7 @@
   {
     "id": "G-657",
     "code": "G-657",
-    "name": "Herbex Cough Syrup",
+    "name": "ஹெர்பக்ஸ் கஃப் சிரப் / Herbex Cough Syrup",
     "qty": "100ml",
     "price": 42.0,
     "category": "Healthcare",
@@ -767,7 +767,7 @@
   {
     "id": "G-659",
     "code": "G-659",
-    "name": "Karpura Thailam",
+    "name": "கற்பூர தைலம் / Karpura Thailam",
     "qty": "100ml",
     "price": 90.0,
     "category": "Healthcare",
@@ -776,7 +776,7 @@
   {
     "id": "G-661",
     "code": "G-661",
-    "name": "Massage Oil",
+    "name": "மசாஜ் ஆயில் / Massage Oil",
     "qty": "100ml",
     "price": 136.0,
     "category": "Healthcare",
@@ -785,7 +785,7 @@
   {
     "id": "G-660",
     "code": "G-660",
-    "name": "Liceol Powder",
+    "name": "லைசால் பவுடர் / Liceol Powder",
     "qty": "50gm",
     "price": 50.0,
     "category": "Healthcare",
@@ -794,7 +794,7 @@
   {
     "id": "G-664",
     "code": "G-664",
-    "name": "Puluvetty Thylam",
+    "name": "புழுவெட்டு தைலம் / Puluvetty Thylam",
     "qty": "100ml",
     "price": 65.0,
     "category": "Healthcare",
@@ -803,7 +803,7 @@
   {
     "id": "G-666",
     "code": "G-666",
-    "name": "Vatha Kesari Thylam",
+    "name": "வாத கேசரி தைலம் / Vatha Kesari Thylam",
     "qty": "100ml",
     "price": 90.0,
     "category": "Healthcare",
@@ -812,7 +812,7 @@
   {
     "id": "G-689",
     "code": "G-689",
-    "name": "Amla Legiyam",
+    "name": "நெல்லிக்காய் லேகியம் / Amla Legiyam",
     "qty": "200gm",
     "price": 330.0,
     "category": "Healthcare",
@@ -821,7 +821,7 @@
   {
     "id": "G-985",
     "code": "G-985",
-    "name": "Energy Water Pack",
+    "name": "மூலிகை முடிச்சு / Energy Water Pack",
     "qty": "1 Pack",
     "price": 275.0,
     "category": "Healthcare",
@@ -830,7 +830,7 @@
   {
     "id": "G-439",
     "code": "G-439",
-    "name": "Cool Oil",
+    "name": "குளிர்ச்சி எண்ணெய் / Cool Oil",
     "qty": "100ml",
     "price": 100.0,
     "category": "Healthcare",
@@ -839,7 +839,7 @@
   {
     "id": "G-241",
     "code": "G-241",
-    "name": "Drumstick Seed Oil",
+    "name": "முருங்கை விதை எண்ணெய் / Drumstick Seed Oil",
     "qty": "100ml",
     "price": 950.0,
     "category": "Healthcare",
@@ -848,7 +848,7 @@
   {
     "id": "G-314",
     "code": "G-314",
-    "name": "Davana Oil",
+    "name": "மரிக்கொழுந்து எண்ணெய் / Davana Oil",
     "qty": "50ml",
     "price": 175.0,
     "category": "Healthcare",
@@ -857,7 +857,7 @@
   {
     "id": "G-467",
     "code": "G-467",
-    "name": "Mixed Veg Pickle",
+    "name": "ஊறுகாய் மிக்ஸ் / Mixed Veg Pickle",
     "qty": "300gm",
     "price": 85.0,
     "category": "Pickles",
@@ -866,7 +866,7 @@
   {
     "id": "G-464",
     "code": "G-464",
-    "name": "Mango Pickle",
+    "name": "மாங்காய் ஊறுகாய் / Mango Pickle",
     "qty": "300gm",
     "price": 80.0,
     "category": "Pickles",
@@ -875,7 +875,7 @@
   {
     "id": "G-465",
     "code": "G-465",
-    "name": "Citron Pickle",
+    "name": "நார்த்தங்காய் ஊறுகாய் / Citron Pickle",
     "qty": "300gm",
     "price": 80.0,
     "category": "Pickles",
@@ -884,7 +884,7 @@
   {
     "id": "G-466",
     "code": "G-466",
-    "name": "Ginger Pickle",
+    "name": "இஞ்சி ஊறுகாய் / Ginger Pickle",
     "qty": "300gm",
     "price": 85.0,
     "category": "Pickles",
@@ -893,7 +893,7 @@
   {
     "id": "G-1088",
     "code": "G-1088",
-    "name": "Small Onion Pickle",
+    "name": "சின்னவெங்காயம் ஊறுகாய் / Small Onion Pickle",
     "qty": "300gm",
     "price": 100.0,
     "category": "Pickles",
@@ -902,7 +902,7 @@
   {
     "id": "G-1104",
     "code": "G-1104",
-    "name": "Lemon Pickle",
+    "name": "எலுமிச்சை ஊறுகாய் / Lemon Pickle",
     "qty": "300gm",
     "price": 80.0,
     "category": "Pickles",
@@ -911,7 +911,7 @@
   {
     "id": "G-1105",
     "code": "G-1105",
-    "name": "Garlic Pickle",
+    "name": "பூண்டு ஊறுகாய் / Garlic Pickle",
     "qty": "300gm",
     "price": 100.0,
     "category": "Pickles",
@@ -920,7 +920,7 @@
   {
     "id": "G-1107",
     "code": "G-1107",
-    "name": "Tomato Pickle",
+    "name": "தக்காளி ஊறுகாய் / Tomato Pickle",
     "qty": "300gm",
     "price": 85.0,
     "category": "Pickles",
@@ -929,7 +929,7 @@
   {
     "id": "G-1197",
     "code": "G-1197",
-    "name": "Vadu Mangai Pickle",
+    "name": "வடு மாங்காய் / Vadu Mangai Pickle",
     "qty": "300gm",
     "price": 160.0,
     "category": "Pickles",
@@ -938,7 +938,7 @@
   {
     "id": "G-1198",
     "code": "G-1198",
-    "name": "Green Chilly Pickle",
+    "name": "பச்சமிளகாய் ஊறுகாய் / Green Chilly Pickle",
     "qty": "300gm",
     "price": 100.0,
     "category": "Pickles",
@@ -947,7 +947,7 @@
   {
     "id": "G-022",
     "code": "G-022",
-    "name": "Rock Salt (Free Flow)",
+    "name": "இந்து உப்பு (பொடி) / Rock Salt (Free Flow)",
     "qty": "500gm",
     "price": 50.0,
     "category": "Salt",
@@ -956,7 +956,7 @@
   {
     "id": "G-109",
     "code": "G-109",
-    "name": "Iodine Less Salt",
+    "name": "கல் உப்பு / Iodine Less Salt",
     "qty": "1kg",
     "price": 30.0,
     "category": "Salt",
@@ -965,7 +965,7 @@
   {
     "id": "G-213",
     "code": "G-213",
-    "name": "Rock Salt (Granules)",
+    "name": "இந்து உப்பு (கல்) / Rock Salt (Granules)",
     "qty": "500gm",
     "price": 50.0,
     "category": "Salt",
@@ -974,7 +974,7 @@
   {
     "id": "G-1195",
     "code": "G-1195",
-    "name": "Cashew Nut",
+    "name": "முந்திரி / Cashew Nut",
     "qty": "200gm",
     "price": 320.0,
     "category": "Dry Fruits & Nuts",
@@ -983,7 +983,7 @@
   {
     "id": "G-1193",
     "code": "G-1193",
-    "name": "Almonds",
+    "name": "பாதாம் பருப்பு / Almonds",
     "qty": "200gm",
     "price": 340.0,
     "category": "Dry Fruits & Nuts",
@@ -992,7 +992,7 @@
   {
     "id": "G-272",
     "code": "G-272",
-    "name": "Sabja Seed",
+    "name": "சப்ஜா விதை / Sabja Seed",
     "qty": "200gm",
     "price": 140.0,
     "category": "Dry Fruits & Nuts",
@@ -1001,7 +1001,7 @@
   {
     "id": "G-274",
     "code": "G-274",
-    "name": "Honey Amla",
+    "name": "தேன் நெல்லி / Honey Amla",
     "qty": "1pc",
     "price": 12.0,
     "category": "Dry Fruits & Nuts",
@@ -1010,7 +1010,7 @@
   {
     "id": "G-1194",
     "code": "G-1194",
-    "name": "Black Raisins",
+    "name": "உலர் திராட்சை / Black Raisins",
     "qty": "200gm",
     "price": 170.0,
     "category": "Dry Fruits & Nuts",
@@ -1019,7 +1019,7 @@
   {
     "id": "G-1199",
     "code": "G-1199",
-    "name": "Harmony Dates",
+    "name": "பேரிச்சம் பழம் / Harmony Dates",
     "qty": "200gm",
     "price": 120.0,
     "category": "Dry Fruits & Nuts",
@@ -1028,7 +1028,7 @@
   {
     "id": "G-294",
     "code": "G-294",
-    "name": "Flax Seed Roasted",
+    "name": "ஆளிவிதை / Flax Seed Roasted",
     "qty": "150gm",
     "price": 70.0,
     "category": "Dry Fruits & Nuts",
@@ -1037,7 +1037,7 @@
   {
     "id": "G-1200",
     "code": "G-1200",
-    "name": "Dry Figs",
+    "name": "அத்திப்பழம் / Dry Figs",
     "qty": "200gm",
     "price": 380.0,
     "category": "Dry Fruits & Nuts",
@@ -1046,7 +1046,7 @@
   {
     "id": "G-1077",
     "code": "G-1077",
-    "name": "Amla Candy",
+    "name": "நெல்லி மிட்டாய் / Amla Candy",
     "qty": "100gm",
     "price": 95.0,
     "category": "Dry Fruits & Nuts",
@@ -1055,7 +1055,7 @@
   {
     "id": "S-038",
     "code": "S-038",
-    "name": "Protein Milk",
+    "name": "புரோட்டீன் மில்க் ஷேக் / Protein Milk",
     "qty": "150gm",
     "price": 95.0,
     "category": "Health Mix",
@@ -1064,7 +1064,7 @@
   {
     "id": "S-040",
     "code": "S-040",
-    "name": "Hemoglobin Booster",
+    "name": "ஹீமோகுளோபின் பூஸ்டர் / Hemoglobin Booster",
     "qty": "100gm",
     "price": 160.0,
     "category": "Health Mix",
@@ -1073,7 +1073,7 @@
   {
     "id": "G-278",
     "code": "G-278",
-    "name": "Beetroot Malt",
+    "name": "பீட்ரூட் மால்ட் / Beetroot Malt",
     "qty": "250gm",
     "price": 240.0,
     "category": "Health Mix",
@@ -1082,7 +1082,7 @@
   {
     "id": "G-1192",
     "code": "G-1192",
-    "name": "Aammii Multi Malt",
+    "name": "மல்டி மால்ட் / Aammii Multi Malt",
     "qty": "250gm",
     "price": 275.0,
     "category": "Health Mix",
@@ -1091,7 +1091,7 @@
   {
     "id": "G-544",
     "code": "G-544",
-    "name": "Nutro Foods",
+    "name": "நியூட்ரோ புட்ஸ் / Nutro Foods",
     "qty": "500gm",
     "price": 222.0,
     "category": "Health Mix",
@@ -1100,7 +1100,7 @@
   {
     "id": "G-663",
     "code": "G-663",
-    "name": "Nutro Food Health Mix Malt",
+    "name": "நியூட்ரோ புட்ஸ் ஹெல்த் மிக்ஸ் / Nutro Food Health Mix Malt",
     "qty": "750gm",
     "price": 267.0,
     "category": "Health Mix",
@@ -1109,7 +1109,7 @@
   {
     "id": "G-550",
     "code": "G-550",
-    "name": "Aloe Jam",
+    "name": "கற்றாழை ஜாம் / Aloe Jam",
     "qty": "250gm",
     "price": 160.0,
     "category": "Health Mix",
@@ -1118,7 +1118,7 @@
   {
     "id": "G-927",
     "code": "G-927",
-    "name": "Karuppu Kavuni Karisalai Iyarkai Kanji",
+    "name": "கருப்பு கவுனி கரிசலை இயற்கை கஞ்சி / Karuppu Kavuni Karisalai Iyarkai Kanji",
     "qty": "500gm",
     "price": 340.0,
     "category": "Health Mix",
@@ -1127,7 +1127,7 @@
   {
     "id": "G-1130",
     "code": "G-1130",
-    "name": "Nistai 21 Millet Health Mix",
+    "name": "நிஸ்தை 21 மில்லட் ஹெல்த் மிக்ஸ் / Nistai 21 Millet Health Mix",
     "qty": "250gm",
     "price": 180.0,
     "category": "Health Mix",
@@ -1136,7 +1136,7 @@
   {
     "id": "G-1183",
     "code": "G-1183",
-    "name": "Ragi Choco Malt",
+    "name": "ராகி சாக்கோ மால்ட் / Ragi Choco Malt",
     "qty": "250gm",
     "price": 200.0,
     "category": "Health Mix",
@@ -1145,7 +1145,7 @@
   {
     "id": "G-1182",
     "code": "G-1182",
-    "name": "Black Urad Dal Kanji Mix",
+    "name": "கருப்பு உளுந்து கஞ்சி மிக்ஸ் / Black Urad Dal Kanji Mix",
     "qty": "300gm",
     "price": 165.0,
     "category": "Health Mix",
@@ -1154,7 +1154,7 @@
   {
     "id": "G-1248",
     "code": "G-1248",
-    "name": "Aammii Detox Rice Paste",
+    "name": "அம்மி டிடாக்ஸ் அரிசி பேஸ்ட் / Aammii Detox Rice Paste",
     "qty": "200gm",
     "price": 180.0,
     "category": "Health Mix",
@@ -1163,7 +1163,7 @@
   {
     "id": "T-026",
     "code": "T-026",
-    "name": "Sambar Powder",
+    "name": "சாம்பார் பொடி / Sambar Powder",
     "qty": "100gm",
     "price": 90.0,
     "category": "Spices",
@@ -1172,7 +1172,7 @@
   {
     "id": "G-008",
     "code": "G-008",
-    "name": "Herbal Turmeric Powder",
+    "name": "மஞ்சள் பொடி / Herbal Turmeric Powder",
     "qty": "250gm",
     "price": 100.0,
     "category": "Spices",
@@ -1181,7 +1181,7 @@
   {
     "id": "G-020",
     "code": "G-020",
-    "name": "Natural Pepper",
+    "name": "குறுமிளகு / Natural Pepper",
     "qty": "100gm",
     "price": 135.0,
     "category": "Spices",
@@ -1190,7 +1190,7 @@
   {
     "id": "G-303",
     "code": "G-303",
-    "name": "Black Cumin Seeds",
+    "name": "கருஞ்சீரகம் / Black Cumin Seeds",
     "qty": "150gm",
     "price": 100.0,
     "category": "Spices",
@@ -1199,7 +1199,7 @@
   {
     "id": "G-474",
     "code": "G-474",
-    "name": "Kadugu (Mustard)",
+    "name": "கடுகு / Kadugu",
     "qty": "250gm",
     "price": 55.0,
     "category": "Spices",
@@ -1208,7 +1208,7 @@
   {
     "id": "G-475",
     "code": "G-475",
-    "name": "Venthayam (Fenugreek)",
+    "name": "வெந்தயம் / Venthayam",
     "qty": "250gm",
     "price": 55.0,
     "category": "Spices",
@@ -1217,7 +1217,7 @@
   {
     "id": "G-477",
     "code": "G-477",
-    "name": "Briyani Leaves",
+    "name": "பிரியாணி இலை / Briyani Leaves",
     "qty": "100gm",
     "price": 40.0,
     "category": "Spices",
@@ -1226,7 +1226,7 @@
   {
     "id": "G-928",
     "code": "G-928",
-    "name": "Sombhu (Anise)",
+    "name": "சோம்பு / Sombhu",
     "qty": "100gm",
     "price": 55.0,
     "category": "Spices",
@@ -1235,7 +1235,7 @@
   {
     "id": "G-479",
     "code": "G-479",
-    "name": "Vasambhu",
+    "name": "வசம்பு / Vasambhu",
     "qty": "100gm",
     "price": 45.0,
     "category": "Spices",
@@ -1244,7 +1244,7 @@
   {
     "id": "G-480",
     "code": "G-480",
-    "name": "Jeeragam (Cumin)",
+    "name": "சீரகம் / Jeeragam",
     "qty": "100gm",
     "price": 95.0,
     "category": "Spices",
@@ -1253,7 +1253,7 @@
   {
     "id": "G-481",
     "code": "G-481",
-    "name": "Omam (Ajwain)",
+    "name": "ஓமம் / Omam",
     "qty": "100gm",
     "price": 50.0,
     "category": "Spices",
@@ -1262,7 +1262,7 @@
   {
     "id": "G-482",
     "code": "G-482",
-    "name": "Patai (Cinnamon)",
+    "name": "பட்டை / Patai",
     "qty": "100gm",
     "price": 55.0,
     "category": "Spices",
@@ -1271,7 +1271,7 @@
   {
     "id": "G-483",
     "code": "G-483",
-    "name": "Sukku (Dry Ginger)",
+    "name": "சுக்கு / Sukku",
     "qty": "100gm",
     "price": 85.0,
     "category": "Spices",
@@ -1280,7 +1280,7 @@
   {
     "id": "G-484",
     "code": "G-484",
-    "name": "Kirambhu (Cloves)",
+    "name": "கிராம்பு / Kirambhu",
     "qty": "50gm",
     "price": 95.0,
     "category": "Spices",
@@ -1289,7 +1289,7 @@
   {
     "id": "G-508",
     "code": "G-508",
-    "name": "Pepper Powder",
+    "name": "மிளகுத் தூள் / Pepper Powder",
     "qty": "100gm",
     "price": 130.0,
     "category": "Spices",
@@ -1298,7 +1298,7 @@
   {
     "id": "G-933",
     "code": "G-933",
-    "name": "Karam Masala",
+    "name": "கரம் மசாலா / Karam Masala",
     "qty": "100gm",
     "price": 70.0,
     "category": "Spices",
@@ -1307,7 +1307,7 @@
   {
     "id": "G-926",
     "code": "G-926",
-    "name": "Perungayam Powder",
+    "name": "பெருங்காயம் பொடி / Perungayam Powder",
     "qty": "50gm",
     "price": 170.0,
     "category": "Spices",
@@ -1316,7 +1316,7 @@
   {
     "id": "G-791",
     "code": "G-791",
-    "name": "Cardamom Green",
+    "name": "ஏலக்காய் / Cardamom Green",
     "qty": "15gm",
     "price": 85.0,
     "category": "Spices",
@@ -1325,7 +1325,7 @@
   {
     "id": "T-025",
     "code": "T-025",
-    "name": "Rasam Powder",
+    "name": "ரசம் பொடி / Rasam Powder",
     "qty": "100gm",
     "price": 90.0,
     "category": "Spices",
@@ -1334,7 +1334,7 @@
   {
     "id": "G-1180",
     "code": "G-1180",
-    "name": "Moringa Leaf Idli Podi",
+    "name": "முருங்கை கீரை இட்லி பொடி / Moringa Leaf Idli Podi",
     "qty": "100gm",
     "price": 95.0,
     "category": "Spices",
@@ -1343,7 +1343,7 @@
   {
     "id": "G-1249",
     "code": "G-1249",
-    "name": "Flex Seed & Horse Gram Idly Podi",
+    "name": "ஆளிவிதை & கொள்ளு இட்லி பொடி / Flex Seed & Horse Gram Idly Podi",
     "qty": "100gm",
     "price": 130.0,
     "category": "Spices",
@@ -1352,7 +1352,7 @@
   {
     "id": "G-501",
     "code": "G-501",
-    "name": "Country Cow Ghee",
+    "name": "நாட்டு மாடு நெய் / Country Cow Ghee",
     "qty": "200ml",
     "price": 325.0,
     "category": "Oils & Ghee",
@@ -1361,7 +1361,7 @@
   {
     "id": "G-502",
     "code": "G-502",
-    "name": "Country Cow Ghee",
+    "name": "நாட்டு மாடு நெய் / Country Cow Ghee",
     "qty": "500ml",
     "price": 765.0,
     "category": "Oils & Ghee",
@@ -1370,7 +1370,7 @@
   {
     "id": "G-503",
     "code": "G-503",
-    "name": "Country Cow Ghee",
+    "name": "நாட்டு மாடு நெய் / Country Cow Ghee",
     "qty": "1ltr",
     "price": 1490.0,
     "category": "Oils & Ghee",
@@ -1379,7 +1379,7 @@
   {
     "id": "G-014",
     "code": "G-014",
-    "name": "Coconut Oil",
+    "name": "தேங்காய் எண்ணெய் / Coconut Oil",
     "qty": "500ml",
     "price": 350.0,
     "category": "Oils & Ghee",
@@ -1388,7 +1388,7 @@
   {
     "id": "G-015",
     "code": "G-015",
-    "name": "Coconut Oil",
+    "name": "தேங்காய் எண்ணெய் / Coconut Oil",
     "qty": "1ltr",
     "price": 650.0,
     "category": "Oils & Ghee",
@@ -1397,7 +1397,7 @@
   {
     "id": "G-016",
     "code": "G-016",
-    "name": "Groundnut Oil",
+    "name": "கடலை எண்ணெய் / Groundnut Oil",
     "qty": "500ml",
     "price": 190.0,
     "category": "Oils & Ghee",
@@ -1406,7 +1406,7 @@
   {
     "id": "G-063",
     "code": "G-063",
-    "name": "Groundnut Oil",
+    "name": "கடலை எண்ணெய் / Groundnut Oil",
     "qty": "1ltr",
     "price": 360.0,
     "category": "Oils & Ghee",
@@ -1415,7 +1415,7 @@
   {
     "id": "G-017",
     "code": "G-017",
-    "name": "Gingelly Oil",
+    "name": "எள் எண்ணெய் / Gingelly Oil",
     "qty": "500ml",
     "price": 255.0,
     "category": "Oils & Ghee",
@@ -1424,7 +1424,7 @@
   {
     "id": "G-064",
     "code": "G-064",
-    "name": "Gingelly Oil",
+    "name": "எள் எண்ணெய் / Gingelly Oil",
     "qty": "1ltr",
     "price": 490.0,
     "category": "Oils & Ghee",
@@ -1433,7 +1433,7 @@
   {
     "id": "G-279",
     "code": "G-279",
-    "name": "Neem Oil",
+    "name": "வேப்பிலை எண்ணெய் / Neem Oil",
     "qty": "200ml",
     "price": 95.0,
     "category": "Oils & Ghee",
@@ -1442,7 +1442,7 @@
   {
     "id": "G-280",
     "code": "G-280",
-    "name": "Iluppai Oil",
+    "name": "இலுப்பை எண்ணெய் / Iluppai Oil",
     "qty": "200ml",
     "price": 95.0,
     "category": "Oils & Ghee",
@@ -1451,7 +1451,7 @@
   {
     "id": "G-018",
     "code": "G-018",
-    "name": "Castor Oil",
+    "name": "விளக்கு எண்ணெய் / Castor Oil",
     "qty": "250ml",
     "price": 170.0,
     "category": "Oils & Ghee",
@@ -1460,7 +1460,7 @@
   {
     "id": "G-1122",
     "code": "G-1122",
-    "name": "Groundnut Oil",
+    "name": "கடலை எண்ணெய் / Groundnut Oil",
     "qty": "5kg",
     "price": 1690.0,
     "category": "Oils & Ghee",
@@ -1469,7 +1469,7 @@
   {
     "id": "B-003",
     "code": "B-003",
-    "name": "Groundnut Oil",
+    "name": "கடலை எண்ணெய் / Groundnut Oil",
     "qty": "15kg",
     "price": 4400.0,
     "category": "Oils & Ghee",
@@ -1478,7 +1478,7 @@
   {
     "id": "G-390",
     "code": "G-390",
-    "name": "Nistai Hair Oil",
+    "name": "நிஷ்டை சுந்தல் எண்ணெய் / Nistai Hair Oil",
     "qty": "200ml",
     "price": 240.0,
     "category": "Oils & Ghee",
@@ -1487,7 +1487,7 @@
   {
     "id": "G-423",
     "code": "G-423",
-    "name": "Karunochi Oil",
+    "name": "கருநொச்சி எண்ணெய் / Karunochi Oil",
     "qty": "100ml",
     "price": 690.0,
     "category": "Oils & Ghee",
@@ -1496,7 +1496,7 @@
   {
     "id": "G-658",
     "code": "G-658",
-    "name": "Hibiscus Hair Oil",
+    "name": "செம்பருத்தி ஆயில் / Hibiscus Hair Oil",
     "qty": "100ml",
     "price": 80.0,
     "category": "Oils & Ghee",
@@ -1505,7 +1505,7 @@
   {
     "id": "G-217",
     "code": "G-217",
-    "name": "Ayurveda Coconut Oil Mix",
+    "name": "தே.எண்ணெய் கலவை / Ayurveda Coconut Oil Mix",
     "qty": "600ml",
     "price": 75.0,
     "category": "Oils & Ghee",
@@ -1514,7 +1514,7 @@
   {
     "id": "FD-015",
     "code": "FD-015",
-    "name": "Finger Millet Noodles",
+    "name": "ராகி நூடல்ஸ் / Finger Millet Noodles",
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
@@ -1523,7 +1523,7 @@
   {
     "id": "FD-016",
     "code": "FD-016",
-    "name": "Pearl Noodles",
+    "name": "கம்பு நூடல்ஸ் / Pearl Noodles",
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
@@ -1532,7 +1532,7 @@
   {
     "id": "FD-017",
     "code": "FD-017",
-    "name": "Little Millet Noodles",
+    "name": "சாமை நூடல்ஸ் / Little Millet Noodles",
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
@@ -1541,7 +1541,7 @@
   {
     "id": "FD-018",
     "code": "FD-018",
-    "name": "Kodo Noodles",
+    "name": "வரகு நூடல்ஸ் / Kodo Noodles",
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
@@ -1550,7 +1550,7 @@
   {
     "id": "FD-019",
     "code": "FD-019",
-    "name": "Barnyard Noodles",
+    "name": "குதிரைவாலி நூடல்ஸ் / Barnyard Noodles",
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
@@ -1559,7 +1559,7 @@
   {
     "id": "FD-020",
     "code": "FD-020",
-    "name": "Soya Noodles",
+    "name": "சோயா நூடல்ஸ் / Soya Noodles",
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
@@ -1568,7 +1568,7 @@
   {
     "id": "FD-021",
     "code": "FD-021",
-    "name": "Multi Millet Noodles",
+    "name": "நவதானிய நூடல்ஸ் / Multi Millet Noodles",
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
@@ -1577,7 +1577,7 @@
   {
     "id": "FD-022",
     "code": "FD-022",
-    "name": "Red Rice Noodles",
+    "name": "சிவப்பரிசி நூடல்ஸ் / Red Rice Noodles",
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
@@ -1586,7 +1586,7 @@
   {
     "id": "FD-023",
     "code": "FD-023",
-    "name": "Foxtail Noodles",
+    "name": "திணை நூடல்ஸ் / Foxtail Noodles",
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
@@ -1595,7 +1595,7 @@
   {
     "id": "FD-024",
     "code": "FD-024",
-    "name": "Wheat Noodles",
+    "name": "கோதுமை நூடல்ஸ் / Wheat Noodles",
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
@@ -1604,7 +1604,7 @@
   {
     "id": "FD-025",
     "code": "FD-025",
-    "name": "Horse Gram Noodles",
+    "name": "கொள்ளு நூடல்ஸ் / Horse Gram Noodles",
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
@@ -1613,7 +1613,7 @@
   {
     "id": "FD-001",
     "code": "FD-001",
-    "name": "Finger Millet Vermicelli",
+    "name": "ராகி சேமியா / Finger Millet Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1622,7 +1622,7 @@
   {
     "id": "FD-002",
     "code": "FD-002",
-    "name": "Pearl Vermicelli",
+    "name": "நாட்டு கம்பு சேமியா / Pearl Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1631,7 +1631,7 @@
   {
     "id": "FD-003",
     "code": "FD-003",
-    "name": "Little Millet Vermicelli",
+    "name": "சாமை சேமியா / Little Millet Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1640,7 +1640,7 @@
   {
     "id": "FD-004",
     "code": "FD-004",
-    "name": "Kodo Vermicelli",
+    "name": "வரகு சேமியா / Kodo Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1649,7 +1649,7 @@
   {
     "id": "FD-005",
     "code": "FD-005",
-    "name": "Barnyard Vermicelli",
+    "name": "குதிரைவாலி சேமியா / Barnyard Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1658,7 +1658,7 @@
   {
     "id": "FD-006",
     "code": "FD-006",
-    "name": "Soya Vermicelli",
+    "name": "சோயா சேமியா / Soya Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1667,7 +1667,7 @@
   {
     "id": "FD-007",
     "code": "FD-007",
-    "name": "Multi Millet Vermicelli",
+    "name": "நவதானிய சேமியா / Multi Millet Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1676,7 +1676,7 @@
   {
     "id": "FD-008",
     "code": "FD-008",
-    "name": "Foxtail Vermicelli",
+    "name": "திணை சேமியா / Foxtail Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1685,7 +1685,7 @@
   {
     "id": "FD-009",
     "code": "FD-009",
-    "name": "Wheat Vermicelli",
+    "name": "கோதுமை சேமியா / Wheat Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1694,7 +1694,7 @@
   {
     "id": "FD-010",
     "code": "FD-010",
-    "name": "Curry Leaves Vermicelli",
+    "name": "கறிவேப்பிலை சேமியா / Curry Leaves Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1703,7 +1703,7 @@
   {
     "id": "FD-011",
     "code": "FD-011",
-    "name": "Drumstick Leaves Vermicelli",
+    "name": "முருங்கைகீரை சேமியா / Drumstick Leaves Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1712,7 +1712,7 @@
   {
     "id": "FD-012",
     "code": "FD-012",
-    "name": "Red Rice Vermicelli",
+    "name": "சிவப்பரிசி சேமியா / Red Rice Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1721,7 +1721,7 @@
   {
     "id": "FD-013",
     "code": "FD-013",
-    "name": "Tomato Vermicelli",
+    "name": "தக்காளி சேமியா / Tomato Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1730,7 +1730,7 @@
   {
     "id": "FD-014",
     "code": "FD-014",
-    "name": "Lemon Vermicelli",
+    "name": "எலுமிச்சை சேமியா / Lemon Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1739,7 +1739,7 @@
   {
     "id": "FD-026",
     "code": "FD-026",
-    "name": "Horse Gram Vermicelli",
+    "name": "கொள்ளு சேமியா / Horse Gram Vermicelli",
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
@@ -1748,7 +1748,7 @@
   {
     "id": "G-533",
     "code": "G-533",
-    "name": "Rice Vadagam",
+    "name": "அரிசி வடகம் / Rice Vadagam",
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
@@ -1757,7 +1757,7 @@
   {
     "id": "G-534",
     "code": "G-534",
-    "name": "Garlic Vadagam",
+    "name": "பூண்டு வடகம் / Garlic Vadagam",
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
@@ -1766,7 +1766,7 @@
   {
     "id": "G-535",
     "code": "G-535",
-    "name": "Tomato Vadagam",
+    "name": "தக்காளி வடகம் / Tomato Vadagam",
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
@@ -1775,7 +1775,7 @@
   {
     "id": "G-536",
     "code": "G-536",
-    "name": "Mint Vadagam",
+    "name": "புதினா வடகம் / Mint Vadagam",
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
@@ -1784,7 +1784,7 @@
   {
     "id": "G-537",
     "code": "G-537",
-    "name": "Onion Vadagam",
+    "name": "ஆனியன் வடகம் / Onion Vadagam",
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
@@ -1793,7 +1793,7 @@
   {
     "id": "G-572",
     "code": "G-572",
-    "name": "Javvarisi Vadagam",
+    "name": "ஜவ்வரிசி வடகம் / Javvarisi Vadagam",
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
@@ -1802,7 +1802,7 @@
   {
     "id": "G-573",
     "code": "G-573",
-    "name": "Beetroot Vadagam",
+    "name": "பீட்ரூட் வடகம் / Beetroot Vadagam",
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
@@ -1811,7 +1811,7 @@
   {
     "id": "G-574",
     "code": "G-574",
-    "name": "Moar Milagai Vathal",
+    "name": "மோர் மிளகாய் வதல் / Moar Milagai Vathal",
     "qty": "50gm",
     "price": 25.0,
     "category": "Vadagam & Appalam",
@@ -1820,7 +1820,7 @@
   {
     "id": "G-575",
     "code": "G-575",
-    "name": "Ulunthu Appalam",
+    "name": "உளுந்து அப்பளம் / Ulunthu Appalam",
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
@@ -1829,7 +1829,7 @@
   {
     "id": "G-576",
     "code": "G-576",
-    "name": "Pepper Appalam",
+    "name": "மிளகு அப்பளம் / Pepper Appalam",
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
@@ -1838,7 +1838,7 @@
   {
     "id": "G-577",
     "code": "G-577",
-    "name": "Kilangu Appalam",
+    "name": "கிழங்கு அப்பளம் / Kilangu Appalam",
     "qty": "200gm",
     "price": 105.0,
     "category": "Vadagam & Appalam",
@@ -1847,7 +1847,7 @@
   {
     "id": "G-578",
     "code": "G-578",
-    "name": "Arisi Appalam",
+    "name": "அரிசி அப்பளம் / Arisi Appalam",
     "qty": "200gm",
     "price": 105.0,
     "category": "Vadagam & Appalam",
@@ -1856,7 +1856,7 @@
   {
     "id": "G-580",
     "code": "G-580",
-    "name": "Carrot Vadagam",
+    "name": "கேரட் வடகம் / Carrot Vadagam",
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
@@ -1865,7 +1865,7 @@
   {
     "id": "G-1144",
     "code": "G-1144",
-    "name": "Aammii Organic Appalam",
+    "name": "அம்மி அப்பளம் / Aammii Organic Appalam",
     "qty": "200gm",
     "price": 70.0,
     "category": "Vadagam & Appalam",
@@ -1874,7 +1874,7 @@
   {
     "id": "G-259",
     "code": "G-259",
-    "name": "Charcoal Face Pack",
+    "name": "சார்க்கோல் முகம் கழுவும் பொடி / Charcoal Face Pack",
     "qty": "100gm",
     "price": 110.0,
     "category": "Face Pack",
@@ -1883,7 +1883,7 @@
   {
     "id": "G-260",
     "code": "G-260",
-    "name": "Banana Face Pack",
+    "name": "வாழைப்பழ முகம் கழுவும் பொடி / Banana Face Pack",
     "qty": "100gm",
     "price": 110.0,
     "category": "Face Pack",
@@ -1892,7 +1892,7 @@
   {
     "id": "G-261",
     "code": "G-261",
-    "name": "Orange Face Pack",
+    "name": "ஆரஞ்சு முகம் கழுவும் பொடி / Orange Face Pack",
     "qty": "100gm",
     "price": 110.0,
     "category": "Face Pack",
@@ -1901,7 +1901,7 @@
   {
     "id": "G-262",
     "code": "G-262",
-    "name": "Rose Face Pack",
+    "name": "ரோஜா முகம் கழுவும் பொடி / Rose Face Pack",
     "qty": "100gm",
     "price": 110.0,
     "category": "Face Pack",
@@ -1910,7 +1910,7 @@
   {
     "id": "G-263",
     "code": "G-263",
-    "name": "Sandal Face Pack",
+    "name": "சந்தன முகம் கழுவும் பொடி / Sandal Face Pack",
     "qty": "100gm",
     "price": 160.0,
     "category": "Face Pack",
@@ -1919,7 +1919,7 @@
   {
     "id": "G-264",
     "code": "G-264",
-    "name": "Senna Flower & Kuppaimeni Face Pack",
+    "name": "சென்னா ஃப்ளவர் & குப்பைமேனி / Senna Flower & Kuppaimeni Face Pack",
     "qty": "100gm",
     "price": 110.0,
     "category": "Face Pack",
@@ -1928,7 +1928,7 @@
   {
     "id": "G-436",
     "code": "G-436",
-    "name": "Facepack",
+    "name": "முகம் கழுவும் பொடி / Facepack",
     "qty": "70gm",
     "price": 160.0,
     "category": "Face Pack",
@@ -1937,7 +1937,7 @@
   {
     "id": "G-1149",
     "code": "G-1149",
-    "name": "Beetroot Face Pack",
+    "name": "பீட்ரூட் ஃபேஸ் பேக் / Beetroot Face Pack",
     "qty": "100gm",
     "price": 140.0,
     "category": "Face Pack",
@@ -1946,7 +1946,7 @@
   {
     "id": "G-1150",
     "code": "G-1150",
-    "name": "Golden Face Pack",
+    "name": "கோல்டன் ஃபேஸ் பேக் / Golden Face Pack",
     "qty": "100gm",
     "price": 160.0,
     "category": "Face Pack",
@@ -1955,7 +1955,7 @@
   {
     "id": "G-041",
     "code": "G-041",
-    "name": "Pure Coconut Oil Soap",
+    "name": "தேங்காய் எண்ணெய் சோப்பு / Pure Coconut Oil Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -1964,7 +1964,7 @@
   {
     "id": "G-042",
     "code": "G-042",
-    "name": "Senna Flower Soap",
+    "name": "ஆவாரம் பூ சோப்பு / Senna Flower Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -1973,7 +1973,7 @@
   {
     "id": "G-043",
     "code": "G-043",
-    "name": "Arappu Soapnut Soap",
+    "name": "அரப்பு & சீயக்காய் சோப்பு / Arappu Soapnut Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -1982,7 +1982,7 @@
   {
     "id": "G-044",
     "code": "G-044",
-    "name": "Aloe Vera Margo Soap",
+    "name": "கற்றாழை & வேப்பிலை / Aloe Vera Margo Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -1991,7 +1991,7 @@
   {
     "id": "G-045",
     "code": "G-045",
-    "name": "Green Gram Soap",
+    "name": "பச்சைப்பயிறு சோப்பு / Green Gram Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -2000,7 +2000,7 @@
   {
     "id": "G-046",
     "code": "G-046",
-    "name": "Besan Flour Soap",
+    "name": "கடலை மாவு சோப்பு / Besan Flour Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -2009,7 +2009,7 @@
   {
     "id": "G-047",
     "code": "G-047",
-    "name": "Multani Mutti Soap",
+    "name": "முல்தானிமட்டி சோப்பு / Multani Mutti Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -2018,7 +2018,7 @@
   {
     "id": "G-081",
     "code": "G-081",
-    "name": "Kasthuri Manjal Soap",
+    "name": "கஸ்தூரி மஞ்சள் சோப்பு / Kasthuri Manjal Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -2027,7 +2027,7 @@
   {
     "id": "G-247",
     "code": "G-247",
-    "name": "Putruman Soap",
+    "name": "புற்றுமண் சோப்பு / Putruman Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -2036,7 +2036,7 @@
   {
     "id": "G-248",
     "code": "G-248",
-    "name": "Aloe Vera & Cucumber Soap",
+    "name": "கற்றாழை & வெள்ளரி / Aloe Vera & Cucumber Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -2045,7 +2045,7 @@
   {
     "id": "G-249",
     "code": "G-249",
-    "name": "Coconut Milk Soap",
+    "name": "தேங்காய் பால் சோப்பு / Coconut Milk Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -2054,7 +2054,7 @@
   {
     "id": "G-250",
     "code": "G-250",
-    "name": "Papaya Soap",
+    "name": "பப்பாளி சோப்பு / Papaya Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -2063,7 +2063,7 @@
   {
     "id": "G-276",
     "code": "G-276",
-    "name": "Kuppaimeni Soap",
+    "name": "குப்பைமேனி சோப்பு / Kuppaimeni Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -2072,7 +2072,7 @@
   {
     "id": "G-1139",
     "code": "G-1139",
-    "name": "Thiruneer Soap",
+    "name": "திருநீர் சோப்பு / Thiruneer Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -2081,7 +2081,7 @@
   {
     "id": "G-1140",
     "code": "G-1140",
-    "name": "Charcoal Soap",
+    "name": "சார்க்கோல் சோப்பு / Charcoal Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -2090,7 +2090,7 @@
   {
     "id": "G-1141",
     "code": "G-1141",
-    "name": "Nalangumaavu Soap",
+    "name": "நலங்குமாவு சோப்பு / Nalangumaavu Soap",
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
@@ -2099,7 +2099,7 @@
   {
     "id": "G-001",
     "code": "G-001",
-    "name": "Herbal Soapnut Powder",
+    "name": "மூலிகை சீயக்காய் பொடி / Herbal Soapnut Powder",
     "qty": "100gm",
     "price": 60.0,
     "category": "Personal Care",
@@ -2108,7 +2108,7 @@
   {
     "id": "G-002",
     "code": "G-002",
-    "name": "Herbal Soapnut Powder",
+    "name": "மூலிகை சீயக்காய் பொடி / Herbal Soapnut Powder",
     "qty": "250gm",
     "price": 140.0,
     "category": "Personal Care",
@@ -2117,7 +2117,7 @@
   {
     "id": "G-004",
     "code": "G-004",
-    "name": "Herbal Arappu Powder",
+    "name": "அரப்பு பொடி / Herbal Arappu Powder",
     "qty": "250gm",
     "price": 70.0,
     "category": "Personal Care",
@@ -2126,7 +2126,7 @@
   {
     "id": "G-005",
     "code": "G-005",
-    "name": "Herbal Arappu Powder",
+    "name": "அரப்பு பொடி / Herbal Arappu Powder",
     "qty": "500gm",
     "price": 130.0,
     "category": "Personal Care",
@@ -2135,7 +2135,7 @@
   {
     "id": "G-006",
     "code": "G-006",
-    "name": "Herbal Tooth Powder",
+    "name": "மூலிகை பற்பொடி / Herbal Tooth Powder",
     "qty": "50gm",
     "price": 60.0,
     "category": "Personal Care",
@@ -2144,7 +2144,7 @@
   {
     "id": "G-038",
     "code": "G-038",
-    "name": "24 Herbal Bath Powder",
+    "name": "24 மூலிகை குளியல் பொடி / 24 Herbal Bath Powder",
     "qty": "200gm",
     "price": 100.0,
     "category": "Personal Care",
@@ -2153,7 +2153,7 @@
   {
     "id": "G-1196",
     "code": "G-1196",
-    "name": "Aammii Rajamooligai Tooth Powder Kids",
+    "name": "அம்மி ராஜமூலிகை பல்பொடி (குழந்தை) / Aammii Rajamooligai Tooth Powder Kids",
     "qty": "25gm",
     "price": 80.0,
     "category": "Personal Care",
@@ -2162,7 +2162,7 @@
   {
     "id": "G-298",
     "code": "G-298",
-    "name": "Dandruff Hair Pack",
+    "name": "பொடுகு நீக்கும் பொடி / Dandruff Hair Pack",
     "qty": "75gm",
     "price": 145.0,
     "category": "Personal Care",
@@ -2171,7 +2171,7 @@
   {
     "id": "G-300",
     "code": "G-300",
-    "name": "Nalangumavu",
+    "name": "நலங்குமாவு / Nalangumavu",
     "qty": "75gm",
     "price": 145.0,
     "category": "Personal Care",
@@ -2180,7 +2180,7 @@
   {
     "id": "G-302",
     "code": "G-302",
-    "name": "Baby Body Wash",
+    "name": "குழந்தை குளியல் பொடி / Baby Body Wash",
     "qty": "75gm",
     "price": 145.0,
     "category": "Personal Care",
@@ -2189,7 +2189,7 @@
   {
     "id": "G-313",
     "code": "G-313",
-    "name": "Hair Therapy Herbal Shampoo",
+    "name": "தலைகுளியல் ஷாம்பு / Hair Therapy Herbal Shampoo",
     "qty": "100ml",
     "price": 89.0,
     "category": "Personal Care",
@@ -2198,7 +2198,7 @@
   {
     "id": "G-183",
     "code": "G-183",
-    "name": "Herbal Cancerous Soil",
+    "name": "மூலிகை புற்றுமண் / Herbal Cancerous Soil",
     "qty": "1kg",
     "price": 150.0,
     "category": "Personal Care",
@@ -2207,7 +2207,7 @@
   {
     "id": "G-414",
     "code": "G-414",
-    "name": "Kajal",
+    "name": "கண்மை / Kajal",
     "qty": "5gm",
     "price": 110.0,
     "category": "Personal Care",
@@ -2216,7 +2216,7 @@
   {
     "id": "G-840",
     "code": "G-840",
-    "name": "Rajamooligai Tooth Powder",
+    "name": "அம்மி ராஜமூலிகை பல்பொடி / Rajamooligai Tooth Powder",
     "qty": "25gm",
     "price": 80.0,
     "category": "Personal Care",
@@ -2225,7 +2225,7 @@
   {
     "id": "G-925",
     "code": "G-925",
-    "name": "Cowdung Cake Tooth Powder",
+    "name": "மாட்டு சாணம் பல்பொடி / Cowdung Cake Tooth Powder",
     "qty": "40gm",
     "price": 19.0,
     "category": "Personal Care",
@@ -2234,7 +2234,7 @@
   {
     "id": "T-007",
     "code": "T-007",
-    "name": "Vermilion",
+    "name": "குங்குமம் / Vermilion",
     "qty": "25gm",
     "price": 40.0,
     "category": "Personal Care",
@@ -2243,7 +2243,7 @@
   {
     "id": "T-016",
     "code": "T-016",
-    "name": "Reusable Napkin XL",
+    "name": "அணையாடை XL / Reusable Napkin XL",
     "qty": "1pc",
     "price": 200.0,
     "category": "Personal Care",
@@ -2252,7 +2252,7 @@
   {
     "id": "T-017",
     "code": "T-017",
-    "name": "Reusable Napkin XXL",
+    "name": "அணையாடை XXL / Reusable Napkin XXL",
     "qty": "1pc",
     "price": 200.0,
     "category": "Personal Care",
@@ -2261,7 +2261,7 @@
   {
     "id": "G-013",
     "code": "G-013",
-    "name": "Perennial Bunchgrass Scrub",
+    "name": "வெட்டிவேர் / Perennial Bunchgrass Scrub",
     "qty": "25gm",
     "price": 35.0,
     "category": "Personal Care",
@@ -2270,7 +2270,7 @@
   {
     "id": "G-299",
     "code": "G-299",
-    "name": "Pean Kolli-Lice Remover",
+    "name": "பேன் நீக்கும் பொடி / Pean Kolli-Lice Remover",
     "qty": "75gm",
     "price": 145.0,
     "category": "Personal Care",
@@ -2279,7 +2279,7 @@
   {
     "id": "G-301",
     "code": "G-301",
-    "name": "Red Rice Bath Powder",
+    "name": "சிவப்பரிசி குளியல் பொடி / Red Rice Bath Powder",
     "qty": "75gm",
     "price": 145.0,
     "category": "Personal Care",
@@ -2288,7 +2288,7 @@
   {
     "id": "G-430",
     "code": "G-430",
-    "name": "Natural Hair Dye",
+    "name": "இயற்கை ஹேர் டை / Natural Hair Dye",
     "qty": "200gm",
     "price": 230.0,
     "category": "Personal Care",
@@ -2297,7 +2297,7 @@
   {
     "id": "G-437",
     "code": "G-437",
-    "name": "Herbo Bath Powder",
+    "name": "மூலிகை குளியல் பொடி / Herbo Bath Powder",
     "qty": "100gm",
     "price": 58.0,
     "category": "Personal Care",
@@ -2306,7 +2306,7 @@
   {
     "id": "G-542",
     "code": "G-542",
-    "name": "Orange Essential Oil",
+    "name": "ஆரஞ்சு ஆயில் / Orange Essential Oil",
     "qty": "15ml",
     "price": 115.0,
     "category": "Personal Care",
@@ -2315,7 +2315,7 @@
   {
     "id": "G-810",
     "code": "G-810",
-    "name": "Carrot Oil",
+    "name": "கேரட் ஆயில் / Carrot Oil",
     "qty": "60ml",
     "price": 185.0,
     "category": "Personal Care",
@@ -2324,7 +2324,7 @@
   {
     "id": "G-847",
     "code": "G-847",
-    "name": "Bamboo Tooth Brush",
+    "name": "மூங்கில் பல் துலக்கி / Bamboo Tooth Brush",
     "qty": "1",
     "price": 70.0,
     "category": "Personal Care",
@@ -2333,7 +2333,7 @@
   {
     "id": "G-932",
     "code": "G-932",
-    "name": "Aloevera Dry Skin Gel",
+    "name": "கற்றாழை ஜெல் / Aloevera Dry Skin Gel",
     "qty": "30gm",
     "price": 71.0,
     "category": "Personal Care",
@@ -2342,7 +2342,7 @@
   {
     "id": "G-923",
     "code": "G-923",
-    "name": "Nistai Face Powder",
+    "name": "ஃபேஸ் பவுடர் / Nistai Face Powder",
     "qty": "50gm",
     "price": 175.0,
     "category": "Personal Care",
@@ -2351,7 +2351,7 @@
   {
     "id": "G-1145",
     "code": "G-1145",
-    "name": "Neem Wooden Comb",
+    "name": "வேம்பு சீப்பு / Neem Wooden Comb",
     "qty": "1",
     "price": 100.0,
     "category": "Personal Care",
@@ -2360,7 +2360,7 @@
   {
     "id": "G-1146",
     "code": "G-1146",
-    "name": "Bamboo Tongue Cleaner",
+    "name": "மூங்கில் நாக்கு சுரண்டி / Bamboo Tongue Cleaner",
     "qty": "1",
     "price": 60.0,
     "category": "Personal Care",
@@ -2369,7 +2369,7 @@
   {
     "id": "G-1189",
     "code": "G-1189",
-    "name": "Rose Water",
+    "name": "ரோஸ் வாட்டர் / Rose Water",
     "qty": "100ml",
     "price": 120.0,
     "category": "Personal Care",
@@ -2378,7 +2378,7 @@
   {
     "id": "G-1267",
     "code": "G-1267",
-    "name": "Neem Wood Pintail Comb",
+    "name": "வேம்பு பின்டெயில் சீப்பு / Neem Wood Pintail Comb",
     "qty": "1pcs",
     "price": 90.0,
     "category": "Personal Care",
@@ -2387,7 +2387,7 @@
   {
     "id": "G-1268",
     "code": "G-1268",
-    "name": "Neem Wood Pocket Comb",
+    "name": "வேம்பு பாக்கெட் சீப்பு / Neem Wood Pocket Comb",
     "qty": "1pcs",
     "price": 60.0,
     "category": "Personal Care",
@@ -2396,7 +2396,7 @@
   {
     "id": "G-1269",
     "code": "G-1269",
-    "name": "Plantable Seed Pencil 5 Pcs Box",
+    "name": "விதை பென்சில் 5 பெட்டி / Plantable Seed Pencil 5 Pcs Box",
     "qty": "1pcs",
     "price": 100.0,
     "category": "Personal Care",
@@ -2405,7 +2405,7 @@
   {
     "id": "G-1270",
     "code": "G-1270",
-    "name": "Plantable Pen Set of 4 Pieces",
+    "name": "விதை பேனா 4 செட் / Plantable Pen Set of 4 Pieces",
     "qty": "1pcs",
     "price": 35.0,
     "category": "Personal Care",
@@ -2414,7 +2414,7 @@
   {
     "id": "G-1271",
     "code": "G-1271",
-    "name": "Bamboo Pen",
+    "name": "மூங்கில் பேனா / Bamboo Pen",
     "qty": "1pcs",
     "price": 60.0,
     "category": "Personal Care",
@@ -2423,7 +2423,7 @@
   {
     "id": "G-1272",
     "code": "G-1272",
-    "name": "Natural Loofah",
+    "name": "இயற்கை லூஃபா / Natural Loofah",
     "qty": "1pcs",
     "price": 50.0,
     "category": "Personal Care",
@@ -2432,7 +2432,7 @@
   {
     "id": "G-1273",
     "code": "G-1273",
-    "name": "Bamboo Razor",
+    "name": "மூங்கில் ரேஸர் / Bamboo Razor",
     "qty": "1pcs",
     "price": 100.0,
     "category": "Personal Care",
@@ -2441,7 +2441,7 @@
   {
     "id": "G-010",
     "code": "G-010",
-    "name": "Indian Gall-nut Powder",
+    "name": "கடுக்காய் பொடி / Indian Gall-nut Powder",
     "qty": "100gm",
     "price": 30.0,
     "category": "Herbal Powder",
@@ -2450,7 +2450,7 @@
   {
     "id": "G-030",
     "code": "G-030",
-    "name": "Herbal Tripura Surana Powder",
+    "name": "திரிப்பலா சூரணம் பொடி / Herbal Tripura Surana Powder",
     "qty": "200gm",
     "price": 80.0,
     "category": "Herbal Powder",
@@ -2459,7 +2459,7 @@
   {
     "id": "G-133",
     "code": "G-133",
-    "name": "Avuri Leaf Powder",
+    "name": "அவுரி இலை பொடி / Avuri Leaf Powder",
     "qty": "50gm",
     "price": 30.0,
     "category": "Herbal Powder",
@@ -2468,7 +2468,7 @@
   {
     "id": "G-135",
     "code": "G-135",
-    "name": "Aswakhandha Powder",
+    "name": "அஸ்வகந்தா பொடி / Aswakhandha Powder",
     "qty": "50gm",
     "price": 55.0,
     "category": "Herbal Powder",
@@ -2477,7 +2477,7 @@
   {
     "id": "G-143",
     "code": "G-143",
-    "name": "Arugampul Powder",
+    "name": "அருங்கம்புல் பொடி / Arugampul Powder",
     "qty": "50gm",
     "price": 25.0,
     "category": "Herbal Powder",
@@ -2486,7 +2486,7 @@
   {
     "id": "G-146",
     "code": "G-146",
-    "name": "Aththipalam Powder",
+    "name": "அத்திப்பழம் பொடி / Aththipalam Powder",
     "qty": "50gm",
     "price": 35.0,
     "category": "Herbal Powder",
@@ -2495,7 +2495,7 @@
   {
     "id": "G-150",
     "code": "G-150",
-    "name": "Amukkara Powder",
+    "name": "அமுக்காரப் பொடி / Amukkara Powder",
     "qty": "50gm",
     "price": 70.0,
     "category": "Herbal Powder",
@@ -2504,7 +2504,7 @@
   {
     "id": "G-151",
     "code": "G-151",
-    "name": "Avaarampoo Powder",
+    "name": "ஆவாரம் பூ பொடி / Avaarampoo Powder",
     "qty": "50gm",
     "price": 35.0,
     "category": "Herbal Powder",
@@ -2513,7 +2513,7 @@
   {
     "id": "G-152",
     "code": "G-152",
-    "name": "Jathikkai Powder",
+    "name": "ஜாதிக்காய் பொடி / Jathikkai Powder",
     "qty": "25gm",
     "price": 60.0,
     "category": "Herbal Powder",
@@ -2522,7 +2522,7 @@
   {
     "id": "G-154",
     "code": "G-154",
-    "name": "Athimadhuram Powder",
+    "name": "அதிமதுரம் பொடி / Athimadhuram Powder",
     "qty": "50gm",
     "price": 45.0,
     "category": "Herbal Powder",
@@ -2531,7 +2531,7 @@
   {
     "id": "G-158",
     "code": "G-158",
-    "name": "Aada Thodai Leaf Powder",
+    "name": "ஆடா தொடை இலை பொடி / Aada Thodai Leaf Powder",
     "qty": "50gm",
     "price": 25.0,
     "category": "Herbal Powder",
@@ -2540,7 +2540,7 @@
   {
     "id": "G-171",
     "code": "G-171",
-    "name": "Asoka Patai Powder",
+    "name": "அசோகப்பட்டை பொடி / Asoka Patai Powder",
     "qty": "50gm",
     "price": 20.0,
     "category": "Herbal Powder",
@@ -2549,7 +2549,7 @@
   {
     "id": "G-172",
     "code": "G-172",
-    "name": "Chembaruthi Poo Powder",
+    "name": "செம்பருத்தி பூ பொடி / Chembaruthi Poo Powder",
     "qty": "25gm",
     "price": 45.0,
     "category": "Herbal Powder",
@@ -2558,7 +2558,7 @@
   {
     "id": "G-173",
     "code": "G-173",
-    "name": "Elavanga Patai Powder",
+    "name": "லவங்கப்பட்டை பொடி / Elavanga Patai Powder",
     "qty": "50gm",
     "price": 50.0,
     "category": "Herbal Powder",
@@ -2567,7 +2567,7 @@
   {
     "id": "G-292",
     "code": "G-292",
-    "name": "Angaya Powder",
+    "name": "அங்காயப் பொடி / Angaya Powder",
     "qty": "100gm",
     "price": 120.0,
     "category": "Herbal Powder",
@@ -2576,7 +2576,7 @@
   {
     "id": "G-473",
     "code": "G-473",
-    "name": "Amla Powder",
+    "name": "நெல்லி பொடி / Amla Powder",
     "qty": "50gm",
     "price": 35.0,
     "category": "Herbal Powder",
@@ -2585,7 +2585,7 @@
   {
     "id": "G-842",
     "code": "G-842",
-    "name": "Manjal Karisalangkanni Powder",
+    "name": "மஞ்சள் கரிசலாங்கண்ணி பவுடர் / Manjal Karisalangkanni Powder",
     "qty": "50gm",
     "price": 45.0,
     "category": "Herbal Powder",
@@ -2594,7 +2594,7 @@
   {
     "id": "G-900",
     "code": "G-900",
-    "name": "Sitharathai Powder",
+    "name": "சித்தரத்தை பொடி / Sitharathai Powder",
     "qty": "25gm",
     "price": 35.0,
     "category": "Herbal Powder",
@@ -2603,7 +2603,7 @@
   {
     "id": "G-843",
     "code": "G-843",
-    "name": "Musu Musukkai Powder",
+    "name": "முசுமுசுக்காய் பவுடர் / Musu Musukkai Powder",
     "qty": "50gm",
     "price": 25.0,
     "category": "Herbal Powder",
@@ -2612,7 +2612,7 @@
   {
     "id": "G-1173",
     "code": "G-1173",
-    "name": "Poolankilangu Powder",
+    "name": "பூலாங்கிழங்கு பொடி / Poolankilangu Powder",
     "qty": "25gm",
     "price": 50.0,
     "category": "Herbal Powder",
@@ -2621,7 +2621,7 @@
   {
     "id": "G-137",
     "code": "G-137",
-    "name": "Marutham Patai Powder",
+    "name": "மருதம் பட்டை பொடி / Marutham Patai Powder",
     "qty": "50gm",
     "price": 25.0,
     "category": "Herbal Powder",
@@ -2630,7 +2630,7 @@
   {
     "id": "G-139",
     "code": "G-139",
-    "name": "Karisalankanni Powder",
+    "name": "கரிசலாங்கண்ணி பொடி / Karisalankanni Powder",
     "qty": "50gm",
     "price": 40.0,
     "category": "Herbal Powder",
@@ -2639,7 +2639,7 @@
   {
     "id": "G-136",
     "code": "G-136",
-    "name": "Nilavarai Powder",
+    "name": "நிலவரை பொடி / Nilavarai Powder",
     "qty": "50gm",
     "price": 50.0,
     "category": "Herbal Powder",
@@ -2648,7 +2648,7 @@
   {
     "id": "G-138",
     "code": "G-138",
-    "name": "Naaval Seed Powder",
+    "name": "நாவல் விதை பொடி / Naaval Seed Powder",
     "qty": "50gm",
     "price": 25.0,
     "category": "Herbal Powder",
@@ -2657,7 +2657,7 @@
   {
     "id": "G-140",
     "code": "G-140",
-    "name": "Murungai Leaf Powder",
+    "name": "முருங்கை இலை பொடி / Murungai Leaf Powder",
     "qty": "50gm",
     "price": 35.0,
     "category": "Herbal Powder",
@@ -2666,7 +2666,7 @@
   {
     "id": "G-141",
     "code": "G-141",
-    "name": "Neermulli Seed Powder",
+    "name": "நீர்முள்ளி விதை பொடி / Neermulli Seed Powder",
     "qty": "50gm",
     "price": 50.0,
     "category": "Herbal Powder",
@@ -2675,7 +2675,7 @@
   {
     "id": "G-504",
     "code": "G-504",
-    "name": "Vibuthi",
+    "name": "விபூதி / Vibuthi",
     "qty": "100gm",
     "price": 35.0,
     "category": "Divine Products",
@@ -2684,7 +2684,7 @@
   {
     "id": "G-505",
     "code": "G-505",
-    "name": "Cowdung Cake Sambrani Powder",
+    "name": "சாணிக்கட்டை சாம்பிராணி பொடி / Cowdung Cake Sambrani Powder",
     "qty": "50gm",
     "price": 35.0,
     "category": "Divine Products",
@@ -2693,7 +2693,7 @@
   {
     "id": "G-506",
     "code": "G-506",
-    "name": "Sambrani Dhoops",
+    "name": "சாம்பிராணி கட்டி / Sambrani Dhoops",
     "qty": "20nos",
     "price": 40.0,
     "category": "Divine Products",
@@ -2702,7 +2702,7 @@
   {
     "id": "G-543",
     "code": "G-543",
-    "name": "Incense Stick",
+    "name": "துளசி, வேம்பு, நொச்சி ஊதுபத்தி / Incense Stick",
     "qty": "30nos",
     "price": 40.0,
     "category": "Divine Products",
@@ -2711,7 +2711,7 @@
   {
     "id": "G-1047",
     "code": "G-1047",
-    "name": "Cowdung Cake Cup Sambrani",
+    "name": "சாணிக்கட்டை கப் சாம்பிராணி / Cowdung Cake Cup Sambrani",
     "qty": "12nos",
     "price": 140.0,
     "category": "Divine Products",
@@ -2720,7 +2720,7 @@
   {
     "id": "G-245",
     "code": "G-245",
-    "name": "Pancha Deepa Oil",
+    "name": "பஞ்ச தீப எண்ணெய் / Pancha Deepa Oil",
     "qty": "200ml",
     "price": 90.0,
     "category": "Divine Products",
@@ -2729,7 +2729,7 @@
   {
     "id": "G-1177",
     "code": "G-1177",
-    "name": "Nistai Agarpathy 10 Flavours",
+    "name": "நிஸ்தை அகர்பத்தி 10 வகை / Nistai Agarpathy 10 Flavours",
     "qty": "1pc",
     "price": 195.0,
     "category": "Divine Products",
@@ -2738,7 +2738,7 @@
   {
     "id": "G-551",
     "code": "G-551",
-    "name": "Copper Kappu Model 1",
+    "name": "காப்பர் கப்பு மாடல் 1 / Copper Kappu Model 1",
     "qty": "1pc",
     "price": 340.0,
     "category": "Copper Products",
@@ -2747,7 +2747,7 @@
   {
     "id": "G-570",
     "code": "G-570",
-    "name": "Copper Kappu Model 2",
+    "name": "காப்பர் கப்பு மாடல் 2 / Copper Kappu Model 2",
     "qty": "1pc",
     "price": 370.0,
     "category": "Copper Products",
@@ -2756,7 +2756,7 @@
   {
     "id": "G-571",
     "code": "G-571",
-    "name": "Copper Kappu Model 3",
+    "name": "காப்பர் கப்பு மாடல் 3 / Copper Kappu Model 3",
     "qty": "1pc",
     "price": 200.0,
     "category": "Copper Products",
@@ -2765,7 +2765,7 @@
   {
     "id": "G-807",
     "code": "G-807",
-    "name": "Copper Kappu OM Printing",
+    "name": "காப்பர் கப்பு OM பிரிண்டிங் / Copper Kappu OM Printing",
     "qty": "1pc",
     "price": 345.0,
     "category": "Copper Products",
@@ -2774,7 +2774,7 @@
   {
     "id": "G-808",
     "code": "G-808",
-    "name": "Copper Kappu Shiva Shiva Printing",
+    "name": "காப்பர் கப்பு சிவசிவ பிரிண்டிங் / Copper Kappu Shiva Shiva Printing",
     "qty": "1pc",
     "price": 360.0,
     "category": "Copper Products",
@@ -2783,7 +2783,7 @@
   {
     "id": "G-1170",
     "code": "G-1170",
-    "name": "Copper Kappu Om Namashivaya Printing",
+    "name": "காப்பர் கப்பு ஓம் நமசிவய பிரிண்டிங் / Copper Kappu Om Namashivaya Printing",
     "qty": "1pc",
     "price": 390.0,
     "category": "Copper Products",
@@ -2792,7 +2792,7 @@
   {
     "id": "G-1251",
     "code": "G-1251",
-    "name": "Acupressure Wooden Set of 3",
+    "name": "அக்குபிரஷர் மரச்செட் / Acupressure Wooden Set of 3",
     "qty": "1 No",
     "price": 120.0,
     "category": "Wellness Tools",
@@ -2801,7 +2801,7 @@
   {
     "id": "G-1161",
     "code": "G-1161",
-    "name": "Garlic Pillow",
+    "name": "பூண்டு தலையணை / Garlic Pillow",
     "qty": "1",
     "price": 490.0,
     "category": "Wellness Tools",
@@ -2810,7 +2810,7 @@
   {
     "id": "G-1160",
     "code": "G-1160",
-    "name": "Onion Pillow",
+    "name": "வெங்காயம் தலையணை / Onion Pillow",
     "qty": "1",
     "price": 490.0,
     "category": "Wellness Tools",
@@ -2819,7 +2819,7 @@
   {
     "id": "G-206",
     "code": "G-206",
-    "name": "Multi Purpose Liquid",
+    "name": "பயோ என்சைம் / Multi Purpose Liquid",
     "qty": "500ml",
     "price": 80.0,
     "category": "Home Care",
@@ -2828,7 +2828,7 @@
   {
     "id": "G-1003",
     "code": "G-1003",
-    "name": "Bio Enzyme Face Wash",
+    "name": "பயோ என்சைம் ஃபேஸ் வாஷ் / Bio Enzyme Face Wash",
     "qty": "100ml",
     "price": 149.0,
     "category": "Home Care",
@@ -2837,7 +2837,7 @@
   {
     "id": "G-1004",
     "code": "G-1004",
-    "name": "Bio Enzyme Shaving Gel",
+    "name": "பயோ என்சைம் ஷேவிங் ஜெல் / Bio Enzyme Shaving Gel",
     "qty": "100ml",
     "price": 129.0,
     "category": "Home Care",
@@ -2846,7 +2846,7 @@
   {
     "id": "G-999",
     "code": "G-999",
-    "name": "Bio Enzyme Dish Washer",
+    "name": "பயோ என்சைம் பாத்திர கழுவி / Bio Enzyme Dish Washer",
     "qty": "500ml",
     "price": 239.0,
     "category": "Home Care",
@@ -2855,7 +2855,7 @@
   {
     "id": "G-1001",
     "code": "G-1001",
-    "name": "Bio Enzyme Floor Cleaner",
+    "name": "பயோ என்சைம் தரை சுத்தம் / Bio Enzyme Floor Cleaner",
     "qty": "500ml",
     "price": 189.0,
     "category": "Home Care",
@@ -2864,7 +2864,7 @@
   {
     "id": "G-1002",
     "code": "G-1002",
-    "name": "Bio Enzyme Laundry Washer",
+    "name": "பயோ என்சைம் துணி வாஷ் / Bio Enzyme Laundry Washer",
     "qty": "500ml",
     "price": 239.0,
     "category": "Home Care",
@@ -2873,7 +2873,7 @@
   {
     "id": "G-1000",
     "code": "G-1000",
-    "name": "Bio Enzyme Toilet Cleaner",
+    "name": "பயோ என்சைம் கழிவறை சுத்தம் / Bio Enzyme Toilet Cleaner",
     "qty": "500ml",
     "price": 199.0,
     "category": "Home Care",
@@ -2882,7 +2882,7 @@
   {
     "id": "G-1142",
     "code": "G-1142",
-    "name": "Bio Enzyme Shampoo",
+    "name": "பயோ என்சைம் ஷாம்பு / Bio Enzyme Shampoo",
     "qty": "100ml",
     "price": 179.0,
     "category": "Home Care",
@@ -2891,7 +2891,7 @@
   {
     "id": "G-1143",
     "code": "G-1143",
-    "name": "Bio Enzyme Air Purifier",
+    "name": "பயோ என்சைம் ஏர் பியூரிஃபையர் / Bio Enzyme Air Purifier",
     "qty": "100ml",
     "price": 119.0,
     "category": "Home Care",
@@ -2900,7 +2900,7 @@
   {
     "id": "G-1236",
     "code": "G-1236",
-    "name": "Aammii Dish Wash Soap",
+    "name": "அம்மி பாத்திர சோப்பு / Aammii Dish Wash Soap",
     "qty": "100gm",
     "price": 80.0,
     "category": "Home Care",
@@ -2909,7 +2909,7 @@
   {
     "id": "G-1075",
     "code": "G-1075",
-    "name": "Dishwash Liquid",
+    "name": "பாத்திர திரவம் / Dishwash Liquid",
     "qty": "500ml",
     "price": 140.0,
     "category": "Home Care",
@@ -2918,7 +2918,7 @@
   {
     "id": "G-1031",
     "code": "G-1031",
-    "name": "Agathi Keerai Seed",
+    "name": "அகத்தி கீரை விதை / Agathi Keerai Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -2927,7 +2927,7 @@
   {
     "id": "G-1032",
     "code": "G-1032",
-    "name": "Beans Seed",
+    "name": "பீன்ஸ் விதை / Beans Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -2936,7 +2936,7 @@
   {
     "id": "G-1027",
     "code": "G-1027",
-    "name": "Beetroot Seed",
+    "name": "பீட்ரூட் விதை / Beetroot Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -2945,7 +2945,7 @@
   {
     "id": "G-1041",
     "code": "G-1041",
-    "name": "Bottle Gourd Seed",
+    "name": "சுரைக்காய் விதை / Bottle Gourd Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -2954,7 +2954,7 @@
   {
     "id": "G-1045",
     "code": "G-1045",
-    "name": "Brinjal Seed Long",
+    "name": "கத்தரி விதை நீண்ட / Brinjal Seed Long",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -2963,7 +2963,7 @@
   {
     "id": "G-1044",
     "code": "G-1044",
-    "name": "Brinjal Seed Short",
+    "name": "கத்தரி விதை குட்டை / Brinjal Seed Short",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -2972,7 +2972,7 @@
   {
     "id": "G-1036",
     "code": "G-1036",
-    "name": "Carrot Seed",
+    "name": "கேரட் விதை / Carrot Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -2981,7 +2981,7 @@
   {
     "id": "G-1042",
     "code": "G-1042",
-    "name": "Chilly Seed",
+    "name": "மிளகாய் விதை / Chilly Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -2990,7 +2990,7 @@
   {
     "id": "G-1024",
     "code": "G-1024",
-    "name": "Cluster Beans Seed",
+    "name": "கொத்தவரை விதை / Cluster Beans Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -2999,7 +2999,7 @@
   {
     "id": "G-1043",
     "code": "G-1043",
-    "name": "Coriander Seed",
+    "name": "கொத்தமல்லி விதை / Coriander Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -3008,7 +3008,7 @@
   {
     "id": "G-1033",
     "code": "G-1033",
-    "name": "Cucumber Seed",
+    "name": "வெள்ளரி விதை / Cucumber Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -3017,7 +3017,7 @@
   {
     "id": "G-1039",
     "code": "G-1039",
-    "name": "Drumstick Seed",
+    "name": "முருங்கை விதை / Drumstick Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -3026,7 +3026,7 @@
   {
     "id": "G-1026",
     "code": "G-1026",
-    "name": "Lady Finger Seed",
+    "name": "வெண்டை விதை / Lady Finger Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -3035,7 +3035,7 @@
   {
     "id": "G-1028",
     "code": "G-1028",
-    "name": "Mulai Keerai Seed",
+    "name": "முளை கீரை விதை / Mulai Keerai Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -3044,7 +3044,7 @@
   {
     "id": "G-1040",
     "code": "G-1040",
-    "name": "Palak Keerai Seed",
+    "name": "பாலக் கீரை விதை / Palak Keerai Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -3053,7 +3053,7 @@
   {
     "id": "G-1038",
     "code": "G-1038",
-    "name": "Radish Seed",
+    "name": "முள்ளங்கி விதை / Radish Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -3062,7 +3062,7 @@
   {
     "id": "G-1025",
     "code": "G-1025",
-    "name": "Sirukeerai Seed",
+    "name": "சிறுகீரை விதை / Sirukeerai Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -3071,7 +3071,7 @@
   {
     "id": "G-1034",
     "code": "G-1034",
-    "name": "Snake Gourd Seed Long",
+    "name": "புடலை விதை நீண்ட / Snake Gourd Seed Long",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -3080,7 +3080,7 @@
   {
     "id": "G-1035",
     "code": "G-1035",
-    "name": "Snake Gourd Seed Short",
+    "name": "புடலை விதை குட்டை / Snake Gourd Seed Short",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -3089,7 +3089,7 @@
   {
     "id": "G-1029",
     "code": "G-1029",
-    "name": "Thandukeerai Seed Green",
+    "name": "தண்டுகீரை விதை பச்சை / Thandukeerai Seed Green",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -3098,7 +3098,7 @@
   {
     "id": "G-1030",
     "code": "G-1030",
-    "name": "Thandukeerai Seed Red",
+    "name": "தண்டுகீரை விதை சிவப்பு / Thandukeerai Seed Red",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -3107,7 +3107,7 @@
   {
     "id": "G-1037",
     "code": "G-1037",
-    "name": "Tomato Seed",
+    "name": "தக்காளி விதை / Tomato Seed",
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
@@ -3116,7 +3116,7 @@
   {
     "id": "Op124",
     "code": "Op124",
-    "name": "Vegetable Mini Kit",
+    "name": "பாரம்பரிய விதைகள் கிட் / Vegetable Mini Kit",
     "qty": "KIT",
     "price": 290.0,
     "category": "Seeds",
@@ -3125,7 +3125,7 @@
   {
     "id": "G-205",
     "code": "G-205",
-    "name": "Peanut Butter",
+    "name": "வேர்கடலை வெண்ணெய் / Peanut Butter",
     "qty": "120gm",
     "price": 145.0,
     "category": "Readymade Mix",
@@ -3134,7 +3134,7 @@
   {
     "id": "G-458",
     "code": "G-458",
-    "name": "Dhal Rice Powder",
+    "name": "பருப்பு சாதப்பொடி / Dhal Rice Powder",
     "qty": "100gm",
     "price": 50.0,
     "category": "Readymade Mix",
@@ -3143,7 +3143,7 @@
   {
     "id": "G-469",
     "code": "G-469",
-    "name": "Vathal Kulambhu Paste",
+    "name": "வத்தல் குழம்பு பேஸ்ட் / Vathal Kulambhu Paste",
     "qty": "300gm",
     "price": 100.0,
     "category": "Readymade Mix",
@@ -3152,7 +3152,7 @@
   {
     "id": "G-470",
     "code": "G-470",
-    "name": "Puliyodharai Paste",
+    "name": "புளியோதரை பேஸ்ட் / Puliyodharai Paste",
     "qty": "300gm",
     "price": 110.0,
     "category": "Readymade Mix",
@@ -3161,7 +3161,7 @@
   {
     "id": "G-471",
     "code": "G-471",
-    "name": "Lemon Rice Paste",
+    "name": "எலுமிச்சை சாத பேஸ்ட் / Lemon Rice Paste",
     "qty": "300gm",
     "price": 110.0,
     "category": "Readymade Mix",
@@ -3170,7 +3170,7 @@
   {
     "id": "G-1106",
     "code": "G-1106",
-    "name": "Tomato Rice Paste",
+    "name": "தக்காளி சாத பொடி / Tomato Rice Paste",
     "qty": "300gm",
     "price": 100.0,
     "category": "Readymade Mix",
@@ -3179,7 +3179,7 @@
   {
     "id": "G-457",
     "code": "G-457",
-    "name": "Idly Chilli Powder",
+    "name": "இட்லி சில்லி பொடி / Idly Chilli Powder",
     "qty": "100gm",
     "price": 54.0,
     "category": "Readymade Mix",
@@ -3188,7 +3188,7 @@
   {
     "id": "G-1087",
     "code": "G-1087",
-    "name": "Garlic Dhal Powder",
+    "name": "பூண்டு பருப்பு பொடி / Garlic Dhal Powder",
     "qty": "100gm",
     "price": 60.0,
     "category": "Readymade Mix",
@@ -3197,7 +3197,7 @@
   {
     "id": "G-1089",
     "code": "G-1089",
-    "name": "Coriander Thokku",
+    "name": "கொத்தமல்லி தொக்கு / Coriander Thokku",
     "qty": "300gm",
     "price": 120.0,
     "category": "Readymade Mix",
@@ -3206,7 +3206,7 @@
   {
     "id": "G-1090",
     "code": "G-1090",
-    "name": "Curry Leaf Thokku",
+    "name": "கருவேப்பிலை தொக்கு / Curry Leaf Thokku",
     "qty": "300gm",
     "price": 110.0,
     "category": "Readymade Mix",
@@ -3215,7 +3215,7 @@
   {
     "id": "G-1091",
     "code": "G-1091",
-    "name": "Mint Leaf Thokku",
+    "name": "புதினா தொக்கு / Mint Leaf Thokku",
     "qty": "300gm",
     "price": 110.0,
     "category": "Readymade Mix",
@@ -3224,7 +3224,7 @@
   {
     "id": "G-1108",
     "code": "G-1108",
-    "name": "Lemon Rice Powder",
+    "name": "எலுமிச்சை சாத பொடி / Lemon Rice Powder",
     "qty": "100gm",
     "price": 60.0,
     "category": "Readymade Mix",
@@ -3233,7 +3233,7 @@
   {
     "id": "G-1109",
     "code": "G-1109",
-    "name": "Puliyotharai Rice Powder",
+    "name": "புளியோதரை சாத பொடி / Puliyotharai Rice Powder",
     "qty": "100gm",
     "price": 60.0,
     "category": "Readymade Mix",
@@ -3242,7 +3242,7 @@
   {
     "id": "G-1110",
     "code": "G-1110",
-    "name": "Curry Leaf Rice Powder",
+    "name": "கருவேப்பிலை சாத பொடி / Curry Leaf Rice Powder",
     "qty": "100gm",
     "price": 60.0,
     "category": "Readymade Mix",
@@ -3251,7 +3251,7 @@
   {
     "id": "OP65",
     "code": "OP65",
-    "name": "Indha Vinadai (Nagore Rumi)",
+    "name": "இந்த வினாடி / Indha Vinadai",
     "qty": "Book",
     "price": 288.0,
     "category": "Books & DVDs",
@@ -3260,7 +3260,7 @@
   {
     "id": "OP66",
     "code": "OP66",
-    "name": "Athe Vinadai (Nagore Rumi)",
+    "name": "அதே வினாடி / Athe Vinadai",
     "qty": "Book",
     "price": 288.0,
     "category": "Books & DVDs",
@@ -3269,7 +3269,7 @@
   {
     "id": "ATF45",
     "code": "ATF45",
-    "name": "Anatomic Therapy (Kannada)",
+    "name": "அனாடமிக் தெரபி (கன்னடம்) / Anatomic Therapy (Kannada)",
     "qty": "Book",
     "price": 299.0,
     "category": "Books & DVDs",
@@ -3278,7 +3278,7 @@
   {
     "id": "ATF50",
     "code": "ATF50",
-    "name": "Rankarttin Iragasiyam",
+    "name": "ரங்காரட்டின் இரகசியம் / Rankarttin Iragasiyam",
     "qty": "Book",
     "price": 100.0,
     "category": "Books & DVDs",
@@ -3287,7 +3287,7 @@
   {
     "id": "ATF43",
     "code": "ATF43",
-    "name": "Anatomic Therapy (English)",
+    "name": "அனாடமிக் தெரபி (ஆங்கிலம்) / Anatomic Therapy (English)",
     "qty": "Book",
     "price": 299.0,
     "category": "Books & DVDs",
@@ -3296,7 +3296,7 @@
   {
     "id": "ATF44",
     "code": "ATF44",
-    "name": "Anatomic Therapy (Telugu)",
+    "name": "அனாடமிக் தெரபி (தெலுங்கு) / Anatomic Therapy (Telugu)",
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
@@ -3305,7 +3305,7 @@
   {
     "id": "ATF42",
     "code": "ATF42",
-    "name": "Anatomic Therapy (Tamil)",
+    "name": "அனாடமிக் தெரபி (தமிழ்) / Anatomic Therapy (Tamil)",
     "qty": "Book",
     "price": 299.0,
     "category": "Books & DVDs",
@@ -3314,7 +3314,7 @@
   {
     "id": "ATF47",
     "code": "ATF47",
-    "name": "Anatomic Therapy (Hindi)",
+    "name": "அனாடமிக் தெரபி (இந்தி) / Anatomic Therapy (Hindi)",
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
@@ -3323,7 +3323,7 @@
   {
     "id": "ATF49",
     "code": "ATF49",
-    "name": "Ulaga Arasiyal (English)",
+    "name": "உலக அரசியல் (ஆங்கிலம்) / Ulaga Arasiyal (English)",
     "qty": "Book",
     "price": 50.0,
     "category": "Books & DVDs",
@@ -3332,7 +3332,7 @@
   {
     "id": "ATF162",
     "code": "ATF162",
-    "name": "Banu Veettukkalvi Murai",
+    "name": "பானு வீட்டுக்கல்வி முறை / Banu Veettukkalvi Murai",
     "qty": "Book",
     "price": 299.0,
     "category": "Books & DVDs",
@@ -3341,7 +3341,7 @@
   {
     "id": "ATF178",
     "code": "ATF178",
-    "name": "Anatomic Therapy 10 Day Exercise",
+    "name": "அனாடமிக் தெரபி 10 நாள் பயிற்சி கையோடு / Anatomic Therapy 10 Day Exercise",
     "qty": "Book",
     "price": 25.0,
     "category": "Books & DVDs",
@@ -3359,7 +3359,7 @@
   {
     "id": "G-1093",
     "code": "G-1093",
-    "name": "Kaveesings Aagap Indiya (Tamil)",
+    "name": "கவீசிங்ஸ் ஆகப் இந்தியா (தமிழ்) / Kaveesings Aagap Indiya (Tamil)",
     "qty": "Book",
     "price": 270.0,
     "category": "Books & DVDs",
@@ -3368,7 +3368,7 @@
   {
     "id": "G-1096",
     "code": "G-1096",
-    "name": "Kottu Mozhi Astrology Sathya",
+    "name": "கொட்டு மொழி அஸ்ட்ரோலஜி சத்யா / Kottu Mozhi Astrology Sathya",
     "qty": "Book",
     "price": 375.0,
     "category": "Books & DVDs",
@@ -3377,7 +3377,7 @@
   {
     "id": "OP1",
     "code": "OP1",
-    "name": "Neengalum Gnani Aagalam",
+    "name": "நீங்களும் ஞானி ஆகலாம் / Neengalum Gnani Aagalam",
     "qty": "Book",
     "price": 100.0,
     "category": "Books & DVDs",
@@ -3386,7 +3386,7 @@
   {
     "id": "OP2",
     "code": "OP2",
-    "name": "Gnana Viduthalai",
+    "name": "ஞான விடுதலை / Gnana Viduthalai",
     "qty": "Book",
     "price": 100.0,
     "category": "Books & DVDs",
@@ -3395,7 +3395,7 @@
   {
     "id": "OP3",
     "code": "OP3",
-    "name": "Kavalaikal Anaitharkkum Theervu",
+    "name": "கவலைகள் அனைத்திற்கும் தீர்வு / Kavalaikal Anaitharkkum Theervu",
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
@@ -3404,7 +3404,7 @@
   {
     "id": "OP4",
     "code": "OP4",
-    "name": "Summa Iru",
+    "name": "சும்மா இரு / Summa Iru",
     "qty": "Book",
     "price": 70.0,
     "category": "Books & DVDs",
@@ -3413,7 +3413,7 @@
   {
     "id": "OP5",
     "code": "OP5",
-    "name": "Naan Yaar Bagavath Ayya",
+    "name": "நான் யார் பகவத் இயா / Naan Yaar Bagavath Ayya",
     "qty": "Book",
     "price": 30.0,
     "category": "Books & DVDs",
@@ -3422,7 +3422,7 @@
   {
     "id": "OP6",
     "code": "OP6",
-    "name": "Zen Kathaigal",
+    "name": "ஜென் கதைகள் / Zen Kathaigal",
     "qty": "Book",
     "price": 100.0,
     "category": "Books & DVDs",
@@ -3431,7 +3431,7 @@
   {
     "id": "OP7",
     "code": "OP7",
-    "name": "Sat Darshanam",
+    "name": "சத் தரிசனம் / Sat Darshanam",
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
@@ -3440,7 +3440,7 @@
   {
     "id": "OP8",
     "code": "OP8",
-    "name": "Thiyaanathai Vidu Gnaanatthai Peru",
+    "name": "தியானத்தை விடு ஞானத்தை பெறு / Thiyaanathai Vidu Gnaanatthai Peru",
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
@@ -3449,7 +3449,7 @@
   {
     "id": "OP10",
     "code": "OP10",
-    "name": "Aanma Gnana Iragasiyam",
+    "name": "ஆன்மா ஞான இரகசியம் / Aanma Gnana Iragasiyam",
     "qty": "Book",
     "price": 60.0,
     "category": "Books & DVDs",
@@ -3458,7 +3458,7 @@
   {
     "id": "Op12",
     "code": "Op12",
-    "name": "Gnana Malarvu",
+    "name": "ஞான மலர்வு / Gnana Malarvu",
     "qty": "Book",
     "price": 40.0,
     "category": "Books & DVDs",
@@ -3467,7 +3467,7 @@
   {
     "id": "OP13",
     "code": "OP13",
-    "name": "Thedi Poga Veedu Illai",
+    "name": "தேடி போக வீடு இல்லை / Thedi Poga Veedu Illai",
     "qty": "Book",
     "price": 50.0,
     "category": "Books & DVDs",
@@ -3476,7 +3476,7 @@
   {
     "id": "OP131",
     "code": "OP131",
-    "name": "Thiyaanam Anushudana Aanmeegam Part 1",
+    "name": "தியானம் (அனுஷ்டான ஆன்மீகம் பகுதி -1) / Thiyaanam Part 1",
     "qty": "Book",
     "price": 150.0,
     "category": "Books & DVDs",
@@ -3485,7 +3485,7 @@
   {
     "id": "OP132",
     "code": "OP132",
-    "name": "Neeyae Meyporul Anushudana Aanmeegam Part 2",
+    "name": "நீயே மெய்பொருள் (அனுஷ்டான ஆன்மீகம் பகுதி -2) / Neeyae Meyporul Part 2",
     "qty": "Book",
     "price": 200.0,
     "category": "Books & DVDs",
@@ -3494,7 +3494,7 @@
   {
     "id": "Op191",
     "code": "Op191",
-    "name": "Ennamum Sindhithalum",
+    "name": "எண்ணமும் சிந்தித்தலும் / Ennamum Sindhithalum",
     "qty": "Book",
     "price": 10.0,
     "category": "Books & DVDs",
@@ -3503,7 +3503,7 @@
   {
     "id": "OP62",
     "code": "OP62",
-    "name": "Maruththuvattilirunthu Manamatra Nilai",
+    "name": "மருத்துவத்திலிருந்து மனமாற்ற நிலை / Maruththuvattilirunthu Manamatra Nilai",
     "qty": "Book",
     "price": 520.0,
     "category": "Books & DVDs",
@@ -3512,7 +3512,7 @@
   {
     "id": "OP109",
     "code": "OP109",
-    "name": "Shiva Sutra",
+    "name": "சிவ சூத்திரம் / Shiva Sutra",
     "qty": "Book",
     "price": 550.0,
     "category": "Books & DVDs",
@@ -3521,7 +3521,7 @@
   {
     "id": "OP110",
     "code": "OP110",
-    "name": "Marainthurukkum Unmaigal",
+    "name": "மறைந்திருக்கும் உண்மைகள் / Marainthurukkum Unmaigal",
     "qty": "Book",
     "price": 230.0,
     "category": "Books & DVDs",
@@ -3530,7 +3530,7 @@
   {
     "id": "OP112",
     "code": "OP112",
-    "name": "Unnaal Kadakka Mudiyum",
+    "name": "உன்னால் கடக்க முடியும் / Unnaal Kadakka Mudiyum",
     "qty": "Book",
     "price": 350.0,
     "category": "Books & DVDs",
@@ -3539,7 +3539,7 @@
   {
     "id": "OP136",
     "code": "OP136",
-    "name": "Ethirpililaye Vaazungal",
+    "name": "எதிர்பிலிலயே வாழுங்கள் / Ethirpililaye Vaazungal",
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
@@ -3548,7 +3548,7 @@
   {
     "id": "OP142",
     "code": "OP142",
-    "name": "Miruthaastin Puthagam",
+    "name": "மிருதாஸ்தின் புத்தகம் / Miruthaastin Puthagam",
     "qty": "Book",
     "price": 275.0,
     "category": "Books & DVDs",
@@ -3557,7 +3557,7 @@
   {
     "id": "G-453",
     "code": "G-453",
-    "name": "Unnaal Kadakka Mudiyum Part 2",
+    "name": "உன்னால் கடக்க முடியும் (பகுதி 2) / Unnaal Kadakka Mudiyum Part 2",
     "qty": "Book",
     "price": 420.0,
     "category": "Books & DVDs",
@@ -3566,7 +3566,7 @@
   {
     "id": "OP-143",
     "code": "OP-143",
-    "name": "Kamatthilirunthu Kadavulukku",
+    "name": "காமத்திலிருந்து கடவுளுக்கு / Kamatthilirunthu Kadavulukku",
     "qty": "Book",
     "price": 650.0,
     "category": "Books & DVDs",
@@ -3575,7 +3575,7 @@
   {
     "id": "OP27",
     "code": "OP27",
-    "name": "Pengale Ungalukkaaga",
+    "name": "பெண்களே உங்களுக்காக / Pengale Ungalukkaaga",
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
@@ -3584,7 +3584,7 @@
   {
     "id": "OP28",
     "code": "OP28",
-    "name": "Sugapirasavam",
+    "name": "சுகப்பிரசவம் / Sugapirasavam",
     "qty": "Book",
     "price": 400.0,
     "category": "Books & DVDs",
@@ -3593,7 +3593,7 @@
   {
     "id": "OP29",
     "code": "OP29",
-    "name": "Neengalum English Doctor Aagalam",
+    "name": "நீங்களும் ஆங்கில மருத்துவர் ஆகலாம் / Neengalum English Doctor Aagalam",
     "qty": "Book",
     "price": 200.0,
     "category": "Books & DVDs",
@@ -3602,7 +3602,7 @@
   {
     "id": "OP125",
     "code": "OP125",
-    "name": "Marunthukalaal Varum Noigal",
+    "name": "மருந்துகளால் வரும் நோய்கள் / Marunthukalaal Varum Noigal",
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
@@ -3611,7 +3611,7 @@
   {
     "id": "OP126",
     "code": "OP126",
-    "name": "Puthiya Akkupanjar",
+    "name": "புதிய அக்குபஞ்சர் / Puthiya Akkupanjar",
     "qty": "Book",
     "price": 450.0,
     "category": "Books & DVDs",
@@ -3620,7 +3620,7 @@
   {
     "id": "OP127",
     "code": "OP127",
-    "name": "Neengalum Akkupanjar Doctor Aagalam",
+    "name": "நீங்களும் அக்குபஞ்சர் டாக்டர் ஆகலாம் / Neengalum Akkupanjar Doctor Aagalam",
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
@@ -3629,7 +3629,7 @@
   {
     "id": "Op151",
     "code": "Op151",
-    "name": "Iraivazhi Maruttuvam Part 1",
+    "name": "இறைவழி மருத்துவம் (பகுதி - 1) / Iraivazhi Maruttuvam Part 1",
     "qty": "Book",
     "price": 200.0,
     "category": "Books & DVDs",
@@ -3638,7 +3638,7 @@
   {
     "id": "Op152",
     "code": "Op152",
-    "name": "Iraivazhi Maruttuvam Part 2",
+    "name": "இறைவழி மருத்துவம் (பகுதி - 2) / Iraivazhi Maruttuvam Part 2",
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
@@ -3647,7 +3647,7 @@
   {
     "id": "G-312",
     "code": "G-312",
-    "name": "Iraivazhi Maruttuvam Payanurika",
+    "name": "இறைவழி மருத்துவம் பயனுரிக / Iraivazhi Maruttuvam Payanurika",
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
@@ -3656,7 +3656,7 @@
   {
     "id": "OP16",
     "code": "OP16",
-    "name": "Iragasiyam The Secret Tamil",
+    "name": "இரகசியம் (தமிழ்) / Iragasiyam The Secret Tamil",
     "qty": "Book",
     "price": 499.0,
     "category": "Books & DVDs",
@@ -3665,7 +3665,7 @@
   {
     "id": "Op17",
     "code": "Op17",
-    "name": "The Secret English",
+    "name": "இரகசியம் (ஆங்கிலம்) / The Secret English",
     "qty": "Book",
     "price": 699.0,
     "category": "Books & DVDs",
@@ -3674,7 +3674,7 @@
   {
     "id": "OP18",
     "code": "OP18",
-    "name": "Sakthi The Power Tamil",
+    "name": "சக்தி (தமிழ்) / Sakthi The Power Tamil",
     "qty": "Book",
     "price": 699.0,
     "category": "Books & DVDs",
@@ -3683,7 +3683,7 @@
   {
     "id": "OP19",
     "code": "OP19",
-    "name": "Sakthi Tamil & English",
+    "name": "சக்தி (தமிழ் மற்றும் ஆங்கிலம்) / Sakthi Tamil & English",
     "qty": "Book",
     "price": 999.0,
     "category": "Books & DVDs",
@@ -3692,7 +3692,7 @@
   {
     "id": "OP20",
     "code": "OP20",
-    "name": "Maayajaalam The Magic Tamil",
+    "name": "மாயஜாலம் (தமிழ்) / Maayajaalam The Magic Tamil",
     "qty": "Book",
     "price": 499.0,
     "category": "Books & DVDs",
@@ -3701,7 +3701,7 @@
   {
     "id": "OP21",
     "code": "OP21",
-    "name": "The Magic English",
+    "name": "மாயஜாலம் (ஆங்கிலம்) / The Magic English",
     "qty": "Book",
     "price": 495.0,
     "category": "Books & DVDs",
@@ -3710,7 +3710,7 @@
   {
     "id": "OP22",
     "code": "OP22",
-    "name": "Kathaanaayagan The Hero Tamil",
+    "name": "கதாநாயகன் (தமிழ்) / Kathaanaayagan The Hero Tamil",
     "qty": "Book",
     "price": 699.0,
     "category": "Books & DVDs",
@@ -3719,7 +3719,7 @@
   {
     "id": "OP23",
     "code": "OP23",
-    "name": "The Hero English",
+    "name": "கதாநாயகன் (ஆங்கிலம்) / The Hero English",
     "qty": "Book",
     "price": 799.0,
     "category": "Books & DVDs",
@@ -3728,7 +3728,7 @@
   {
     "id": "Op26",
     "code": "Op26",
-    "name": "Kaathalin Mozhi",
+    "name": "காதலின் மொழி / Kaathalin Mozhi",
     "qty": "Book",
     "price": 350.0,
     "category": "Books & DVDs",
@@ -3737,7 +3737,7 @@
   {
     "id": "OP67",
     "code": "OP67",
-    "name": "Agatthaaivu 1",
+    "name": "அகத்தாய்வு - 1 / Agatthaaivu 1",
     "qty": "Book",
     "price": 90.0,
     "category": "Books & DVDs",
@@ -3746,7 +3746,7 @@
   {
     "id": "OP68",
     "code": "OP68",
-    "name": "Agatthaaivu 2",
+    "name": "அகத்தாய்வு - 2 / Agatthaaivu 2",
     "qty": "Book",
     "price": 90.0,
     "category": "Books & DVDs",
@@ -3755,7 +3755,7 @@
   {
     "id": "OP69",
     "code": "OP69",
-    "name": "Agatthaaivu 3",
+    "name": "அகத்தாய்வு - 3 / Agatthaaivu 3",
     "qty": "Book",
     "price": 85.0,
     "category": "Books & DVDs",
@@ -3764,7 +3764,7 @@
   {
     "id": "OP72",
     "code": "OP72",
-    "name": "Manavala Kalai 2",
+    "name": "மனவளக்கலை - 2 / Manavala Kalai 2",
     "qty": "Book",
     "price": 135.0,
     "category": "Books & DVDs",
@@ -3773,7 +3773,7 @@
   {
     "id": "OP73",
     "code": "OP73",
-    "name": "Manavala Kalai 3",
+    "name": "மனவளக்கலை - 3 / Manavala Kalai 3",
     "qty": "Book",
     "price": 155.0,
     "category": "Books & DVDs",
@@ -3782,7 +3782,7 @@
   {
     "id": "OP71",
     "code": "OP71",
-    "name": "Manavala Kalai 1",
+    "name": "மனவளக்கலை - 1 / Manavala Kalai 1",
     "qty": "Book",
     "price": 150.0,
     "category": "Books & DVDs",
@@ -3791,7 +3791,7 @@
   {
     "id": "OP74",
     "code": "OP74",
-    "name": "Arutthandai Pathilgal",
+    "name": "அருட்டந்தை பதில்கள் / Aruddhandai Pathilgal",
     "qty": "Book",
     "price": 55.0,
     "category": "Books & DVDs",
@@ -3800,7 +3800,7 @@
   {
     "id": "OP75",
     "code": "OP75",
-    "name": "Arutthandai Pathilgal 2",
+    "name": "அருட்டந்தை பதில்கள் - 2 / Aruddhandai Pathilgal 2",
     "qty": "Book",
     "price": 70.0,
     "category": "Books & DVDs",
@@ -3809,7 +3809,7 @@
   {
     "id": "OP76",
     "code": "OP76",
-    "name": "Eliya Murai Udarpayirchi",
+    "name": "எளிய முறை உடற்பயிற்சி / Eliya Murai Udarpayirchi",
     "qty": "Book",
     "price": 35.0,
     "category": "Books & DVDs",
@@ -3818,7 +3818,7 @@
   {
     "id": "OP77",
     "code": "OP77",
-    "name": "Kaayakalpam",
+    "name": "காயகல்பம் / Kaayakalpam",
     "qty": "Book",
     "price": 50.0,
     "category": "Books & DVDs",
@@ -3827,7 +3827,7 @@
   {
     "id": "OP78",
     "code": "OP78",
-    "name": "Vaazhkkai Vaazha Uyarvu Padigal 5",
+    "name": "வாழ்க்கை வாழ உயர்வு படிகள் 5 / Vaazhkkai Vaazha Uyarvu Padigal 5",
     "qty": "Book",
     "price": 70.0,
     "category": "Books & DVDs",
@@ -3836,7 +3836,7 @@
   {
     "id": "Op79",
     "code": "Op79",
-    "name": "Manam",
+    "name": "மனம் / Manam",
     "qty": "Book",
     "price": 55.0,
     "category": "Books & DVDs",
@@ -3845,7 +3845,7 @@
   {
     "id": "OP80",
     "code": "OP80",
-    "name": "Naan Yaar",
+    "name": "நான் யார் / Naan Yaar",
     "qty": "Book",
     "price": 70.0,
     "category": "Books & DVDs",
@@ -3854,7 +3854,7 @@
   {
     "id": "OP81",
     "code": "OP81",
-    "name": "Pirapukkum Munn Irapukkum Pinnnum",
+    "name": "பிறப்புக்கும் முன் இறப்புக்கும் பின்னும் / Pirapukkum Munn Irapukkum Pinnnum",
     "qty": "Book",
     "price": 70.0,
     "category": "Books & DVDs",
@@ -3863,7 +3863,7 @@
   {
     "id": "OP82",
     "code": "OP82",
-    "name": "Baktiyum Gnaanum",
+    "name": "பக்தியும் ஞானமும் / Baktiyum Gnaanum",
     "qty": "Book",
     "price": 110.0,
     "category": "Books & DVDs",
@@ -3872,7 +3872,7 @@
   {
     "id": "OP83",
     "code": "OP83",
-    "name": "Andamum Pindam",
+    "name": "அண்டமும் பிண்டமும் / Andamum Pindam",
     "qty": "Book",
     "price": 45.0,
     "category": "Books & DVDs",
@@ -3881,7 +3881,7 @@
   {
     "id": "OP84",
     "code": "OP84",
-    "name": "Arutthandai Nagaichuvai Unarvuu",
+    "name": "அருட்டந்தை நகைச்சுவை உணர்வு / Arutthandai Nagaichuvai Unarvuu",
     "qty": "Book",
     "price": 85.0,
     "category": "Books & DVDs",
@@ -3890,7 +3890,7 @@
   {
     "id": "OP85",
     "code": "OP85",
-    "name": "Pennin Perumai",
+    "name": "பெண்ணின் பெருமை / Pennin Perumai",
     "qty": "Book",
     "price": 40.0,
     "category": "Books & DVDs",
@@ -3899,7 +3899,7 @@
   {
     "id": "OP106",
     "code": "OP106",
-    "name": "Unavu Murai",
+    "name": "உணவு முறை / Unavu Murai",
     "qty": "Book",
     "price": 45.0,
     "category": "Books & DVDs",
@@ -3908,7 +3908,7 @@
   {
     "id": "G-315",
     "code": "G-315",
-    "name": "Vethathiri Vethathiriyam",
+    "name": "வேதாத்திரி வேதாத்திரியம் / Vethathiri Vethathiriyam",
     "qty": "Book",
     "price": 100.0,
     "category": "Books & DVDs",
@@ -3926,7 +3926,7 @@
   {
     "id": "G-992",
     "code": "G-992",
-    "name": "Thiyaanam Puthagam",
+    "name": "தியானம் புத்தகம் / Thiyaanam Puthagam",
     "qty": "Book",
     "price": 110.0,
     "category": "Books & DVDs",
@@ -3935,7 +3935,7 @@
   {
     "id": "G-993",
     "code": "G-993",
-    "name": "Ilanthalirkalin Puthagam",
+    "name": "இளந்தளிர்களின் புத்தகம் / Ilanthalirkalin Puthagam",
     "qty": "Book",
     "price": 160.0,
     "category": "Books & DVDs",
@@ -3944,7 +3944,7 @@
   {
     "id": "G-986",
     "code": "G-986",
-    "name": "Kazhivurai Irukkhai Puthagam",
+    "name": "கழிவுரை இருக்கை புத்தகம் / Kazhivurai Irukkhai Puthagam",
     "qty": "Book",
     "price": 225.0,
     "category": "Books & DVDs",
@@ -3953,7 +3953,7 @@
   {
     "id": "G-984",
     "code": "G-984",
-    "name": "Mozhippiriyan Puthagam",
+    "name": "மொழிப்பிரியன் புத்தகம் / Mozhippiriyan Puthagam",
     "qty": "Book",
     "price": 100.0,
     "category": "Books & DVDs",
@@ -3962,7 +3962,7 @@
   {
     "id": "G-988",
     "code": "G-988",
-    "name": "Nenda Aayulukku 101 Vazhigal",
+    "name": "நீண்ட ஆயுளுக்கு 101 வழிகள் / Nenda Aayulukku 101 Vazhigal",
     "qty": "Book",
     "price": 170.0,
     "category": "Books & DVDs",
@@ -3989,7 +3989,7 @@
   {
     "id": "G-1151",
     "code": "G-1151",
-    "name": "Peak Mental Performance Rishikesavan & Prem Anand",
+    "name": "Peak Mental Performance - Rishikesavan & Prem Anand",
     "qty": "Book",
     "price": 300.0,
     "category": "Books & DVDs",
@@ -3998,7 +3998,7 @@
   {
     "id": "G-1148",
     "code": "G-1148",
-    "name": "Panja Suthi Murai & Pirathosa Viratham",
+    "name": "பஞ்ச சுத்தி முறையும் பிரதோஷ விரதமும் / Panja Suthi Murai & Pirathosa Viratham",
     "qty": "Book",
     "price": 1000.0,
     "category": "Books & DVDs",
@@ -4007,7 +4007,7 @@
   {
     "id": "G-1147",
     "code": "G-1147",
-    "name": "Sivapuranam",
+    "name": "சிவபுராணம் / Sivapuranam",
     "qty": "Book",
     "price": 1800.0,
     "category": "Books & DVDs",
@@ -4016,7 +4016,7 @@
   {
     "id": "G-1185",
     "code": "G-1185",
-    "name": "Yoga Yogam",
+    "name": "யோக யோகம் / Yoga Yogam",
     "qty": "Book",
     "price": 350.0,
     "category": "Books & DVDs",
@@ -4025,7 +4025,7 @@
   {
     "id": "G-1186",
     "code": "G-1186",
-    "name": "Pallu Velakkaathinga",
+    "name": "பல்லு வெலக்காதிங்க / Pallu Velakkaathinga",
     "qty": "Book",
     "price": 230.0,
     "category": "Books & DVDs",
@@ -4034,7 +4034,7 @@
   {
     "id": "G-1187",
     "code": "G-1187",
-    "name": "Sittarkalin Nithiya Panja Suthi Murai",
+    "name": "சித்தர்களின் நித்திய பஞ்ச சுத்தி முறை / Sittarkalin Nithiya Panja Suthi Murai",
     "qty": "Book",
     "price": 320.0,
     "category": "Books & DVDs",
@@ -4043,7 +4043,7 @@
   {
     "id": "G-1188",
     "code": "G-1188",
-    "name": "Marundena Vendavaam",
+    "name": "மருந்தென வேண்டாவாம் / Marundena Vendavaam",
     "qty": "Book",
     "price": 160.0,
     "category": "Books & DVDs",
