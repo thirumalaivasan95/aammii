@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="bgGrad" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FFD54F"/>
+      <stop offset="60%" stop-color="#FFA726"/>
+      <stop offset="100%" stop-color="#FF8F00"/>
+    </radialGradient>
+    <linearGradient id="flameGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E53935"/>
+      <stop offset="50%" stop-color="#FF6D00"/>
+      <stop offset="100%" stop-color="#FFD600"/>
+    </linearGradient>
+    <linearGradient id="leafShad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.95)"/>
+      <stop offset="100%" stop-color="rgba(255,200,100,0.4)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Main circle -->
+  <circle cx="100" cy="100" r="98" fill="url(#bgGrad)"/>
+  <circle cx="100" cy="100" r="98" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
+
+  <!-- Large leaf (left) -->
+  <path d="M45 155 C42 100 65 48 58 42 C38 38 20 85 35 135 Z"
+        fill="url(#leafShad)" stroke="rgba(220,120,30,0.3)" stroke-width="1.5"/>
+  <path d="M45 155 C55 108 68 62 62 48"
+        fill="none" stroke="rgba(220,120,30,0.4)" stroke-width="1.5"/>
+
+  <!-- Medium leaf (right) -->
+  <path d="M85 155 C82 118 95 80 90 72 C78 68 68 98 78 140 Z"
+        fill="url(#leafShad)" stroke="rgba(220,120,30,0.3)" stroke-width="1.2"/>
+  <path d="M85 155 C90 122 96 90 92 76"
+        fill="none" stroke="rgba(220,120,30,0.35)" stroke-width="1.2"/>
+
+  <!-- Flame / Feather on top-right -->
+  <g transform="translate(115,15) rotate(-20)">
+    <!-- Main flame body -->
+    <path d="M20 65 C5 50 0 30 12 10 C18 2 28 0 32 8 C36 16 30 28 35 38 C40 48 45 52 38 62 C32 70 22 72 20 65Z"
+          fill="url(#flameGrad)" opacity="0.95"/>
+    <!-- Inner flame highlight -->
+    <path d="M22 55 C14 44 14 28 22 16 C26 10 30 12 28 22 C26 30 30 38 28 50Z"
+          fill="rgba(255,220,80,0.6)"/>
+    <!-- Feather notches -->
+    <path d="M35 38 C42 32 48 28 44 22" fill="none" stroke="url(#flameGrad)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M36 45 C44 40 52 36 48 28" fill="none" stroke="#FFD600" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    <path d="M34 52 C43 48 50 44 47 36" fill="none" stroke="#FF8F00" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  </g>
+
+  <!-- Text: Aammii -->
+  <text x="100" y="172" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="22" font-weight="bold"
+        fill="white" letter-spacing="1">Aammii</text>
+  <!-- Sub text -->
+  <text x="100" y="188" text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="9" font-weight="400"
+        fill="rgba(255,255,255,0.85)" letter-spacing="1.5">THARCHARBU SANTHAI</text>
+</svg>

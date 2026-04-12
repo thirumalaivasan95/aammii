@@ -3,387 +3,392 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Aammii Tharcharbu Santhai — 450+ natural lifestyle products. Millets, spices, oils, honey and more sourced from nature."/>
-<title>Aammii Tharcharbu Santhai — Natural Lifestyle Products</title>
-
-<!-- Fonts -->
+<meta name="description" content="Aammii Tharcharbu Santhai — 450+ natural lifestyle products. Shop millets, spices, oils, honey and more."/>
+<title>Aammii Tharcharbu Santhai</title>
+<link rel="icon" type="image/svg+xml" href="logo.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+Tamil:wght@400;600&display=swap" rel="stylesheet"/>
-
-<!-- Styles -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Tamil:wght@400;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="style.css"/>
-<link rel="stylesheet" href="styles-new.css"/>
-
-<!-- Firebase SDK (loaded before auth.js) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 </head>
 <body>
 
-<!-- ── PULL-TO-REFRESH ─────────────────────────────────────── -->
-<div class="ptr-indicator" id="ptrIndicator">
-  <span class="ptr-icon">↓</span>
-  <span class="ptr-text" id="ptrText">Pull to refresh</span>
+<!-- ── PULL TO REFRESH ── -->
+<div class="ptr-bar" id="ptrIndicator">
+  <span class="ptr-spin" id="ptrText">↓ Pull to refresh</span>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     AUTH MODAL
-══════════════════════════════════════════════════════════ -->
-<div class="auth-backdrop" id="authBackdrop" onclick="closeAuth()"></div>
-<div class="auth-modal-wrap" id="authModal" role="dialog" aria-modal="true" aria-label="Sign in">
-  <div class="auth-modal">
-    <button class="auth-close" onclick="closeAuth()" aria-label="Close">✕</button>
-
-    <!-- Logo inside modal -->
-    <div class="auth-logo">
-      <img src="logo.png" alt="Aammii" class="auth-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
-      <span class="auth-logo-fallback" style="display:none">🌿</span>
-      <div class="auth-logo-text">
-        <span class="auth-brand">Aammii</span>
-        <span class="auth-brand-sub">Tharcharbu Santhai</span>
-      </div>
+<!-- ══════════ AUTH MODAL ══════════ -->
+<div class="modal-overlay" id="authBackdrop" onclick="closeAuth()"></div>
+<div class="auth-box" id="authModal">
+  <button class="auth-x" onclick="closeAuth()">✕</button>
+  <div class="auth-head">
+    <img src="logo.svg" class="auth-logo-img" alt="Aammii"
+         onerror="this.src='logo.png';this.onerror=null"/>
+    <div>
+      <div class="auth-brand-name">Aammii</div>
+      <div class="auth-brand-sub">Tharcharbu Santhai</div>
     </div>
+  </div>
+  <div class="auth-seg" role="tablist">
+    <button class="seg-btn active" data-tab="email" onclick="switchAuthTab('email')">Email</button>
+    <button class="seg-btn" data-tab="phone" onclick="switchAuthTab('phone')">Phone OTP</button>
+  </div>
+  <div id="authError" class="auth-msg hidden"></div>
 
-    <!-- Tabs: Email · Phone -->
-    <div class="auth-tabs" role="tablist">
-      <button class="auth-tab active" data-tab="email" role="tab" onclick="switchAuthTab('email')">✉ Email</button>
-      <button class="auth-tab"        data-tab="phone" role="tab" onclick="switchAuthTab('phone')">📱 Phone OTP</button>
+  <!-- Email pane -->
+  <div id="paneEmail" class="auth-pane">
+    <div class="auth-seg mode-seg">
+      <button class="seg-btn active" id="btnLogin"  onclick="switchAuthMode('login')">Login</button>
+      <button class="seg-btn"        id="btnSignup" onclick="switchAuthMode('signup')">Sign Up</button>
     </div>
-
-    <!-- Error / success message -->
-    <div class="auth-error hidden" id="authError"></div>
-
-    <!-- ── EMAIL PANE ── -->
-    <div class="auth-pane" id="paneEmail" role="tabpanel">
-      <div class="auth-mode-toggle">
-        <button class="atoggle active" id="btnLogin"  onclick="switchAuthMode('login')">Login</button>
-        <button class="atoggle"        id="btnSignup" onclick="switchAuthMode('signup')">Sign Up</button>
-      </div>
-
-      <div class="auth-field hidden" id="authNameRow">
-        <label class="auth-label">Full Name</label>
-        <input  class="auth-input" type="text"     id="authName"     placeholder="Your full name" autocomplete="name"/>
-      </div>
-      <div class="auth-field">
-        <label class="auth-label">Email</label>
-        <input  class="auth-input" type="email"    id="authEmail"    placeholder="you@email.com" autocomplete="email"/>
-      </div>
-      <div class="auth-field">
-        <label class="auth-label">Password</label>
-        <input  class="auth-input" type="password" id="authPassword" placeholder="••••••••" autocomplete="current-password"/>
-      </div>
-
-      <button class="auth-submit" id="authSubmitBtn" onclick="doEmailAuth()">Login</button>
-
-      <div class="auth-divider"><span>or continue with</span></div>
-
-      <div class="auth-social-btns">
-        <button class="auth-social-btn google" onclick="doGoogle()">
-          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-          Google
-        </button>
-        <button class="auth-social-btn github" onclick="doGitHub()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
-        </button>
-      </div>
+    <div id="authNameRow" class="hidden">
+      <input class="auth-inp" type="text"     id="authName"     placeholder="Full name"/>
     </div>
-
-    <!-- ── PHONE OTP PANE ── -->
-    <div class="auth-pane hidden" id="panePhone" role="tabpanel">
-      <div class="auth-field">
-        <label class="auth-label">Mobile Number</label>
-        <input  class="auth-input" type="tel" id="authPhone" placeholder="+91 98765 43210" autocomplete="tel"/>
-      </div>
-      <div id="recaptcha-container"></div>
-      <button class="auth-submit" id="sendOtpBtn" onclick="sendOTP()">Send OTP</button>
-
-      <div class="auth-field hidden" id="otpRow">
-        <label class="auth-label">Enter OTP</label>
-        <input  class="auth-input otp-input" type="text" id="authOTP" placeholder="6-digit code" maxlength="6" inputmode="numeric"/>
-        <button class="auth-submit" onclick="verifyOTP()" style="margin-top:8px">Verify &amp; Login</button>
-      </div>
+    <input class="auth-inp" type="email"    id="authEmail"    placeholder="Email address"/>
+    <input class="auth-inp" type="password" id="authPassword" placeholder="Password (min 6 chars)"/>
+    <button class="auth-btn-primary" id="authSubmitBtn" onclick="doEmailAuth()">Login</button>
+    <div class="auth-or">or</div>
+    <div class="auth-socials">
+      <button class="auth-social" onclick="doGoogle()">
+        <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Google
+      </button>
+      <button class="auth-social github" onclick="doGitHub()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </button>
     </div>
+  </div>
 
-  </div><!-- /.auth-modal -->
-</div><!-- /#authModal -->
+  <!-- Phone pane -->
+  <div id="panePhone" class="auth-pane hidden">
+    <input class="auth-inp" type="tel" id="authPhone" placeholder="+91 98765 43210"/>
+    <div id="recaptcha-container"></div>
+    <button class="auth-btn-primary" id="sendOtpBtn" onclick="sendOTP()">Send OTP</button>
+    <div id="otpRow" class="hidden">
+      <input class="auth-inp otp-inp" type="text" id="authOTP" placeholder="6-digit OTP" maxlength="6" inputmode="numeric"/>
+      <button class="auth-btn-primary" onclick="verifyOTP()">Verify & Login</button>
+    </div>
+  </div>
+</div>
 
-<!-- ══════════════════════════════════════════════════════════
-     HEADER
-══════════════════════════════════════════════════════════ -->
-<header class="header" id="siteHeader">
-  <div class="header-inner">
+<!-- ══════════ NOTICE BAR ══════════ -->
+<div class="notice-bar">
+  <span>🚚 Free delivery on orders above ₹500</span>
+  <span class="nb-sep">|</span>
+  <span>📞 +91 95006 55548</span>
+  <span class="nb-sep">|</span>
+  <span>🌿 100% Natural &amp; Pure</span>
+</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="site-header" id="siteHeader">
+  <div class="header-wrap">
 
     <!-- Logo -->
-    <a class="logo" href="#hero">
-      <img src="logo.png" class="logo-img" alt="Aammii"
-           onerror="this.style.display='none';document.querySelector('.logo-mark').style.display='block'"/>
-      <span class="logo-mark" style="display:none">🌿</span>
-      <div class="logo-words">
-        <span class="logo-title">Aammii</span>
-        <span class="logo-tagline">Tharcharbu Santhai</span>
+    <a class="hdr-logo" href="#" onclick="resetAllFilters()">
+      <img src="logo.svg" class="hdr-logo-img" alt="Aammii"
+           onerror="this.src='logo.png';this.onerror=null"/>
+      <div class="hdr-logo-text">
+        <span class="hdr-brand">அம்மி</span>
+        <span class="hdr-tagline">தற்சார்பு சந்தை</span>
       </div>
     </a>
 
     <!-- Search -->
-    <div class="search-bar">
-      <span class="search-icon">⌕</span>
-      <input type="text" id="searchInput" placeholder="Search products in Tamil or English…"
-             oninput="filterProducts()" autocomplete="off"/>
-    </div>
-
-    <!-- Nav links -->
-    <nav class="header-nav">
-      <a href="#newThisWeek" class="nav-link">New</a>
-      <a href="#categories"  class="nav-link">Categories</a>
-      <a href="#shopMain"    class="nav-link">Shop</a>
-    </nav>
-
-    <!-- Price filter shortcut -->
-    <button class="price-filter-header-btn" onclick="openPriceModal()" title="Filter by price">₹ Filter</button>
-
-    <!-- Theme toggle -->
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">
-      <span id="themeIcon">🌙</span>
-    </button>
-
-    <!-- User button -->
-    <div class="user-btn-wrap">
-      <button class="user-btn" id="userBtn" onclick="toggleUserMenu()" aria-label="Account">
-        <span id="userAvatar">👤</span>
-        <span id="userName" class="hidden"></span>
-      </button>
-      <div class="user-menu" id="userMenu">
-        <div class="user-menu-email" id="userMenuEmail"></div>
-        <button class="user-menu-item" onclick="doSignOut()">Sign Out</button>
+    <div class="hdr-search">
+      <div class="search-wrap">
+        <span class="search-ico">🔍</span>
+        <input type="text" id="searchInput" class="search-inp"
+               placeholder="Search in Tamil or English — millets, spices, honey…"
+               oninput="filterProducts()" autocomplete="off"/>
+        <button class="search-btn" onclick="filterProducts()">Search</button>
       </div>
     </div>
 
-    <!-- Cart -->
-    <button class="cart-btn" onclick="toggleCart()">
-      <span class="cart-icon">🛒</span>
-      <span class="cart-badge" id="cartBadge">0</span>
-      <span class="cart-label">Cart</span>
-      <span class="cart-pill" id="cartPill">₹0</span>
-    </button>
+    <!-- Right side -->
+    <div class="hdr-right">
+      <!-- Theme -->
+      <button class="hdr-icon-btn" id="themeToggle" onclick="toggleTheme()" title="Dark mode">
+        <span id="themeIcon">🌙</span>
+      </button>
 
+      <!-- Account -->
+      <div class="hdr-account-wrap">
+        <button class="hdr-account-btn" id="userBtn" onclick="toggleUserMenu()">
+          <span id="userAvatar">👤</span>
+          <div class="hdr-account-text">
+            <span class="hdr-account-label">Hello, <span id="userName">Sign in</span></span>
+            <span class="hdr-account-main">Account ▾</span>
+          </div>
+        </button>
+        <div class="hdr-dropdown" id="userMenu">
+          <div class="dropdown-email" id="userMenuEmail"></div>
+          <button class="dropdown-item" onclick="doSignOut()">Sign Out</button>
+        </div>
+      </div>
+
+      <!-- Cart -->
+      <button class="hdr-cart-btn" onclick="toggleCart()">
+        <span class="cart-ico-wrap">
+          🛒
+          <span class="cart-count" id="cartBadge">0</span>
+        </span>
+        <span class="hdr-cart-text">
+          <span class="hdr-cart-label">Cart</span>
+          <span class="hdr-cart-total" id="cartPill">₹0</span>
+        </span>
+      </button>
+    </div>
   </div>
+
+  <!-- ── Category Nav Bar ── -->
+  <nav class="cat-nav" id="catNav">
+    <div class="cat-nav-inner" id="catNavInner">
+      <button class="cat-nav-btn active" onclick="filterByCategory('all',this)">All Products</button>
+      <!-- Injected by JS -->
+    </div>
+  </nav>
 </header>
 
-<!-- ══════════════════════════════════════════════════════════
-     HERO
-══════════════════════════════════════════════════════════ -->
-<section class="hero" id="hero">
-  <div class="hero-bg">
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-    <div class="hero-orb hero-orb-3"></div>
-    <div class="hero-grain"></div>
+<!-- ══════════ HERO BANNER ══════════ -->
+<div class="hero-banner">
+  <div class="hero-banner-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">🌱 Farm-to-Home · 100% Natural</div>
+      <h1 class="hero-h1">Aammii <span>Tharcharbu</span><br>santhalai</h1>
+      <p class="hero-p">450+ pure natural products — millets, spices, oils, honey &amp; more. Sourced directly from farmers.</p>
+      <div class="hero-btns">
+        <button class="hero-btn-primary" onclick="document.getElementById('shopSection').scrollIntoView({behavior:'smooth'})">
+          Shop Now →
+        </button>
+        <button class="hero-btn-secondary" onclick="openAuth('email')">
+          Sign In for Offers
+        </button>
+      </div>
+      <div class="hero-stats-row">
+        <div class="h-stat"><span class="h-stat-n" data-target="450">0</span><span class="h-stat-l">Products</span></div>
+        <div class="h-stat-sep"></div>
+        <div class="h-stat"><span class="h-stat-n" data-target="25">0</span><span class="h-stat-l">Categories</span></div>
+        <div class="h-stat-sep"></div>
+        <div class="h-stat"><span class="h-stat-n" data-target="100">0</span><span class="h-stat-l">% Natural</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <!-- Swipeable category showcase -->
+      <div class="hero-carousel" id="heroCarousel">
+        <div class="hc-track" id="hcTrack">
+          <div class="hc-slide" style="--c1:#6b4226;--c2:#c8956c">
+            <span class="hc-emoji">🌾</span>
+            <div class="hc-name">தானியங்கள்</div>
+            <div class="hc-en">Millets &amp; Grains</div>
+          </div>
+          <div class="hc-slide" style="--c1:#c0392b;--c2:#e88080">
+            <span class="hc-emoji">🌶</span>
+            <div class="hc-name">மசாலா</div>
+            <div class="hc-en">Spices</div>
+          </div>
+          <div class="hc-slide" style="--c1:#d4a043;--c2:#f9e79f">
+            <span class="hc-emoji">🍯</span>
+            <div class="hc-name">தேன்</div>
+            <div class="hc-en">Honey</div>
+          </div>
+          <div class="hc-slide" style="--c1:#8b4513;--c2:#d2a679">
+            <span class="hc-emoji">🫙</span>
+            <div class="hc-name">எண்ணெய்</div>
+            <div class="hc-en">Oils &amp; Ghee</div>
+          </div>
+          <div class="hc-slide" style="--c1:#556b2f;--c2:#a8c46f">
+            <span class="hc-emoji">🫘</span>
+            <div class="hc-name">பருப்பு</div>
+            <div class="hc-en">Pulses &amp; Dals</div>
+          </div>
+          <div class="hc-slide" style="--c1:#4a7c59;--c2:#7cb997">
+            <span class="hc-emoji">🌿</span>
+            <div class="hc-name">மூலிகை</div>
+            <div class="hc-en">Herbal Products</div>
+          </div>
+        </div>
+        <div class="hc-dots" id="hcDots"></div>
+        <button class="hc-arrow hc-prev" id="hcPrev" aria-label="Previous">‹</button>
+        <button class="hc-arrow hc-next" id="hcNext" aria-label="Next">›</button>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="hero-content">
-    <div class="hero-badge">🌱 Farm-to-Home · Pure &amp; Natural</div>
+<!-- ══════════ UPLOAD STATUS (top of shop, small) ══════════ -->
+<div class="upload-strip hidden" id="uploadStrip">
+  <div class="upload-strip-inner">
+    <span id="uploadStatus2"></span>
+    <div class="progress-mini hidden" id="uploadProgress">
+      <div class="progress-mini-bar" id="progressBar"></div>
+    </div>
+  </div>
+</div>
 
-    <h1 class="hero-title">
-      <span class="hero-title-line1">Aammii</span>
-      <span class="hero-title-line2">Tharcharbu Santhai</span>
-    </h1>
-    <p class="hero-subtitle">450 natural products · 25 categories · sourced from nature</p>
+<!-- ══════════ NEW THIS WEEK ══════════ -->
+<section class="section-band hidden" id="newThisWeek">
+  <div class="band-head">
+    <h2 class="band-title">🆕 Newly Released This Week</h2>
+    <span class="band-new-pill">JUST IN</span>
+  </div>
+  <div class="h-scroll-row" id="newProductsRow"></div>
+</section>
 
-    <div class="hero-actions">
-      <label class="upload-btn" id="uploadLabel">
-        <span>📄</span>
-        <span id="uploadText">Upload Catalogue PDF</span>
+<!-- ══════════ MAIN SHOP ══════════ -->
+<section class="shop-section" id="shopSection">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="shop-sidebar" id="shopSidebar">
+
+    <!-- Category filter -->
+    <div class="sidebar-box">
+      <div class="sidebar-title">Categories</div>
+      <div class="sidebar-cats" id="sidebarCats">
+        <button class="scat-btn active" onclick="filterByCategory('all',this)">All Products <span class="scat-count" id="scat-all"></span></button>
+        <!-- Injected by JS -->
+      </div>
+    </div>
+
+    <!-- Price filter -->
+    <div class="sidebar-box">
+      <div class="sidebar-title">Price Range</div>
+      <div class="price-range-wrap">
+        <div class="price-range-vals">
+          <span>₹<span id="minPriceVal">0</span></span>
+          <span>₹<span id="maxPriceVal">5000</span></span>
+        </div>
+        <input type="range" class="price-slider" id="minPrice" min="0" max="5000" value="0" step="10" oninput="updatePriceRange()"/>
+        <input type="range" class="price-slider" id="maxPrice" min="0" max="5000" value="5000" step="10" oninput="updatePriceRange()"/>
+        <div class="price-range-preview">₹<span id="previewMin">0</span> – ₹<span id="previewMax">5000</span></div>
+        <div class="price-range-btns">
+          <button class="pr-reset" onclick="resetPriceFilter()">Reset</button>
+          <button class="pr-apply" onclick="applyPriceFilter()">Apply</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF upload (admin, small) -->
+    <div class="sidebar-box sidebar-admin">
+      <div class="sidebar-title">📄 Update Catalogue</div>
+      <p class="sidebar-admin-note">Upload a new PDF to refresh the product list</p>
+      <label class="upload-label-small">
+        <span id="uploadText">Choose PDF file</span>
         <input type="file" id="pdfInput" accept=".pdf" onchange="uploadPDF(this)" hidden/>
       </label>
-      <a href="#shopMain" class="browse-btn" onclick="scrollToShop()">Browse All Products ↓</a>
     </div>
 
-    <div id="uploadStatus" class="upload-status hidden"></div>
-    <div id="uploadProgress" class="progress-wrap hidden">
-      <div class="progress-bar" id="progressBar"></div>
-      <span class="progress-label" id="progressLabel">Scanning…</span>
-    </div>
+  </aside>
 
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-num" data-target="450">0</span><span class="stat-label">Products</span></div>
-      <div class="stat-div"></div>
-      <div class="stat"><span class="stat-num" data-target="25">0</span><span class="stat-label">Categories</span></div>
-      <div class="stat-div"></div>
-      <div class="stat"><span class="stat-num" data-target="100">0</span><span class="stat-label">% Natural</span></div>
-    </div>
-  </div>
+  <!-- RIGHT: TOOLBAR + GRID -->
+  <div class="shop-main-area">
 
-  <div class="hero-visual">
-    <div class="hero-logo-ring">
-      <img src="logo.png" class="hero-logo-spin" alt="Aammii"
-           onerror="this.style.display='none';document.querySelector('.hero-center-icon').style.display='block'"/>
-      <span class="hero-center-icon" style="display:none">🌿</span>
-    </div>
-    <div class="hero-rings">
-      <div class="ring r1"></div>
-      <div class="ring r2"></div>
-      <div class="ring r3"></div>
-    </div>
-    <div class="hero-floats">
-      <div class="hf hf1">🌾 Millets</div>
-      <div class="hf hf2">🍯 Honey</div>
-      <div class="hf hf3">🌿 Herbs</div>
-      <div class="hf hf4">🌶 Spices</div>
-      <div class="hf hf5">🧼 Soaps</div>
-      <div class="hf hf6">📚 Books</div>
-    </div>
-  </div>
-
-  <a class="scroll-hint" href="#newThisWeek">↓ Explore</a>
-</section>
-
-<!-- ══════════════════════════════════════════════════════════
-     NEW THIS WEEK
-══════════════════════════════════════════════════════════ -->
-<section class="new-this-week hidden" id="newThisWeek">
-  <div class="section-header">
-    <div class="section-title-wrap">
-      <span class="new-badge-pill">🆕 NEW</span>
-      <h2 class="section-title">Newly Released This Week</h2>
-    </div>
-    <p class="section-sub">Fresh additions to our natural collection</p>
-  </div>
-  <div class="new-products-scroller" id="newProductsRow">
-    <!-- Horizontal scroll cards injected by JS -->
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════════
-     CATEGORIES
-══════════════════════════════════════════════════════════ -->
-<section class="categories-section" id="categories">
-  <div class="section-header">
-    <h2 class="section-title">Shop by Category</h2>
-    <p class="section-sub">25 curated collections of nature's finest</p>
-  </div>
-  <div class="cat-grid" id="catGrid"><!-- JS injected --></div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════════
-     SHOP TOOLBAR
-══════════════════════════════════════════════════════════ -->
-<div class="shop-toolbar hidden" id="shopToolbar">
-
-  <!-- Row A: category chips -->
-  <div class="toolbar-filters" id="filterChips">
-    <button class="filter-chip active" onclick="filterByCategory('all', this)">All</button>
-  </div>
-
-  <!-- Row B: count + sort + price filter -->
-  <div class="toolbar-meta">
-    <span class="toolbar-count" id="resultsInfo"></span>
-    <div class="toolbar-meta-right">
-      <button class="price-filter-btn" onclick="openPriceModal()" id="priceFilterBtn">
-        ₹ Price Filter
-      </button>
-      <div class="sort-wrap">
+    <!-- Toolbar -->
+    <div class="shop-toolbar" id="shopToolbar">
+      <span class="toolbar-count" id="resultsInfo"></span>
+      <div class="toolbar-right">
+        <label class="toolbar-label">Sort by:</label>
         <select id="sortSelect" onchange="sortProducts()" class="sort-select">
-          <option value="default">Sort: Default</option>
-          <option value="price-asc">Price ↑ Low to High</option>
-          <option value="price-desc">Price ↓ High to Low</option>
+          <option value="default">Relevance</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
           <option value="name-asc">Name A–Z</option>
           <option value="new-first">Newest First</option>
         </select>
-        <span class="sort-arrow">▾</span>
       </div>
     </div>
-  </div>
 
-</div>
+    <!-- Recommended section -->
+    <div class="rec-band hidden" id="recommendSection">
+      <div class="rec-band-head">
+        <span class="rec-band-title">✨ Recommended For You</span>
+        <span class="rec-band-sub" id="recSectionSub"></span>
+        <button class="rec-clear" onclick="clearRecommendations()">✕ Clear</button>
+      </div>
+      <div class="rec-row" id="recGrid"></div>
+    </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     RECOMMENDED FOR YOU
-══════════════════════════════════════════════════════════ -->
-<section class="rec-section hidden" id="recommendSection">
-  <div class="section-header">
-    <h2 class="section-title">✨ Recommended For You</h2>
-    <p class="section-sub" id="recSectionSub">Based on your browsing</p>
+    <!-- Product grid -->
+    <div class="product-grid" id="productGrid"></div>
+    <div class="no-results hidden" id="noResults">
+      <div class="no-results-icon">🔍</div>
+      <p>No products found.</p>
+      <button class="nr-reset" onclick="resetAllFilters()">Clear all filters</button>
+    </div>
+
   </div>
-  <div class="rec-grid" id="recGrid"></div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     PRODUCT GRID
-══════════════════════════════════════════════════════════ -->
-<main class="shop-main hidden" id="shopMain">
-  <div class="product-grid" id="productGrid"></div>
-  <div class="no-results hidden" id="noResults">
-    <span>😔</span>
-    <p>No products match your search.</p>
-    <button onclick="resetAllFilters()" class="reset-filter-btn">Clear Filters</button>
-  </div>
-</main>
-
-<!-- ══════════════════════════════════════════════════════════
-     CART PANEL
-══════════════════════════════════════════════════════════ -->
-<aside class="cart-panel" id="cartPanel" aria-label="Shopping cart">
-  <div class="cart-head">
-    <h2>🛒 Your Cart</h2>
-    <button onclick="toggleCart()" class="cart-close" aria-label="Close cart">✕</button>
+<!-- ══════════ CART PANEL ══════════ -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<aside class="cart-panel" id="cartPanel">
+  <div class="cart-hdr">
+    <h2>🛒 Cart (<span id="totalItems">0</span> items)</h2>
+    <button onclick="toggleCart()" class="cart-close-btn">✕</button>
   </div>
   <div class="cart-body">
-    <div class="cart-empty" id="cartEmpty">
-      <span>🌿</span>
+    <div class="cart-empty-state" id="cartEmpty">
+      <img src="logo.svg" style="width:60px;opacity:.3" alt="" onerror="this.style.display='none'"/>
       <p>Your cart is empty</p>
-      <button onclick="toggleCart()" class="browse-cart-btn">Browse Products</button>
+      <button onclick="toggleCart()" class="shop-now-btn">Shop Now</button>
     </div>
     <div id="cartItems"></div>
   </div>
-  <div class="cart-foot">
-    <div class="cart-sum">
-      <div class="sum-row"><span>Total Items</span><span id="totalItems">0</span></div>
-      <div class="sum-row"><span>Subtotal</span><span id="subtotalPrice">₹0.00</span></div>
-      <div class="sum-row grand"><span>Grand Total</span><span id="totalPrice">₹0.00</span></div>
+  <div class="cart-footer">
+    <div class="cart-totals">
+      <div class="ct-row"><span>Subtotal</span><span id="subtotalPrice">₹0.00</span></div>
+      <div class="ct-row ct-grand"><span>Grand Total</span><span id="totalPrice">₹0.00</span></div>
     </div>
-    <button class="order-btn" id="placeOrderBtn" onclick="placeOrder()" disabled>
+    <button class="place-order-btn" id="placeOrderBtn" onclick="placeOrder()" disabled>
       📦 Place Order &amp; Download Invoice
     </button>
-    <p class="cart-foot-note">Invoice downloaded as .txt with order ID &amp; item codes</p>
+    <p class="cart-note">Invoice includes order ID, item codes &amp; full bill</p>
   </div>
 </aside>
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 
-<!-- ══════════════════════════════════════════════════════════
-     PRICE RANGE MODAL
-══════════════════════════════════════════════════════════ -->
-<div class="modal-backdrop" id="priceModalBackdrop" onclick="closePriceModal()"></div>
-<div class="price-modal" id="priceModal" role="dialog" aria-label="Price filter">
-  <div class="price-modal-header">
-    <h3>₹ Filter by Price</h3>
-    <button class="modal-close-btn" onclick="closePriceModal()" aria-label="Close">✕</button>
-  </div>
-  <div class="price-modal-body">
-    <div class="range-group">
-      <label class="range-label">Minimum Price</label>
-      <input type="range" class="price-slider" id="minPrice" min="0" max="5000" value="0" step="10" oninput="updatePriceRange()"/>
-      <div class="range-value">₹<span id="minPriceVal">0</span></div>
-    </div>
-    <div class="range-group">
-      <label class="range-label">Maximum Price</label>
-      <input type="range" class="price-slider" id="maxPrice" min="0" max="5000" value="5000" step="10" oninput="updatePriceRange()"/>
-      <div class="range-value">₹<span id="maxPriceVal">5000</span></div>
-    </div>
-    <div class="price-preview">
-      Showing products from <strong>₹<span id="previewMin">0</span></strong> to <strong>₹<span id="previewMax">5000</span></strong>
-    </div>
-  </div>
-  <div class="price-modal-footer">
-    <button class="reset-price-btn" onclick="resetPriceFilter()">Reset</button>
-    <button class="apply-price-btn" onclick="applyPriceFilter()">Apply Filter</button>
-  </div>
-</div>
+<!-- ══════════ TOAST ══════════ -->
+<div class="toast-bar" id="toast"></div>
 
-<!-- ── TOAST ─────────────────────────────────────────────── -->
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="site-footer">
+  <div class="footer-wrap">
+    <div class="footer-brand">
+      <img src="logo.svg" style="width:56px" alt="Aammii" onerror="this.src='logo.png';this.onerror=null"/>
+      <div>
+        <div class="footer-brand-name">Aammii Tharcharbu Santhai</div>
+        <div class="footer-brand-tag">Pure Natural Products — Farm to Home</div>
+      </div>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-col-item">📞 +91 95006 55548</div>
+        <div class="footer-col-item">🌐 www.aammii.com</div>
+        <div class="footer-col-item">📍 Tamil Nadu, India</div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Shop</div>
+        <div class="footer-col-item" onclick="filterByCategory('Millets &amp; Grains',null)" style="cursor:pointer">Millets &amp; Grains</div>
+        <div class="footer-col-item" onclick="filterByCategory('Spices',null)" style="cursor:pointer">Spices</div>
+        <div class="footer-col-item" onclick="filterByCategory('Oils &amp; Ghee',null)" style="cursor:pointer">Oils &amp; Ghee</div>
+        <div class="footer-col-item" onclick="filterByCategory('Honey',null)" style="cursor:pointer">Honey</div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Policy</div>
+        <div class="footer-col-item">Free delivery above ₹500</div>
+        <div class="footer-col-item">Cash on Delivery available</div>
+        <div class="footer-col-item">100% natural guarantee</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 Aammii Tharcharbu Santhai. All rights reserved. Made with ❤️ in Tamil Nadu.
+  </div>
+</footer>
 
-<!-- ── SCRIPTS ────────────────────────────────────────────── -->
 <script src="firebase-config.js"></script>
 <script src="auth.js"></script>
 <script src="app.js"></script>

@@ -48,7 +48,7 @@ function onAuthStateChange(user) {
     if (userName)   { userName.textContent = name; userName.classList.remove("hidden"); }
     if (userAvatar) {
       if (user.photoURL) {
-        userAvatar.innerHTML = `<img src="${user.photoURL}" class="user-photo" alt="${name}">`;
+        userAvatar.innerHTML = `<img src="${user.photoURL}" class="user-avatar-img" alt="${name}" referrerpolicy="no-referrer">`;
       } else {
         userAvatar.textContent = name.charAt(0).toUpperCase();
       }

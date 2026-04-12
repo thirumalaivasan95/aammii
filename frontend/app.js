@@ -103,8 +103,6 @@ const $ = id => document.getElementById(id);
 
 const productGrid    = $("productGrid");
 const shopToolbar    = $("shopToolbar");
-const filterChipsEl  = $("filterChips");
-const shopMain       = $("shopMain");
 const cartPanel      = $("cartPanel");
 const cartOverlay    = $("cartOverlay");
 const cartItemsEl    = $("cartItems");
@@ -116,12 +114,9 @@ const totalPriceEl   = $("totalPrice");
 const subtotalEl     = $("subtotalPrice");
 const placeOrderBtn  = $("placeOrderBtn");
 const noResults      = $("noResults");
-const uploadStatus   = $("uploadStatus");
 const uploadProgress = $("uploadProgress");
 const progressBar    = $("progressBar");
-const progressLabel  = $("progressLabel");
 const uploadText     = $("uploadText");
-const catGrid        = $("catGrid");
 const resultsInfo    = $("resultsInfo");
 
 /* ─── 4. THEME ──────────────────────────────────────────────── */
@@ -129,37 +124,22 @@ const resultsInfo    = $("resultsInfo");
   const saved      = localStorage.getItem("aammii-theme");
   const preferDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   if (saved ? saved === "dark" : preferDark) {
-    document.documentElement.setAttribute("data-theme", "dark");
+    document.body.classList.add("dark");
   }
 })();
 
 function applyThemeIcon() {
   const icon = $("themeIcon");
   if (!icon) return;
-  icon.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+  icon.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
 }
 
 function toggleTheme() {
-  const html   = document.documentElement;
-  const isDark = html.getAttribute("data-theme") === "dark";
-  if (isDark) {
-    html.removeAttribute("data-theme");
-    localStorage.setItem("aammii-theme", "light");
-  } else {
-    html.setAttribute("data-theme", "dark");
-    localStorage.setItem("aammii-theme", "dark");
-  }
+  const isDark = document.body.classList.toggle("dark");
+  localStorage.setItem("aammii-theme", isDark ? "dark" : "light");
   applyThemeIcon();
 }
 
-window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-  if (!localStorage.getItem("aammii-theme")) {
-    e.matches
-      ? document.documentElement.setAttribute("data-theme", "dark")
-      : document.documentElement.removeAttribute("data-theme");
-    applyThemeIcon();
-  }
-});
 applyThemeIcon();
 
 /* ─── 5. SCROLL EFFECTS & ANIMATED COUNTERS ─────────────────── */
@@ -168,7 +148,7 @@ window.addEventListener("scroll", () => {
 });
 
 function animateCounters() {
-  document.querySelectorAll(".stat-num").forEach(el => {
+  document.querySelectorAll(".h-stat-n").forEach(el => {
     const target = +el.dataset.target;
     const dur    = 1800;
     let start    = null;
@@ -183,30 +163,50 @@ function animateCounters() {
   });
 }
 
-const heroStats = document.querySelector(".hero-stats");
+const heroStats = document.querySelector(".hero-stats-row");
 if (heroStats) {
   new IntersectionObserver((entries, obs) => {
     if (entries[0].isIntersecting) { animateCounters(); obs.disconnect(); }
   }, { threshold: .3 }).observe(heroStats);
 }
 
-/* ─── 6. CATEGORY GRID ──────────────────────────────────────── */
+/* ─── 6. CATEGORY NAV + SIDEBAR ────────────────────────────── */
 function buildCatGrid(products) {
   const counts = {};
   products.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
   const cats = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
 
-  catGrid.innerHTML = cats.map(cat => {
-    const m = CAT_META[cat] || { emoji: "📦", color: "#4a7c59" };
-    return `
-      <div class="cat-card" style="--cat-color:${m.color}"
-           onclick="filterByCategory('${esc(cat)}', null); document.getElementById('shopMain').scrollIntoView({behavior:'smooth'})">
-        <span class="cat-emoji">${m.emoji}</span>
-        <div class="cat-name">${esc(cat)}</div>
-        <div class="cat-count">${counts[cat]} items</div>
-        <div class="cat-bar"></div>
-      </div>`;
-  }).join("");
+  // Update "All" count in sidebar
+  const scatAll = $("scat-all");
+  if (scatAll) scatAll.textContent = products.length;
+
+  // Build sidebar category buttons
+  const sidebarCats = $("sidebarCats");
+  if (sidebarCats) {
+    sidebarCats.querySelectorAll(".dyn").forEach(el => el.remove());
+    cats.forEach(cat => {
+      const m = CAT_META[cat] || { emoji: "📦" };
+      const btn = document.createElement("button");
+      btn.className = "scat-btn dyn";
+      btn.innerHTML = `${m.emoji} ${esc(cat)} <span class="scat-count">${counts[cat]}</span>`;
+      btn.onclick = () => filterByCategory(cat, btn);
+      sidebarCats.appendChild(btn);
+    });
+  }
+
+  // Build category nav bar
+  const catNavInner = $("catNavInner");
+  if (catNavInner) {
+    catNavInner.querySelectorAll(".dyn").forEach(el => el.remove());
+    cats.forEach(cat => {
+      const m = CAT_META[cat] || { emoji: "📦" };
+      const btn = document.createElement("button");
+      btn.className = "cat-nav-btn dyn";
+      btn.textContent = `${m.emoji} ${cat}`;
+      btn.onclick = () => filterByCategory(cat, btn);
+      catNavInner.appendChild(btn);
+    });
+  }
 }
 
 /* ─── 7. PDF UPLOAD ─────────────────────────────────────────── */
@@ -236,7 +236,7 @@ async function uploadPDF(input) {
     if (ns !== si) {
       si = ns;
       setStatus("loading", UPLOAD_STEPS[si]);
-      if (progressLabel) progressLabel.textContent = UPLOAD_STEPS[si];
+      setStatus("loading", UPLOAD_STEPS[si]);
     }
   }, 220);
 
@@ -275,41 +275,20 @@ async function uploadPDF(input) {
   }
 }
 
-function setStatus(type, msg) {
-  uploadStatus.className = `upload-status ${type}`;
-  uploadStatus.textContent = msg;
-  uploadStatus.classList.remove("hidden");
+function setStatus(_type, msg) {
+  const strip = $("uploadStrip");
+  const el    = $("uploadStatus2");
+  if (strip) strip.classList.remove("hidden");
+  if (el) { el.textContent = msg; }
 }
-
-// Drag & drop on hero
-document.getElementById("hero").addEventListener("dragover",  e => e.preventDefault());
-document.getElementById("hero").addEventListener("drop", e => {
-  e.preventDefault();
-  const f = e.dataTransfer.files[0];
-  if (f?.name.endsWith(".pdf")) {
-    const dt = new DataTransfer();
-    dt.items.add(f);
-    $("pdfInput").files = dt.files;
-    uploadPDF($("pdfInput"));
-  }
-});
 
 /* ─── 8. SHOP INITIALISATION ────────────────────────────────── */
 function initShop(products) {
   allProducts      = products;
   filteredProducts = [...products];
   buildCatGrid(products);
-  buildFilterChips(products);
   renderNewThisWeek(products);
   renderProducts(filteredProducts);
-  shopToolbar.classList.remove("hidden");
-  shopMain.classList.remove("hidden");
-}
-
-function scrollToShop() {
-  if (shopMain.classList.contains("hidden") && allProducts.length) {
-    shopMain.classList.remove("hidden");
-  }
 }
 
 function resetAllFilters() {
@@ -319,8 +298,11 @@ function resetAllFilters() {
   maxPriceFilter    = 5000;
   $("searchInput").value = "";
   $("sortSelect").value  = "default";
-  document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
-  document.querySelector(".filter-chip")?.classList.add("active");
+  // Reset sidebar active state
+  document.querySelectorAll(".scat-btn").forEach(c => c.classList.remove("active"));
+  document.querySelector(".scat-btn")?.classList.add("active");
+  document.querySelectorAll(".cat-nav-btn").forEach(c => c.classList.remove("active"));
+  document.querySelector(".cat-nav-btn")?.classList.add("active");
   filteredProducts = [...allProducts];
   renderProducts(filteredProducts);
   updatePriceFilterBtn();
@@ -345,29 +327,13 @@ function renderNewThisWeek(products) {
   }
 
   section.classList.remove("hidden");
-  row.innerHTML = newProducts.map(p => {
-    const imgSrc = imageUrl(p);
-    return `
-      <div class="new-card" onclick="focusProduct('${esc(p.id)}')">
-        <div class="new-card-img">
-          <img src="${imgSrc}" alt="${esc(p.name)}" loading="lazy"
-               onerror="this.src='${fallbackSVG()}'"/>
-          <span class="new-card-tag">NEW</span>
-        </div>
-        <div class="new-card-body">
-          <div class="new-card-code">${esc(p.code || p.id)}</div>
-          <div class="new-card-name">${esc(p.name)}</div>
-          <div class="new-card-price">₹${p.price.toFixed(2)}</div>
-          <button class="new-card-btn" onclick="event.stopPropagation();addToCart('${esc(p.id)}')">Add to Cart</button>
-        </div>
-      </div>`;
-  }).join("");
+  row.innerHTML = newProducts.map(p => productCardHTML(p)).join("");
 }
 
 /* Scroll & highlight the product in the main grid */
 function focusProduct(id) {
   filterByCategory("all", null);
-  $("shopMain").scrollIntoView({ behavior: "smooth" });
+  $("shopSection").scrollIntoView({ behavior: "smooth" });
   setTimeout(() => {
     const card = document.querySelector(`[data-pid="${id}"]`);
     if (card) {
@@ -430,32 +396,41 @@ function clearRecommendations() {
   $("recommendSection")?.classList.add("hidden");
 }
 
-/* ─── 11. FILTER CHIPS ───────────────────────────────────────── */
-function buildFilterChips(products) {
-  const cats = [...new Set(products.map(p => p.category))].sort();
-  filterChipsEl.querySelectorAll(".dyn").forEach(c => c.remove());
-
-  cats.forEach(cat => {
-    const m = CAT_META[cat] || { emoji: "📦" };
-    const btn = document.createElement("button");
-    btn.className = "filter-chip dyn";
-    btn.innerHTML = `${m.emoji} ${cat}`;
-    btn.onclick   = () => filterByCategory(cat, btn);
-    filterChipsEl.appendChild(btn);
-  });
-}
-
+/* ─── 11. CATEGORY FILTER ───────────────────────────────────── */
 function filterByCategory(cat, btn) {
   activeCategory = cat;
-  document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+
+  // Update sidebar active
+  document.querySelectorAll(".scat-btn").forEach(c => c.classList.remove("active"));
+  // Update cat nav active
+  document.querySelectorAll(".cat-nav-btn").forEach(c => c.classList.remove("active"));
+
   if (btn) {
     btn.classList.add("active");
+    // Mirror active state to the sibling nav
+    if (btn.classList.contains("scat-btn")) {
+      document.querySelectorAll(".cat-nav-btn").forEach(c => {
+        if (cat === "all" ? c.textContent.trim() === "All Products" : c.textContent.includes(cat))
+          c.classList.add("active");
+      });
+    } else {
+      document.querySelectorAll(".scat-btn").forEach(c => {
+        if (cat === "all" ? !c.classList.contains("dyn") : c.textContent.includes(cat))
+          c.classList.add("active");
+      });
+    }
   } else {
-    document.querySelectorAll(".filter-chip").forEach(c => {
-      const txt = c.textContent.trim();
-      if (cat === "all" ? txt === "All" : txt.includes(cat)) c.classList.add("active");
-    });
+    // called programmatically — match by text
+    if (cat === "all") {
+      document.querySelector(".scat-btn")?.classList.add("active");
+      document.querySelector(".cat-nav-btn")?.classList.add("active");
+    } else {
+      document.querySelectorAll(".scat-btn, .cat-nav-btn").forEach(c => {
+        if (c.textContent.includes(cat)) c.classList.add("active");
+      });
+    }
   }
+
   applyFilters();
   clearRecommendations();
 }
@@ -520,26 +495,23 @@ function productCardHTML(p, isRec = false) {
   return `
     <div class="product-card${isRec ? " rec-card" : ""}" data-pid="${esc(p.id)}"
          onclick="onProductClick('${esc(p.id)}')">
-      <div class="card-img">
+      ${isNew ? '<span class="card-new-badge">NEW</span>' : ''}
+      <div class="card-img-wrap">
         <img src="${imgSrc}" alt="${esc(p.name)}" loading="lazy"
              onerror="this.src='${fallbackSVG()}'"/>
-        ${isNew ? '<span class="card-badge card-badge-new">NEW</span>' : ''}
-        <span class="card-badge card-badge-cat" style="background:${catMeta.color}">${catMeta.emoji}</span>
-        <button class="card-wishlist" title="Save for later" aria-label="Wishlist">♡</button>
       </div>
       <div class="card-body">
         <div class="card-code">${esc(p.code || p.id)}</div>
-        <div class="card-name tamil-name">${esc(tamilName)}</div>
-        ${englishName ? `<div class="card-name-en">${esc(englishName)}</div>` : ""}
-        <div class="card-qty">${esc(p.qty || "")}</div>
-        <div class="card-foot">
-          <div class="card-price">₹${p.price.toFixed(2)}</div>
-          <button class="add-btn" id="ab-${esc(p.id)}"
-                  onclick="event.stopPropagation();addToCart('${esc(p.id)}')"
-                  title="Add to cart" aria-label="Add to cart">
-            <span>+</span>
-          </button>
+        <span class="card-cat-tag">${catMeta.emoji} ${esc(p.category || "")}</span>
+        <div class="card-tamil">${esc(tamilName)}</div>
+        ${englishName ? `<div class="card-english">${esc(englishName)}</div>` : ""}
+        ${p.qty ? `<div class="card-pack">${esc(p.qty)}</div>` : ""}
+        <div class="card-price-row">
+          <span class="card-price">₹${p.price.toFixed(2)}</span>
         </div>
+        <button class="add-btn" id="ab-${esc(p.id)}"
+                onclick="event.stopPropagation();addToCart('${esc(p.id)}')"
+                title="Add to cart">+ Add to Cart</button>
       </div>
     </div>`;
 }
@@ -652,7 +624,7 @@ function updateCartUI() {
 
 function toggleCart() {
   const open = cartPanel.classList.toggle("open");
-  cartOverlay.classList.toggle("visible", open);
+  cartOverlay.classList.toggle("open", open);
   document.body.style.overflow = open ? "hidden" : "";
 }
 
@@ -866,6 +838,62 @@ async function refreshProducts() {
     showToast("⚠️ Refresh failed — check connection");
   }
 }
+
+/* ─── 19b. HERO CAROUSEL ────────────────────────────────────── */
+(function initHeroCarousel() {
+  const track  = $("hcTrack");
+  const dotsEl = $("hcDots");
+  const prev   = $("hcPrev");
+  const next   = $("hcNext");
+  if (!track) return;
+
+  const slides = track.querySelectorAll(".hc-slide");
+  const total  = slides.length;
+  let cur = 0, autoTimer = null;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement("span");
+    d.className = "hc-dot" + (i === 0 ? " active" : "");
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(idx) {
+    cur = (idx + total) % total;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    dotsEl.querySelectorAll(".hc-dot").forEach((d, i) =>
+      d.classList.toggle("active", i === cur));
+    resetAuto();
+  }
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => goTo(cur + 1), 3000);
+  }
+
+  if (prev) prev.onclick = () => goTo(cur - 1);
+  if (next) next.onclick = () => goTo(cur + 1);
+
+  // Category nav on click
+  slides.forEach((slide) => {
+    slide.addEventListener("click", () => {
+      const cat = slide.querySelector(".hc-en")?.textContent
+        .replace(/&amp;/g, "&").trim();
+      if (cat) filterByCategory(cat, null);
+    });
+  });
+
+  // Touch swipe
+  let tx = 0;
+  track.parentElement.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, { passive: true });
+  track.parentElement.addEventListener("touchend", e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 40) goTo(dx < 0 ? cur + 1 : cur - 1);
+  }, { passive: true });
+
+  resetAuto();
+})();
 
 /* ─── 20. AUTO-LOAD ON START ────────────────────────────────── */
 (async () => {
