@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.\\(py|js|html|css|json|toml|sh\\)$\")",
+      "Bash(python3 -m py_compile /c/Users/dell/Downloads/aammii/backend/app.py)",
+      "Bash(python3 -m py_compile /c/Users/dell/Downloads/aammii/backend/pdf_parser.py)",
+      "Bash(python3)",
+      "Bash(ls /c/Users/dell/Downloads/aammii/generated_images/*.svg)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "Bash(pip show:*)",
+      "Bash(pip install:*)",
+      "Bash(python app.py)",
+      "Bash(curl -s http://localhost:5000/api/products)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'Products loaded: {len\\(d\\)}, first: {d[0][\\\\\"name\\\\\"]}'\\)\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'OK: {len\\(d\\)} products, first={d[0][\\\\\"name\\\\\"]}'\\)\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'Products: {len\\(d\\)}'\\)\")",
+      "Bash(curl -s -o /dev/null -w \"Homepage: HTTP %{http_code}\\\\n\" http://localhost:5000/)",
+      "Bash(curl -s -o /dev/null -w \"Images: HTTP %{http_code}\\\\n\" http://localhost:5000/images/A-033.svg)",
+      "Bash(start \"\" \"http://localhost:5000\")"
+    ]
+  }
+}

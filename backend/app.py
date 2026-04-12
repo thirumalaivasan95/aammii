@@ -131,7 +131,7 @@ def prebuild_images():
             make_svg(p.get("name", ""), pid, p.get("category", ""))
             count += 1
     if count:
-        print(f"  🎨  {count} product images ready")
+        print(f"  [img] {count} product images ready")
 
 # ── API: GET /api/products ─────────────────────────────────────────
 @app.route("/api/products")
@@ -296,9 +296,11 @@ def order():
 
 # ── Startup ────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    print("\n  🌿  Aammii Tharcharbu Santhai")
-    print("  ─────────────────────────────────")
+    import sys
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    print("\n  [*] Aammii Tharcharbu Santhai")
+    print("  ---------------------------------")
     prebuild_images()
-    print("  🚀  Running at http://localhost:5000")
-    print("  ─────────────────────────────────\n")
+    print("  [*] Running at http://localhost:5000")
+    print("  ---------------------------------\n")
     app.run(host="0.0.0.0", port=5000, debug=False)
