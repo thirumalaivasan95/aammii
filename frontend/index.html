@@ -1,421 +1,391 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="ta-en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="description" content="Aammii Natural Shop — 486 farm-to-home natural products. Millets, herbs, spices, personal care and more."/>
-<title>Aammii — Natural Lifestyle Products</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Aammii Tharcharbu Santhai — 450+ natural lifestyle products. Millets, spices, oils, honey and more sourced from nature."/>
+<title>Aammii Tharcharbu Santhai — Natural Lifestyle Products</title>
 
-<!-- Fonts: Fraunces (retro serif) + Sora (clean modern) -->
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+Tamil:wght@400;600&display=swap" rel="stylesheet"/>
+
+<!-- Styles -->
 <link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="styles-new.css"/>
+
+<!-- Firebase SDK (loaded before auth.js) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 </head>
 <body>
 
-<!-- ══ HEADER ════════════════════════════════════════════════════════════ -->
+<!-- ── PULL-TO-REFRESH ─────────────────────────────────────── -->
+<div class="ptr-indicator" id="ptrIndicator">
+  <span class="ptr-icon">↓</span>
+  <span class="ptr-text" id="ptrText">Pull to refresh</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     AUTH MODAL
+══════════════════════════════════════════════════════════ -->
+<div class="auth-backdrop" id="authBackdrop" onclick="closeAuth()"></div>
+<div class="auth-modal-wrap" id="authModal" role="dialog" aria-modal="true" aria-label="Sign in">
+  <div class="auth-modal">
+    <button class="auth-close" onclick="closeAuth()" aria-label="Close">✕</button>
+
+    <!-- Logo inside modal -->
+    <div class="auth-logo">
+      <img src="logo.png" alt="Aammii" class="auth-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+      <span class="auth-logo-fallback" style="display:none">🌿</span>
+      <div class="auth-logo-text">
+        <span class="auth-brand">Aammii</span>
+        <span class="auth-brand-sub">Tharcharbu Santhai</span>
+      </div>
+    </div>
+
+    <!-- Tabs: Email · Phone -->
+    <div class="auth-tabs" role="tablist">
+      <button class="auth-tab active" data-tab="email" role="tab" onclick="switchAuthTab('email')">✉ Email</button>
+      <button class="auth-tab"        data-tab="phone" role="tab" onclick="switchAuthTab('phone')">📱 Phone OTP</button>
+    </div>
+
+    <!-- Error / success message -->
+    <div class="auth-error hidden" id="authError"></div>
+
+    <!-- ── EMAIL PANE ── -->
+    <div class="auth-pane" id="paneEmail" role="tabpanel">
+      <div class="auth-mode-toggle">
+        <button class="atoggle active" id="btnLogin"  onclick="switchAuthMode('login')">Login</button>
+        <button class="atoggle"        id="btnSignup" onclick="switchAuthMode('signup')">Sign Up</button>
+      </div>
+
+      <div class="auth-field hidden" id="authNameRow">
+        <label class="auth-label">Full Name</label>
+        <input  class="auth-input" type="text"     id="authName"     placeholder="Your full name" autocomplete="name"/>
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Email</label>
+        <input  class="auth-input" type="email"    id="authEmail"    placeholder="you@email.com" autocomplete="email"/>
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Password</label>
+        <input  class="auth-input" type="password" id="authPassword" placeholder="••••••••" autocomplete="current-password"/>
+      </div>
+
+      <button class="auth-submit" id="authSubmitBtn" onclick="doEmailAuth()">Login</button>
+
+      <div class="auth-divider"><span>or continue with</span></div>
+
+      <div class="auth-social-btns">
+        <button class="auth-social-btn google" onclick="doGoogle()">
+          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          Google
+        </button>
+        <button class="auth-social-btn github" onclick="doGitHub()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </button>
+      </div>
+    </div>
+
+    <!-- ── PHONE OTP PANE ── -->
+    <div class="auth-pane hidden" id="panePhone" role="tabpanel">
+      <div class="auth-field">
+        <label class="auth-label">Mobile Number</label>
+        <input  class="auth-input" type="tel" id="authPhone" placeholder="+91 98765 43210" autocomplete="tel"/>
+      </div>
+      <div id="recaptcha-container"></div>
+      <button class="auth-submit" id="sendOtpBtn" onclick="sendOTP()">Send OTP</button>
+
+      <div class="auth-field hidden" id="otpRow">
+        <label class="auth-label">Enter OTP</label>
+        <input  class="auth-input otp-input" type="text" id="authOTP" placeholder="6-digit code" maxlength="6" inputmode="numeric"/>
+        <button class="auth-submit" onclick="verifyOTP()" style="margin-top:8px">Verify &amp; Login</button>
+      </div>
+    </div>
+
+  </div><!-- /.auth-modal -->
+</div><!-- /#authModal -->
+
+<!-- ══════════════════════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════════════════════ -->
 <header class="header" id="siteHeader">
   <div class="header-inner">
+
+    <!-- Logo -->
     <a class="logo" href="#hero">
-      <span class="logo-mark">🌿</span>
+      <img src="logo.png" class="logo-img" alt="Aammii"
+           onerror="this.style.display='none';document.querySelector('.logo-mark').style.display='block'"/>
+      <span class="logo-mark" style="display:none">🌿</span>
       <div class="logo-words">
         <span class="logo-title">Aammii</span>
-        <span class="logo-tagline">Natural Shop</span>
+        <span class="logo-tagline">Tharcharbu Santhai</span>
       </div>
     </a>
+
+    <!-- Search -->
     <div class="search-bar">
       <span class="search-icon">⌕</span>
-      <input type="text" id="searchInput" placeholder="Search 486 products…" oninput="filterProducts()"/>
+      <input type="text" id="searchInput" placeholder="Search products in Tamil or English…"
+             oninput="filterProducts()" autocomplete="off"/>
     </div>
+
+    <!-- Nav links -->
     <nav class="header-nav">
-      <a href="#categories" class="nav-link">Categories</a>
-      <a href="#shopMain" class="nav-link">Shop</a>
+      <a href="#newThisWeek" class="nav-link">New</a>
+      <a href="#categories"  class="nav-link">Categories</a>
+      <a href="#shopMain"    class="nav-link">Shop</a>
     </nav>
+
+    <!-- Price filter shortcut -->
+    <button class="price-filter-header-btn" onclick="openPriceModal()" title="Filter by price">₹ Filter</button>
+
+    <!-- Theme toggle -->
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">
       <span id="themeIcon">🌙</span>
     </button>
+
+    <!-- User button -->
+    <div class="user-btn-wrap">
+      <button class="user-btn" id="userBtn" onclick="toggleUserMenu()" aria-label="Account">
+        <span id="userAvatar">👤</span>
+        <span id="userName" class="hidden"></span>
+      </button>
+      <div class="user-menu" id="userMenu">
+        <div class="user-menu-email" id="userMenuEmail"></div>
+        <button class="user-menu-item" onclick="doSignOut()">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- Cart -->
     <button class="cart-btn" onclick="toggleCart()">
       <span class="cart-icon">🛒</span>
       <span class="cart-badge" id="cartBadge">0</span>
       <span class="cart-label">Cart</span>
       <span class="cart-pill" id="cartPill">₹0</span>
     </button>
-  </div>
 
-  <!-- Category nav bar -->
-  <div class="cat-nav-bar" id="catNavBar">
-    <div class="cat-nav-inner" id="catNavInner">
-      <button class="cat-pill active" data-cat="all" onclick="filterByCategory('all',this)">
-        <span>🌿</span> All Products
-      </button>
-      <!-- Dynamic pills injected here -->
-    </div>
   </div>
 </header>
 
-<!-- ══ NEW LAUNCHES BAND ══════════════════════════════════════════════════ -->
-<section class="launches-section" id="launchSection">
-  <div class="launches-inner">
-    <div class="launches-header">
-      <div class="launches-badge">
-        <span class="badge-dot"></span>NEW ARRIVALS
-      </div>
-      <h2 class="launches-title">Just Landed <em>from Nature</em></h2>
-      <p class="launches-sub">Fresh additions to our harvest — be the first to try them</p>
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-grain"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge">🌱 Farm-to-Home · Pure &amp; Natural</div>
+
+    <h1 class="hero-title">
+      <span class="hero-title-line1">Aammii</span>
+      <span class="hero-title-line2">Tharcharbu Santhai</span>
+    </h1>
+    <p class="hero-subtitle">450 natural products · 25 categories · sourced from nature</p>
+
+    <div class="hero-actions">
+      <label class="upload-btn" id="uploadLabel">
+        <span>📄</span>
+        <span id="uploadText">Upload Catalogue PDF</span>
+        <input type="file" id="pdfInput" accept=".pdf" onchange="uploadPDF(this)" hidden/>
+      </label>
+      <a href="#shopMain" class="browse-btn" onclick="scrollToShop()">Browse All Products ↓</a>
     </div>
-    <div class="launches-track-wrap">
-      <button class="launch-arrow launch-prev" id="launchPrev" onclick="slideLaunches(-1)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <polyline points="15 18 9 12 15 6"/>
-        </svg>
-      </button>
-      <div class="launches-track" id="launchTrack">
-        <!-- Injected by JS -->
-      </div>
-      <button class="launch-arrow launch-next" id="launchNext" onclick="slideLaunches(1)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <polyline points="9 18 15 12 9 6"/>
-        </svg>
-      </button>
+
+    <div id="uploadStatus" class="upload-status hidden"></div>
+    <div id="uploadProgress" class="progress-wrap hidden">
+      <div class="progress-bar" id="progressBar"></div>
+      <span class="progress-label" id="progressLabel">Scanning…</span>
     </div>
-    <div class="launch-dots" id="launchDots"></div>
+
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num" data-target="450">0</span><span class="stat-label">Products</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-num" data-target="25">0</span><span class="stat-label">Categories</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-num" data-target="100">0</span><span class="stat-label">% Natural</span></div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-logo-ring">
+      <img src="logo.png" class="hero-logo-spin" alt="Aammii"
+           onerror="this.style.display='none';document.querySelector('.hero-center-icon').style.display='block'"/>
+      <span class="hero-center-icon" style="display:none">🌿</span>
+    </div>
+    <div class="hero-rings">
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="ring r3"></div>
+    </div>
+    <div class="hero-floats">
+      <div class="hf hf1">🌾 Millets</div>
+      <div class="hf hf2">🍯 Honey</div>
+      <div class="hf hf3">🌿 Herbs</div>
+      <div class="hf hf4">🌶 Spices</div>
+      <div class="hf hf5">🧼 Soaps</div>
+      <div class="hf hf6">📚 Books</div>
+    </div>
+  </div>
+
+  <a class="scroll-hint" href="#newThisWeek">↓ Explore</a>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     NEW THIS WEEK
+══════════════════════════════════════════════════════════ -->
+<section class="new-this-week hidden" id="newThisWeek">
+  <div class="section-header">
+    <div class="section-title-wrap">
+      <span class="new-badge-pill">🆕 NEW</span>
+      <h2 class="section-title">Newly Released This Week</h2>
+    </div>
+    <p class="section-sub">Fresh additions to our natural collection</p>
+  </div>
+  <div class="new-products-scroller" id="newProductsRow">
+    <!-- Horizontal scroll cards injected by JS -->
   </div>
 </section>
 
-<!-- ══ HERO MARQUEE ═══════════════════════════════════════════════════════ -->
-<div class="marquee-bar">
-  <div class="marquee-track">
-    <span>🌾 Farm-to-Home</span><span class="sep">·</span>
-    <span>🍯 Pure Honey</span><span class="sep">·</span>
-    <span>🌿 Herbal Remedies</span><span class="sep">·</span>
-    <span>🌶 Organic Spices</span><span class="sep">·</span>
-    <span>💊 Health Mixes</span><span class="sep">·</span>
-    <span>📚 Wellness Books</span><span class="sep">·</span>
-    <span>🌾 Farm-to-Home</span><span class="sep">·</span>
-    <span>🍯 Pure Honey</span><span class="sep">·</span>
-    <span>🌿 Herbal Remedies</span><span class="sep">·</span>
-    <span>🌶 Organic Spices</span><span class="sep">·</span>
-    <span>💊 Health Mixes</span><span class="sep">·</span>
-    <span>📚 Wellness Books</span><span class="sep">·</span>
+<!-- ══════════════════════════════════════════════════════════
+     CATEGORIES
+══════════════════════════════════════════════════════════ -->
+<section class="categories-section" id="categories">
+  <div class="section-header">
+    <h2 class="section-title">Shop by Category</h2>
+    <p class="section-sub">25 curated collections of nature's finest</p>
   </div>
+  <div class="cat-grid" id="catGrid"><!-- JS injected --></div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SHOP TOOLBAR
+══════════════════════════════════════════════════════════ -->
+<div class="shop-toolbar hidden" id="shopToolbar">
+
+  <!-- Row A: category chips -->
+  <div class="toolbar-filters" id="filterChips">
+    <button class="filter-chip active" onclick="filterByCategory('all', this)">All</button>
+  </div>
+
+  <!-- Row B: count + sort + price filter -->
+  <div class="toolbar-meta">
+    <span class="toolbar-count" id="resultsInfo"></span>
+    <div class="toolbar-meta-right">
+      <button class="price-filter-btn" onclick="openPriceModal()" id="priceFilterBtn">
+        ₹ Price Filter
+      </button>
+      <div class="sort-wrap">
+        <select id="sortSelect" onchange="sortProducts()" class="sort-select">
+          <option value="default">Sort: Default</option>
+          <option value="price-asc">Price ↑ Low to High</option>
+          <option value="price-desc">Price ↓ High to Low</option>
+          <option value="name-asc">Name A–Z</option>
+          <option value="new-first">Newest First</option>
+        </select>
+        <span class="sort-arrow">▾</span>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<!-- ══ CATEGORY SHOWCASE ══════════════════════════════════════════════════ -->
-<section class="cat-showcase" id="catShowcase">
-  <div class="section-wrap">
-    <div class="section-head">
-      <h2 class="section-title">Shop by Category</h2>
-      <p class="section-sub">24 curated collections</p>
-    </div>
-    <div class="cat-showcase-grid" id="catShowcaseGrid">
-      <!-- Injected by JS -->
-    </div>
+<!-- ══════════════════════════════════════════════════════════
+     RECOMMENDED FOR YOU
+══════════════════════════════════════════════════════════ -->
+<section class="rec-section hidden" id="recommendSection">
+  <div class="section-header">
+    <h2 class="section-title">✨ Recommended For You</h2>
+    <p class="section-sub" id="recSectionSub">Based on your browsing</p>
   </div>
+  <div class="rec-grid" id="recGrid"></div>
 </section>
 
-<!-- ══ FILTER + PRODUCT GRID ══════════════════════════════════════════════ -->
-<section class="shop-section" id="shopSection">
-  <div class="shop-wrap">
-    <!-- Left: Filters -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-head">
-        <h3>Filter</h3>
-        <button class="sidebar-clear" onclick="clearFilters()">Clear all</button>
-      </div>
-
-      <!-- Price range -->
-      <div class="filter-group">
-        <div class="filter-group-title" onclick="toggleFilterGroup(this)">
-          Price Range <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="filter-group-body open">
-          <div class="price-inputs">
-            <input type="number" id="priceMin" placeholder="Min ₹" min="0" oninput="applyFilters()"/>
-            <span>–</span>
-            <input type="number" id="priceMax" placeholder="Max ₹" min="0" oninput="applyFilters()"/>
-          </div>
-        </div>
-      </div>
-
-      <!-- Availability -->
-      <div class="filter-group">
-        <div class="filter-group-title open-by-default" onclick="toggleFilterGroup(this)">
-          Availability <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="filter-group-body open">
-          <label class="filter-check">
-            <input type="checkbox" id="inStockOnly" onchange="applyFilters()"/>
-            <span>In Stock only</span>
-          </label>
-          <label class="filter-check">
-            <input type="checkbox" id="newLaunchFilter" onchange="applyFilters()"/>
-            <span>New Launches</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Categories (sidebar) -->
-      <div class="filter-group">
-        <div class="filter-group-title" onclick="toggleFilterGroup(this)">
-          Categories <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="filter-group-body" id="sidebarCatList">
-          <!-- Injected by JS -->
-        </div>
-      </div>
-    </aside>
-
-    <!-- Right: Products -->
-    <div class="main-col">
-      <!-- Toolbar -->
-      <div class="toolbar">
-        <button class="mobile-filter-btn" onclick="toggleSidebar()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="4" y1="6" x2="20" y2="6"/>
-            <line x1="8" y1="12" x2="20" y2="12"/>
-            <line x1="12" y1="18" x2="20" y2="18"/>
-          </svg>
-          Filters
-        </button>
-        <span class="results-label" id="resultsLabel">All products</span>
-        <div class="toolbar-right">
-          <select class="sort-select" id="sortSelect" onchange="applyFilters()">
-            <option value="default">Sort: Featured</option>
-            <option value="new">Newest First</option>
-            <option value="price-asc">Price: Low → High</option>
-            <option value="price-desc">Price: High → Low</option>
-            <option value="name-asc">Name A–Z</option>
-          </select>
-          <div class="view-toggle">
-            <button id="viewGrid" class="view-btn active" onclick="setView('grid')" title="Grid">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <rect x="3" y="3" width="7" height="7" rx="1"/>
-                <rect x="14" y="3" width="7" height="7" rx="1"/>
-                <rect x="3" y="14" width="7" height="7" rx="1"/>
-                <rect x="14" y="14" width="7" height="7" rx="1"/>
-              </svg>
-            </button>
-            <button id="viewList" class="view-btn" onclick="setView('list')" title="List">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <rect x="3" y="4" width="18" height="4" rx="1"/>
-                <rect x="3" y="10" width="18" height="4" rx="1"/>
-                <rect x="3" y="16" width="18" height="4" rx="1"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Active filters chips -->
-      <div class="active-filters" id="activeFilters"></div>
-
-      <!-- Product Grid -->
-      <div class="product-grid" id="productGrid" data-view="grid">
-        <div class="grid-skeleton" id="gridSkeleton">
-          <div class="skel-card"></div><div class="skel-card"></div>
-          <div class="skel-card"></div><div class="skel-card"></div>
-          <div class="skel-card"></div><div class="skel-card"></div>
-        </div>
-      </div>
-
-      <!-- No results -->
-      <div class="no-results hidden" id="noResults">
-        <div class="no-results-icon">🌱</div>
-        <h3>No products found</h3>
-        <p>Try adjusting your filters or search query</p>
-        <button onclick="clearFilters()">Clear filters</button>
-      </div>
-
-      <!-- Pagination -->
-      <div class="pagination" id="pagination"></div>
-    </div>
+<!-- ══════════════════════════════════════════════════════════
+     PRODUCT GRID
+══════════════════════════════════════════════════════════ -->
+<main class="shop-main hidden" id="shopMain">
+  <div class="product-grid" id="productGrid"></div>
+  <div class="no-results hidden" id="noResults">
+    <span>😔</span>
+    <p>No products match your search.</p>
+    <button onclick="resetAllFilters()" class="reset-filter-btn">Clear Filters</button>
   </div>
-</section>
+</main>
 
-<!-- ══ FOOTER ════════════════════════════════════════════════════════════ -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="footer-logo">🌿 Aammii</div>
-      <p>Bringing nature's finest to your doorstep. Pure, natural, and sustainably sourced from Tamil Nadu.</p>
-      <div class="footer-social">
-        <span>📞 +91 95006 55548</span>
-        <span>✉️ aammiisanthai@gmail.com</span>
-      </div>
-    </div>
-    <div class="footer-links">
-      <div class="footer-col">
-        <h4>Shop</h4>
-        <a href="#" onclick="filterByCategory('Millets & Grains')">Millets & Grains</a>
-        <a href="#" onclick="filterByCategory('Herbal Powder')">Herbal Powder</a>
-        <a href="#" onclick="filterByCategory('Healthcare')">Healthcare</a>
-        <a href="#" onclick="filterByCategory('Personal Care')">Personal Care</a>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <a href="#">About Us</a>
-        <a href="#">Sustainability</a>
-        <a href="#">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h4>Help</h4>
-        <a href="#">Track Order</a>
-        <a href="#">Returns</a>
-        <a href="#">FAQ</a>
-      </div>
-    </div>
+<!-- ══════════════════════════════════════════════════════════
+     CART PANEL
+══════════════════════════════════════════════════════════ -->
+<aside class="cart-panel" id="cartPanel" aria-label="Shopping cart">
+  <div class="cart-head">
+    <h2>🛒 Your Cart</h2>
+    <button onclick="toggleCart()" class="cart-close" aria-label="Close cart">✕</button>
   </div>
-  <div class="footer-bottom">
-    <span>© 2025 Aammii Tharcharbu Santhai Pvt. Ltd. · Coimbatore, Tamil Nadu</span>
-    <div class="payment-icons">
-      <span class="pay-icon">GPay</span>
-      <span class="pay-icon">Paytm</span>
-      <span class="pay-icon">VISA</span>
-      <span class="pay-icon">MC</span>
-      <span class="pay-icon">UPI</span>
-    </div>
-  </div>
-</footer>
-
-<!-- ══ CART DRAWER ════════════════════════════════════════════════════════ -->
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-<aside class="cart-drawer" id="cartDrawer">
-  <div class="cart-drawer-head">
-    <h2>Your Cart <span class="cart-count-label" id="cartCountLabel">0 items</span></h2>
-    <button class="cart-close-btn" onclick="toggleCart()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-      </svg>
-    </button>
-  </div>
-  <div class="cart-body" id="cartBody">
+  <div class="cart-body">
     <div class="cart-empty" id="cartEmpty">
-      <div class="cart-empty-icon">🌿</div>
+      <span>🌿</span>
       <p>Your cart is empty</p>
-      <button onclick="toggleCart()">Continue Shopping</button>
+      <button onclick="toggleCart()" class="browse-cart-btn">Browse Products</button>
     </div>
-    <div id="cartItemsList"></div>
+    <div id="cartItems"></div>
   </div>
-  <div class="cart-footer" id="cartFooter">
-    <div class="cart-subtotal">
-      <span>Subtotal</span>
-      <span id="cartSubtotal">₹0.00</span>
+  <div class="cart-foot">
+    <div class="cart-sum">
+      <div class="sum-row"><span>Total Items</span><span id="totalItems">0</span></div>
+      <div class="sum-row"><span>Subtotal</span><span id="subtotalPrice">₹0.00</span></div>
+      <div class="sum-row grand"><span>Grand Total</span><span id="totalPrice">₹0.00</span></div>
     </div>
-    <div class="cart-delivery-note">Free delivery on orders above ₹500</div>
-    <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()" disabled>
-      Proceed to Checkout →
+    <button class="order-btn" id="placeOrderBtn" onclick="placeOrder()" disabled>
+      📦 Place Order &amp; Download Invoice
     </button>
+    <p class="cart-foot-note">Invoice downloaded as .txt with order ID &amp; item codes</p>
   </div>
 </aside>
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 
-<!-- ══ CHECKOUT MODAL ════════════════════════════════════════════════════ -->
-<div class="modal-overlay" id="checkoutOverlay" onclick="closeCheckout()"></div>
-<div class="checkout-modal" id="checkoutModal">
-  <div class="checkout-head">
-    <button class="modal-back" onclick="closeCheckout()">← Back</button>
-    <h2 class="checkout-title">Checkout</h2>
-    <div class="checkout-steps" id="checkoutSteps">
-      <span class="step active" data-step="1">Details</span>
-      <span class="step-divider">›</span>
-      <span class="step" data-step="2">Payment</span>
-      <span class="step-divider">›</span>
-      <span class="step" data-step="3">Confirm</span>
+<!-- ══════════════════════════════════════════════════════════
+     PRICE RANGE MODAL
+══════════════════════════════════════════════════════════ -->
+<div class="modal-backdrop" id="priceModalBackdrop" onclick="closePriceModal()"></div>
+<div class="price-modal" id="priceModal" role="dialog" aria-label="Price filter">
+  <div class="price-modal-header">
+    <h3>₹ Filter by Price</h3>
+    <button class="modal-close-btn" onclick="closePriceModal()" aria-label="Close">✕</button>
+  </div>
+  <div class="price-modal-body">
+    <div class="range-group">
+      <label class="range-label">Minimum Price</label>
+      <input type="range" class="price-slider" id="minPrice" min="0" max="5000" value="0" step="10" oninput="updatePriceRange()"/>
+      <div class="range-value">₹<span id="minPriceVal">0</span></div>
+    </div>
+    <div class="range-group">
+      <label class="range-label">Maximum Price</label>
+      <input type="range" class="price-slider" id="maxPrice" min="0" max="5000" value="5000" step="10" oninput="updatePriceRange()"/>
+      <div class="range-value">₹<span id="maxPriceVal">5000</span></div>
+    </div>
+    <div class="price-preview">
+      Showing products from <strong>₹<span id="previewMin">0</span></strong> to <strong>₹<span id="previewMax">5000</span></strong>
     </div>
   </div>
-  <div class="checkout-body">
-
-    <!-- Step 1: Customer Details -->
-    <div class="checkout-step" id="step1">
-      <h3 class="step-title">Delivery Details</h3>
-      <div class="form-grid">
-        <div class="form-field">
-          <label>Full Name *</label>
-          <input type="text" id="custName" placeholder="Rajan Kumar"/>
-        </div>
-        <div class="form-field">
-          <label>Mobile Number *</label>
-          <input type="tel" id="custPhone" placeholder="+91 98765 43210"/>
-        </div>
-        <div class="form-field">
-          <label>Email (for invoice)</label>
-          <input type="email" id="custEmail" placeholder="rajan@example.com"/>
-        </div>
-        <div class="form-field form-field--full">
-          <label>Delivery Address *</label>
-          <textarea id="custAddress" placeholder="House no., Street, City, Pincode…" rows="3"></textarea>
-        </div>
-      </div>
-      <button class="btn-primary" onclick="goToPayment()">Continue to Payment →</button>
-    </div>
-
-    <!-- Step 2: Payment -->
-    <div class="checkout-step hidden" id="step2">
-      <h3 class="step-title">Payment Method</h3>
-      <div class="payment-methods">
-        <label class="pay-method active" id="payOnline">
-          <input type="radio" name="payMethod" value="online" checked onchange="selectPayMethod(this)"/>
-          <div class="pay-method-body">
-            <div class="pay-method-icon">💳</div>
-            <div>
-              <strong>Pay Online</strong>
-              <span>UPI · GPay · Paytm · Cards · Net Banking</span>
-            </div>
-            <div class="pay-method-badges">
-              <span>GPay</span><span>Paytm</span><span>UPI</span><span>VISA</span>
-            </div>
-          </div>
-        </label>
-        <label class="pay-method" id="payCOD">
-          <input type="radio" name="payMethod" value="cod" onchange="selectPayMethod(this)"/>
-          <div class="pay-method-body">
-            <div class="pay-method-icon">🏠</div>
-            <div>
-              <strong>Cash on Delivery</strong>
-              <span>Pay when your order arrives</span>
-            </div>
-          </div>
-        </label>
-      </div>
-
-      <!-- Order summary in checkout -->
-      <div class="checkout-summary" id="checkoutSummary">
-        <h4>Order Summary</h4>
-        <div id="checkoutItemsList"></div>
-        <div class="summary-totals">
-          <div class="sum-row"><span>Subtotal</span><span id="sumSubtotal">₹0</span></div>
-          <div class="sum-row"><span>Delivery</span><span id="sumDelivery">Free</span></div>
-          <div class="sum-row sum-total"><span>Total</span><span id="sumTotal">₹0</span></div>
-        </div>
-      </div>
-      <button class="btn-primary" id="payNowBtn" onclick="processPayment()">
-        <span id="payBtnLabel">Pay Now</span>
-      </button>
-    </div>
-
-    <!-- Step 3: Confirmation -->
-    <div class="checkout-step hidden" id="step3">
-      <div class="order-success">
-        <div class="success-anim">✅</div>
-        <h3>Order Placed!</h3>
-        <p class="order-num" id="confirmOrderNum">ORD-000001</p>
-        <p class="success-note" id="confirmNote">We'll deliver your natural products soon.</p>
-        <div class="success-actions">
-          <button class="btn-primary" onclick="closeCheckout();clearCart()">Continue Shopping</button>
-        </div>
-      </div>
-    </div>
-
+  <div class="price-modal-footer">
+    <button class="reset-price-btn" onclick="resetPriceFilter()">Reset</button>
+    <button class="apply-price-btn" onclick="applyPriceFilter()">Apply Filter</button>
   </div>
 </div>
 
-<!-- ══ TOAST ════════════════════════════════════════════════════════════ -->
-<div class="toast" id="toast"></div>
+<!-- ── TOAST ─────────────────────────────────────────────── -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<!-- ══ MOBILE SIDEBAR OVERLAY ══════════════════════════════════════════ -->
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
-<!-- Razorpay SDK -->
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<!-- ── SCRIPTS ────────────────────────────────────────────── -->
+<script src="firebase-config.js"></script>
+<script src="auth.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
