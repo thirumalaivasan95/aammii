@@ -1,0 +1,28 @@
+==============================================================
+                   AAMMII THARCHARBU SANTHAI                  
+                   Natural Lifestyle Products                 
+               www.aammii.com  |  +91 95006 55548             
+==============================================================
+
+  Order ID   : ORD-YC7B9553
+  Date       : 24 April 2026
+  Time       : 17:16:02 IST
+  Customer   : T
+
+--------------------------------------------------------------
+  CODE         QTY     PRICE      TOTAL
+--------------------------------------------------------------
+  A-033          1    100.00     100.00
+    test
+--------------------------------------------------------------
+                                   GRAND TOTAL     100.00
+==============================================================
+
+  PAYMENT OPTIONS:
+  UPI / GPay / PhonePe : aammii@upi
+  Cash on Delivery      : Available in select areas
+
+  Thank you! Nandri! Come back soon.
+  Vazhga valamudan!
+
+  Generated: 17:16:02 IST, 24 Apr 2026

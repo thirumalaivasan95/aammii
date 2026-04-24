@@ -1,0 +1,28 @@
+==============================================================
+                   AAMMII THARCHARBU SANTHAI                  
+                   Natural Lifestyle Products                 
+               www.aammii.com  |  +91 95006 55548             
+==============================================================
+
+  Order ID   : ORD-JNF97NDC
+  Date       : 24 April 2026
+  Time       : 17:14:01 IST
+  Customer   : Test
+
+--------------------------------------------------------------
+  CODE         QTY     PRICE      TOTAL
+--------------------------------------------------------------
+  A-033          2    195.00     390.00
+    Foxtail Millet
+--------------------------------------------------------------
+                                   GRAND TOTAL     390.00
+==============================================================
+
+  PAYMENT OPTIONS:
+  UPI / GPay / PhonePe : aammii@upi
+  Cash on Delivery      : Available in select areas
+
+  Thank you! Nandri! Come back soon.
+  Vazhga valamudan!
+
+  Generated: 17:14:01 IST, 24 Apr 2026

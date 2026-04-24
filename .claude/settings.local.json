@@ -18,7 +18,9 @@
       "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'Products: {len\\(d\\)}'\\)\")",
       "Bash(curl -s -o /dev/null -w \"Homepage: HTTP %{http_code}\\\\n\" http://localhost:5000/)",
       "Bash(curl -s -o /dev/null -w \"Images: HTTP %{http_code}\\\\n\" http://localhost:5000/images/A-033.svg)",
-      "Bash(start \"\" \"http://localhost:5000\")"
+      "Bash(start \"\" \"http://localhost:5000\")",
+      "Bash(chmod +x \"c:/Users/thiru/Downloads/Project/aammii/run.sh\")",
+      "Bash(python -c ' *)"
     ]
   }
 }

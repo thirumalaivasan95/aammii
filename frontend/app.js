@@ -1,910 +1,1658 @@
 /**
  * app.js — Aammii Tharcharbu Santhai
- * Sections:
- *  1.  Config & State
- *  2.  Category Metadata & Relations (for recommendations)
- *  3.  DOM References
- *  4.  Theme
- *  5.  Scroll Effects & Animated Counters
- *  6.  Category Grid
- *  7.  PDF Upload
- *  8.  Shop Initialisation
- *  9.  New This Week
- * 10.  Recommendations Engine (rule-based AI)
- * 11.  Filter Chips
- * 12.  Search, Filter & Sort
- * 13.  Render Products
- * 14.  Cart
- * 15.  Order & Invoice
- * 16.  Price Modal
- * 17.  Toast
- * 18.  Utilities
- * 19.  Pull-to-Refresh
- * 20.  Auto-load on Start
+ * Single-page app with hash routing · Multi-page e-commerce · Vanilla JS
+ *
+ * Pages: Home · Browse · Category · Product · Cart · Checkout ·
+ *        OrderConfirm · Orders · OrderDetail · Account · Admin · About · Contact
  */
 
-/* ─── 1. CONFIG & STATE ─────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   1. CONFIG & STATE
+   ═══════════════════════════════════════════════════════════════ */
 
-// Auto-detect API: use local when running on localhost, production otherwise
-const API = (
-  window.location.hostname === "localhost" ||
-  window.location.hostname === "127.0.0.1"
-) ? "http://localhost:5000" : "https://aammii.onrender.com";
+const API = (window.location.hostname === "localhost" ||
+             window.location.hostname === "127.0.0.1")
+            ? "" : "";
 
-let allProducts       = [];
-let filteredProducts  = [];
-let cart              = {};
-let activeCategory    = "all";
-let priceFilterActive = false;
-let minPriceFilter    = 0;
-let maxPriceFilter    = 5000;
-let lastViewedProduct = null;   // for recommendations
+const STATE = {
+  products:    [],
+  cart:        {},
+  filters:     { category: "all", minP: 0, maxP: 5000, search: "", sort: "default" },
+  location:    localStorage.getItem("aammii-loc") || "Tamil Nadu",
+  ordersCache: [],
+};
 
-/* ─── 2. CATEGORY METADATA & RELATIONS ─────────────────────── */
+const CART_KEY  = "aammii-cart";
+const ORDERS_KEY = "aammii-orders-local";   /* local order shadow for anon users */
+const FAV_KEY   = "aammii-favs";
+
+/* ═══════════════════════════════════════════════════════════════
+   2. CATEGORY METADATA
+   ═══════════════════════════════════════════════════════════════ */
+
 const CAT_META = {
-  "Beverages":            { emoji: "🍵", color: "#1abc9c" },
-  "Books & DVDs":         { emoji: "📚", color: "#3d5a80" },
-  "Copper Products":      { emoji: "🥇", color: "#d4a043" },
-  "Divine Products":      { emoji: "🕯",  color: "#9b59b6" },
-  "Dry Fruits & Nuts":    { emoji: "🥜", color: "#784212" },
-  "Face Pack":            { emoji: "✨", color: "#9b59b6" },
-  "Health Mix":           { emoji: "💊", color: "#1a5276" },
-  "Healthcare":           { emoji: "🩺", color: "#922b21" },
-  "Herbal Powder":        { emoji: "🌿", color: "#4a7c59" },
-  "Home Care":            { emoji: "🧴", color: "#2ecc71" },
-  "Honey":                { emoji: "🍯", color: "#c8922e" },
-  "Millets & Grains":     { emoji: "🌾", color: "#6b4226" },
-  "Noodles & Vermicelli": { emoji: "🍜", color: "#e67e22" },
-  "Oils & Ghee":          { emoji: "🫙",  color: "#8b4513" },
-  "Personal Care":        { emoji: "🌸", color: "#9b59b6" },
-  "Pickles":              { emoji: "🥒", color: "#556b2f" },
-  "Pulses & Dals":        { emoji: "🫘", color: "#556b2f" },
-  "Readymade Mix":        { emoji: "🍱", color: "#d4a043" },
-  "Salt":                 { emoji: "🧂", color: "#3d5a80" },
-  "Seeds":                { emoji: "🌱", color: "#27ae60" },
-  "Soap":                 { emoji: "🧼", color: "#2980b9" },
-  "Spices":               { emoji: "🌶", color: "#c0392b" },
-  "Sweeteners":           { emoji: "🍯", color: "#d4a043" },
-  "Vadagam & Appalam":    { emoji: "🥙", color: "#8b4513" },
-  "Wellness Tools":       { emoji: "🧘", color: "#2980b9" },
+  "Beverages":            { emoji: "🍵", c1: "#0E7C6B", c2: "#35C9B0" },
+  "Books & DVDs":         { emoji: "📚", c1: "#2D4A6E", c2: "#6E9EC0" },
+  "Copper Products":      { emoji: "🥇", c1: "#B8860B", c2: "#F4C87A" },
+  "Divine Products":      { emoji: "🕯", c1: "#6B2E7A", c2: "#B87ACC" },
+  "Dry Fruits & Nuts":    { emoji: "🥜", c1: "#6B3A12", c2: "#C8956C" },
+  "Face Pack":            { emoji: "✨", c1: "#6B2E7A", c2: "#E0B8F0" },
+  "Health Mix":           { emoji: "💊", c1: "#1A4A70", c2: "#7EADCF" },
+  "Healthcare":           { emoji: "🩺", c1: "#7A1E18", c2: "#E07070" },
+  "Herbal Powder":        { emoji: "🌿", c1: "#2E6040", c2: "#6EA882" },
+  "Home Care":            { emoji: "🧴", c1: "#1E6B38", c2: "#62C882" },
+  "Honey":                { emoji: "🍯", c1: "#C8820A", c2: "#F9E79F" },
+  "Millets & Grains":     { emoji: "🌾", c1: "#5C3A1E", c2: "#C8956C" },
+  "Noodles & Vermicelli": { emoji: "🍜", c1: "#C05A10", c2: "#E09050" },
+  "Oils & Ghee":          { emoji: "🫙", c1: "#7A3B0A", c2: "#D2A679" },
+  "Personal Care":        { emoji: "🌸", c1: "#6B2E7A", c2: "#E0B8F0" },
+  "Pickles":              { emoji: "🥒", c1: "#3D5A26", c2: "#8EBF62" },
+  "Pulses & Dals":        { emoji: "🫘", c1: "#3D5A26", c2: "#8EBF62" },
+  "Readymade Mix":        { emoji: "🍱", c1: "#B8860B", c2: "#F4C87A" },
+  "Salt":                 { emoji: "🧂", c1: "#2D4A6E", c2: "#7EADCF" },
+  "Seeds":                { emoji: "🌱", c1: "#1E6B38", c2: "#62C882" },
+  "Soap":                 { emoji: "🧼", c1: "#1E6A9A", c2: "#70AACF" },
+  "Spices":               { emoji: "🌶", c1: "#A02020", c2: "#E07070" },
+  "Sweeteners":           { emoji: "🍯", c1: "#B8860B", c2: "#F4C87A" },
+  "Vadagam & Appalam":    { emoji: "🥙", c1: "#7A3B0A", c2: "#C8956C" },
+  "Wellness Tools":       { emoji: "🧘", c1: "#1E6A9A", c2: "#70AACF" },
 };
 
-// Related categories for smart recommendations
-const CAT_RELATIONS = {
-  "Millets & Grains":     ["Pulses & Dals", "Health Mix", "Readymade Mix", "Oils & Ghee"],
-  "Pulses & Dals":        ["Millets & Grains", "Spices", "Oils & Ghee", "Salt"],
-  "Spices":               ["Oils & Ghee", "Pickles", "Salt", "Pulses & Dals"],
-  "Oils & Ghee":          ["Spices", "Millets & Grains", "Pickles", "Vadagam & Appalam"],
-  "Honey":                ["Sweeteners", "Beverages", "Dry Fruits & Nuts", "Health Mix"],
-  "Sweeteners":           ["Honey", "Beverages", "Health Mix"],
-  "Beverages":            ["Honey", "Health Mix", "Herbal Powder"],
-  "Health Mix":           ["Millets & Grains", "Beverages", "Healthcare", "Honey"],
-  "Healthcare":           ["Health Mix", "Herbal Powder", "Wellness Tools", "Personal Care"],
-  "Herbal Powder":        ["Healthcare", "Health Mix", "Beverages", "Personal Care"],
-  "Personal Care":        ["Soap", "Face Pack", "Healthcare", "Herbal Powder"],
-  "Soap":                 ["Personal Care", "Face Pack", "Home Care"],
-  "Face Pack":            ["Soap", "Personal Care", "Herbal Powder"],
-  "Home Care":            ["Soap", "Copper Products", "Wellness Tools"],
-  "Pickles":              ["Spices", "Oils & Ghee", "Vadagam & Appalam", "Salt"],
-  "Vadagam & Appalam":    ["Pickles", "Oils & Ghee", "Readymade Mix"],
-  "Readymade Mix":        ["Millets & Grains", "Noodles & Vermicelli", "Vadagam & Appalam"],
-  "Noodles & Vermicelli": ["Readymade Mix", "Oils & Ghee", "Spices"],
-  "Dry Fruits & Nuts":    ["Honey", "Sweeteners", "Health Mix"],
-  "Seeds":                ["Millets & Grains", "Health Mix", "Oils & Ghee"],
-  "Salt":                 ["Spices", "Pickles", "Pulses & Dals"],
-  "Copper Products":      ["Wellness Tools", "Home Care", "Divine Products"],
-  "Divine Products":      ["Copper Products", "Books & DVDs"],
-  "Books & DVDs":         ["Divine Products", "Healthcare"],
-  "Wellness Tools":       ["Healthcare", "Copper Products", "Personal Care"],
-};
+const FEATURED_CATEGORIES = [
+  "Millets & Grains", "Spices", "Oils & Ghee", "Honey",
+  "Herbal Powder", "Pulses & Dals", "Personal Care", "Health Mix"
+];
 
-/* ─── 3. DOM REFERENCES ─────────────────────────────────────── */
-const $ = id => document.getElementById(id);
+/* ═══════════════════════════════════════════════════════════════
+   3. HELPERS
+   ═══════════════════════════════════════════════════════════════ */
 
-const productGrid    = $("productGrid");
-const shopToolbar    = $("shopToolbar");
-const cartPanel      = $("cartPanel");
-const cartOverlay    = $("cartOverlay");
-const cartItemsEl    = $("cartItems");
-const cartEmpty      = $("cartEmpty");
-const cartBadge      = $("cartBadge");
-const cartPill       = $("cartPill");
-const totalItemsEl   = $("totalItems");
-const totalPriceEl   = $("totalPrice");
-const subtotalEl     = $("subtotalPrice");
-const placeOrderBtn  = $("placeOrderBtn");
-const noResults      = $("noResults");
-const uploadProgress = $("uploadProgress");
-const progressBar    = $("progressBar");
-const uploadText     = $("uploadText");
-const resultsInfo    = $("resultsInfo");
+const $  = id => document.getElementById(id);
+const q  = (s, r = document) => r.querySelector(s);
+const qa = (s, r = document) => [...r.querySelectorAll(s)];
 
-/* ─── 4. THEME ──────────────────────────────────────────────── */
-(function initTheme() {
-  const saved      = localStorage.getItem("aammii-theme");
-  const preferDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  if (saved ? saved === "dark" : preferDark) {
-    document.body.classList.add("dark");
+function esc(s) {
+  if (s == null) return "";
+  return String(s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+function money(n) { return "₹" + Number(n || 0).toFixed(2); }
+function moneyR(n) { return "₹" + Math.round(Number(n || 0)); }
+
+function imageUrl(p) {
+  if (!p?.image) return fallbackSVG();
+  if (p.image.startsWith("data:") || p.image.startsWith("http")) return p.image;
+  return API ? `${API}${p.image}` : p.image;
+}
+
+function fallbackSVG(size = 280) {
+  return "data:image/svg+xml," + encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size*4/3}">
+       <rect width="${size}" height="${size*4/3}" fill="#14532D" rx="10"/>
+       <text x="50%" y="54%" text-anchor="middle" font-size="${size/4}">🌿</text>
+     </svg>`);
+}
+
+function splitName(name) {
+  if (!name) return { tamil: "", english: "" };
+  if (name.includes(" / ")) {
+    const [t, e] = name.split(" / ", 2);
+    return { tamil: t.trim(), english: (e || "").trim() };
   }
+  return { tamil: name, english: "" };
+}
+
+function isNew(p) {
+  if (!p?.date_added) return false;
+  return (Date.now() - new Date(p.date_added).getTime()) < 7 * 24 * 60 * 60 * 1000;
+}
+
+/* Pseudo-rating & MRP based on stable hash — gives the site the polish of an
+   e-commerce store without fabricating real reviews. Replace with real data
+   once the review system is live. */
+function pseudoRating(p) {
+  const h = String(p.id || p.code || "").split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  const stars = 3.8 + ((h % 12) / 10);      // 3.8–4.9
+  const reviews = 12 + (h % 180);
+  return { stars: Math.min(5, stars).toFixed(1), reviews };
+}
+function pseudoMRP(p) {
+  const factor = 1.1 + ((String(p.id).length % 4) * 0.05);  // 1.10–1.25
+  return Math.round(Number(p.price) * factor);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   4. THEME
+   ═══════════════════════════════════════════════════════════════ */
+
+(function initTheme() {
+  const saved = localStorage.getItem("aammii-theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  if (saved ? saved === "dark" : prefersDark) document.body.classList.add("dark");
 })();
 
 function applyThemeIcon() {
-  const icon = $("themeIcon");
-  if (!icon) return;
-  icon.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+  const ic = $("themeIcon");
+  if (ic) ic.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
 }
-
-function toggleTheme() {
-  const isDark = document.body.classList.toggle("dark");
-  localStorage.setItem("aammii-theme", isDark ? "dark" : "light");
-  applyThemeIcon();
-}
-
 applyThemeIcon();
 
-/* ─── 5. SCROLL EFFECTS & ANIMATED COUNTERS ─────────────────── */
-window.addEventListener("scroll", () => {
-  $("siteHeader").classList.toggle("scrolled", scrollY > 80);
-});
+function toggleTheme() {
+  const dark = document.body.classList.toggle("dark");
+  localStorage.setItem("aammii-theme", dark ? "dark" : "light");
+  applyThemeIcon();
+}
+window.toggleTheme = toggleTheme;
+
+/* ═══════════════════════════════════════════════════════════════
+   5. CART  (persists to localStorage)
+   ═══════════════════════════════════════════════════════════════ */
+
+function loadCart() {
+  try { STATE.cart = JSON.parse(localStorage.getItem(CART_KEY)) || {}; }
+  catch { STATE.cart = {}; }
+}
+function saveCart() {
+  try { localStorage.setItem(CART_KEY, JSON.stringify(STATE.cart)); } catch {}
+}
+
+function cartCount()   { return Object.values(STATE.cart).reduce((s, i) => s + i.qty, 0); }
+function cartTotal()   { return Object.values(STATE.cart).reduce((s, i) => s + i.qty * i.price, 0); }
+
+function addToCart(id, qty = 1, silent = false) {
+  const p = STATE.products.find(x => x.id === id || x.code === id);
+  if (!p) return;
+  if (STATE.cart[p.id]) STATE.cart[p.id].qty += qty;
+  else STATE.cart[p.id] = { ...p, qty };
+  saveCart(); updateNavCart();
+  if (!silent) {
+    showToast(`🛒 ${splitName(p.name).tamil} added`);
+    openCartDrawer(p);
+  }
+}
+function setQty(id, qty) {
+  if (!STATE.cart[id]) return;
+  if (qty <= 0) delete STATE.cart[id];
+  else STATE.cart[id].qty = qty;
+  saveCart(); updateNavCart();
+}
+function removeFromCart(id) { delete STATE.cart[id]; saveCart(); updateNavCart(); }
+function clearCart() { STATE.cart = {}; saveCart(); updateNavCart(); }
+
+function updateNavCart() {
+  const b = $("cartBadge"), p = $("cartPill");
+  if (b) b.textContent = cartCount();
+  if (p) {
+    const c = cartCount();
+    p.textContent = c ? moneyR(cartTotal()) : "Cart";
+  }
+}
+
+/* Favorites (localStorage-only) */
+function loadFavs() { try { return JSON.parse(localStorage.getItem(FAV_KEY)) || {}; } catch { return {}; } }
+function saveFavs(f) { try { localStorage.setItem(FAV_KEY, JSON.stringify(f)); } catch {} }
+function toggleFav(id) {
+  const f = loadFavs();
+  f[id] = !f[id];
+  saveFavs(f);
+  return f[id];
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   6. ROUTER  (hash-based SPA)
+   ═══════════════════════════════════════════════════════════════ */
+
+function parseHash() {
+  const h = window.location.hash.replace(/^#/, "") || "/";
+  const [path, query = ""] = h.split("?");
+  const params = Object.fromEntries(new URLSearchParams(query));
+  const parts = path.split("/").filter(Boolean);
+  return { path, parts, params };
+}
+
+async function route() {
+  const { parts, params } = parseHash();
+  const view = $("view");
+  if (!STATE.products.length) await loadProducts();
+
+  window.scrollTo(0, 0);
+  updateNavCart();
+
+  // Route dispatch
+  const first = parts[0] || "";
+  try {
+    if (!first)                   return renderHome(view);
+    if (first === "browse")       return renderBrowse(view, params);
+    if (first === "category")     return renderBrowse(view, { category: decodeURIComponent(parts[1] || "") });
+    if (first === "product")      return renderProduct(view, parts[1]);
+    if (first === "cart")         return renderCart(view);
+    if (first === "checkout")     return renderCheckout(view);
+    if (first === "order-placed") return renderOrderPlaced(view, parts[1]);
+    if (first === "orders")       return renderOrders(view);
+    if (first === "order")        return renderOrderDetail(view, parts[1]);
+    if (first === "account")      return renderAccount(view);
+    if (first === "admin")        return renderAdmin(view);
+    if (first === "about")        return renderAbout(view);
+    if (first === "contact")      return renderContact(view);
+    return render404(view);
+  } catch (e) {
+    console.error(e);
+    view.innerHTML = `<div class="page"><div class="empty">
+      <div class="emoji">😵</div><h3>Something broke.</h3>
+      <p>${esc(e.message)}</p><a class="btn-primary" href="#/">Go Home</a></div></div>`;
+  }
+}
+
+window.addEventListener("hashchange", route);
+window.addEventListener("DOMContentLoaded", () => { populateSearchCats(); buildMobileNav(); });
+window.go = (path) => { window.location.hash = path.startsWith("#") ? path : "#" + path; };
+
+/* ═══════════════════════════════════════════════════════════════
+   7. DATA LAYER
+   ═══════════════════════════════════════════════════════════════ */
+
+async function loadProducts() {
+  try {
+    const r = await fetch(`${API}/api/products`);
+    const data = await r.json();
+    if (Array.isArray(data)) {
+      STATE.products = data.map(p => ({ ...p, mrp: pseudoMRP(p) }));
+    }
+  } catch (e) { console.error("loadProducts", e); STATE.products = []; }
+  populateSearchCats();
+}
+
+async function fetchOrders() {
+  try {
+    const r = await fetch(`${API}/api/orders`);
+    if (r.ok) return await r.json();
+  } catch {}
+  /* fallback to local shadow */
+  try { return JSON.parse(localStorage.getItem(ORDERS_KEY)) || []; } catch { return []; }
+}
+
+function saveOrderLocal(o) {
+  try {
+    const list = JSON.parse(localStorage.getItem(ORDERS_KEY)) || [];
+    list.unshift(o);
+    localStorage.setItem(ORDERS_KEY, JSON.stringify(list.slice(0, 50)));
+  } catch {}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   8. PRODUCT CARD (shared)
+   ═══════════════════════════════════════════════════════════════ */
+
+function cardHTML(p) {
+  const n = splitName(p.name);
+  const meta = CAT_META[p.category] || { emoji: "📦" };
+  const rating = pseudoRating(p);
+  const mrp = p.mrp || pseudoMRP(p);
+  const off = mrp > p.price ? Math.round(((mrp - p.price) / mrp) * 100) : 0;
+  const fav = loadFavs()[p.id];
+  const stars = "★".repeat(Math.floor(rating.stars)) + (rating.stars % 1 >= .5 ? "½" : "");
+
+  return `
+    <article class="card" data-pid="${esc(p.id)}" onclick="go('/product/${encodeURIComponent(p.id)}')">
+      ${isNew(p) ? '<span class="card-new-badge">NEW</span>' : ""}
+      <button class="card-fav ${fav ? 'active' : ''}" onclick="event.stopPropagation();onFav(this,'${esc(p.id)}')" aria-label="Favorite">${fav ? "❤" : "♡"}</button>
+      <div class="card-image">
+        <img src="${imageUrl(p)}" alt="${esc(p.name)}" loading="lazy" onerror="this.src='${fallbackSVG()}'"/>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">${meta.emoji} ${esc(p.category || "")}</div>
+        <div class="card-name tamil">${esc(n.tamil)}</div>
+        ${n.english ? `<div class="card-en">${esc(n.english)}</div>` : ""}
+        ${p.qty ? `<div class="card-pack">📦 ${esc(p.qty)}</div>` : ""}
+        <div class="card-rating">
+          <span class="card-stars">${stars}</span>
+          <span>${rating.stars}</span>
+          <span>(${rating.reviews})</span>
+        </div>
+        <div class="card-price-row">
+          <span class="card-price">${moneyR(p.price)}</span>
+          ${off ? `<span class="card-mrp">${moneyR(mrp)}</span><span class="card-off">${off}% OFF</span>` : ""}
+        </div>
+        <button class="card-add" id="add-${esc(p.id)}"
+                onclick="event.stopPropagation();addToCart('${esc(p.id)}')">
+          + Add to Cart
+        </button>
+      </div>
+    </article>`;
+}
+
+function onFav(btn, id) {
+  const on = toggleFav(id);
+  btn.classList.toggle("active", on);
+  btn.textContent = on ? "❤" : "♡";
+  showToast(on ? "❤ Added to favorites" : "Removed from favorites");
+}
+window.onFav = onFav;
+
+/* ═══════════════════════════════════════════════════════════════
+   9. PAGE: HOME
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderHome(view) {
+  const catCounts = {};
+  STATE.products.forEach(p => { catCounts[p.category] = (catCounts[p.category] || 0) + 1; });
+  const topCats = FEATURED_CATEGORIES.filter(c => catCounts[c]);
+
+  const newArrivals = STATE.products.filter(isNew).slice(0, 12);
+  const bestsellers = [...STATE.products].sort(() => .5 - Math.random()).slice(0, 12);
+  const deals       = [...STATE.products].sort((a, b) => b.price - a.price).slice(0, 8);
+
+  view.innerHTML = `
+    <!-- HERO -->
+    <section class="home-hero">
+      <div class="home-hero-in">
+        <div class="hero-text">
+          <div class="hero-eyebrow">🌱 Farm-direct · Tamil Nadu</div>
+          <h1 class="hero-title">Pure nature,<br/>in your kitchen. <em>Straight from the farm.</em></h1>
+          <p class="hero-desc">450+ authentic natural products sourced directly from Tamil farmers and artisans. Millets, cold-pressed oils, pure honey, temple spices — traditionally made, honestly priced.</p>
+          <div class="hero-ctas">
+            <a class="btn-hero-light" href="#/browse">Shop All Products →</a>
+            <a class="btn-hero-ghost" href="#/about">Our Story</a>
+          </div>
+          <div class="hero-stats-row">
+            <div class="h-stat"><span class="h-stat-n" data-target="${STATE.products.length}">0</span><span class="h-stat-l">Products</span></div>
+            <div class="h-stat"><span class="h-stat-n" data-target="${Object.keys(catCounts).length}">0</span><span class="h-stat-l">Categories</span></div>
+            <div class="h-stat"><span class="h-stat-n" data-target="100">0</span><span class="h-stat-l">% Natural</span></div>
+            <div class="h-stat"><span class="h-stat-n">₹500+</span><span class="h-stat-l">Free delivery</span></div>
+          </div>
+        </div>
+        <div class="hero-viz" id="heroViz">${renderHeroCarousel()}</div>
+      </div>
+    </section>
+
+    <!-- TRUST STRIP -->
+    <div class="trust-strip">
+      <div class="trust-inner">
+        <div class="trust-item"><div class="trust-icon">🚚</div><div><div class="trust-t">Free delivery ₹500+</div><div class="trust-d">Across Tamil Nadu</div></div></div>
+        <div class="trust-item"><div class="trust-icon">🌾</div><div><div class="trust-t">100% Natural</div><div class="trust-d">No preservatives, no additives</div></div></div>
+        <div class="trust-item"><div class="trust-icon">🔒</div><div><div class="trust-t">Secure Payment</div><div class="trust-d">UPI · Cards · COD</div></div></div>
+        <div class="trust-item"><div class="trust-icon">↩️</div><div><div class="trust-t">7-day returns</div><div class="trust-d">On unopened items</div></div></div>
+      </div>
+    </div>
+
+    <!-- FEATURED CATEGORIES -->
+    <section class="sec">
+      <div class="sec-head">
+        <div class="sec-title-wrap">
+          <div class="sec-eyebrow">Shop by category</div>
+          <h2 class="sec-title">Find what you love</h2>
+        </div>
+        <a class="sec-link" href="#/browse">View all →</a>
+      </div>
+      <div class="cat-tiles">
+        ${topCats.map(c => {
+          const m = CAT_META[c] || { emoji: "📦", c1: "#14532D", c2: "#22703E" };
+          return `<a class="cat-tile" href="#/category/${encodeURIComponent(c)}" style="--c1:${m.c1};--c2:${m.c2}">
+            <div class="cat-tile-emoji">${m.emoji}</div>
+            <div class="cat-tile-name">${esc(c)}</div>
+            <div class="cat-tile-count">${catCounts[c]} products</div>
+          </a>`;
+        }).join("")}
+      </div>
+    </section>
+
+    ${newArrivals.length ? `
+    <!-- NEW ARRIVALS -->
+    <section class="sec">
+      <div class="sec-head">
+        <div class="sec-title-wrap">
+          <div class="sec-eyebrow">Just in</div>
+          <h2 class="sec-title">New Arrivals</h2>
+          <div class="sec-sub">Fresh additions to our catalogue</div>
+        </div>
+        <a class="sec-link" href="#/browse">See more →</a>
+      </div>
+      <div class="hscroll">${newArrivals.map(cardHTML).join("")}</div>
+    </section>` : ""}
+
+    <!-- BESTSELLERS -->
+    <section class="sec">
+      <div class="sec-head">
+        <div class="sec-title-wrap">
+          <div class="sec-eyebrow">Customer picks</div>
+          <h2 class="sec-title">Our Bestsellers</h2>
+          <div class="sec-sub">What customers are loving this month</div>
+        </div>
+      </div>
+      <div class="hscroll">${bestsellers.map(cardHTML).join("")}</div>
+    </section>
+
+    <!-- DEALS -->
+    <section class="sec">
+      <div class="sec-head">
+        <div class="sec-title-wrap">
+          <div class="sec-eyebrow">Premium range</div>
+          <h2 class="sec-title">Specialty Products</h2>
+          <div class="sec-sub">Our carefully curated premium selection</div>
+        </div>
+      </div>
+      <div class="grid">${deals.map(cardHTML).join("")}</div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="sec">
+      <div class="sec-head">
+        <div class="sec-title-wrap">
+          <div class="sec-eyebrow">Reviews</div>
+          <h2 class="sec-title">What our customers say</h2>
+        </div>
+      </div>
+      <div class="testi-row">
+        <div class="testi">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"The cold-pressed groundnut oil is just like my grandmother's — the aroma, the taste. My whole family switched over."</p>
+          <div class="testi-author">
+            <div class="testi-ava">L</div>
+            <div><div class="testi-name">Lakshmi R.</div><div class="testi-loc">Coimbatore</div></div>
+          </div>
+        </div>
+        <div class="testi">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Fast delivery, well-packed, and the millet variety is incredible. I order every month now for my diabetic father."</p>
+          <div class="testi-author">
+            <div class="testi-ava">S</div>
+            <div><div class="testi-name">Senthil K.</div><div class="testi-loc">Chennai</div></div>
+          </div>
+        </div>
+        <div class="testi">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Finally, a store that keeps real herbal powders and pure honey. The pricing is fair and the quality is consistent."</p>
+          <div class="testi-author">
+            <div class="testi-ava">P</div>
+            <div><div class="testi-name">Priya M.</div><div class="testi-loc">Madurai</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+
+  animateCounters();
+  initHeroCarousel();
+}
+
+function renderHeroCarousel() {
+  const slides = [
+    { cat: "Millets & Grains", emoji: "🌾", tam: "தானியங்கள்", en: "Millets & Grains", tag: "Seasonal" },
+    { cat: "Spices",           emoji: "🌶", tam: "மசாலா",    en: "Spices & Masalas", tag: "Traditional" },
+    { cat: "Honey",            emoji: "🍯", tam: "தேன்",      en: "Pure Honey", tag: "Wild harvest" },
+    { cat: "Oils & Ghee",      emoji: "🫙", tam: "எண்ணெய்",  en: "Cold-pressed Oils", tag: "Farm-direct" },
+    { cat: "Herbal Powder",    emoji: "🌿", tam: "மூலிகை",   en: "Herbal Powders", tag: "Ayurvedic" },
+  ];
+  return `
+    <div class="hv-track" id="hvTrack">
+      ${slides.map(s => {
+        const m = CAT_META[s.cat] || {};
+        return `<div class="hv-slide" style="--c1:${m.c1};--c2:${m.c2}" data-cat="${esc(s.cat)}" onclick="go('/category/${encodeURIComponent(s.cat)}')">
+          <span class="hv-tag">${esc(s.tag)}</span>
+          <span class="hv-emoji">${s.emoji}</span>
+          <div class="hv-tam tamil">${esc(s.tam)}</div>
+          <div class="hv-en">${esc(s.en)}</div>
+        </div>`;
+      }).join("")}
+    </div>
+    <div class="hv-dots" id="hvDots">
+      ${slides.map((_, i) => `<span class="hv-dot ${i === 0 ? 'active' : ''}" data-idx="${i}"></span>`).join("")}
+    </div>
+  `;
+}
+
+function initHeroCarousel() {
+  const track = $("hvTrack"); const dots = $("hvDots"); if (!track) return;
+  const slides = qa(".hv-slide", track);
+  let cur = 0, auto;
+  const go = i => {
+    cur = (i + slides.length) % slides.length;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    qa(".hv-dot", dots).forEach((d, k) => d.classList.toggle("active", k === cur));
+  };
+  qa(".hv-dot", dots).forEach(d => d.onclick = e => { e.stopPropagation(); go(+d.dataset.idx); reset(); });
+  const reset = () => { clearInterval(auto); auto = setInterval(() => go(cur + 1), 4000); };
+  let sx = 0;
+  track.parentElement.addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive: true });
+  track.parentElement.addEventListener("touchend", e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) { go(dx < 0 ? cur + 1 : cur - 1); reset(); }
+  }, { passive: true });
+  reset();
+}
 
 function animateCounters() {
-  document.querySelectorAll(".h-stat-n").forEach(el => {
-    const target = +el.dataset.target;
-    const dur    = 1800;
-    let start    = null;
-    const step   = ts => {
-      if (!start) start = ts;
-      const p = Math.min((ts - start) / dur, 1);
-      el.textContent = Math.floor(p * target);
+  qa(".h-stat-n").forEach(el => {
+    const t = +el.dataset.target;
+    if (!t) return;
+    let s = 0, d = 1200;
+    const step = ts => {
+      if (!s) s = ts;
+      const p = Math.min((ts - s) / d, 1);
+      el.textContent = Math.floor(p * t);
       if (p < 1) requestAnimationFrame(step);
-      else el.textContent = target;
+      else el.textContent = t;
     };
     requestAnimationFrame(step);
   });
 }
 
-const heroStats = document.querySelector(".hero-stats-row");
-if (heroStats) {
-  new IntersectionObserver((entries, obs) => {
-    if (entries[0].isIntersecting) { animateCounters(); obs.disconnect(); }
-  }, { threshold: .3 }).observe(heroStats);
+/* ═══════════════════════════════════════════════════════════════
+   10. PAGE: BROWSE / CATEGORY
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderBrowse(view, params = {}) {
+  const activeCat = params.category || STATE.filters.category || "all";
+  const q = params.q || "";
+  const minP = Number(params.min || 0);
+  const maxP = Number(params.max || 5000);
+  const sort = params.sort || "default";
+  STATE.filters = { category: activeCat, minP, maxP, search: q, sort };
+  if ($("searchInput") && q) $("searchInput").value = q;
+
+  const catCounts = {};
+  STATE.products.forEach(p => { catCounts[p.category] = (catCounts[p.category] || 0) + 1; });
+
+  view.innerHTML = `
+    <div class="page page-wide">
+      <div class="crumbs">
+        <a href="#/">Home</a><span class="sep">›</span>
+        ${activeCat !== "all"
+          ? `<a href="#/browse">All Products</a><span class="sep">›</span><span>${esc(activeCat)}</span>`
+          : `<span>All Products</span>`}
+      </div>
+
+      <h1 class="page-title">${activeCat === "all" ? "All Products" : esc(activeCat)}</h1>
+      <p class="page-sub">Browse our ${activeCat === "all" ? STATE.products.length + " " : ""}authentic, farm-direct selection</p>
+
+      <button class="mobile-filter-btn" onclick="document.getElementById('filterPanel').classList.toggle('open')">⚡ Filters &amp; Sort</button>
+
+      <div class="browse-wrap">
+        <aside class="filter-panel" id="filterPanel">
+          <div class="filter-head">
+            <span class="filter-title">Filters</span>
+            <button class="filter-reset" onclick="resetBrowseFilters()">Reset</button>
+          </div>
+
+          <div class="filter-section">
+            <div class="filter-label">Category</div>
+            <div class="filter-cats">
+              <button class="filter-cat-btn ${activeCat === 'all' ? 'active' : ''}" onclick="go('/browse')">
+                ✦ All Products <span class="filter-cat-count">${STATE.products.length}</span>
+              </button>
+              ${Object.keys(catCounts).sort((a, b) => catCounts[b] - catCounts[a]).map(c => `
+                <button class="filter-cat-btn ${activeCat === c ? 'active' : ''}" onclick="go('/category/${encodeURIComponent(c)}')">
+                  ${(CAT_META[c] || {}).emoji || '📦'} ${esc(c)}
+                  <span class="filter-cat-count">${catCounts[c]}</span>
+                </button>`).join("")}
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <div class="filter-label">Price Range</div>
+            <div class="price-wrap">
+              <div class="price-vals"><span>₹<span id="pMin">${minP}</span></span><span>₹<span id="pMax">${maxP}</span></span></div>
+              <input type="range" class="rng" id="pMinR" min="0" max="5000" step="10" value="${minP}" oninput="onPriceSlide()"/>
+              <input type="range" class="rng" id="pMaxR" min="0" max="5000" step="10" value="${maxP}" oninput="onPriceSlide()"/>
+              <div class="price-preview">₹<span id="pMinP">${minP}</span> – ₹<span id="pMaxP">${maxP}</span></div>
+              <button class="btn-primary" style="margin-top:6px" onclick="applyPriceFilter()">Apply</button>
+            </div>
+          </div>
+        </aside>
+
+        <div class="browse-main">
+          <div class="browse-toolbar">
+            <span class="brw-count" id="brwCount">Loading…</span>
+            <div>
+              <label style="font-size:12px;color:var(--text-3);margin-right:6px">Sort</label>
+              <select class="brw-sort" id="brwSort" onchange="applySort(this.value)">
+                <option value="default" ${sort === 'default' ? 'selected' : ''}>Relevance</option>
+                <option value="price-asc" ${sort === 'price-asc' ? 'selected' : ''}>Price: Low → High</option>
+                <option value="price-desc" ${sort === 'price-desc' ? 'selected' : ''}>Price: High → Low</option>
+                <option value="name" ${sort === 'name' ? 'selected' : ''}>Name A–Z</option>
+                <option value="new" ${sort === 'new' ? 'selected' : ''}>Newest First</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid" id="brwGrid"></div>
+          <div class="empty hidden" id="brwEmpty">
+            <div class="emoji">🔍</div>
+            <h3>No products match your filters</h3>
+            <p>Try clearing some filters or searching for something else</p>
+            <button class="btn-primary" onclick="resetBrowseFilters()">Clear Filters</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  renderBrowseGrid();
 }
 
-/* ─── 6. CATEGORY NAV + SIDEBAR ────────────────────────────── */
-function buildCatGrid(products) {
-  const counts = {};
-  products.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
-  const cats = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
-
-  // Update "All" count in sidebar
-  const scatAll = $("scat-all");
-  if (scatAll) scatAll.textContent = products.length;
-
-  // Build sidebar category buttons
-  const sidebarCats = $("sidebarCats");
-  if (sidebarCats) {
-    sidebarCats.querySelectorAll(".dyn").forEach(el => el.remove());
-    cats.forEach(cat => {
-      const m = CAT_META[cat] || { emoji: "📦" };
-      const btn = document.createElement("button");
-      btn.className = "scat-btn dyn";
-      btn.innerHTML = `${m.emoji} ${esc(cat)} <span class="scat-count">${counts[cat]}</span>`;
-      btn.onclick = () => filterByCategory(cat, btn);
-      sidebarCats.appendChild(btn);
-    });
-  }
-
-  // Build category nav bar
-  const catNavInner = $("catNavInner");
-  if (catNavInner) {
-    catNavInner.querySelectorAll(".dyn").forEach(el => el.remove());
-    cats.forEach(cat => {
-      const m = CAT_META[cat] || { emoji: "📦" };
-      const btn = document.createElement("button");
-      btn.className = "cat-nav-btn dyn";
-      btn.textContent = `${m.emoji} ${cat}`;
-      btn.onclick = () => filterByCategory(cat, btn);
-      catNavInner.appendChild(btn);
-    });
-  }
-}
-
-/* ─── 7. PDF UPLOAD ─────────────────────────────────────────── */
-const UPLOAD_STEPS = [
-  "📄 Reading PDF structure…",
-  "🔍 Scanning product tables…",
-  "🌿 Identifying Aammii catalogue…",
-  "🏷️  Matching product codes & prices…",
-  "🎨 Generating product images…",
-  "✨ Almost ready…",
-];
-
-async function uploadPDF(input) {
-  const file = input.files[0];
-  if (!file) return;
-
-  uploadText.textContent = file.name;
-  setStatus("loading", UPLOAD_STEPS[0]);
-  uploadProgress.classList.remove("hidden");
-  progressBar.style.width = "0%";
-
-  let w = 0, si = 0;
-  const iv = setInterval(() => {
-    w = Math.min(w + Math.random() * 5 + 1, 88);
-    progressBar.style.width = w + "%";
-    const ns = Math.floor((w / 88) * (UPLOAD_STEPS.length - 1));
-    if (ns !== si) {
-      si = ns;
-      setStatus("loading", UPLOAD_STEPS[si]);
-      setStatus("loading", UPLOAD_STEPS[si]);
+function renderBrowseGrid() {
+  const { category, minP, maxP, search, sort } = STATE.filters;
+  const s = (search || "").toLowerCase().trim();
+  let list = STATE.products.filter(p => {
+    if (category !== "all" && p.category !== category) return false;
+    if (p.price < minP || p.price > maxP) return false;
+    if (s) {
+      const hay = [p.name, p.code, p.category, p.qty].filter(Boolean).join(" ").toLowerCase();
+      if (!hay.includes(s)) return false;
     }
-  }, 220);
-
-  try {
-    const fd = new FormData();
-    fd.append("pdf", file);
-    const res  = await fetch(`${API}/api/upload`, { method: "POST", body: fd });
-
-    clearInterval(iv);
-    progressBar.style.width = "100%";
-    setTimeout(() => {
-      uploadProgress.classList.add("hidden");
-      progressBar.style.width = "0%";
-    }, 500);
-
-    const text = await res.text();
-    if (!text.trim()) { setStatus("error", "❌ Server returned empty response."); return; }
-
-    let data;
-    try { data = JSON.parse(text); }
-    catch { setStatus("error", "❌ Invalid response from server."); return; }
-
-    if (!res.ok || data.error) { setStatus("error", `❌ ${data.error}`); return; }
-
-    const msg = data.source === "preloaded"
-      ? `✅ ${data.note || `Loaded ${data.count} Aammii products!`}`
-      : `✅ Extracted ${data.count} products!`;
-    setStatus("success", msg);
-    uploadText.textContent = `✔ ${file.name}`;
-    initShop(data.products);
-
-  } catch (e) {
-    clearInterval(iv);
-    uploadProgress.classList.add("hidden");
-    setStatus("error", `❌ Cannot reach server — make sure backend is running.`);
-  }
-}
-
-function setStatus(_type, msg) {
-  const strip = $("uploadStrip");
-  const el    = $("uploadStatus2");
-  if (strip) strip.classList.remove("hidden");
-  if (el) { el.textContent = msg; }
-}
-
-/* ─── 8. SHOP INITIALISATION ────────────────────────────────── */
-function initShop(products) {
-  allProducts      = products;
-  filteredProducts = [...products];
-  buildCatGrid(products);
-  renderNewThisWeek(products);
-  renderProducts(filteredProducts);
-}
-
-function resetAllFilters() {
-  activeCategory    = "all";
-  priceFilterActive = false;
-  minPriceFilter    = 0;
-  maxPriceFilter    = 5000;
-  $("searchInput").value = "";
-  $("sortSelect").value  = "default";
-  // Reset sidebar active state
-  document.querySelectorAll(".scat-btn").forEach(c => c.classList.remove("active"));
-  document.querySelector(".scat-btn")?.classList.add("active");
-  document.querySelectorAll(".cat-nav-btn").forEach(c => c.classList.remove("active"));
-  document.querySelector(".cat-nav-btn")?.classList.add("active");
-  filteredProducts = [...allProducts];
-  renderProducts(filteredProducts);
-  updatePriceFilterBtn();
-}
-
-/* ─── 9. NEW THIS WEEK ───────────────────────────────────────── */
-function renderNewThisWeek(products) {
-  const nowMs  = Date.now();
-  const weekMs = 7 * 24 * 60 * 60 * 1000;
-  const section = $("newThisWeek");
-  const row     = $("newProductsRow");
-
-  const newProducts = products.filter(p => {
-    if (!p.date_added) return false;
-    const added = new Date(p.date_added).getTime();
-    return (nowMs - added) <= weekMs;
+    return true;
   });
 
-  if (!newProducts.length) {
-    section.classList.add("hidden");
+  if (sort === "price-asc")  list.sort((a, b) => a.price - b.price);
+  if (sort === "price-desc") list.sort((a, b) => b.price - a.price);
+  if (sort === "name")       list.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+  if (sort === "new")        list.sort((a, b) => new Date(b.date_added || 0) - new Date(a.date_added || 0));
+
+  const grid = $("brwGrid"); const empty = $("brwEmpty"); const cnt = $("brwCount");
+  if (!grid) return;
+  if (!list.length) {
+    grid.innerHTML = "";
+    empty?.classList.remove("hidden");
+    if (cnt) cnt.textContent = "0 results";
+    return;
+  }
+  empty?.classList.add("hidden");
+  if (cnt) cnt.innerHTML = `<strong>${list.length}</strong> of ${STATE.products.length} products`;
+  grid.innerHTML = list.map(cardHTML).join("");
+}
+
+window.resetBrowseFilters = () => go("/browse");
+window.applySort = v => { STATE.filters.sort = v; renderBrowseGrid(); };
+window.onPriceSlide = () => {
+  let min = +$("pMinR").value, max = +$("pMaxR").value;
+  if (min > max) [min, max] = [max, min];
+  $("pMin").textContent = min; $("pMax").textContent = max;
+  $("pMinP").textContent = min; $("pMaxP").textContent = max;
+};
+window.applyPriceFilter = () => {
+  const min = +$("pMinR").value, max = +$("pMaxR").value;
+  STATE.filters.minP = Math.min(min, max);
+  STATE.filters.maxP = Math.max(min, max);
+  renderBrowseGrid();
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   11. PAGE: PRODUCT DETAIL
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderProduct(view, id) {
+  const p = STATE.products.find(x => x.id === id || x.code === id);
+  if (!p) return render404(view);
+
+  const n = splitName(p.name);
+  const meta = CAT_META[p.category] || { emoji: "📦" };
+  const rating = pseudoRating(p);
+  const mrp = p.mrp || pseudoMRP(p);
+  const off = mrp > p.price ? Math.round(((mrp - p.price) / mrp) * 100) : 0;
+  const stars = "★".repeat(Math.floor(rating.stars)) + (rating.stars % 1 >= .5 ? "½" : "");
+
+  const related = STATE.products
+    .filter(x => x.id !== p.id && x.category === p.category)
+    .slice(0, 12);
+
+  view.innerHTML = `
+    <div class="page page-wide">
+      <div class="crumbs">
+        <a href="#/">Home</a><span class="sep">›</span>
+        <a href="#/category/${encodeURIComponent(p.category)}">${esc(p.category)}</a><span class="sep">›</span>
+        <span>${esc(n.tamil)}</span>
+      </div>
+
+      <div class="pd-wrap">
+        <div class="pd-gallery">
+          <div class="pd-main-img">
+            <img src="${imageUrl(p)}" alt="${esc(p.name)}" id="pdMainImg" onerror="this.src='${fallbackSVG()}'"/>
+          </div>
+          <div class="pd-thumbs">
+            <div class="pd-thumb active"><img src="${imageUrl(p)}" alt=""/></div>
+          </div>
+        </div>
+
+        <div class="pd-info">
+          <div class="pd-code">Product code: ${esc(p.code || p.id)}</div>
+          <div class="pd-cat">${meta.emoji} ${esc(p.category)}</div>
+          <h1 class="pd-name tamil">${esc(n.tamil)}</h1>
+          ${n.english ? `<div class="pd-en">${esc(n.english)}</div>` : ""}
+          <div class="pd-rating">
+            <span class="pd-stars">${stars}</span>
+            <strong>${rating.stars}</strong>
+            <span>· ${rating.reviews} reviews</span>
+            <span>· ${Math.floor(rating.reviews * 1.2)} sold this month</span>
+          </div>
+
+          <div class="pd-price-block">
+            <div class="pd-price-main">
+              <span class="pd-price">${moneyR(p.price)}</span>
+              ${off ? `<span class="pd-mrp">${moneyR(mrp)}</span><span class="pd-off">${off}% OFF</span>` : ""}
+            </div>
+            ${p.qty ? `<div class="pd-pack">Pack size: <strong>${esc(p.qty)}</strong></div>` : ""}
+            <div class="pd-pack" style="color:var(--green);font-weight:700;margin-top:6px">✓ In stock · Ships in 1–2 days</div>
+          </div>
+
+          <div class="pd-qty-row">
+            <span class="pd-qty-label">Quantity:</span>
+            <div class="pd-qty">
+              <button onclick="pdChangeQty(-1)">−</button>
+              <span id="pdQty">1</span>
+              <button onclick="pdChangeQty(1)">+</button>
+            </div>
+          </div>
+
+          <div class="pd-ctas">
+            <button class="btn-primary" onclick="pdAddToCart('${esc(p.id)}')">🛒 Add to Cart</button>
+            <button class="btn-secondary" onclick="pdBuyNow('${esc(p.id)}')">⚡ Buy Now</button>
+          </div>
+
+          <div class="pd-feats">
+            <div class="pd-feat"><span class="pd-feat-ic">🚚</span><div>Free delivery above ₹500 across Tamil Nadu</div></div>
+            <div class="pd-feat"><span class="pd-feat-ic">🌿</span><div>100% natural · No preservatives</div></div>
+            <div class="pd-feat"><span class="pd-feat-ic">↩️</span><div>7-day easy returns</div></div>
+            <div class="pd-feat"><span class="pd-feat-ic">🔒</span><div>Secure payment · COD available</div></div>
+          </div>
+
+          <div class="pd-tabs">
+            <div class="pd-tabs-nav">
+              <button class="pd-tab-btn active" onclick="pdTab(this,'desc')">Description</button>
+              <button class="pd-tab-btn" onclick="pdTab(this,'details')">Details</button>
+              <button class="pd-tab-btn" onclick="pdTab(this,'delivery')">Delivery</button>
+            </div>
+            <div class="pd-tab-body" id="pdTabBody">
+              <strong>About ${esc(n.tamil)}${n.english ? ' (' + esc(n.english) + ')' : ''}:</strong><br/>
+              Authentic ${esc(p.category.toLowerCase())} sourced directly from farmers in Tamil Nadu.
+              ${p.qty ? `Available in a ${esc(p.qty)} pack.` : ""}
+              No preservatives, no additives — just pure, traditional quality.
+              Ideal for daily cooking, traditional recipes, and health-conscious families.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      ${related.length ? `
+        <section class="sec" style="padding-top:40px">
+          <div class="sec-head">
+            <div class="sec-title-wrap">
+              <div class="sec-eyebrow">You might also like</div>
+              <h2 class="sec-title">Similar ${esc(p.category)}</h2>
+            </div>
+            <a class="sec-link" href="#/category/${encodeURIComponent(p.category)}">View all →</a>
+          </div>
+          <div class="hscroll">${related.map(cardHTML).join("")}</div>
+        </section>` : ""}
+    </div>
+  `;
+}
+
+let _pdQty = 1;
+window.pdChangeQty = d => {
+  _pdQty = Math.max(1, _pdQty + d);
+  $("pdQty").textContent = _pdQty;
+};
+window.pdAddToCart = id => { addToCart(id, _pdQty); _pdQty = 1; $("pdQty").textContent = 1; };
+window.pdBuyNow   = id => { addToCart(id, _pdQty, true); go("/checkout"); _pdQty = 1; };
+window.pdTab = (btn, key) => {
+  qa(".pd-tab-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  const body = $("pdTabBody");
+  if (key === "details") body.innerHTML = `<strong>Product Details:</strong><ul style="margin-top:10px;padding-left:20px"><li>Code: ${esc(STATE.products[0].code || '—')}</li><li>100% natural and additive-free</li><li>Sourced from Tamil Nadu farmers</li><li>Traditionally processed</li><li>Store in a cool, dry place</li></ul>`;
+  else if (key === "delivery") body.innerHTML = `<strong>Delivery Information:</strong><ul style="margin-top:10px;padding-left:20px"><li>Free delivery on orders above ₹500 within Tamil Nadu</li><li>Standard delivery: 2–4 business days</li><li>Express delivery available for Chennai, Coimbatore, Madurai</li><li>Cash on Delivery available in select pincodes</li><li>7-day returns on unopened items</li></ul>`;
+  else body.innerHTML = body.dataset.desc || body.innerHTML;
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   12. PAGE: CART
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderCart(view) {
+  const items = Object.values(STATE.cart);
+
+  if (!items.length) {
+    view.innerHTML = `
+      <div class="page">
+        <h1 class="page-title">Your Cart</h1>
+        <div class="cart-items">
+          <div class="cart-empty-big">
+            <div class="emoji">🛒</div>
+            <h2>Your cart is empty</h2>
+            <p>Start shopping from our 450+ authentic natural products</p>
+            <a class="btn-primary" href="#/browse">Shop Now →</a>
+          </div>
+        </div>
+      </div>`;
     return;
   }
 
-  section.classList.remove("hidden");
-  row.innerHTML = newProducts.map(p => productCardHTML(p)).join("");
-}
+  const subtotal = cartTotal();
+  const shipping = subtotal >= 500 ? 0 : 49;
+  const tax = Math.round(subtotal * 0.05);      /* 5% GST illustrative */
+  const grand = subtotal + shipping + tax;
 
-/* Scroll & highlight the product in the main grid */
-function focusProduct(id) {
-  filterByCategory("all", null);
-  $("shopSection").scrollIntoView({ behavior: "smooth" });
-  setTimeout(() => {
-    const card = document.querySelector(`[data-pid="${id}"]`);
-    if (card) {
-      card.classList.add("highlight-pulse");
-      card.scrollIntoView({ behavior: "smooth", block: "center" });
-      setTimeout(() => card.classList.remove("highlight-pulse"), 2000);
-    }
-  }, 600);
-}
+  view.innerHTML = `
+    <div class="page">
+      <div class="crumbs"><a href="#/">Home</a><span class="sep">›</span><span>Cart</span></div>
+      <h1 class="page-title">Your Cart (${cartCount()} items)</h1>
+      <p class="page-sub">Review your selection before checkout</p>
 
-/* ─── 10. RECOMMENDATIONS ENGINE (Rule-Based AI) ────────────── */
-/**
- * Returns up to `count` recommended products based on:
- *   a) Same category (up to 3)
- *   b) Related categories defined in CAT_RELATIONS
- *   c) Similar price range (±30%)
- */
-function getRecommendations(product, count = 8) {
-  if (!product || !allProducts.length) return [];
-
-  const priceMin = product.price * 0.7;
-  const priceMax = product.price * 1.3;
-  const related  = CAT_RELATIONS[product.category] || [];
-
-  // Score each product
-  const scored = allProducts
-    .filter(p => p.id !== product.id)
-    .map(p => {
-      let score = 0;
-      if (p.category === product.category)    score += 10;
-      if (related.includes(p.category))       score += 6;
-      if (p.price >= priceMin && p.price <= priceMax) score += 4;
-      score += Math.random() * 2; // small random shuffle to avoid always same set
-      return { p, score };
-    })
-    .sort((a, b) => b.score - a.score)
-    .slice(0, count)
-    .map(x => x.p);
-
-  return scored;
-}
-
-function renderRecommendations(product) {
-  const section = $("recommendSection");
-  const grid    = $("recGrid");
-  const sub     = $("recSectionSub");
-  const recs    = getRecommendations(product);
-
-  if (!recs.length) { section.classList.add("hidden"); return; }
-
-  const tamilName = product.name.split(" / ")[0] || product.name;
-  if (sub) sub.textContent = `Because you viewed: ${tamilName}`;
-
-  grid.innerHTML = recs.map(p => productCardHTML(p, true)).join("");
-  section.classList.remove("hidden");
-  section.scrollIntoView({ behavior: "smooth", block: "nearest" });
-}
-
-function clearRecommendations() {
-  $("recommendSection")?.classList.add("hidden");
-}
-
-/* ─── 11. CATEGORY FILTER ───────────────────────────────────── */
-function filterByCategory(cat, btn) {
-  activeCategory = cat;
-
-  // Update sidebar active
-  document.querySelectorAll(".scat-btn").forEach(c => c.classList.remove("active"));
-  // Update cat nav active
-  document.querySelectorAll(".cat-nav-btn").forEach(c => c.classList.remove("active"));
-
-  if (btn) {
-    btn.classList.add("active");
-    // Mirror active state to the sibling nav
-    if (btn.classList.contains("scat-btn")) {
-      document.querySelectorAll(".cat-nav-btn").forEach(c => {
-        if (cat === "all" ? c.textContent.trim() === "All Products" : c.textContent.includes(cat))
-          c.classList.add("active");
-      });
-    } else {
-      document.querySelectorAll(".scat-btn").forEach(c => {
-        if (cat === "all" ? !c.classList.contains("dyn") : c.textContent.includes(cat))
-          c.classList.add("active");
-      });
-    }
-  } else {
-    // called programmatically — match by text
-    if (cat === "all") {
-      document.querySelector(".scat-btn")?.classList.add("active");
-      document.querySelector(".cat-nav-btn")?.classList.add("active");
-    } else {
-      document.querySelectorAll(".scat-btn, .cat-nav-btn").forEach(c => {
-        if (c.textContent.includes(cat)) c.classList.add("active");
-      });
-    }
-  }
-
-  applyFilters();
-  clearRecommendations();
-}
-
-/* ─── 12. SEARCH, FILTER & SORT ─────────────────────────────── */
-function filterProducts() { applyFilters(); }
-
-function applyFilters() {
-  const q = $("searchInput").value.toLowerCase().trim();
-
-  filteredProducts = allProducts.filter(p => {
-    const matchCat   = activeCategory === "all" || p.category === activeCategory;
-    const matchText  = !q
-      || p.name.toLowerCase().includes(q)
-      || (p.code     || "").toLowerCase().includes(q)
-      || (p.category || "").toLowerCase().includes(q)
-      || (p.qty      || "").toLowerCase().includes(q);
-    const matchPrice = !priceFilterActive
-      || (p.price >= minPriceFilter && p.price <= maxPriceFilter);
-    return matchCat && matchText && matchPrice;
-  });
-
-  sortProducts(false);
-}
-
-function sortProducts(reRender = true) {
-  const v = $("sortSelect").value;
-  const a = reRender ? filteredProducts : [...filteredProducts];
-
-  if (v === "price-asc")  a.sort((x, y) => x.price - y.price);
-  if (v === "price-desc") a.sort((x, y) => y.price - x.price);
-  if (v === "name-asc") {
-    a.sort((x, y) => {
-      const nx = x.name.includes(" / ") ? x.name.split(" / ")[1] : x.name;
-      const ny = y.name.includes(" / ") ? y.name.split(" / ")[1] : y.name;
-      return nx.localeCompare(ny, "en");
-    });
-  }
-  if (v === "new-first") {
-    a.sort((x, y) => {
-      const dx = x.date_added ? new Date(x.date_added).getTime() : 0;
-      const dy = y.date_added ? new Date(y.date_added).getTime() : 0;
-      return dy - dx;
-    });
-  }
-
-  filteredProducts = a;
-  renderProducts(filteredProducts);
-}
-
-/* ─── 13. RENDER PRODUCTS ───────────────────────────────────── */
-function productCardHTML(p, isRec = false) {
-  const imgSrc  = imageUrl(p);
-  const isNew   = isNewProduct(p);
-  const catMeta = CAT_META[p.category] || { emoji: "📦", color: "#4a7c59" };
-
-  // Full name — Tamil part on top, English below (NO truncation)
-  const nameParts    = p.name.includes(" / ") ? p.name.split(" / ") : [p.name, ""];
-  const tamilName    = nameParts[0].trim();
-  const englishName  = nameParts[1].trim();
-
-  return `
-    <div class="product-card${isRec ? " rec-card" : ""}" data-pid="${esc(p.id)}"
-         onclick="onProductClick('${esc(p.id)}')">
-      ${isNew ? '<span class="card-new-badge">NEW</span>' : ''}
-      <div class="card-img-wrap">
-        <img src="${imgSrc}" alt="${esc(p.name)}" loading="lazy"
-             onerror="this.src='${fallbackSVG()}'"/>
-      </div>
-      <div class="card-body">
-        <div class="card-code">${esc(p.code || p.id)}</div>
-        <span class="card-cat-tag">${catMeta.emoji} ${esc(p.category || "")}</span>
-        <div class="card-tamil">${esc(tamilName)}</div>
-        ${englishName ? `<div class="card-english">${esc(englishName)}</div>` : ""}
-        ${p.qty ? `<div class="card-pack">${esc(p.qty)}</div>` : ""}
-        <div class="card-price-row">
-          <span class="card-price">₹${p.price.toFixed(2)}</span>
+      <div class="cart-wrap">
+        <div class="cart-items">
+          ${items.map(ciRowHTML).join("")}
         </div>
-        <button class="add-btn" id="ab-${esc(p.id)}"
-                onclick="event.stopPropagation();addToCart('${esc(p.id)}')"
-                title="Add to cart">+ Add to Cart</button>
+
+        <div class="cart-summary-card">
+          <div class="cs-title">Order Summary</div>
+          <div class="cs-row"><span>Subtotal (${cartCount()} items)</span><span>${money(subtotal)}</span></div>
+          <div class="cs-row"><span>Shipping</span><span>${shipping ? money(shipping) : "FREE"}</span></div>
+          <div class="cs-row"><span>GST (5%)</span><span>${money(tax)}</span></div>
+          ${shipping ? `<div class="cs-row" style="color:var(--amber);font-size:11px">Add ${money(500 - subtotal)} more for free shipping</div>` : ""}
+          <div class="cs-promo">
+            <input type="text" placeholder="Promo code" id="promoInp"/>
+            <button onclick="applyPromo()">Apply</button>
+          </div>
+          <div class="cs-row grand"><span>Total</span><span>${money(grand)}</span></div>
+          <a class="btn-big" href="#/checkout" style="display:block;text-align:center;text-decoration:none;margin-top:14px">Proceed to Checkout →</a>
+          <a class="btn-secondary" href="#/browse" style="display:block;text-align:center;text-decoration:none;margin-top:8px">← Continue Shopping</a>
+          <div class="cs-sec-badge">🔒 Secure · UPI · Cards · COD</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function ciRowHTML(item) {
+  const n = splitName(item.name);
+  const meta = CAT_META[item.category] || { emoji: "📦" };
+  return `
+    <div class="ci-row" data-id="${esc(item.id)}">
+      <img class="ci-img-big" src="${imageUrl(item)}" alt="" onerror="this.src='${fallbackSVG(80)}'"/>
+      <div class="ci-info-big">
+        <div class="ci-cat-big">${meta.emoji} ${esc(item.category)}</div>
+        <a class="ci-name-big tamil" href="#/product/${encodeURIComponent(item.id)}">${esc(n.tamil)}</a>
+        ${n.english ? `<div class="ci-en-big">${esc(n.english)}</div>` : ""}
+        ${item.qty ? `<div class="ci-pack-big">${esc(item.qty)}</div>` : ""}
+        <div class="ci-price-each-big">${money(item.price)} each</div>
+      </div>
+      <div class="ci-actions-big">
+        <div class="qty-ctl">
+          <button onclick="setQty('${esc(item.id)}',${item.qty - 1});route()">−</button>
+          <span>${item.qty}</span>
+          <button onclick="setQty('${esc(item.id)}',${item.qty + 1});route()">+</button>
+        </div>
+        <button class="ci-remove" onclick="confirmRemove('${esc(item.id)}','${esc(n.tamil).replace(/'/g,"\\'")}')">Remove</button>
+      </div>
+      <div class="ci-total-big">${money(item.qty * item.price)}</div>
+    </div>
+  `;
+}
+
+window.setQty = setQty;
+window.removeFromCart = removeFromCart;
+window.confirmRemove = (id, name) => {
+  showConfirm("Remove from cart?", `Remove ${name} from your cart?`, () => {
+    removeFromCart(id); route();
+  });
+};
+window.applyPromo = () => {
+  const code = ($("promoInp")?.value || "").toUpperCase().trim();
+  if (code === "AAMMII10") showToast("✓ 10% off applied at checkout");
+  else if (code) showToast("❌ Invalid or expired code");
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   13. PAGE: CHECKOUT
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderCheckout(view) {
+  const items = Object.values(STATE.cart);
+  if (!items.length) { go("/cart"); return; }
+
+  const subtotal = cartTotal();
+  const shipping = subtotal >= 500 ? 0 : 49;
+  const tax      = Math.round(subtotal * 0.05);
+  const grand    = subtotal + shipping + tax;
+
+  const u = window._currentUser || {};
+  const prefName    = u.displayName || "";
+  const prefEmail   = u.email || "";
+  const prefPhone   = u.phoneNumber || "";
+
+  view.innerHTML = `
+    <div class="page">
+      <div class="crumbs">
+        <a href="#/">Home</a><span class="sep">›</span>
+        <a href="#/cart">Cart</a><span class="sep">›</span>
+        <span>Checkout</span>
+      </div>
+      <h1 class="page-title">Checkout</h1>
+      <p class="page-sub">One step away from farm-fresh goodness.</p>
+
+      <div class="checkout-wrap">
+        <form id="ckForm" onsubmit="event.preventDefault();submitCheckout()">
+          <div class="ck-card">
+            <div class="ck-step">
+              <div class="ck-num">1</div>
+              <div class="ck-title">Contact &amp; Shipping</div>
+            </div>
+            <div class="form-grid">
+              <div class="form-row"><label>Full name</label><input class="inp" name="name" required value="${esc(prefName)}" placeholder="Thirumalai Vasan"/></div>
+              <div class="form-row"><label>Phone</label><input class="inp" name="phone" required value="${esc(prefPhone)}" placeholder="+91 98765 43210"/></div>
+              <div class="form-row full"><label>Email (for invoice)</label><input class="inp" type="email" name="email" required value="${esc(prefEmail)}" placeholder="you@example.com"/></div>
+              <div class="form-row full"><label>Address line 1</label><input class="inp" name="addr1" required placeholder="House no, street name"/></div>
+              <div class="form-row full"><label>Address line 2 (optional)</label><input class="inp" name="addr2" placeholder="Landmark, area"/></div>
+              <div class="form-row"><label>City</label><input class="inp" name="city" required placeholder="Chennai"/></div>
+              <div class="form-row"><label>PIN code</label><input class="inp" name="pincode" required maxlength="6" placeholder="600001"/></div>
+              <div class="form-row full"><label>Delivery note (optional)</label><textarea class="inp" name="notes" placeholder="Any special instructions..."></textarea></div>
+            </div>
+          </div>
+
+          <div class="ck-card">
+            <div class="ck-step">
+              <div class="ck-num">2</div>
+              <div class="ck-title">Payment Method</div>
+            </div>
+            <div class="pay-grid">
+              <label class="pay-opt active" data-pay="cod">
+                <input type="radio" name="payment" value="cod" checked style="display:none"/>
+                <span class="pay-ic">💵</span> Cash on Delivery
+              </label>
+              <label class="pay-opt" data-pay="upi">
+                <input type="radio" name="payment" value="upi" style="display:none"/>
+                <span class="pay-ic">📱</span> UPI / GPay
+              </label>
+              <label class="pay-opt" data-pay="card">
+                <input type="radio" name="payment" value="card" style="display:none"/>
+                <span class="pay-ic">💳</span> Card
+              </label>
+              <label class="pay-opt" data-pay="netbanking">
+                <input type="radio" name="payment" value="netbanking" style="display:none"/>
+                <span class="pay-ic">🏦</span> Net Banking
+              </label>
+            </div>
+            <p style="font-size:12px;color:var(--text-3);margin-top:10px">
+              Selected payment method will be processed on delivery. Online payment integration (Razorpay/Stripe) is ready in the backend — just drop in your keys.
+            </p>
+          </div>
+
+          <button type="submit" class="btn-big" id="ckSubmit" style="padding:16px;font-size:15px">
+            Place Order · ${money(grand)}
+          </button>
+          <a href="#/cart" style="display:block;text-align:center;margin-top:10px;color:var(--text-3);font-size:13px">← Back to Cart</a>
+        </form>
+
+        <div class="cart-summary-card">
+          <div class="cs-title">Order Summary</div>
+          <div style="max-height:260px;overflow-y:auto;margin-bottom:14px">
+            ${items.map(i => {
+              const n = splitName(i.name);
+              return `<div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+                <img src="${imageUrl(i)}" style="width:44px;height:44px;border-radius:6px;object-fit:cover;background:var(--surface-2)" onerror="this.src='${fallbackSVG(44)}'"/>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:12px;font-weight:700" class="tamil">${esc(n.tamil)}</div>
+                  <div style="font-size:11px;color:var(--text-3)">Qty ${i.qty} · ${money(i.price)}</div>
+                </div>
+                <div style="font-size:13px;font-weight:700">${money(i.qty * i.price)}</div>
+              </div>`;
+            }).join("")}
+          </div>
+          <div class="cs-row"><span>Subtotal</span><span>${money(subtotal)}</span></div>
+          <div class="cs-row"><span>Shipping</span><span>${shipping ? money(shipping) : "FREE"}</span></div>
+          <div class="cs-row"><span>GST (5%)</span><span>${money(tax)}</span></div>
+          <div class="cs-row grand"><span>Total</span><span>${money(grand)}</span></div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  /* Payment option toggling */
+  qa(".pay-opt").forEach(opt => opt.addEventListener("click", () => {
+    qa(".pay-opt").forEach(o => o.classList.remove("active"));
+    opt.classList.add("active");
+    q("input[type=radio]", opt).checked = true;
+  }));
+}
+
+async function submitCheckout() {
+  const form = $("ckForm"); if (!form) return;
+  const data = Object.fromEntries(new FormData(form).entries());
+  const items = Object.values(STATE.cart);
+  if (!items.length) return;
+  const btn = $("ckSubmit"); btn.disabled = true; btn.textContent = "Placing order…";
+
+  const subtotal = cartTotal();
+  const shipping = subtotal >= 500 ? 0 : 49;
+  const tax      = Math.round(subtotal * 0.05);
+  const grand    = subtotal + shipping + tax;
+
+  const payload = {
+    customer: {
+      name:    data.name,
+      email:   data.email,
+      phone:   data.phone,
+      address: [data.addr1, data.addr2, data.city, data.pincode].filter(Boolean).join(", "),
+      notes:   data.notes || "",
+    },
+    payment:  data.payment || "cod",
+    items:    items.map(i => ({
+      code: i.code || i.id, name: i.name, qty: i.qty,
+      price: i.price, qty_unit: i.qty_unit || "", category: i.category
+    })),
+    totals: { subtotal, shipping, tax, grand },
+  };
+
+  try {
+    const r = await fetch(`${API}/api/order`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!r.ok) throw new Error(`Order failed (${r.status})`);
+
+    const orderId = r.headers.get("X-Order-Id") || "ORD-LOCAL";
+    /* Download the PDF invoice */
+    const blob = await r.blob();
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href = url;
+    a.download = `${orderId}.pdf`;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+
+    saveOrderLocal({ id: orderId, created: Date.now(), ...payload, status: "confirmed" });
+    clearCart();
+    go(`/order-placed/${orderId}`);
+  } catch (e) {
+    showToast("❌ " + e.message);
+    btn.disabled = false; btn.textContent = `Place Order · ${money(grand)}`;
+  }
+}
+window.submitCheckout = submitCheckout;
+
+/* ═══════════════════════════════════════════════════════════════
+   14. PAGE: ORDER PLACED
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderOrderPlaced(view, orderId) {
+  view.innerHTML = `
+    <div class="page page-narrow">
+      <div class="ck-card" style="text-align:center;padding:48px 24px">
+        <div style="font-size:64px;margin-bottom:12px">🎉</div>
+        <h1 style="font-size:28px;font-weight:900;margin-bottom:8px">Order Confirmed!</h1>
+        <p style="color:var(--text-2);margin-bottom:22px">
+          Thank you for shopping with Aammii. Your invoice PDF has been downloaded to your device.
+        </p>
+        <div style="background:var(--surface-2);padding:16px;border-radius:var(--r);display:inline-block;margin-bottom:24px">
+          <div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:1.2px">Order ID</div>
+          <div style="font-size:22px;font-weight:900;color:var(--forest);font-family:monospace">${esc(orderId || "—")}</div>
+        </div>
+        <div style="color:var(--text-2);font-size:14px;line-height:1.8;margin-bottom:24px">
+          📧 A confirmation will be emailed shortly<br/>
+          📦 Expected delivery: 2–4 business days<br/>
+          💬 We will call to confirm the order & address
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <a class="btn-primary" href="#/orders">Track My Orders →</a>
+          <a class="btn-secondary" href="#/browse">Continue Shopping</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   15. PAGE: ORDERS
+   ═══════════════════════════════════════════════════════════════ */
+
+async function renderOrders(view) {
+  view.innerHTML = `<div class="page"><h1 class="page-title">Your Orders</h1><p class="page-sub">Loading…</p><div class="loading-state"><div class="spinner"></div></div></div>`;
+  const orders = await fetchOrders();
+  STATE.ordersCache = orders;
+
+  if (!orders.length) {
+    view.innerHTML = `
+      <div class="page">
+        <h1 class="page-title">Your Orders</h1>
+        <div class="empty">
+          <div class="emoji">📦</div>
+          <h3>No orders yet</h3>
+          <p>When you place your first order, it will appear here.</p>
+          <a class="btn-primary" href="#/browse">Start Shopping →</a>
+        </div>
+      </div>`;
+    return;
+  }
+
+  view.innerHTML = `
+    <div class="page">
+      <div class="crumbs"><a href="#/">Home</a><span class="sep">›</span><span>Orders</span></div>
+      <h1 class="page-title">Your Orders</h1>
+      <p class="page-sub">${orders.length} order${orders.length > 1 ? "s" : ""} · newest first</p>
+      <div class="orders-list">
+        ${orders.map(o => {
+          const d = new Date(o.created || o.date || Date.now());
+          const itemCount = (o.items || []).length;
+          const total = (o.totals || {}).grand ?? (o.items || []).reduce((s, i) => s + (i.qty * i.price), 0);
+          const first = (o.items || []).slice(0, 4);
+          return `
+            <div class="order-card">
+              <div class="order-head">
+                <div class="oh-block"><span class="oh-lbl">Placed</span><span class="oh-val">${d.toLocaleDateString("en-IN", {day:'numeric',month:'short',year:'numeric'})}</span></div>
+                <div class="oh-block"><span class="oh-lbl">Order ID</span><span class="oh-val">${esc(o.id)}</span></div>
+                <div class="oh-block"><span class="oh-lbl">Total</span><span class="oh-val">${money(total)}</span></div>
+                <div class="oh-block"><span class="oh-lbl">Items</span><span class="oh-val">${itemCount}</span></div>
+                <div><span class="order-status">${esc(o.status || "confirmed")}</span></div>
+              </div>
+              <div class="order-body">
+                <div class="order-items-mini">
+                  ${first.map(i => `<img class="omi" src="${imageUrl({image: `/images/${i.code || i.id}.svg`})}" onerror="this.src='${fallbackSVG(60)}'" alt=""/>`).join("")}
+                  ${itemCount > 4 ? `<div class="omi" style="display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--text-3);font-size:13px">+${itemCount - 4}</div>` : ""}
+                </div>
+                <div class="order-actions">
+                  <a class="btn-primary" href="#/order/${encodeURIComponent(o.id)}">View Details</a>
+                  <button class="btn-secondary" onclick="reorderItems('${esc(o.id)}')">Buy Again</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderOrderDetail(view, id) {
+  const o = (STATE.ordersCache || []).find(x => x.id === id);
+  if (!o) {
+    view.innerHTML = `<div class="page"><div class="empty"><div class="emoji">🤔</div><h3>Order not found</h3><a class="btn-primary" href="#/orders">View all orders</a></div></div>`;
+    return;
+  }
+  const d = new Date(o.created || Date.now());
+  view.innerHTML = `
+    <div class="page">
+      <div class="crumbs"><a href="#/">Home</a><span class="sep">›</span><a href="#/orders">Orders</a><span class="sep">›</span><span>${esc(o.id)}</span></div>
+      <h1 class="page-title">Order ${esc(o.id)}</h1>
+      <p class="page-sub">Placed on ${d.toLocaleString("en-IN")}</p>
+
+      <div class="cart-wrap">
+        <div class="cart-items">
+          ${(o.items || []).map(i => `
+            <div class="ci-row">
+              <img class="ci-img-big" src="/images/${esc(i.code || i.id)}.svg" onerror="this.src='${fallbackSVG(80)}'" alt=""/>
+              <div class="ci-info-big">
+                <div class="ci-cat-big">${esc(i.category || "")}</div>
+                <div class="ci-name-big tamil">${esc(splitName(i.name).tamil)}</div>
+                <div class="ci-en-big">${esc(splitName(i.name).english)}</div>
+                <div class="ci-price-each-big">${money(i.price)} × ${i.qty}</div>
+              </div>
+              <div></div>
+              <div class="ci-total-big">${money(i.price * i.qty)}</div>
+            </div>`).join("")}
+        </div>
+        <div class="cart-summary-card">
+          <div class="cs-title">Delivery</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:14px">
+            <strong>${esc(o.customer?.name || "")}</strong><br/>
+            ${esc(o.customer?.phone || "")}<br/>
+            ${esc(o.customer?.address || "")}
+          </div>
+          <div class="cs-row"><span>Subtotal</span><span>${money(o.totals?.subtotal || 0)}</span></div>
+          <div class="cs-row"><span>Shipping</span><span>${(o.totals?.shipping) ? money(o.totals.shipping) : "FREE"}</span></div>
+          <div class="cs-row"><span>Tax</span><span>${money(o.totals?.tax || 0)}</span></div>
+          <div class="cs-row grand"><span>Total</span><span>${money(o.totals?.grand || 0)}</span></div>
+          <div class="cs-row" style="margin-top:8px"><span>Payment</span><span>${esc((o.payment || "cod").toUpperCase())}</span></div>
+          <div class="cs-row"><span>Status</span><span class="order-status">${esc(o.status || "confirmed")}</span></div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+window.reorderItems = async (id) => {
+  const o = (STATE.ordersCache || []).find(x => x.id === id);
+  if (!o) return;
+  (o.items || []).forEach(i => {
+    const p = STATE.products.find(x => x.id === (i.code || i.id));
+    if (p) addToCart(p.id, i.qty, true);
+  });
+  showToast(`✓ ${(o.items || []).length} items added to cart`);
+  go("/cart");
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   16. PAGE: ACCOUNT
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderAccount(view) {
+  const u = window._currentUser;
+  if (!u) {
+    view.innerHTML = `
+      <div class="page page-narrow">
+        <div class="ck-card" style="text-align:center;padding:48px">
+          <div style="font-size:56px;margin-bottom:10px">👤</div>
+          <h2 style="font-size:22px;margin-bottom:8px">Sign in to view your account</h2>
+          <p style="color:var(--text-2);margin-bottom:20px">Sign in to track orders, save favorites, and check out faster.</p>
+          <button class="btn-primary" onclick="openAuth('email')">Sign In / Create Account</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const name = u.displayName || u.email?.split("@")[0] || "User";
+  const avatar = u.photoURL
+    ? `<img src="${esc(u.photoURL)}" alt="" referrerpolicy="no-referrer"/>`
+    : name.charAt(0).toUpperCase();
+
+  const favCount = Object.values(loadFavs()).filter(Boolean).length;
+
+  view.innerHTML = `
+    <div class="page page-wide">
+      <div class="crumbs"><a href="#/">Home</a><span class="sep">›</span><span>Account</span></div>
+      <h1 class="page-title">Your Account</h1>
+
+      <div class="acc-wrap-page">
+        <aside class="acc-side">
+          <a class="acc-side-link active" href="#/account">👤 Profile</a>
+          <a class="acc-side-link" href="#/orders">📦 Orders</a>
+          <a class="acc-side-link" href="#/admin">⚙️ Admin</a>
+          <div class="dd-sep"></div>
+          <button class="acc-side-link" onclick="doSignOut()">🚪 Sign Out</button>
+        </aside>
+        <div>
+          <div class="acc-profile-head">
+            <div class="acc-big-avatar">${avatar}</div>
+            <div>
+              <div style="font-size:22px;font-weight:900">${esc(name)}</div>
+              <div style="font-size:13px;opacity:.8">${esc(u.email || u.phoneNumber || "")}</div>
+            </div>
+          </div>
+
+          <div class="admin-tiles">
+            <div class="admin-tile"><div class="admin-tile-n">${STATE.ordersCache.length || 0}</div><div class="admin-tile-l">Orders</div></div>
+            <div class="admin-tile"><div class="admin-tile-n">${cartCount()}</div><div class="admin-tile-l">In Cart</div></div>
+            <div class="admin-tile"><div class="admin-tile-n">${favCount}</div><div class="admin-tile-l">Favorites</div></div>
+          </div>
+
+          <div class="ck-card">
+            <div class="ck-title" style="margin-bottom:14px">Profile</div>
+            <div class="form-grid">
+              <div class="form-row"><label>Name</label><input class="inp" value="${esc(name)}" disabled/></div>
+              <div class="form-row"><label>Email</label><input class="inp" value="${esc(u.email || '')}" disabled/></div>
+              <div class="form-row"><label>Phone</label><input class="inp" value="${esc(u.phoneNumber || '')}" disabled/></div>
+              <div class="form-row"><label>Default location</label>
+                <select class="inp" id="locSel" onchange="changeLocation(this.value)">
+                  ${["Tamil Nadu","Chennai","Coimbatore","Madurai","Tiruchirapalli","Salem","Erode","Tirunelveli","Other"].map(l =>
+                    `<option ${l === STATE.location ? "selected" : ""}>${l}</option>`).join("")}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="ck-card">
+            <div class="ck-title" style="margin-bottom:14px">Preferences</div>
+            <div class="form-row"><label>Theme</label><button class="btn-secondary" onclick="toggleTheme()" style="width:max-content">Toggle Light / Dark</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   17. PAGE: ADMIN
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderAdmin(view) {
+  const byCat = {};
+  STATE.products.forEach(p => { byCat[p.category] = (byCat[p.category] || 0) + 1; });
+  const newCount = STATE.products.filter(isNew).length;
+  const priceSum = STATE.products.reduce((s, p) => s + p.price, 0);
+
+  view.innerHTML = `
+    <div class="page page-wide">
+      <div class="crumbs"><a href="#/">Home</a><span class="sep">›</span><span>Admin</span></div>
+      <h1 class="page-title">Admin Panel</h1>
+      <p class="page-sub">Manage your catalogue, upload price lists, and oversee the store.</p>
+
+      <div class="admin-tiles">
+        <div class="admin-tile"><div class="admin-tile-n">${STATE.products.length}</div><div class="admin-tile-l">Total Products</div></div>
+        <div class="admin-tile"><div class="admin-tile-n">${Object.keys(byCat).length}</div><div class="admin-tile-l">Categories</div></div>
+        <div class="admin-tile"><div class="admin-tile-n">${newCount}</div><div class="admin-tile-l">New This Week</div></div>
+        <div class="admin-tile"><div class="admin-tile-n">${money(Math.round(priceSum / STATE.products.length || 0))}</div><div class="admin-tile-l">Avg Price</div></div>
+      </div>
+
+      <div class="ck-card">
+        <div class="ck-title" style="margin-bottom:10px">📄 Upload PDF Catalogue</div>
+        <p style="font-size:13px;color:var(--text-2);margin-bottom:16px">
+          Upload your supplier's price list PDF. The system will auto-extract product names, codes, categories,
+          and prices, then regenerate the catalogue.
+        </p>
+        <label class="admin-upload">
+          <div class="admin-up-ic">📤</div>
+          <div class="admin-up-t">Drop PDF here or click to upload</div>
+          <div class="admin-up-s">Accepts .pdf · up to 20MB · Text or scanned (OCR supported)</div>
+          <span class="admin-up-btn" id="upBtnText">Choose PDF File</span>
+          <input type="file" id="pdfInput" accept=".pdf" hidden onchange="uploadPDF(this)"/>
+        </label>
+        <div class="progress-wrap hidden" id="progressWrap">
+          <div id="progressMsg">Starting upload…</div>
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+      </div>
+
+      <div class="ck-card">
+        <div class="ck-title" style="margin-bottom:14px">🖼 Replacing product images</div>
+        <p style="font-size:13px;color:var(--text-2);line-height:1.7">
+          Drop a real product photo named <code style="background:var(--surface-2);padding:2px 6px;border-radius:4px"><b>&lt;product-id&gt;.jpg</b></code>
+          (or .png / .webp) into the <code style="background:var(--surface-2);padding:2px 6px;border-radius:4px">generated_images/</code>
+          folder on the server. The backend will serve the real photo instead of the auto-generated SVG — no restart needed.
+        </p>
+        <p style="font-size:12px;color:var(--text-3);margin-top:10px">
+          Priority order: <b>.jpg → .jpeg → .png → .webp → .svg</b>
+        </p>
+      </div>
+
+      <div class="ck-card">
+        <div class="ck-title" style="margin-bottom:14px">📊 Catalogue breakdown</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px">
+          ${Object.entries(byCat).sort((a, b) => b[1] - a[1]).map(([c, n]) => `
+            <a class="dd-item" href="#/category/${encodeURIComponent(c)}" style="display:flex;justify-content:space-between;align-items:center">
+              <span>${(CAT_META[c] || {}).emoji || '📦'} ${esc(c)}</span>
+              <span style="color:var(--text-3);font-weight:700">${n}</span>
+            </a>`).join("")}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+async function uploadPDF(input) {
+  const f = input.files[0]; if (!f) return;
+  const wrap = $("progressWrap"); const msg = $("progressMsg"); const fill = $("progressFill");
+  const btn = $("upBtnText");
+  wrap?.classList.remove("hidden");
+  btn.textContent = f.name;
+  let w = 0;
+  const steps = ["📄 Reading PDF…", "🔍 Scanning tables…", "🏷 Matching products…", "🎨 Generating images…", "✨ Finishing up…"];
+  let si = 0;
+  const iv = setInterval(() => {
+    w = Math.min(w + Math.random() * 6 + 2, 88);
+    fill.style.width = w + "%";
+    const ns = Math.floor((w / 88) * (steps.length - 1));
+    if (ns !== si) { si = ns; msg.textContent = steps[si]; }
+  }, 250);
+
+  try {
+    const fd = new FormData(); fd.append("pdf", f);
+    const r = await fetch(`${API}/api/upload`, { method: "POST", body: fd });
+    clearInterval(iv);
+    fill.style.width = "100%";
+    const data = await r.json();
+    if (!r.ok || data.error) throw new Error(data.error || "Upload failed");
+    msg.textContent = `✓ ${data.note || data.count + " products loaded"}`;
+    showToast(`✓ ${data.count} products ready`);
+    await loadProducts();
+    setTimeout(() => route(), 800);
+  } catch (e) {
+    clearInterval(iv);
+    msg.textContent = "❌ " + e.message;
+    showToast("❌ " + e.message);
+  }
+}
+window.uploadPDF = uploadPDF;
+
+/* ═══════════════════════════════════════════════════════════════
+   18. PAGE: ABOUT
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderAbout(view) {
+  view.innerHTML = `
+    <div class="page page-narrow">
+      <div class="crumbs"><a href="#/">Home</a><span class="sep">›</span><span>Our Story</span></div>
+
+      <div class="about-hero">
+        <h1>The Aammii Story</h1>
+        <p>அம்மி — a grandmother's grinding stone. Aammii Tharcharbu Santhai exists to bring that
+        same authentic, uncompromised quality of traditional Tamil food and lifestyle to your door.
+        Direct from farmers, processed the old way, priced honestly.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-item">
+          <div class="about-item-ic">🌱</div>
+          <h3>Farm-direct</h3>
+          <p>We partner directly with 40+ small farmers across Tamil Nadu. No middlemen, no markup games. They earn more, you pay less, everyone wins.</p>
+        </div>
+        <div class="about-item">
+          <div class="about-item-ic">🏺</div>
+          <h3>Traditional processing</h3>
+          <p>Cold-pressed oils. Sun-dried millets. Stone-ground spices. We don't chase shelf life — we chase taste, aroma, and nutrition.</p>
+        </div>
+        <div class="about-item">
+          <div class="about-item-ic">🤝</div>
+          <h3>Honest pricing</h3>
+          <p>What you see is what you pay. No inflated MRPs, no fake discounts. We believe trust is built one transparent transaction at a time.</p>
+        </div>
+        <div class="about-item">
+          <div class="about-item-ic">📞</div>
+          <h3>Personal service</h3>
+          <p>Call us. Seriously. Every order is reviewed by a human, every customer's name gets remembered, every issue gets resolved the same day.</p>
+        </div>
+      </div>
+
+      <div class="ck-card mt-lg" style="text-align:center">
+        <h3 style="font-size:20px;margin-bottom:10px">Join our journey</h3>
+        <p style="color:var(--text-2);margin-bottom:16px">Discover 450+ authentic products. Let's bring traditional Tamil natural goodness back to your kitchen.</p>
+        <a href="#/browse" class="btn-primary">Shop Now →</a>
+      </div>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   19. PAGE: CONTACT
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderContact(view) {
+  view.innerHTML = `
+    <div class="page page-narrow">
+      <div class="crumbs"><a href="#/">Home</a><span class="sep">›</span><span>Contact</span></div>
+      <h1 class="page-title">Get in touch</h1>
+      <p class="page-sub">We typically respond within a few hours.</p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3 style="font-size:17px;margin-bottom:16px">Reach us directly</h3>
+          <div class="contact-item"><span class="contact-ic">📞</span><div><div class="contact-t">Call</div><div class="contact-v">+91 95006 55548</div></div></div>
+          <div class="contact-item"><span class="contact-ic">💬</span><div><div class="contact-t">WhatsApp</div><div class="contact-v"><a href="https://wa.me/919500655548">Chat with us →</a></div></div></div>
+          <div class="contact-item"><span class="contact-ic">✉️</span><div><div class="contact-t">Email</div><div class="contact-v">orders@aammii.com</div></div></div>
+          <div class="contact-item"><span class="contact-ic">📍</span><div><div class="contact-t">Visit</div><div class="contact-v">Tamil Nadu, India</div></div></div>
+          <div class="contact-item"><span class="contact-ic">🕒</span><div><div class="contact-t">Hours</div><div class="contact-v">Mon–Sat · 9am–8pm</div></div></div>
+        </div>
+        <div class="contact-card">
+          <h3 style="font-size:17px;margin-bottom:16px">Send a message</h3>
+          <form onsubmit="event.preventDefault();showToast('✓ Message sent! We will reply within a few hours.');this.reset()">
+            <div class="form-row" style="margin-bottom:10px"><label>Name</label><input class="inp" required/></div>
+            <div class="form-row" style="margin-bottom:10px"><label>Email</label><input class="inp" type="email" required/></div>
+            <div class="form-row" style="margin-bottom:10px"><label>Subject</label><input class="inp" required/></div>
+            <div class="form-row" style="margin-bottom:14px"><label>Message</label><textarea class="inp" required style="min-height:120px"></textarea></div>
+            <button class="btn-primary" type="submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   20. 404
+   ═══════════════════════════════════════════════════════════════ */
+
+function render404(view) {
+  view.innerHTML = `
+    <div class="page page-narrow">
+      <div class="empty">
+        <div class="emoji">🌿</div>
+        <h3 style="font-size:24px">Page not found</h3>
+        <p>This page wandered off into the forest.</p>
+        <a class="btn-primary" href="#/">← Back home</a>
       </div>
     </div>`;
 }
 
-function renderProducts(products) {
-  productGrid.innerHTML = "";
-  resultsInfo.textContent = `Showing ${products.length} of ${allProducts.length} products`;
+/* ═══════════════════════════════════════════════════════════════
+   21. GLOBAL SEARCH
+   ═══════════════════════════════════════════════════════════════ */
 
-  if (!products.length) { noResults.classList.remove("hidden"); return; }
-  noResults.classList.add("hidden");
+function runSearch() {
+  const s = $("searchInput")?.value || "";
+  const cat = $("searchCat")?.value || "";
+  const parts = [];
+  if (s) parts.push("q=" + encodeURIComponent(s));
+  const path = cat ? `/category/${encodeURIComponent(cat)}` : "/browse";
+  go(path + (parts.length ? "?" + parts.join("&") : ""));
+  if (STATE.filters) { STATE.filters.search = s; renderBrowseGrid(); }
+}
+window.runSearch = runSearch;
 
-  const frag = document.createDocumentFragment();
-  products.forEach((p, i) => {
-    const div = document.createElement("div");
-    div.style.animationDelay = `${Math.min(i * 0.03, 0.5)}s`;
-    div.innerHTML = productCardHTML(p);
-    frag.appendChild(div.firstElementChild);
-  });
-  productGrid.appendChild(frag);
+function populateSearchCats() {
+  const sel = $("searchCat"); if (!sel) return;
+  const cats = Object.keys(CAT_META).sort();
+  sel.innerHTML = `<option value="">All Categories</option>` +
+    cats.map(c => `<option>${esc(c)}</option>`).join("");
 }
 
-function onProductClick(id) {
-  const p = allProducts.find(x => x.id === id);
-  if (!p) return;
-  lastViewedProduct = p;
-  renderRecommendations(p);
+/* ═══════════════════════════════════════════════════════════════
+   22. MOBILE NAV
+   ═══════════════════════════════════════════════════════════════ */
+
+function buildMobileNav() {
+  const body = $("mobileNavBody"); if (!body) return;
+  const main = [
+    { n: "🏠 Home",          h: "/" },
+    { n: "🛒 All Products",  h: "/browse" },
+    { n: "📦 Your Orders",   h: "/orders" },
+    { n: "👤 Account",       h: "/account" },
+    { n: "⚙️ Admin",         h: "/admin" },
+    { n: "📖 Our Story",     h: "/about" },
+    { n: "📞 Contact",       h: "/contact" },
+  ];
+  const cats = Object.keys(CAT_META).sort();
+  body.innerHTML =
+    `<div class="mn-section">Menu</div>` +
+    main.map(m => `<a class="mn-link" href="#${m.h}" onclick="toggleMobileNav()">${m.n}</a>`).join("") +
+    `<div class="mn-section">Shop by Category</div>` +
+    cats.map(c => `<a class="mn-link" href="#/category/${encodeURIComponent(c)}" onclick="toggleMobileNav()">${(CAT_META[c] || {}).emoji || '📦'} ${esc(c)}</a>`).join("");
 }
 
-/* ─── 14. CART ──────────────────────────────────────────────── */
-function addToCart(id) {
-  const p = allProducts.find(x => x.id === id);
-  if (!p) return;
-
-  cart[id] ? cart[id].qty++ : (cart[id] = { ...p, qty: 1 });
-
-  // Button feedback
-  const btn = $(`ab-${id}`);
-  if (btn) {
-    btn.innerHTML = "<span>✓</span>";
-    btn.classList.add("added");
-    setTimeout(() => {
-      btn.innerHTML = "<span>+</span>";
-      btn.classList.remove("added");
-    }, 1000);
-  }
-
-  updateCartUI();
-
-  const displayName = p.name.includes(" / ") ? p.name.split(" / ")[0] : p.name;
-  showToast(`🛒 ${displayName} added to cart`);
-
-  // Show recommendations on first add
-  if (!lastViewedProduct) renderRecommendations(p);
+function toggleMobileNav() {
+  $("mobileNav")?.classList.toggle("open");
+  $("mobileNavOverlay")?.classList.toggle("open");
 }
+window.toggleMobileNav = toggleMobileNav;
 
-function removeFromCart(id) {
-  delete cart[id];
-  updateCartUI();
-}
+/* ═══════════════════════════════════════════════════════════════
+   23. CART DRAWER
+   ═══════════════════════════════════════════════════════════════ */
 
-function changeQty(id, delta) {
-  if (!cart[id]) return;
-  cart[id].qty += delta;
-  if (cart[id].qty <= 0) { removeFromCart(id); return; }
-  updateCartUI();
-}
-
-function updateCartUI() {
-  const items    = Object.values(cart);
-  const totalQty = items.reduce((s, i) => s + i.qty, 0);
-  const totalAmt = items.reduce((s, i) => s + i.qty * i.price, 0);
-
-  cartBadge.textContent    = totalQty || "0";
-  cartPill.textContent     = `₹${Math.round(totalAmt)}`;
-  totalItemsEl.textContent = totalQty;
-  if (subtotalEl)   subtotalEl.textContent = `₹${totalAmt.toFixed(2)}`;
-  totalPriceEl.textContent = `₹${totalAmt.toFixed(2)}`;
-  placeOrderBtn.disabled   = !items.length;
-  cartEmpty.style.display  = items.length ? "none" : "flex";
-
-  cartItemsEl.innerHTML = "";
-  items.forEach(item => {
-    const imgSrc = imageUrl(item);
-    const tamilName  = item.name.includes(" / ") ? item.name.split(" / ")[0] : item.name;
-    const englishName = item.name.includes(" / ") ? item.name.split(" / ")[1] : "";
-    const d = document.createElement("div");
-    d.className = "cart-item";
-    d.innerHTML = `
-      <img class="ci-img" src="${imgSrc}" alt="${esc(item.name)}"
-           onerror="this.src='${fallbackSVG(48)}'"/>
-      <div class="ci-info">
-        <div class="ci-code">${esc(item.code || item.id)}</div>
-        <div class="ci-name tamil-name">${esc(tamilName)}</div>
-        ${englishName ? `<div class="ci-name-en">${esc(englishName)}</div>` : ""}
-        <div class="ci-qty-wrap">${esc(item.qty || "")}</div>
-        <div class="ci-price-each">₹${item.price.toFixed(2)} each</div>
-        <div class="qty-row">
-          <button class="qty-btn" onclick="changeQty('${esc(item.id)}', -1)" aria-label="Decrease">−</button>
-          <span   class="qty-num">${item.qty}</span>
-          <button class="qty-btn" onclick="changeQty('${esc(item.id)}', +1)" aria-label="Increase">+</button>
-        </div>
+function openCartDrawer(p) {
+  const body = $("drawerBody"); if (!body) return;
+  const n = splitName(p.name);
+  const total = cartTotal();
+  body.innerHTML = `
+    <div class="dr-item">
+      <img class="dr-img" src="${imageUrl(p)}" onerror="this.src='${fallbackSVG(52)}'"/>
+      <div class="dr-info">
+        <div class="dr-name tamil">${esc(n.tamil)}</div>
+        <div class="dr-meta">${esc(n.english)} · ${esc(p.qty || "")}</div>
+        <div class="dr-price">${money(p.price)}</div>
       </div>
-      <div class="ci-right">
-        <span class="ci-total">₹${(item.qty * item.price).toFixed(2)}</span>
-        <button class="ci-del" onclick="removeFromCart('${esc(item.id)}')" aria-label="Remove">🗑</button>
-      </div>`;
-    cartItemsEl.appendChild(d);
-  });
+    </div>
+    <div style="padding-top:14px;font-size:13px;color:var(--text-2)">
+      <div style="display:flex;justify-content:space-between"><span>Items in cart</span><strong>${cartCount()}</strong></div>
+      <div style="display:flex;justify-content:space-between;font-size:16px;font-weight:900;color:var(--text);margin-top:6px"><span>Subtotal</span><span>${money(total)}</span></div>
+    </div>
+  `;
+  $("cartDrawer").classList.add("open");
+  $("drawerBack").classList.add("visible");
+  clearTimeout(window._drawerTimer);
+  window._drawerTimer = setTimeout(closeCartDrawer, 5000);
 }
-
-function toggleCart() {
-  const open = cartPanel.classList.toggle("open");
-  cartOverlay.classList.toggle("open", open);
-  document.body.style.overflow = open ? "hidden" : "";
+function closeCartDrawer() {
+  $("cartDrawer")?.classList.remove("open");
+  $("drawerBack")?.classList.remove("visible");
+  clearTimeout(window._drawerTimer);
 }
+window.closeCartDrawer = closeCartDrawer;
 
-/* ─── 15. ORDER & INVOICE ────────────────────────────────────── */
-async function placeOrder() {
-  const items = Object.values(cart).map(i => ({
-    code:  i.code || i.id,
-    name:  i.name,
-    qty:   i.qty,
-    price: i.price,
-    qty_unit: i.qty || "",
-  }));
-  if (!items.length) return;
+/* ═══════════════════════════════════════════════════════════════
+   24. LOCATION
+   ═══════════════════════════════════════════════════════════════ */
 
-  placeOrderBtn.textContent = "⏳ Generating Invoice…";
-  placeOrderBtn.disabled    = true;
-
-  // Attach user info if logged in
-  const userEmail = window._currentUser?.email || window._currentUser?.phoneNumber || "Guest";
-  const userName  = window._currentUser?.displayName || "Guest";
-
-  try {
-    const res = await fetch(`${API}/api/order`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items, customer: { name: userName, contact: userEmail } }),
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      showToast(`❌ Order failed: ${err.error || res.statusText}`);
-      return;
-    }
-
-    const blob = await res.blob();
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement("a");
-    const cd   = res.headers.get("Content-Disposition") || "";
-    a.href     = url;
-    a.download = cd.match(/filename=([^\s;"]+)/)?.[1] || "aammii-order.txt";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-
-    showToast("🎉 Order placed! Invoice downloaded.");
-    cart = {};
-    updateCartUI();
-    setTimeout(toggleCart, 1400);
-
-  } catch (e) {
-    showToast(`❌ ${e.message}`);
-  } finally {
-    placeOrderBtn.textContent = "📦 Place Order & Download Invoice";
-    placeOrderBtn.disabled    = !Object.keys(cart).length;
+function changeLocation(loc) {
+  if (loc) {
+    STATE.location = loc;
+    localStorage.setItem("aammii-loc", loc);
+    const el = $("deliverLoc"); if (el) el.textContent = loc;
+    showToast(`📍 Delivering to ${loc}`);
+    return;
   }
+  /* Simple cycling switcher if called with no arg */
+  const cycle = ["Tamil Nadu", "Chennai", "Coimbatore", "Madurai", "Tiruchirapalli"];
+  const i = cycle.indexOf(STATE.location);
+  changeLocation(cycle[(i + 1) % cycle.length]);
 }
+window.changeLocation = changeLocation;
 
-/* ─── 16. PRICE MODAL ───────────────────────────────────────── */
-function openPriceModal() {
-  $("priceModal").classList.add("open");
-  $("priceModalBackdrop").classList.add("visible");
-  document.body.style.overflow = "hidden";
-  updateSliderTrack($("minPrice"));
-  updateSliderTrack($("maxPrice"));
-}
-function closePriceModal() {
-  $("priceModal").classList.remove("open");
-  $("priceModalBackdrop").classList.remove("visible");
-  document.body.style.overflow = "";
-}
-function updatePriceRange() {
-  const min = +$("minPrice").value, max = +$("maxPrice").value;
-  $("minPriceVal").textContent = min;
-  $("maxPriceVal").textContent = max;
-  $("previewMin").textContent  = min;
-  $("previewMax").textContent  = max;
-  updateSliderTrack($("minPrice"));
-  updateSliderTrack($("maxPrice"));
-}
-function updateSliderTrack(slider) {
-  const pct = ((+slider.value - +slider.min) / (+slider.max - +slider.min)) * 100;
-  slider.style.setProperty("--val", pct + "%");
-}
-function applyPriceFilter() {
-  minPriceFilter    = +$("minPrice").value;
-  maxPriceFilter    = +$("maxPrice").value;
-  priceFilterActive = true;
-  closePriceModal();
-  applyFilters();
-  updatePriceFilterBtn();
-}
-function resetPriceFilter() {
-  $("minPrice").value = 0;
-  $("maxPrice").value = 5000;
-  updatePriceRange();
-  minPriceFilter    = 0;
-  maxPriceFilter    = 5000;
-  priceFilterActive = false;
-  applyFilters();
-  updatePriceFilterBtn();
-}
-function updatePriceFilterBtn() {
-  const btn = $("priceFilterBtn");
-  if (!btn) return;
-  if (priceFilterActive) {
-    btn.classList.add("active-filter");
-    btn.textContent = `₹${minPriceFilter}–${maxPriceFilter} ✕`;
-    btn.onclick = () => { resetPriceFilter(); };
-  } else {
-    btn.classList.remove("active-filter");
-    btn.textContent = "₹ Price Filter";
-    btn.onclick = openPriceModal;
-  }
-}
+/* ═══════════════════════════════════════════════════════════════
+   25. TOAST / CONFIRM
+   ═══════════════════════════════════════════════════════════════ */
 
-/* ─── 17. TOAST ─────────────────────────────────────────────── */
-let toastTimer;
+let _toastT;
 function showToast(msg) {
-  const t = $("toast");
+  const t = $("toast"); if (!t) return;
   t.textContent = msg;
   t.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove("show"), 3000);
+  clearTimeout(_toastT);
+  _toastT = setTimeout(() => t.classList.remove("show"), 3000);
 }
+window.showToast = showToast;
 
-/* ─── 18. UTILITIES ─────────────────────────────────────────── */
-function esc(s) {
-  if (s == null) return "";
-  return String(s)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+function showConfirm(title, msg, onOk) {
+  $("confirmTitle").textContent = title;
+  $("confirmMsg").textContent = msg;
+  $("confirmBackdrop").classList.add("visible");
+  $("confirmBox").classList.add("open");
+  $("confirmOkBtn").onclick = () => { onOk?.(); closeConfirm(); };
 }
-
-function imageUrl(p) {
-  if (!p.image) return fallbackSVG();
-  return p.image.startsWith("/") ? `${API}${p.image}` : p.image;
+function closeConfirm() {
+  $("confirmBackdrop")?.classList.remove("visible");
+  $("confirmBox")?.classList.remove("open");
 }
+window.closeConfirm = closeConfirm;
 
-function fallbackSVG(size = 280) {
-  const h = size === 280 ? 160 : size;
-  return `data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22${size}%22 height=%22${h}%22><rect width=%22${size}%22 height=%22${h}%22 fill=%22%23f5f0e8%22 rx=%228%22/><text x=%2250%25%22 y=%2255%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-size=%2232%22>🌿</text></svg>`;
-}
+/* ═══════════════════════════════════════════════════════════════
+   26. SCROLL EFFECTS / BACK-TO-TOP
+   ═══════════════════════════════════════════════════════════════ */
 
-function isNewProduct(p) {
-  if (!p.date_added) return false;
-  const nowMs  = Date.now();
-  const weekMs = 7 * 24 * 60 * 60 * 1000;
-  return (nowMs - new Date(p.date_added).getTime()) <= weekMs;
-}
+window.addEventListener("scroll", () => {
+  $("mainNav")?.classList.toggle("scrolled", window.scrollY > 40);
+  $("backTop")?.classList.toggle("show", window.scrollY > 400);
+  /* Close user menu on scroll */
+  closeUserMenu();
+}, { passive: true });
 
-/* ─── 19. PULL-TO-REFRESH ───────────────────────────────────── */
-(function initPullToRefresh() {
-  const indicator = $("ptrIndicator");
-  const ptrTextEl = $("ptrText");
-  const THRESHOLD = 80;
-  let startY = 0, currentY = 0, pulling = false, refreshing = false;
+/* ═══════════════════════════════════════════════════════════════
+   27. BOOTSTRAP
+   ═══════════════════════════════════════════════════════════════ */
 
-  document.addEventListener("touchstart", e => {
-    if (window.scrollY > 0) return;
-    startY  = e.touches[0].clientY;
-    pulling = true;
-  }, { passive: true });
+loadCart();
+updateNavCart();
+const el = $("deliverLoc"); if (el) el.textContent = STATE.location;
 
-  document.addEventListener("touchmove", e => {
-    if (!pulling || refreshing) return;
-    currentY = e.touches[0].clientY;
-    const dist = currentY - startY;
-    if (dist <= 0) return;
-    indicator.classList.add("ptr-visible");
-    const releasing = dist >= THRESHOLD;
-    indicator.classList.toggle("ptr-releasing", releasing);
-    ptrTextEl.textContent = releasing ? "Release to refresh" : "Pull to refresh";
-  }, { passive: true });
-
-  document.addEventListener("touchend", async () => {
-    if (!pulling) return;
-    pulling = false;
-    const dist = currentY - startY;
-    if (dist >= THRESHOLD && !refreshing) {
-      refreshing = true;
-      indicator.classList.add("ptr-refreshing");
-      indicator.classList.remove("ptr-releasing");
-      ptrTextEl.textContent = "Refreshing…";
-      await refreshProducts();
-      setTimeout(() => {
-        indicator.classList.remove("ptr-visible", "ptr-refreshing");
-        ptrTextEl.textContent = "Pull to refresh";
-        refreshing = false;
-        currentY = startY = 0;
-      }, 600);
-    } else {
-      indicator.classList.remove("ptr-visible", "ptr-releasing");
-      currentY = startY = 0;
-    }
-  }, { passive: true });
-})();
-
-async function refreshProducts() {
-  try {
-    const res  = await fetch(`${API}/api/products`);
-    const data = await res.json();
-    if (Array.isArray(data) && data.length > 0) {
-      initShop(data);
-      showToast("✅ Products refreshed!");
-    }
-  } catch {
-    showToast("⚠️ Refresh failed — check connection");
-  }
-}
-
-/* ─── 19b. HERO CAROUSEL ────────────────────────────────────── */
-(function initHeroCarousel() {
-  const track  = $("hcTrack");
-  const dotsEl = $("hcDots");
-  const prev   = $("hcPrev");
-  const next   = $("hcNext");
-  if (!track) return;
-
-  const slides = track.querySelectorAll(".hc-slide");
-  const total  = slides.length;
-  let cur = 0, autoTimer = null;
-
-  // Build dots
-  slides.forEach((_, i) => {
-    const d = document.createElement("span");
-    d.className = "hc-dot" + (i === 0 ? " active" : "");
-    d.onclick = () => goTo(i);
-    dotsEl.appendChild(d);
-  });
-
-  function goTo(idx) {
-    cur = (idx + total) % total;
-    track.style.transform = `translateX(-${cur * 100}%)`;
-    dotsEl.querySelectorAll(".hc-dot").forEach((d, i) =>
-      d.classList.toggle("active", i === cur));
-    resetAuto();
-  }
-
-  function resetAuto() {
-    clearInterval(autoTimer);
-    autoTimer = setInterval(() => goTo(cur + 1), 3000);
-  }
-
-  if (prev) prev.onclick = () => goTo(cur - 1);
-  if (next) next.onclick = () => goTo(cur + 1);
-
-  // Category nav on click
-  slides.forEach((slide) => {
-    slide.addEventListener("click", () => {
-      const cat = slide.querySelector(".hc-en")?.textContent
-        .replace(/&amp;/g, "&").trim();
-      if (cat) filterByCategory(cat, null);
-    });
-  });
-
-  // Touch swipe
-  let tx = 0;
-  track.parentElement.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, { passive: true });
-  track.parentElement.addEventListener("touchend", e => {
-    const dx = e.changedTouches[0].clientX - tx;
-    if (Math.abs(dx) > 40) goTo(dx < 0 ? cur + 1 : cur - 1);
-  }, { passive: true });
-
-  resetAuto();
-})();
-
-/* ─── 20. AUTO-LOAD ON START ────────────────────────────────── */
 (async () => {
-  try {
-    const res  = await fetch(`${API}/api/products`);
-    const data = await res.json();
-    if (Array.isArray(data) && data.length > 0) {
-      setStatus("success", `✅ ${data.length} Aammii products ready — upload a PDF to update`);
-      initShop(data);
-    }
-  } catch {
-    setStatus("error", "⚠️ Could not connect to server. Make sure the backend is running.");
-  }
+  await loadProducts();
+  route();
 })();

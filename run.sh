@@ -1,65 +1,62 @@
 #!/usr/bin/env bash
-# run.sh — Aammii Natural Shop · Production Startup
+# run.sh — Aammii Tharcharbu Santhai
+# Works on: macOS · Linux · WSL / Git Bash on Windows
+
 set -e
+cd "$(dirname "$0")"   # always run from project root
 
 echo ""
-echo "  🌿  Aammii Natural Shop  ·  Production Build"
-echo "  ═══════════════════════════════════════════════"
+echo "  ╔══════════════════════════════════════════════════════╗"
+echo "  ║   Aammii Tharcharbu Santhai                          ║"
+echo "  ║   Natural Lifestyle Products                         ║"
+echo "  ╚══════════════════════════════════════════════════════╝"
+echo ""
 
-# ── Python check ──────────────────────────────────────────────────────────
-if ! command -v python3 &>/dev/null; then
-  echo "  ❌  Python 3.8+ is required.  Install from python.org"
+# ── Find Python 3 ─────────────────────────────────────────────────────────────
+PYTHON=""
+for cmd in python3 python py; do
+  if command -v "$cmd" &>/dev/null; then
+    ver=$("$cmd" -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')" 2>/dev/null)
+    major=$(echo "$ver" | cut -d. -f1)
+    if [ "$major" -ge 3 ]; then
+      PYTHON="$cmd"
+      break
+    fi
+  fi
+done
+
+if [ -z "$PYTHON" ]; then
+  echo "  ERROR: Python 3.8+ not found. Install from https://python.org"
   exit 1
 fi
 
-PYVER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
-echo "  ✅  Python $PYVER"
+echo "  Python $($PYTHON --version 2>&1 | awk '{print $2}')"
 
-# ── Install dependencies ──────────────────────────────────────────────────
-echo "  📦  Checking Python dependencies…"
-pip install \
-  flask \
-  flask-cors \
-  razorpay \
-  pdfplumber \
-  pillow \
-  pdf2image \
-  pytesseract \
-  --break-system-packages -q 2>/dev/null || \
-pip install \
-  flask \
-  flask-cors \
-  razorpay \
-  pdfplumber \
-  pillow \
-  pdf2image \
-  pytesseract \
-  -q
+# ── Install dependencies ──────────────────────────────────────────────────────
+echo "  Installing dependencies..."
+"$PYTHON" -m pip install flask flask-cors pdfplumber pillow reportlab --quiet \
+  --break-system-packages 2>/dev/null || \
+"$PYTHON" -m pip install flask flask-cors pdfplumber pillow reportlab --quiet
 
-echo "  ✅  All dependencies installed"
+echo "  Dependencies ready."
 
-# ── Razorpay key reminder ─────────────────────────────────────────────────
-echo ""
-echo "  💳  PAYMENT SETUP"
-echo "  ─────────────────────────────────────────────────"
-echo "  To accept live payments, set your Razorpay keys:"
-echo "  export RAZORPAY_KEY_ID='rzp_live_XXXXXXXXXXXXXXXX'"
-echo "  export RAZORPAY_KEY_SECRET='your_secret_here'"
-echo ""
-echo "  Sign up free at: https://razorpay.com"
-echo "  Supports: GPay · Paytm · UPI · Visa · MC · Amex"
-echo "  ─────────────────────────────────────────────────"
-echo ""
-
-# ── Create required directories ───────────────────────────────────────────
+# ── Create required directories ───────────────────────────────────────────────
 mkdir -p uploads generated_images orders
 
-# ── Start server ──────────────────────────────────────────────────────────
-echo "  🚀  Starting server → http://localhost:5000"
-echo "  📱  Open http://localhost:5000 in your browser"
+# ── Open browser (macOS / Linux) ──────────────────────────────────────────────
+open_browser() {
+  URL="http://localhost:5000"
+  sleep 2
+  if command -v open  &>/dev/null; then open  "$URL"; fi   # macOS
+  if command -v xdg-open &>/dev/null; then xdg-open "$URL"; fi  # Linux
+}
+open_browser &
+
+# ── Start Flask server ────────────────────────────────────────────────────────
 echo ""
-echo "  ⚠️   Important: Use port 5000 (not 5500 / Live Server)"
+echo "  Server starting → http://localhost:5000"
+echo "  Press Ctrl+C to stop."
 echo ""
 
-cd "$(dirname "$0")/backend"
-python3 app.py
+cd backend
+"$PYTHON" app.py
