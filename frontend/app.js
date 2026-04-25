@@ -81,17 +81,27 @@ function esc(s) {
 function money(n) { return "₹" + Number(n || 0).toFixed(2); }
 function moneyR(n) { return "₹" + Math.round(Number(n || 0)); }
 
+/* Image system — modular URL based.
+   Pasted image URL wins; everything else falls back to a category-tinted SVG. */
 function imageUrl(p) {
-  if (!p?.image) return fallbackSVG();
-  if (p.image.startsWith("data:") || p.image.startsWith("http")) return p.image;
-  return API ? `${API}${p.image}` : p.image;
+  const img = (p?.image || "").trim();
+  if (img && (img.startsWith("http://") || img.startsWith("https://") || img.startsWith("data:"))) {
+    return img;
+  }
+  return fallbackSVG(280, p?.category);
 }
 
-function fallbackSVG(size = 280) {
+function fallbackSVG(size = 280, category = "") {
+  const meta = CAT_META[category] || { emoji: "🌿", c1: "#14532D", c2: "#22703E" };
+  const h = Math.round(size * 0.78);
   return "data:image/svg+xml," + encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size*4/3}">
-       <rect width="${size}" height="${size*4/3}" fill="#14532D" rx="10"/>
-       <text x="50%" y="54%" text-anchor="middle" font-size="${size/4}">🌿</text>
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${h}" viewBox="0 0 ${size} ${h}">
+       <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+         <stop offset="0%" stop-color="${meta.c1}"/><stop offset="100%" stop-color="${meta.c2}"/>
+       </linearGradient></defs>
+       <rect width="${size}" height="${h}" fill="url(#g)" rx="10"/>
+       <circle cx="${size/2}" cy="${h*0.42}" r="${size*0.13}" fill="rgba(255,255,255,0.12)"/>
+       <text x="50%" y="${h*0.5}" text-anchor="middle" font-size="${Math.round(size*0.28)}" dominant-baseline="middle">${meta.emoji}</text>
      </svg>`);
 }
 
@@ -343,6 +353,8 @@ function renderHome(view) {
   const newArrivals = STATE.products.filter(isNew).slice(0, 12);
   const bestsellers = [...STATE.products].sort(() => .5 - Math.random()).slice(0, 12);
   const deals       = [...STATE.products].sort((a, b) => b.price - a.price).slice(0, 8);
+  const recs        = recommendedProducts(12);
+  const hasPersonalRecs = (loadViewed().length + Object.keys(loadFavs()).filter(k => loadFavs()[k]).length + Object.keys(STATE.cart).length) > 0;
 
   view.innerHTML = `
     <!-- HERO -->
@@ -397,6 +409,20 @@ function renderHome(view) {
         }).join("")}
       </div>
     </section>
+
+    ${hasPersonalRecs && recs.length ? `
+    <!-- RECOMMENDED FOR YOU -->
+    <section class="sec">
+      <div class="sec-head">
+        <div class="sec-title-wrap">
+          <div class="sec-eyebrow">✨ Picked for you</div>
+          <h2 class="sec-title">Recommended for You</h2>
+          <div class="sec-sub">Based on what you've browsed and favorited</div>
+        </div>
+        <a class="sec-link" href="#/browse">See more →</a>
+      </div>
+      <div class="hscroll">${recs.map(cardHTML).join("")}</div>
+    </section>` : ""}
 
     ${newArrivals.length ? `
     <!-- NEW ARRIVALS -->
@@ -633,16 +659,29 @@ function renderBrowse(view, params = {}) {
 
 function renderBrowseGrid() {
   const { category, minP, maxP, search, sort } = STATE.filters;
-  const s = (search || "").toLowerCase().trim();
-  let list = STATE.products.filter(p => {
-    if (category !== "all" && p.category !== category) return false;
-    if (p.price < minP || p.price > maxP) return false;
-    if (s) {
-      const hay = [p.name, p.code, p.category, p.qty].filter(Boolean).join(" ").toLowerCase();
-      if (!hay.includes(s)) return false;
+  const s = (search || "").trim();
+
+  let list;
+  if (s) {
+    // Use predictive scoring so typos still surface results.
+    const qNorm = _normalize(s);
+    const qTokens = qNorm.split(" ").filter(Boolean);
+    list = [];
+    for (const p of STATE.products) {
+      if (category !== "all" && p.category !== category) continue;
+      if (p.price < minP || p.price > maxP) continue;
+      const sc = _scoreProduct(p, qNorm, qTokens);
+      if (sc > 0) list.push([sc, p]);
     }
-    return true;
-  });
+    list.sort((a, b) => b[0] - a[0]);
+    list = list.map(x => x[1]);
+  } else {
+    list = STATE.products.filter(p => {
+      if (category !== "all" && p.category !== category) return false;
+      if (p.price < minP || p.price > maxP) return false;
+      return true;
+    });
+  }
 
   if (sort === "price-asc")  list.sort((a, b) => a.price - b.price);
   if (sort === "price-desc") list.sort((a, b) => b.price - a.price);
@@ -685,6 +724,7 @@ function renderProduct(view, id) {
   const p = STATE.products.find(x => x.id === id || x.code === id);
   if (!p) return render404(view);
 
+  trackView(p.id);
   const n = splitName(p.name);
   const meta = CAT_META[p.category] || { emoji: "📦" };
   const rating = pseudoRating(p);
@@ -1147,7 +1187,11 @@ async function renderOrders(view) {
               </div>
               <div class="order-body">
                 <div class="order-items-mini">
-                  ${first.map(i => `<img class="omi" src="${imageUrl({image: `/images/${i.code || i.id}.svg`})}" onerror="this.src='${fallbackSVG(60)}'" alt=""/>`).join("")}
+                  ${first.map(i => {
+                    const prod = STATE.products.find(x => x.id === (i.code || i.id) || x.code === (i.code || i.id));
+                    const src = imageUrl(prod || { image: i.image, category: i.category });
+                    return `<img class="omi" src="${src}" onerror="this.src='${fallbackSVG(60, i.category)}'" alt=""/>`;
+                  }).join("")}
                   ${itemCount > 4 ? `<div class="omi" style="display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--text-3);font-size:13px">+${itemCount - 4}</div>` : ""}
                 </div>
                 <div class="order-actions">
@@ -1178,9 +1222,12 @@ function renderOrderDetail(view, id) {
 
       <div class="cart-wrap">
         <div class="cart-items">
-          ${(o.items || []).map(i => `
+          ${(o.items || []).map(i => {
+            const prod = STATE.products.find(x => x.id === (i.code || i.id) || x.code === (i.code || i.id));
+            const src = imageUrl(prod || { image: i.image, category: i.category });
+            return `
             <div class="ci-row">
-              <img class="ci-img-big" src="/images/${esc(i.code || i.id)}.svg" onerror="this.src='${fallbackSVG(80)}'" alt=""/>
+              <img class="ci-img-big" src="${src}" onerror="this.src='${fallbackSVG(80, i.category)}'" alt=""/>
               <div class="ci-info-big">
                 <div class="ci-cat-big">${esc(i.category || "")}</div>
                 <div class="ci-name-big tamil">${esc(splitName(i.name).tamil)}</div>
@@ -1189,7 +1236,8 @@ function renderOrderDetail(view, id) {
               </div>
               <div></div>
               <div class="ci-total-big">${money(i.price * i.qty)}</div>
-            </div>`).join("")}
+            </div>`;
+          }).join("")}
         </div>
         <div class="cart-summary-card">
           <div class="cs-title">Delivery</div>
@@ -1343,15 +1391,13 @@ function renderAdmin(view) {
       </div>
 
       <div class="ck-card">
-        <div class="ck-title" style="margin-bottom:14px">🖼 Replacing product images</div>
-        <p style="font-size:13px;color:var(--text-2);line-height:1.7">
-          Drop a real product photo named <code style="background:var(--surface-2);padding:2px 6px;border-radius:4px"><b>&lt;product-id&gt;.jpg</b></code>
-          (or .png / .webp) into the <code style="background:var(--surface-2);padding:2px 6px;border-radius:4px">generated_images/</code>
-          folder on the server. The backend will serve the real photo instead of the auto-generated SVG — no restart needed.
+        <div class="ck-title" style="margin-bottom:8px">🖼 Manage Product Images</div>
+        <p style="font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:14px">
+          Paste a public image URL (e.g. from a CDN, Unsplash, or your own host) for any product.
+          Leave empty to use the auto-generated category illustration.
         </p>
-        <p style="font-size:12px;color:var(--text-3);margin-top:10px">
-          Priority order: <b>.jpg → .jpeg → .png → .webp → .svg</b>
-        </p>
+        <input class="inp" id="imgMgrSearch" placeholder="🔎 Find product by name, code, or category…" oninput="renderImgMgr()" style="margin-bottom:12px"/>
+        <div id="imgMgrList" class="img-mgr-list"></div>
       </div>
 
       <div class="ck-card">
@@ -1366,7 +1412,74 @@ function renderAdmin(view) {
       </div>
     </div>
   `;
+
+  renderImgMgr();
 }
+
+/* ── Product Image Manager (admin) ─────────────────────────────── */
+function renderImgMgr() {
+  const list = $("imgMgrList"); if (!list) return;
+  const q = ($("imgMgrSearch")?.value || "").toLowerCase().trim();
+  let prods = STATE.products;
+  if (q) {
+    prods = prods.filter(p => {
+      const hay = [p.name, p.code, p.category].filter(Boolean).join(" ").toLowerCase();
+      return hay.includes(q);
+    });
+  }
+  prods = prods.slice(0, 30);
+  if (!prods.length) {
+    list.innerHTML = `<div class="empty" style="padding:24px"><p>No matching products</p></div>`;
+    return;
+  }
+  list.innerHTML = prods.map(p => {
+    const n = splitName(p.name);
+    return `
+      <div class="img-mgr-row">
+        <img class="img-mgr-thumb" src="${imageUrl(p)}" alt="" onerror="this.src='${fallbackSVG(60, p.category)}'"/>
+        <div class="img-mgr-info">
+          <div class="img-mgr-code">${esc(p.code || p.id)} · ${esc(p.category || "")}</div>
+          <div class="img-mgr-name tamil">${esc(n.tamil)}</div>
+        </div>
+        <input class="inp img-mgr-url" data-pid="${esc(p.id)}" type="url"
+               value="${esc(p.image && (p.image.startsWith('http')||p.image.startsWith('data:')) ? p.image : '')}"
+               placeholder="https://example.com/image.jpg"/>
+        <button class="btn-primary img-mgr-save" onclick="saveProductImage('${esc(p.id)}', this)">Save</button>
+      </div>
+    `;
+  }).join("");
+}
+window.renderImgMgr = renderImgMgr;
+
+async function saveProductImage(pid, btn) {
+  const input = btn.parentElement.querySelector(`input.img-mgr-url[data-pid="${pid}"]`);
+  if (!input) return;
+  const url = input.value.trim();
+  btn.disabled = true; btn.textContent = "Saving…";
+  try {
+    const r = await fetch(`${API}/api/products/${encodeURIComponent(pid)}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image: url }),
+    });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.error || "Save failed");
+    // update local state
+    const p = STATE.products.find(x => x.id === pid || x.code === pid);
+    if (p) p.image = data.product?.image ?? url;
+    showToast(url ? "✓ Image URL saved" : "✓ Reset to default");
+    btn.textContent = "Saved ✓";
+    setTimeout(() => { btn.disabled = false; btn.textContent = "Save"; }, 1200);
+    // refresh thumbnail
+    const row = btn.closest(".img-mgr-row");
+    const thumb = row?.querySelector(".img-mgr-thumb");
+    if (thumb) thumb.src = imageUrl(p);
+  } catch (e) {
+    btn.disabled = false; btn.textContent = "Save";
+    showToast("❌ " + e.message);
+  }
+}
+window.saveProductImage = saveProductImage;
 
 async function uploadPDF(input) {
   const f = input.files[0]; if (!f) return;
@@ -1503,19 +1616,282 @@ function render404(view) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   21. GLOBAL SEARCH
+   21. GLOBAL SEARCH — PREDICTIVE / FUZZY / TYPO-TOLERANT
    ═══════════════════════════════════════════════════════════════ */
 
-function runSearch() {
-  const s = $("searchInput")?.value || "";
-  const cat = $("searchCat")?.value || "";
-  const parts = [];
-  if (s) parts.push("q=" + encodeURIComponent(s));
-  const path = cat ? `/category/${encodeURIComponent(cat)}` : "/browse";
-  go(path + (parts.length ? "?" + parts.join("&") : ""));
-  if (STATE.filters) { STATE.filters.search = s; renderBrowseGrid(); }
+const _SEARCH = { idx: -1, list: [], term: "", lastQ: "" };
+
+/* Tokenizes & normalizes a string for indexing. */
+function _normalize(s) {
+  return (s || "").toString().toLowerCase()
+    .replace(/[^\p{L}\p{N}\s]/gu, " ")
+    .replace(/\s+/g, " ").trim();
 }
-window.runSearch = runSearch;
+
+/* Levenshtein edit distance (capped at maxD for speed). */
+function _editDistance(a, b, maxD = 3) {
+  if (a === b) return 0;
+  const al = a.length, bl = b.length;
+  if (Math.abs(al - bl) > maxD) return maxD + 1;
+  if (!al) return bl; if (!bl) return al;
+  let prev = new Array(bl + 1);
+  for (let j = 0; j <= bl; j++) prev[j] = j;
+  for (let i = 1; i <= al; i++) {
+    const cur = [i];
+    let rowMin = i;
+    for (let j = 1; j <= bl; j++) {
+      const c = a[i - 1] === b[j - 1] ? 0 : 1;
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + c);
+      if (cur[j] < rowMin) rowMin = cur[j];
+    }
+    if (rowMin > maxD) return maxD + 1;
+    prev = cur;
+  }
+  return prev[bl];
+}
+
+/* Score a single product against the query. Higher = better. 0 = no match. */
+function _scoreProduct(p, qNorm, qTokens) {
+  const name = _normalize(p.name);
+  const cat  = _normalize(p.category);
+  const code = _normalize(p.code || p.id);
+  const hay  = `${name} ${cat} ${code}`;
+
+  let score = 0;
+  // Exact substring is strongest.
+  if (hay.includes(qNorm)) score += 100;
+  // Code exact / starts-with is very strong.
+  if (code === qNorm) score += 200;
+  if (code.startsWith(qNorm)) score += 60;
+  // Token-by-token contribution: prefix > inclusion > fuzzy.
+  for (const t of qTokens) {
+    if (!t) continue;
+    let best = 0;
+    for (const w of hay.split(" ")) {
+      if (!w) continue;
+      if (w === t)              best = Math.max(best, 50);
+      else if (w.startsWith(t)) best = Math.max(best, 35);
+      else if (w.includes(t))   best = Math.max(best, 20);
+      else if (t.length >= 4) {
+        // Fuzzy — typo tolerance.
+        const maxD = t.length <= 5 ? 1 : t.length <= 8 ? 2 : 3;
+        const d = _editDistance(w, t, maxD);
+        if (d <= maxD) best = Math.max(best, 18 - d * 4);
+      }
+    }
+    score += best;
+  }
+  // Prefer category match.
+  if (qTokens.some(t => t && cat.includes(t))) score += 4;
+  // Tiny popularity bias — favor newer / cheaper items as tiebreaker.
+  if (isNew(p)) score += 1;
+  return score;
+}
+
+/* Returns top N matching products + categories + a "did you mean" suggestion. */
+function searchProducts(rawQ, limit = 8) {
+  const qNorm = _normalize(rawQ);
+  if (!qNorm) return { products: [], categories: [], didYouMean: "" };
+  const qTokens = qNorm.split(" ").filter(Boolean);
+
+  const cat = $("searchCat")?.value || "";
+  const pool = cat ? STATE.products.filter(p => p.category === cat) : STATE.products;
+
+  const scored = [];
+  for (const p of pool) {
+    const s = _scoreProduct(p, qNorm, qTokens);
+    if (s > 0) scored.push([s, p]);
+  }
+  scored.sort((a, b) => b[0] - a[0]);
+  const products = scored.slice(0, limit).map(x => x[1]);
+
+  // Matching categories
+  const categories = Object.keys(CAT_META)
+    .filter(c => qTokens.some(t => _normalize(c).includes(t)))
+    .slice(0, 4);
+
+  // "Did you mean" — when no strong matches, find closest product / category word.
+  let didYouMean = "";
+  if (scored.length === 0 || scored[0][0] < 25) {
+    const allWords = new Set();
+    for (const p of STATE.products) {
+      for (const w of _normalize(p.name).split(" ")) if (w.length >= 3) allWords.add(w);
+      for (const w of _normalize(p.category).split(" ")) if (w.length >= 3) allWords.add(w);
+    }
+    let bestD = 99, bestW = "";
+    for (const w of allWords) {
+      const d = _editDistance(w, qNorm, 4);
+      if (d < bestD) { bestD = d; bestW = w; }
+    }
+    if (bestW && bestD <= 3 && bestW !== qNorm) didYouMean = bestW;
+  }
+
+  return { products, categories, didYouMean };
+}
+
+/* Personal recommendations: recently viewed → category overlap → popular. */
+const VIEWED_KEY = "aammii-recent";
+function trackView(pid) {
+  try {
+    const arr = JSON.parse(localStorage.getItem(VIEWED_KEY) || "[]")
+      .filter(x => x !== pid);
+    arr.unshift(pid);
+    localStorage.setItem(VIEWED_KEY, JSON.stringify(arr.slice(0, 30)));
+  } catch {}
+}
+function loadViewed() {
+  try { return JSON.parse(localStorage.getItem(VIEWED_KEY) || "[]"); }
+  catch { return []; }
+}
+function recommendedProducts(limit = 12) {
+  const viewedIds = new Set(loadViewed());
+  const viewed = STATE.products.filter(p => viewedIds.has(p.id));
+  const seenCats = new Set(viewed.map(p => p.category));
+  const inCat = STATE.products.filter(p => seenCats.has(p.category) && !viewedIds.has(p.id));
+  const fav = loadFavs();
+  const favProds = STATE.products.filter(p => fav[p.id]);
+  const cartIds = new Set(Object.keys(STATE.cart));
+  const inCart  = STATE.products.filter(p => cartIds.has(p.id));
+  const favCats = new Set([...favProds, ...inCart].map(p => p.category));
+  const favBased = STATE.products.filter(p => favCats.has(p.category) && !viewedIds.has(p.id));
+
+  const seen = new Set();
+  const out = [];
+  const push = arr => arr.forEach(p => { if (p && !seen.has(p.id)) { seen.add(p.id); out.push(p); } });
+  push(favBased); push(inCat);
+  // Top-up with random popular if not enough.
+  if (out.length < limit) push([...STATE.products].sort(() => .5 - Math.random()));
+  return out.slice(0, limit);
+}
+
+/* === Search UI handlers === */
+
+let _searchDebounce;
+function onSearchInput() {
+  const v = $("searchInput")?.value || "";
+  clearTimeout(_searchDebounce);
+  _searchDebounce = setTimeout(() => renderSearchSuggest(v), 110);
+}
+window.onSearchInput = onSearchInput;
+window.onSearchCatChange = () => {
+  const v = $("searchInput")?.value || "";
+  renderSearchSuggest(v);
+};
+
+function onSearchKey(e) {
+  const box = $("searchSuggest"); if (!box || !box.classList.contains("open")) return;
+  const rows = qa(".ss-row", box);
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    _SEARCH.idx = Math.min(_SEARCH.idx + 1, rows.length - 1);
+    rows.forEach((r, i) => r.classList.toggle("active", i === _SEARCH.idx));
+    rows[_SEARCH.idx]?.scrollIntoView({ block: "nearest" });
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    _SEARCH.idx = Math.max(_SEARCH.idx - 1, 0);
+    rows.forEach((r, i) => r.classList.toggle("active", i === _SEARCH.idx));
+    rows[_SEARCH.idx]?.scrollIntoView({ block: "nearest" });
+  } else if (e.key === "Enter") {
+    if (_SEARCH.idx >= 0 && rows[_SEARCH.idx]) {
+      e.preventDefault();
+      rows[_SEARCH.idx].click();
+    }
+  } else if (e.key === "Escape") {
+    closeSearchSuggest();
+  }
+}
+window.onSearchKey = onSearchKey;
+
+function renderSearchSuggest(rawQ) {
+  const box = $("searchSuggest"); if (!box) return;
+  const q = (rawQ || "").trim();
+  _SEARCH.idx = -1; _SEARCH.term = q;
+
+  if (!q) {
+    // On focus with empty query — show recommendations.
+    const recs = recommendedProducts(6);
+    if (!recs.length) { closeSearchSuggest(); return; }
+    box.innerHTML = `
+      <div class="ss-section-title">✨ Recommended for you</div>
+      ${recs.map(p => ssRow(p)).join("")}
+    `;
+    box.classList.add("open");
+    _SEARCH.list = recs.map(p => p.id);
+    return;
+  }
+
+  const { products, categories, didYouMean } = searchProducts(q, 8);
+  let html = "";
+  if (didYouMean && products.length === 0) {
+    html += `<div class="ss-did-mean">Did you mean
+      <a href="javascript:void(0)" onclick="useSearchTerm('${esc(didYouMean)}')">${esc(didYouMean)}</a>?</div>`;
+  } else if (didYouMean) {
+    html += `<div class="ss-did-mean">Showing best matches. Did you mean
+      <a href="javascript:void(0)" onclick="useSearchTerm('${esc(didYouMean)}')">${esc(didYouMean)}</a>?</div>`;
+  }
+  if (categories.length) {
+    html += `<div class="ss-section-title">Categories</div>`;
+    html += categories.map(c => `
+      <div class="ss-row" onclick="goToCategory('${esc(c)}');closeSearchSuggest()">
+        <div class="ss-img" style="background:linear-gradient(135deg,${(CAT_META[c]||{}).c1||'#14532D'},${(CAT_META[c]||{}).c2||'#22703E'});display:flex;align-items:center;justify-content:center;font-size:20px">${(CAT_META[c]||{}).emoji||'📦'}</div>
+        <div class="ss-info"><div class="ss-name">${esc(c)}</div><div class="ss-meta">Browse all ${esc(c)}</div></div>
+      </div>`).join("");
+  }
+  if (products.length) {
+    html += `<div class="ss-section-title">Products</div>`;
+    html += products.map(p => ssRow(p)).join("");
+  }
+  if (!products.length && !categories.length) {
+    html += `<div class="ss-empty">No results. Press Enter to search anyway.</div>`;
+  }
+  box.innerHTML = html;
+  box.classList.add("open");
+  _SEARCH.list = products.map(p => p.id);
+}
+
+function ssRow(p) {
+  const n = splitName(p.name);
+  return `
+    <div class="ss-row" onclick="go('/product/${encodeURIComponent(p.id)}');closeSearchSuggest()">
+      <img class="ss-img" src="${imageUrl(p)}" onerror="this.src='${fallbackSVG(40, p.category)}'" alt=""/>
+      <div class="ss-info">
+        <div class="ss-name tamil">${esc(n.tamil)}</div>
+        <div class="ss-meta">${esc(n.english || p.category || "")}${p.qty ? " · " + esc(p.qty) : ""}</div>
+      </div>
+      <div class="ss-price">${moneyR(p.price)}</div>
+    </div>`;
+}
+
+function closeSearchSuggest() {
+  $("searchSuggest")?.classList.remove("open");
+  _SEARCH.idx = -1;
+}
+window.closeSearchSuggest = closeSearchSuggest;
+
+function useSearchTerm(t) {
+  const inp = $("searchInput"); if (!inp) return;
+  inp.value = t;
+  renderSearchSuggest(t);
+}
+window.useSearchTerm = useSearchTerm;
+
+function goToCategory(c) { go(`/category/${encodeURIComponent(c)}`); }
+window.goToCategory = goToCategory;
+
+function submitSearch() {
+  const s   = $("searchInput")?.value || "";
+  const cat = $("searchCat")?.value || "";
+  closeSearchSuggest();
+  const path = cat ? `/category/${encodeURIComponent(cat)}` : "/browse";
+  go(path + (s ? `?q=${encodeURIComponent(s)}` : ""));
+}
+window.submitSearch = submitSearch;
+window.runSearch = submitSearch;  // back-compat
+
+/* Click-outside to close. */
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".search")) closeSearchSuggest();
+}, true);
 
 function populateSearchCats() {
   const sel = $("searchCat"); if (!sel) return;

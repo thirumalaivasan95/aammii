@@ -44,9 +44,8 @@ echo  Dependencies ready.
 echo.
 
 REM --- Create required directories ---
-if not exist "uploads"          mkdir uploads
-if not exist "generated_images" mkdir generated_images
-if not exist "orders"           mkdir orders
+if not exist "uploads" mkdir uploads
+if not exist "orders"  mkdir orders
 
 REM --- Auto-open browser after short delay ---
 start "" cmd /c "timeout /t 3 /nobreak >nul && start http://localhost:5000"

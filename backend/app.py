@@ -3,15 +3,15 @@ app.py — Aammii Tharcharbu Santhai Backend
 E-commerce backend: products, PDF catalogue upload, orders, PDF invoices.
 
 Endpoints:
-  GET  /                   → frontend index.html
-  GET  /<file>             → frontend static
-  GET  /images/<name>      → smart image serve (jpg → jpeg → png → webp → svg)
-  GET  /api/products       → list of products
-  POST /api/upload         → PDF catalogue parser
-  POST /api/mark-new       → mark products as newly added
-  POST /api/order          → place order · returns PDF invoice
-  GET  /api/orders         → list all orders (most recent first)
-  GET  /api/orders/<id>    → single order detail
+  GET   /                       → frontend index.html
+  GET   /<file>                 → frontend static
+  GET   /api/products           → list of products
+  PATCH /api/products/<id>      → update product fields (admin: image_url, hsn, gst_rate, …)
+  POST  /api/upload             → PDF catalogue parser
+  POST  /api/mark-new           → mark products as newly added
+  POST  /api/order              → place order · returns PDF invoice
+  GET   /api/orders             → list all orders (most recent first)
+  GET   /api/orders/<id>        → single order detail
 """
 
 # ═══════════════════════════════════════════════════════════════
@@ -32,13 +32,12 @@ from flask_cors import CORS
 
 BASE  = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FRONT = os.path.join(BASE, "frontend")
-IMGS  = os.path.join(BASE, "generated_images")
 UPL   = os.path.join(BASE, "uploads")
 ORD   = os.path.join(BASE, "orders")
 PJSON = os.path.join(UPL, "products.json")
 OJSON = os.path.join(ORD, "orders.json")
 
-for d in [IMGS, UPL, ORD]:
+for d in [UPL, ORD]:
     os.makedirs(d, exist_ok=True)
 
 app = Flask(__name__, static_folder=FRONT)
@@ -60,76 +59,51 @@ except ImportError:
     print("  [pdf] reportlab not available — installing it enables PDF invoices", flush=True)
 
 # ═══════════════════════════════════════════════════════════════
-# 3. SVG PLACEHOLDER GENERATOR (per-category palette & emoji)
-# Image-replacement convention: drop <product-id>.jpg (or .png/.webp)
-# into generated_images/ — backend serves real photo over the SVG.
+# 3. COMPANY DETAILS (used on invoice)
 # ═══════════════════════════════════════════════════════════════
-CAT_PAL = {
-    "Millets & Grains":     ("#5C3A1E", "#C8956C", "🌾"),
-    "Pulses & Dals":        ("#3D5A26", "#8EBF62", "🫘"),
-    "Sweeteners":           ("#B8860B", "#F4C87A", "🍯"),
-    "Honey":                ("#C8820A", "#F9E79F", "🍯"),
-    "Beverages":            ("#0E7C6B", "#5CC9B8", "🍵"),
-    "Spices":               ("#A02020", "#E07070", "🌶"),
-    "Oils & Ghee":          ("#7A3B0A", "#D2A679", "🫙"),
-    "Pickles":              ("#3D5A26", "#8EBF62", "🥒"),
-    "Salt":                 ("#2D4A6E", "#6E9EC0", "🧂"),
-    "Dry Fruits & Nuts":    ("#6B3A12", "#C8956C", "🥜"),
-    "Health Mix":           ("#1A4A70", "#7EADCF", "💊"),
-    "Healthcare":           ("#7A1E18", "#E07070", "🩺"),
-    "Personal Care":        ("#6B2E7A", "#B87ACC", "🌸"),
-    "Soap":                 ("#1E6A9A", "#70AACF", "🧼"),
-    "Herbal Powder":        ("#2E6040", "#6EA882", "🌿"),
-    "Noodles & Vermicelli": ("#C05A10", "#E09050", "🍜"),
-    "Vadagam & Appalam":    ("#7A3B0A", "#C8956C", "🥙"),
-    "Readymade Mix":        ("#B8860B", "#F4C87A", "🍱"),
-    "Face Pack":            ("#6B2E7A", "#B87ACC", "✨"),
-    "Seeds":                ("#1E6B38", "#62C882", "🌱"),
-    "Divine Products":      ("#6B2E7A", "#B87ACC", "🕯"),
-    "Copper Products":      ("#B8860B", "#F4C87A", "🥇"),
-    "Wellness Tools":       ("#1E6A9A", "#70AACF", "🧘"),
-    "Books & DVDs":         ("#2D4A6E", "#7EADCF", "📚"),
-    "Home Care":            ("#1E6B38", "#62C882", "🧴"),
+COMPANY = {
+    "name":    "Aammii Tharcharbu Santhai Private Limited",
+    "address": ("Door No.5/177, Arumuga kavundanur, Thanneer thotti stop, "
+                "Roja street, perur chettipalayam(po), kovaipudhur main road, "
+                "Coimbatore - 641010. Tamilnadu. India."),
+    "gstin":   "33AAZCA4586H1Z3",
+    "website": "www.aammii.com",
+    "fssai":   "12419003001497",
+    "phone":   "9500655548",
 }
-_DEF_PAL = ("#2E6040", "#6EA882", "🌿")
 
-def make_svg(name: str, pid: str, cat: str = "") -> str:
-    """Create (or return existing) SVG placeholder. Returns /images/<id>.svg path."""
-    fp = os.path.join(IMGS, f"{pid}.svg")
-    if os.path.exists(fp):
-        return f"/images/{pid}.svg"
+# Default category → HSN code (used when a product has no `hsn` set).
+CAT_HSN = {
+    "Millets & Grains":     "10082990",
+    "Pulses & Dals":        "07139090",
+    "Sweeteners":           "17029090",
+    "Honey":                "04090000",
+    "Beverages":            "21069099",
+    "Spices":               "09109990",
+    "Oils & Ghee":          "15159040",
+    "Pickles":              "20019000",
+    "Salt":                 "25010020",
+    "Dry Fruits & Nuts":    "08029900",
+    "Health Mix":           "21069099",
+    "Healthcare":           "30049099",
+    "Personal Care":        "33049990",
+    "Soap":                 "34011190",
+    "Herbal Powder":        "30039011",
+    "Noodles & Vermicelli": "19023010",
+    "Vadagam & Appalam":    "19059040",
+    "Readymade Mix":        "21069099",
+    "Face Pack":            "33049990",
+    "Seeds":                "12099990",
+    "Divine Products":      "33074900",
+    "Copper Products":      "74181090",
+    "Wellness Tools":       "90189099",
+    "Books & DVDs":         "49019900",
+    "Home Care":            "34022010",
+}
 
-    bg, ac, em = CAT_PAL.get(cat, _DEF_PAL)
-    tamil = name.split(" / ")[0] if " / " in name else name
-    eng   = name.split(" / ")[1] if " / " in name else ""
-    words = tamil.split()
-    l1    = " ".join(words[:3])
-    l2    = " ".join(words[3:]) if len(words) > 3 else ""
-    en    = eng[:30] + ("…" if len(eng) > 30 else "")
-    font  = "Noto Sans Tamil,Latha,Tamil MN,Arial Unicode MS,sans-serif"
-
-    svg = (
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="280" height="210" viewBox="0 0 280 210">'
-        f'<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">'
-        f'<stop offset="0%" stop-color="{bg}"/><stop offset="100%" stop-color="{ac}"/>'
-        f'</linearGradient></defs>'
-        f'<rect width="280" height="210" fill="url(#g)" rx="10"/>'
-        f'<circle cx="140" cy="70" r="36" fill="rgba(255,255,255,0.12)"/>'
-        f'<text x="140" y="86" text-anchor="middle" font-size="36">{em}</text>'
-        f'<text x="140" y="130" text-anchor="middle" font-size="13" '
-        f'fill="rgba(255,255,255,0.95)" font-family="{font}" font-weight="700">{l1}</text>'
-        + (f'<text x="140" y="148" text-anchor="middle" font-size="11" '
-           f'fill="rgba(255,255,255,0.82)" font-family="{font}">{l2}</text>' if l2 else "")
-        + (f'<text x="140" y="175" text-anchor="middle" font-size="10" '
-           f'fill="rgba(255,255,255,0.55)">{en}</text>' if en else "")
-        + '</svg>'
-    )
-    try:
-        with open(fp, "w", encoding="utf-8") as f:
-            f.write(svg)
-    except Exception as e:
-        print(f"  [svg] Could not write {pid}.svg: {e}", flush=True)
-    return f"/images/{pid}.svg"
+# Categories that default to 18% GST (otherwise 5%).
+HIGH_GST_CATS = {"Home Care", "Soap", "Personal Care", "Face Pack",
+                 "Copper Products", "Wellness Tools", "Books & DVDs"}
 
 # ═══════════════════════════════════════════════════════════════
 # 4. PRODUCTS I/O
@@ -148,15 +122,34 @@ def save_products(products: list) -> None:
     with open(PJSON, "w", encoding="utf-8") as f:
         json.dump(products, f, ensure_ascii=False, indent=2)
 
-def prebuild_images() -> None:
+def migrate_products() -> None:
+    """Strip legacy SVG image references — frontend now renders fallbacks inline.
+    Product images live as full URLs (https://...) on the `image` field."""
     prods = load_products()
-    count = 0
+    if not prods:
+        return
+    changed = False
     for p in prods:
-        pid = p.get("id") or p.get("code")
-        if pid:
-            make_svg(p.get("name", ""), str(pid), p.get("category", ""))
-            count += 1
-    print(f"  [img] {count} product images ready", flush=True)
+        img = (p.get("image") or "").strip()
+        if img.startswith("/images/") or img.startswith("data:image"):
+            p["image"] = ""
+            changed = True
+    if changed:
+        save_products(prods)
+        print(f"  [migrate] cleaned legacy image refs on {len(prods)} products", flush=True)
+
+def gst_rate_for(p: dict) -> float:
+    """Per-product GST rate (decimal). Fallbacks: product.gst_rate → category default → 5%."""
+    try:
+        r = float(p.get("gst_rate"))
+        if r > 1: r = r / 100  # tolerate "18" → 0.18
+        return r
+    except (TypeError, ValueError):
+        pass
+    return 0.18 if p.get("category") in HIGH_GST_CATS else 0.05
+
+def hsn_for(p: dict) -> str:
+    return str(p.get("hsn") or CAT_HSN.get(p.get("category", ""), "")).strip()
 
 # ═══════════════════════════════════════════════════════════════
 # 5. ORDERS I/O
@@ -181,6 +174,15 @@ def append_order(order: dict) -> None:
     orders = orders[:500]  # cap at 500 most recent
     save_orders(orders)
 
+def next_invoice_no() -> str:
+    """Sequential invoice numbers — start at INV-11000, increment from highest used."""
+    orders = load_orders()
+    nums = []
+    for o in orders:
+        n = str(o.get("invoice_no", "")).replace("INV-", "").strip()
+        if n.isdigit(): nums.append(int(n))
+    return f"INV-{(max(nums) if nums else 11000) + 1}"
+
 # ═══════════════════════════════════════════════════════════════
 # 6. STATIC ROUTES
 # ═══════════════════════════════════════════════════════════════
@@ -192,22 +194,49 @@ def idx():
 def sf(f):
     return send_from_directory(FRONT, f)
 
-@app.route("/images/<path:fname>")
-def img(fname):
-    """Smart image serving: real JPG/PNG/WebP takes priority over SVG placeholder."""
-    base = os.path.splitext(fname)[0]
-    for ext in (".jpg", ".jpeg", ".png", ".webp", ".svg"):
-        full = os.path.join(IMGS, base + ext)
-        if os.path.exists(full):
-            return send_from_directory(IMGS, base + ext)
-    return ("Not found", 404)
-
 # ═══════════════════════════════════════════════════════════════
 # 7. API: PRODUCTS
 # ═══════════════════════════════════════════════════════════════
 @app.route("/api/products")
 def api_products():
-    return jsonify(load_products())
+    prods = load_products()
+    # Enrich with computed fields the invoice / frontend may want.
+    for p in prods:
+        p["hsn"] = hsn_for(p)
+        p["gst_rate"] = gst_rate_for(p)
+    return jsonify(prods)
+
+@app.route("/api/products/<pid>", methods=["PATCH", "PUT"])
+def api_product_update(pid):
+    """Update a product's editable fields (image URL, HSN, GST rate, name, qty, price)."""
+    data = request.get_json(silent=True) or {}
+    allowed = {"image", "hsn", "gst_rate", "name", "qty", "price", "category"}
+    patch = {k: v for k, v in data.items() if k in allowed}
+    if not patch:
+        return jsonify({"error": "Nothing to update"}), 400
+
+    prods = load_products()
+    for p in prods:
+        if str(p.get("id")) == pid or str(p.get("code")) == pid:
+            for k, v in patch.items():
+                if k == "image":
+                    img = (v or "").strip()
+                    # Only accept full URLs or empty (clear)
+                    if img and not (img.startswith("http://") or img.startswith("https://")):
+                        return jsonify({"error": "Image must be a full URL (http/https)"}), 400
+                    p["image"] = img
+                elif k == "gst_rate":
+                    try:
+                        r = float(v)
+                        if r > 1: r = r / 100
+                        p["gst_rate"] = r
+                    except (TypeError, ValueError):
+                        return jsonify({"error": "gst_rate must be a number"}), 400
+                else:
+                    p[k] = v
+            save_products(prods)
+            return jsonify({"ok": True, "product": p})
+    return jsonify({"error": "Product not found"}), 404
 
 @app.route("/api/upload", methods=["POST"])
 def api_upload():
@@ -238,8 +267,7 @@ def api_upload():
             p["code"] = code
             p["id"]   = code
             p.setdefault("date_added", datetime.datetime.now(IST).date().isoformat())
-            if not p.get("image"):
-                p["image"] = make_svg(p.get("name", ""), code, p.get("category", ""))
+            p.setdefault("image", "")  # empty = use frontend fallback
         save_products(parsed)
         print(f"  [pdf] Parsed {len(parsed)} products from PDF", flush=True)
         return jsonify({
@@ -273,15 +301,15 @@ def api_mark_new():
     return jsonify({"updated": updated, "date": today})
 
 # ═══════════════════════════════════════════════════════════════
-# 8. PDF INVOICE GENERATION
+# 8. PDF INVOICE — matches the Aammii invoice format
 # ═══════════════════════════════════════════════════════════════
 def find_tamil_font():
     """Return (path, name) of first system Tamil-capable font, or (None, None)."""
     candidates = [
-        (r"C:\Windows\Fonts\NirmalaUI.ttf",                       "NirmalaUI"),
-        (r"C:\Windows\Fonts\Nirmala.ttf",                         "Nirmala"),
-        (r"C:\Windows\Fonts\latha.ttf",                           "Latha"),
-        (r"C:\Windows\Fonts\Latha.ttf",                           "Latha"),
+        (r"C:\Windows\Fonts\NirmalaUI.ttf",                        "NirmalaUI"),
+        (r"C:\Windows\Fonts\Nirmala.ttf",                          "Nirmala"),
+        (r"C:\Windows\Fonts\latha.ttf",                            "Latha"),
+        (r"C:\Windows\Fonts\Latha.ttf",                            "Latha"),
         ("/System/Library/Fonts/Supplemental/Tamil MN.ttc",        "TamilMN"),
         ("/Library/Fonts/NotoSansTamil-Regular.ttf",               "NotoTamil"),
         ("/usr/share/fonts/truetype/noto/NotoSansTamil-Regular.ttf","NotoTamil"),
@@ -295,7 +323,6 @@ def find_tamil_font():
 
 _TAMIL_FONT_NAME = None
 def ensure_tamil_font():
-    """Register a Tamil-capable font once; return the font name (or None)."""
     global _TAMIL_FONT_NAME
     if _TAMIL_FONT_NAME is not None:
         return _TAMIL_FONT_NAME or None
@@ -315,25 +342,77 @@ def ensure_tamil_font():
     return None
 
 
+def safe_text(s) -> str:
+    if s is None: return ""
+    return str(s).replace("\x00", "").strip()
+
+def wrap_text(s: str, width: int) -> list:
+    words = (s or "").split(); lines = []; cur = ""
+    for w in words:
+        if len(cur) + len(w) + 1 > width:
+            lines.append(cur); cur = w
+        else:
+            cur = f"{cur} {w}".strip()
+    if cur: lines.append(cur)
+    return lines
+
+
+def compute_invoice_rows(items: list) -> tuple:
+    """For each item compute MRP/Qty/Sales/CGST/SGST/Total. Returns (rows, totals)."""
+    rows = []
+    sub = c_sum = s_sum = total = 0.0
+    for it in items:
+        mrp     = float(it.get("price", 0))
+        qty     = int(it.get("qty", 1))
+        rate    = float(it.get("gst_rate") or (0.18 if it.get("category") in HIGH_GST_CATS else 0.05))
+        if rate > 1: rate = rate / 100
+        cgst_pct = sgst_pct = rate / 2
+        gross   = mrp * qty
+        sales   = gross / (1 + rate) if rate > 0 else gross
+        cgst    = sales * cgst_pct
+        sgst    = sales * sgst_pct
+        line_t  = gross
+        rows.append({
+            "code": str(it.get("code") or it.get("id") or ""),
+            "hsn":  str(it.get("hsn") or CAT_HSN.get(it.get("category", ""), "")),
+            "name": safe_text(it.get("name", "")),
+            "mrp":  mrp,
+            "qty":  qty,
+            "discount_pct": 0.0,
+            "discount":     0.0,
+            "sales":        round(sales, 2),
+            "cgst_pct":     round(cgst_pct * 100, 2),
+            "sgst_pct":     round(sgst_pct * 100, 2),
+            "cgst":         round(cgst, 2),
+            "sgst":         round(sgst, 2),
+            "total":        round(line_t, 2),
+        })
+        sub += sales; c_sum += cgst; s_sum += sgst; total += line_t
+    return rows, {
+        "subtotal": round(sub, 2),
+        "cgst":     round(c_sum, 2),
+        "sgst":     round(s_sum, 2),
+        "grand":    round(total, 2),
+    }
+
+
 def build_pdf_invoice(order: dict) -> bytes:
-    """Generate a professional A4 PDF invoice with selectable Tamil + English text."""
+    """Generate an A4 PDF invoice matching the Aammii reference layout."""
     if not REPORTLAB_OK:
         return build_text_invoice(order).encode("utf-8")
 
     tamil_font = ensure_tamil_font()
     buf = io.BytesIO()
-    c = rl_canvas.Canvas(buf, pagesize=A4)
+    c   = rl_canvas.Canvas(buf, pagesize=A4)
     W, H = A4
-    M = 15 * mm  # margin
+    M    = 12 * mm  # margin
 
-    # ── Theme colours ──
-    FOREST = colors.HexColor("#14532D")
+    BLACK  = colors.HexColor("#000000")
+    DARK   = colors.HexColor("#222222")
+    BORDER = colors.HexColor("#444444")
+    LIGHT  = colors.HexColor("#F5F5F5")
     AMBER  = colors.HexColor("#D97706")
-    GOLD   = colors.HexColor("#FBBF24")
-    TEXT   = colors.HexColor("#151F1A")
-    MUTED  = colors.HexColor("#6A7A71")
-    BORDER = colors.HexColor("#E2DED3")
-    LIGHT  = colors.HexColor("#F5F3EC")
+    GREEN  = colors.HexColor("#14532D")
 
     def set_font(size, bold=False, tamil=False):
         if tamil and tamil_font:
@@ -343,238 +422,269 @@ def build_pdf_invoice(order: dict) -> bytes:
         else:
             c.setFont("Helvetica", size)
 
-    def draw_line(x1, y1, x2, y2, col=BORDER, w=0.5):
-        c.setStrokeColor(col); c.setLineWidth(w); c.line(x1, y1, x2, y2)
-
-    # ── Header band ──
-    c.setFillColor(FOREST)
-    c.rect(0, H - 42 * mm, W, 42 * mm, fill=1, stroke=0)
-    # Accent stripe
+    # ── Logo ──
+    cx, cy = W / 2, H - 18 * mm
     c.setFillColor(AMBER)
-    c.rect(0, H - 44 * mm, W, 2 * mm, fill=1, stroke=0)
+    c.circle(cx, cy, 5.5 * mm, stroke=0, fill=1)
+    c.setFillColor(GREEN)
+    c.circle(cx + 1.8 * mm, cy + 0.6 * mm, 1.6 * mm, stroke=0, fill=1)
 
-    c.setFillColor(GOLD)
-    set_font(26, bold=True)
-    c.drawString(M, H - 20 * mm, "AAMMII")
-    set_font(12, bold=True)
-    c.drawString(M, H - 27 * mm, "THARCHARBU SANTHAI")
+    # ── Company header (centered) ──
+    y = H - 26 * mm
+    set_font(13, bold=True); c.setFillColor(BLACK)
+    c.drawCentredString(W / 2, y, COMPANY["name"])
+    set_font(8); c.setFillColor(DARK)
+    addr_lines = wrap_text(COMPANY["address"], 95)
+    for i, ln in enumerate(addr_lines[:2]):
+        c.drawCentredString(W / 2, y - (5 + i * 4) * mm, ln)
+
+    set_font(8, bold=True)
+    c.drawString(M,         y - 18 * mm, f"GSTIN: {COMPANY['gstin']}")
+    c.drawCentredString(W/2, y - 18 * mm, f"Website: {COMPANY['website']}")
+    c.drawRightString(W - M, y - 18 * mm, f"FSSAI: {COMPANY['fssai']}")
+    set_font(8)
+    c.drawRightString(W - M, y - 22 * mm, f"Ph: {COMPANY['phone']}")
+
+    # ── "Invoice" title ──
+    set_font(16, bold=True); c.setFillColor(BLACK)
+    c.drawCentredString(W / 2, y - 32 * mm, "Invoice")
+
+    # ── Meta block (Invoice No, Order ID, etc.) ──
+    meta_y = y - 40 * mm
+    inv_no = order.get("invoice_no", "")
+    oid    = order.get("id", "")
+    pay    = order.get("payment", "Direct").title()
+    dt = datetime.datetime.fromtimestamp(order.get("created", 0) / 1000, IST) \
+        if isinstance(order.get("created"), (int, float)) and order.get("created") else datetime.datetime.now(IST)
+    date_str = dt.strftime("%d-%m-%y")
+
+    set_font(9, bold=True); c.setFillColor(BLACK)
+    c.drawString(M, meta_y,             f"Invoice No: ")
+    c.drawString(M, meta_y - 5 * mm,    f"Order ID: ")
+    c.drawString(M, meta_y - 10 * mm,   f"Payment Method: ")
     set_font(9)
-    c.setFillColor(colors.white)
-    c.drawString(M, H - 33 * mm, "Natural Lifestyle Products · Farm-direct from Tamil Nadu")
-    c.drawString(M, H - 38 * mm, "www.aammii.com  ·  +91 95006 55548  ·  orders@aammii.com")
+    c.drawString(M + 22 * mm, meta_y,           safe_text(inv_no))
+    c.drawString(M + 22 * mm, meta_y - 5 * mm,  safe_text(oid))
+    c.drawString(M + 32 * mm, meta_y - 10 * mm, safe_text(pay))
 
-    # INVOICE label (top-right)
-    set_font(16, bold=True)
-    c.setFillColor(GOLD)
-    c.drawRightString(W - M, H - 20 * mm, "TAX INVOICE")
+    set_font(9, bold=True)
+    c.drawRightString(W - M - 22 * mm, meta_y,            "Invoice Date: ")
+    c.drawRightString(W - M - 22 * mm, meta_y - 5 * mm,   "Order Date: ")
     set_font(9)
-    c.setFillColor(colors.white)
-    c.drawRightString(W - M, H - 27 * mm, f"Order ID: {order.get('id','')}")
-    dt = datetime.datetime.fromtimestamp(order.get("created", 0) / 1000 or datetime.datetime.now().timestamp(), IST) \
-        if isinstance(order.get("created"), (int, float)) else datetime.datetime.now(IST)
-    c.drawRightString(W - M, H - 32 * mm, dt.strftime("Date: %d %b %Y · %H:%M IST"))
-    c.drawRightString(W - M, H - 37 * mm, f"Payment: {order.get('payment','COD').upper()}")
+    c.drawRightString(W - M, meta_y,           date_str)
+    c.drawRightString(W - M, meta_y - 5 * mm,  date_str)
 
-    # ── Customer / Delivery block ──
-    y = H - 55 * mm
-    cust = order.get("customer", {})
+    # ── Customer / Shipping boxes ──
+    box_y = meta_y - 18 * mm
+    box_h = 28 * mm
+    half  = (W - 2 * M) / 2
 
+    # Header rows
     c.setFillColor(LIGHT)
-    c.roundRect(M, y - 30 * mm, (W - 2 * M) / 2 - 4, 32 * mm, 3, fill=1, stroke=0)
-    c.roundRect(M + (W - 2 * M) / 2 + 4, y - 30 * mm, (W - 2 * M) / 2 - 4, 32 * mm, 3, fill=1, stroke=0)
+    c.rect(M,        box_y - 6 * mm, half, 6 * mm, fill=1, stroke=0)
+    c.rect(M + half, box_y - 6 * mm, half, 6 * mm, fill=1, stroke=0)
+    c.setStrokeColor(BORDER); c.setLineWidth(0.5)
+    c.rect(M,        box_y - box_h, half, box_h, fill=0, stroke=1)
+    c.rect(M + half, box_y - box_h, half, box_h, fill=0, stroke=1)
 
-    set_font(8, bold=True); c.setFillColor(MUTED)
-    c.drawString(M + 4 * mm, y - 4 * mm, "BILLED & SHIP TO")
-    set_font(11, bold=True); c.setFillColor(TEXT)
-    c.drawString(M + 4 * mm, y - 10 * mm, safe_text(cust.get("name", "Guest")))
-    set_font(9); c.setFillColor(TEXT)
-    c.drawString(M + 4 * mm, y - 15 * mm, safe_text(cust.get("phone", "")))
-    c.drawString(M + 4 * mm, y - 20 * mm, safe_text(cust.get("email", "")))
-    # Address wrap
-    addr = safe_text(cust.get("address", ""))
-    for i, ln in enumerate(wrap_text(addr, 48)[:3]):
-        c.drawString(M + 4 * mm, y - (25 + i * 4) * mm, ln)
+    set_font(9, bold=True); c.setFillColor(BLACK)
+    c.drawCentredString(M + half / 2,           box_y - 4 * mm, "Customer Details")
+    c.drawCentredString(M + half + half / 2,    box_y - 4 * mm, "Shipping Address")
 
-    # Order info block (right)
-    x2 = M + (W - 2 * M) / 2 + 4
-    set_font(8, bold=True); c.setFillColor(MUTED)
-    c.drawString(x2 + 4 * mm, y - 4 * mm, "ORDER INFO")
-    set_font(9); c.setFillColor(TEXT)
-    totals = order.get("totals", {})
-    pay = order.get("payment", "COD")
-    rows = [
-        ("Order ID",  order.get("id", "—")),
-        ("Status",    "Confirmed"),
-        ("Items",     str(sum(i.get("qty", 0) for i in order.get("items", [])))),
-        ("Payment",   pay.upper()),
-        ("Subtotal",  f"₹{totals.get('subtotal', 0):.2f}"),
-        ("Shipping",  f"₹{totals.get('shipping', 0):.2f}" if totals.get("shipping") else "FREE"),
-    ]
-    for i, (k, v) in enumerate(rows):
-        c.setFillColor(MUTED); c.drawString(x2 + 4 * mm, y - (10 + i * 4) * mm, k)
-        c.setFillColor(TEXT);  c.drawRightString(x2 + (W - 2 * M) / 2 - 8, y - (10 + i * 4) * mm, safe_text(v))
+    cust = order.get("customer", {})
+    set_font(9); c.setFillColor(DARK)
+    c.drawString(M + 3 * mm, box_y - 11 * mm, safe_text(cust.get("name", "Guest")))
+    c.drawString(M + 3 * mm, box_y - 16 * mm, f"Contact: {safe_text(cust.get('phone', ''))}")
+    if cust.get("email"):
+        c.drawString(M + 3 * mm, box_y - 21 * mm, safe_text(cust.get("email", "")))
+
+    # Shipping address (multi-line wrap)
+    ship_addr = safe_text(cust.get("address", "") or cust.get("name", ""))
+    ship_lines = []
+    if cust.get("name"):
+        ship_lines.append(safe_text(cust.get("name")) + ",")
+    for ln in wrap_text(ship_addr, 38)[:4]:
+        ship_lines.append(ln)
+    ship_lines.append(f"Contact: {safe_text(cust.get('phone', ''))}")
+
+    for i, ln in enumerate(ship_lines[:5]):
+        c.drawString(M + half + 3 * mm, box_y - (10 + i * 4) * mm, ln)
 
     # ── Items table ──
-    y_table = y - 38 * mm
-    # Header row
-    c.setFillColor(FOREST)
-    c.rect(M, y_table - 7 * mm, W - 2 * M, 7 * mm, fill=1, stroke=0)
-    c.setFillColor(GOLD); set_font(9, bold=True)
-    # Column positions
-    col_code  = M + 3 * mm
-    col_name  = M + 28 * mm
-    col_qty   = W - M - 62 * mm
-    col_price = W - M - 40 * mm
-    col_total = W - M - 3 * mm
+    rows, totals = compute_invoice_rows(order.get("items", []))
 
-    c.drawString(col_code,  y_table - 5 * mm, "CODE")
-    c.drawString(col_name,  y_table - 5 * mm, "PRODUCT")
-    c.drawRightString(col_qty + 16 * mm, y_table - 5 * mm, "QTY")
-    c.drawRightString(col_price + 24 * mm, y_table - 5 * mm, "UNIT ₹")
-    c.drawRightString(col_total, y_table - 5 * mm, "TOTAL ₹")
+    table_y = box_y - box_h - 5 * mm
+
+    # Column widths (in mm) — sum equals usable width (W - 2M) = 186mm.
+    col_widths_mm = [13, 14, 50, 13, 7, 11, 12, 13, 9, 9, 12, 12, 11]
+    # Multi-line headers — each entry is a list of text lines.
+    headers = [
+        ["Bar", "Code"],
+        ["HSN", "Code"],
+        ["Product"],
+        ["MRP", "(INR)"],
+        ["Qty"],
+        ["Discount", "(%)"],
+        ["Discount", "(INR)"],
+        ["Sales", "(INR)"],
+        ["CGST", "%"],
+        ["SGST", "%"],
+        ["CGST", "(INR)"],
+        ["SGST", "(INR)"],
+        ["Total", "(INR)"],
+    ]
+    aligns = ["L", "L", "L", "R", "C", "R", "R", "R", "C", "C", "R", "R", "R"]
+
+    col_x = [M]
+    for w in col_widths_mm:
+        col_x.append(col_x[-1] + w * mm)
+
+    def draw_cell(text, col_idx, y_top, height, font_size=7, bold=False, fill=None,
+                  tamil=False, override_align=None):
+        x0 = col_x[col_idx]
+        x1 = col_x[col_idx + 1]
+        if fill is not None:
+            c.setFillColor(fill)
+            c.rect(x0, y_top - height, x1 - x0, height, fill=1, stroke=0)
+        c.setStrokeColor(BORDER); c.setLineWidth(0.4)
+        c.rect(x0, y_top - height, x1 - x0, height, fill=0, stroke=1)
+        c.setFillColor(BLACK)
+        set_font(font_size, bold=bold, tamil=tamil)
+        align = override_align or aligns[col_idx]
+        tx = (x0 + x1) / 2 if align == "C" else (x0 + 1.5 * mm) if align == "L" else (x1 - 1.5 * mm)
+        ty = y_top - height + (height - font_size * 0.35) / 2
+        if align == "C":
+            c.drawCentredString(tx, ty, str(text))
+        elif align == "L":
+            c.drawString(tx, ty, str(text))
+        else:
+            c.drawRightString(tx, ty, str(text))
+
+    def draw_header(y_top):
+        header_h = 9 * mm
+        font_size = 6.8
+        # Background + border per column
+        for i in range(len(col_widths_mm)):
+            x0 = col_x[i]; x1 = col_x[i + 1]
+            c.setFillColor(LIGHT)
+            c.rect(x0, y_top - header_h, x1 - x0, header_h, fill=1, stroke=0)
+            c.setStrokeColor(BORDER); c.setLineWidth(0.4)
+            c.rect(x0, y_top - header_h, x1 - x0, header_h, fill=0, stroke=1)
+        # Multi-line text, vertically centered
+        for i, lines in enumerate(headers):
+            x0 = col_x[i]; x1 = col_x[i + 1]
+            cx = (x0 + x1) / 2
+            # vertical centering
+            total_h = font_size * 1.15 * len(lines)
+            top_pad = (header_h - total_h) / 2 + font_size * 0.7
+            for j, ln in enumerate(lines):
+                set_font(font_size, bold=True); c.setFillColor(BLACK)
+                c.drawCentredString(cx, y_top - top_pad - j * font_size * 1.15, ln)
+        return header_h
+
+    # Header
+    header_h = draw_header(table_y)
+    row_y = table_y - header_h
 
     # Rows
-    row_y = y_table - 7 * mm
-    items = order.get("items", [])
-    for idx, it in enumerate(items):
-        row_h = 11 * mm
-        if row_y - row_h < 50 * mm:
-            # Page break
+    for row in rows:
+        tam, eng = (row["name"].split(" / ", 1) + [""])[:2]
+        # Row height grows if both tamil + eng present
+        row_h = 11 * mm if eng else 8 * mm
+        # Page break
+        if row_y - row_h < 60 * mm:
             c.showPage()
             row_y = H - 25 * mm
+            row_y -= draw_header(row_y)
 
-        # Zebra stripe
-        if idx % 2 == 0:
-            c.setFillColor(LIGHT)
-            c.rect(M, row_y - row_h, W - 2 * M, row_h, fill=1, stroke=0)
+        # Draw outer borders for this row
+        for i, w in enumerate(col_widths_mm):
+            x0 = col_x[i]; x1 = col_x[i + 1]
+            c.setStrokeColor(BORDER); c.setLineWidth(0.4)
+            c.rect(x0, row_y - row_h, x1 - x0, row_h, fill=0, stroke=1)
 
-        full_name = safe_text(it.get("name", ""))
-        tam, eng = (full_name.split(" / ", 1) + [""])[:2]
-        qty = int(it.get("qty", 1))
-        price = float(it.get("price", 0))
-        amt = qty * price
-        code = safe_text(it.get("code", it.get("id", "—")))
+        # Plain numeric cells
+        cells = [
+            row["code"], row["hsn"], None,                              # product handled separately
+            f'{row["mrp"]:.2f}', str(row["qty"]),
+            f'{row["discount_pct"]:.2f}', f'{row["discount"]:.2f}',
+            f'{row["sales"]:.2f}', f'{row["cgst_pct"]:.2f}', f'{row["sgst_pct"]:.2f}',
+            f'{row["cgst"]:.2f}', f'{row["sgst"]:.2f}', f'{row["total"]:.2f}',
+        ]
+        for i, val in enumerate(cells):
+            if val is None: continue
+            draw_cell(val, i, row_y, row_h, font_size=7)
 
-        set_font(8); c.setFillColor(TEXT)
-        c.drawString(col_code, row_y - 4 * mm, code[:10])
-
-        # Tamil name (requires Tamil font to render glyphs; always selectable as text)
-        set_font(10, tamil=True, bold=True)
-        c.setFillColor(TEXT)
-        c.drawString(col_name, row_y - 4 * mm, tam[:40])
+        # Product cell (col 2): tamil top, english bottom
+        x0 = col_x[2]; x1 = col_x[3]
+        max_chars = 36
+        set_font(7.5, tamil=True, bold=True); c.setFillColor(BLACK)
+        c.drawString(x0 + 1.5 * mm, row_y - 4 * mm, tam[:max_chars])
         if eng:
-            set_font(8)
-            c.setFillColor(MUTED)
-            c.drawString(col_name, row_y - 8 * mm, eng[:60])
+            set_font(6.5); c.setFillColor(DARK)
+            c.drawString(x0 + 1.5 * mm, row_y - 8.5 * mm, eng[:max_chars])
 
-        set_font(9); c.setFillColor(TEXT)
-        c.drawRightString(col_qty + 16 * mm,   row_y - 4 * mm, str(qty))
-        c.drawRightString(col_price + 24 * mm, row_y - 4 * mm, f"{price:.2f}")
-        c.drawRightString(col_total,           row_y - 4 * mm, f"{amt:.2f}")
-
-        draw_line(M, row_y - row_h, W - M, row_y - row_h)
         row_y -= row_h
 
-    # ── Totals panel ──
-    y_tot = row_y - 6 * mm
-    totals = order.get("totals", {})
-    subtotal = totals.get("subtotal", sum(i.get("qty", 1) * i.get("price", 0) for i in items))
-    shipping = totals.get("shipping", 0)
-    tax      = totals.get("tax", 0)
-    grand    = totals.get("grand", subtotal + shipping + tax)
+    # ── Totals (right-aligned, no box, like reference) ──
+    totals_y = row_y - 6 * mm
+    label_x = W - M - 50 * mm
+    val_x   = W - M
 
-    panel_x = W - M - 80 * mm
-    panel_w = 80 * mm
-    c.setFillColor(LIGHT)
-    c.roundRect(panel_x, y_tot - 34 * mm, panel_w, 34 * mm, 3, fill=1, stroke=0)
+    set_font(9); c.setFillColor(BLACK)
+    c.drawString(label_x,  totals_y,            "Subtotal (INR)")
+    c.drawRightString(val_x, totals_y,          f"{totals['subtotal']:,.2f}")
 
-    set_font(9); c.setFillColor(MUTED)
-    c.drawString(panel_x + 4 * mm, y_tot - 6 * mm, "Subtotal")
-    c.setFillColor(TEXT); c.drawRightString(panel_x + panel_w - 4 * mm, y_tot - 6 * mm, f"₹{subtotal:.2f}")
+    c.drawString(label_x,  totals_y - 5 * mm,   "Total CGST (INR)")
+    c.drawRightString(val_x, totals_y - 5 * mm, f"{totals['cgst']:,.2f}")
 
-    c.setFillColor(MUTED)
-    c.drawString(panel_x + 4 * mm, y_tot - 12 * mm, "Shipping")
-    c.setFillColor(TEXT); c.drawRightString(panel_x + panel_w - 4 * mm, y_tot - 12 * mm,
-        f"₹{shipping:.2f}" if shipping else "FREE")
+    c.drawString(label_x,  totals_y - 10 * mm,  "Total SGST (INR)")
+    c.drawRightString(val_x, totals_y - 10 * mm,f"{totals['sgst']:,.2f}")
 
-    c.setFillColor(MUTED)
-    c.drawString(panel_x + 4 * mm, y_tot - 18 * mm, "GST (5%)")
-    c.setFillColor(TEXT); c.drawRightString(panel_x + panel_w - 4 * mm, y_tot - 18 * mm, f"₹{tax:.2f}")
+    c.setStrokeColor(BORDER); c.setLineWidth(0.5)
+    c.line(label_x, totals_y - 13 * mm, val_x, totals_y - 13 * mm)
 
-    draw_line(panel_x + 3 * mm, y_tot - 22 * mm, panel_x + panel_w - 3 * mm, y_tot - 22 * mm, col=BORDER, w=0.7)
-    set_font(12, bold=True); c.setFillColor(FOREST)
-    c.drawString(panel_x + 4 * mm, y_tot - 29 * mm, "GRAND TOTAL")
-    c.drawRightString(panel_x + panel_w - 4 * mm, y_tot - 29 * mm, f"₹{grand:.2f}")
+    set_font(11, bold=True)
+    c.drawString(label_x,  totals_y - 19 * mm,  "Grand Total (INR)")
+    c.drawRightString(val_x, totals_y - 19 * mm,f"{totals['grand']:,.2f}")
 
-    # ── Payment info & thank you ──
-    y_pay = y_tot - 45 * mm
-    set_font(9, bold=True); c.setFillColor(FOREST)
-    c.drawString(M, y_pay, "PAYMENT OPTIONS")
-    set_font(8); c.setFillColor(TEXT)
-    c.drawString(M, y_pay - 5 * mm, "UPI / GPay / PhonePe:  aammii@upi")
-    c.drawString(M, y_pay - 10 * mm, "Cash on Delivery:      Available in select pincodes")
-    c.drawString(M, y_pay - 15 * mm, "Bank:                  Aammii Tharcharbu Santhai  · A/C 1234567890  · IFSC HDFC0000123")
-
-    # Notes
-    if cust.get("notes"):
-        set_font(9, bold=True); c.setFillColor(FOREST)
-        c.drawString(M, y_pay - 25 * mm, "NOTES")
-        set_font(8); c.setFillColor(TEXT)
-        for i, ln in enumerate(wrap_text(safe_text(cust.get("notes", "")), 80)[:3]):
-            c.drawString(M, y_pay - (30 + i * 4) * mm, ln)
-
-    # ── Footer ──
-    set_font(9, tamil=True, bold=True); c.setFillColor(AMBER)
-    c.drawCentredString(W / 2, 22 * mm, "நன்றி! வாழ்க வளமுடன்!")
-    set_font(9, bold=True); c.setFillColor(FOREST)
-    c.drawCentredString(W / 2, 17 * mm, "Thank you for shopping with Aammii Tharcharbu Santhai")
-    set_font(8); c.setFillColor(MUTED)
-    c.drawCentredString(W / 2, 12 * mm, "For questions or refunds: orders@aammii.com  ·  +91 95006 55548")
-    c.drawCentredString(W / 2, 8 * mm, f"Generated {datetime.datetime.now(IST).strftime('%d %b %Y %H:%M IST')}")
+    set_font(7); c.setFillColor(DARK)
+    c.drawRightString(val_x, totals_y - 23 * mm, "(inclusive of all taxes)")
 
     c.showPage(); c.save()
     buf.seek(0)
     return buf.read()
 
 
-def safe_text(s) -> str:
-    if s is None: return ""
-    return str(s).replace("\x00", "").strip()
-
-def wrap_text(s: str, width: int) -> list:
-    words = s.split(); lines = []; cur = ""
-    for w in words:
-        if len(cur) + len(w) + 1 > width:
-            lines.append(cur); cur = w
-        else:
-            cur = f"{cur} {w}".strip()
-    if cur: lines.append(cur)
-    return lines
-
 def build_text_invoice(order: dict) -> str:
     """Fallback plain-text invoice when reportlab is not available."""
-    lines = ["=" * 62, "  AAMMII THARCHARBU SANTHAI".center(62),
-             "  Natural Lifestyle Products · Farm-direct".center(62),
-             "  www.aammii.com · +91 95006 55548".center(62), "=" * 62, ""]
-    lines += [f"  Order ID : {order.get('id','')}",
-              f"  Date     : {datetime.datetime.now(IST).strftime('%d %b %Y %H:%M')}",
-              f"  Customer : {order.get('customer',{}).get('name','Guest')}",
-              f"  Phone    : {order.get('customer',{}).get('phone','')}",
-              f"  Address  : {order.get('customer',{}).get('address','')}",
-              f"  Payment  : {order.get('payment','COD').upper()}", "", "-" * 62,
-              f"  {'CODE':<10} {'QTY':>4} {'PRICE':>8} {'TOTAL':>10}", "-" * 62]
-    for i in order.get("items", []):
-        code  = str(i.get("code", i.get("id", "—")))
-        qty   = int(i.get("qty", 1))
-        price = float(i.get("price", 0))
-        lines.append(f"  {code:<10} {qty:>4} {price:>8.2f} {qty*price:>10.2f}")
-        name = str(i.get("name", ""))
-        if name: lines.append(f"    {name}")
-    t = order.get("totals", {})
-    grand = t.get("grand", sum(i.get("qty",1)*i.get("price",0) for i in order.get("items", [])))
-    lines += ["-" * 62, f"  {'GRAND TOTAL':>50}  ₹{grand:>8.2f}", "=" * 62,
-              "", "  PAYMENT:  UPI / GPay: aammii@upi · COD available",
-              "", "  Thank you! Nandri! Vazhga valamudan!"]
+    rows, totals = compute_invoice_rows(order.get("items", []))
+    lines = ["=" * 70,
+             f"  {COMPANY['name']}".center(70),
+             f"  GSTIN: {COMPANY['gstin']} · {COMPANY['website']}".center(70),
+             "=" * 70,
+             f"  Invoice No : {order.get('invoice_no','')}",
+             f"  Order ID   : {order.get('id','')}",
+             f"  Date       : {datetime.datetime.now(IST).strftime('%d-%m-%y')}",
+             f"  Customer   : {order.get('customer',{}).get('name','Guest')}",
+             f"  Phone      : {order.get('customer',{}).get('phone','')}",
+             f"  Address    : {order.get('customer',{}).get('address','')}",
+             f"  Payment    : {order.get('payment','Direct')}",
+             "-" * 70,
+             f"  {'CODE':<10} {'NAME':<32} {'QTY':>4} {'MRP':>8} {'TOTAL':>10}",
+             "-" * 70]
+    for r in rows:
+        nm = r["name"][:32]
+        lines.append(f"  {r['code']:<10} {nm:<32} {r['qty']:>4} {r['mrp']:>8.2f} {r['total']:>10.2f}")
+    lines += ["-" * 70,
+              f"  {'Subtotal':>56}  {totals['subtotal']:>10.2f}",
+              f"  {'Total CGST':>56}  {totals['cgst']:>10.2f}",
+              f"  {'Total SGST':>56}  {totals['sgst']:>10.2f}",
+              f"  {'GRAND TOTAL':>56}  {totals['grand']:>10.2f}",
+              "=" * 70,
+              "  (inclusive of all taxes)",
+              "",
+              f"  Thank you! {COMPANY['phone']} · {COMPANY['website']}"]
     return "\n".join(lines)
 
 # ═══════════════════════════════════════════════════════════════
@@ -588,31 +698,43 @@ def api_order():
         if not items:
             return jsonify({"error": "No items in order"}), 400
 
+        # Enrich items with HSN and gst_rate from products.json so the invoice
+        # has accurate tax details even if frontend didn't send them.
+        prods   = {str(p.get("id")): p for p in load_products()}
+        for it in items:
+            pid = str(it.get("code") or it.get("id") or "")
+            p   = prods.get(pid)
+            if p:
+                it.setdefault("hsn", hsn_for(p))
+                it.setdefault("gst_rate", gst_rate_for(p))
+                it.setdefault("category", p.get("category", ""))
+
         oid = "ORD-" + "".join(random.choices(string.ascii_uppercase + string.digits, k=8))
+        inv = next_invoice_no()
         now_ts = int(datetime.datetime.now(IST).timestamp() * 1000)
 
         order = {
-            "id":       oid,
-            "created":  now_ts,
-            "date":     datetime.datetime.now(IST).isoformat(),
-            "customer": d.get("customer", {}),
-            "payment":  d.get("payment", "cod"),
-            "items":    items,
-            "totals":   d.get("totals", {}),
-            "status":   "confirmed",
+            "id":          oid,
+            "invoice_no":  inv,
+            "created":     now_ts,
+            "date":        datetime.datetime.now(IST).isoformat(),
+            "customer":    d.get("customer", {}),
+            "payment":     d.get("payment", "Direct"),
+            "items":       items,
+            "totals":      d.get("totals", {}),
+            "status":      "confirmed",
         }
 
         append_order(order)
 
         pdf_bytes = build_pdf_invoice(order)
         is_pdf = REPORTLAB_OK
-        filename = f"{oid}.pdf" if is_pdf else f"{oid}.txt"
+        filename = f"{inv}.pdf" if is_pdf else f"{inv}.txt"
 
-        # Also save a copy to orders/ folder for admin reference
+        # Save a copy for admin reference
         try:
-            out_path = os.path.join(ORD, filename)
-            with open(out_path, "wb") as f:
-                f.write(pdf_bytes if is_pdf else pdf_bytes)
+            with open(os.path.join(ORD, filename), "wb") as f:
+                f.write(pdf_bytes)
         except Exception as e:
             print(f"  [order] Could not save invoice file: {e}", flush=True)
 
@@ -621,8 +743,9 @@ def api_order():
             pdf_bytes, status=200, mimetype=mimetype,
             headers={
                 "Content-Disposition": f'attachment; filename="{filename}"',
-                "X-Order-Id": oid,
-                "Access-Control-Expose-Headers": "X-Order-Id, Content-Disposition",
+                "X-Order-Id":   oid,
+                "X-Invoice-No": inv,
+                "Access-Control-Expose-Headers": "X-Order-Id, X-Invoice-No, Content-Disposition",
             }
         )
     except Exception as e:
@@ -632,14 +755,13 @@ def api_order():
 
 @app.route("/api/orders")
 def api_orders():
-    """Return all orders (most recent first). Admin endpoint / also used by user 'Orders' view."""
     return jsonify(load_orders())
 
 @app.route("/api/orders/<oid>")
 def api_order_detail(oid):
     orders = load_orders()
     for o in orders:
-        if o.get("id") == oid:
+        if o.get("id") == oid or o.get("invoice_no") == oid:
             return jsonify(o)
     return jsonify({"error": "Order not found"}), 404
 
@@ -651,12 +773,12 @@ if __name__ == "__main__":
     print("  ║   Aammii Tharcharbu Santhai              ║")
     print("  ║   Natural Lifestyle Products             ║")
     print("  ╚══════════════════════════════════════════╝\n")
-    prebuild_images()
+    migrate_products()
     ensure_tamil_font()
     if not REPORTLAB_OK:
         print("  [!] reportlab not installed — text invoices will be used.")
         print("      Run: pip install reportlab")
     print("  [*] Open in browser → http://localhost:5000")
     print("  [*] Admin panel     → http://localhost:5000/#/admin")
-    print("  [*] Images: drop <id>.jpg into generated_images/ to replace SVGs\n")
+    print("  [*] Product images: paste an image URL via Admin → Manage Images\n")
     app.run(host="0.0.0.0", port=5000, debug=False)

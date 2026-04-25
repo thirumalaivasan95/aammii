@@ -29,20 +29,18 @@
 
 ### Run it
 
-**Windows**
-```
-Double-click run.bat
-```
+**Windows** — Double-click `run.bat`
 
-**macOS / Linux**
+**macOS / Linux** — Open Terminal in the folder and run:
 ```
-./run.sh
+python3 backend/app.py
 ```
+(after installing once: `pip install flask flask-cors pdfplumber pillow reportlab`)
 
-That's it. The script will:
+The Windows script will:
 1. Auto-detect Python
 2. Install Flask, CORS, pdfplumber, Pillow, reportlab
-3. Create `uploads/`, `generated_images/`, `orders/` folders
+3. Create `uploads/`, `orders/` folders
 4. Start the backend on http://localhost:5000
 5. Auto-open your browser
 
@@ -77,7 +75,7 @@ Your store comes with **12 distinct, professional pages**:
 ### Your daily routine
 
 **Morning (5 minutes)**
-1. Start the server (double-click `run.bat` or `./run.sh`)
+1. Start the server (double-click `run.bat`)
 2. Go to `#/orders` — see all overnight orders
 3. Open each order → call customer to confirm → mark it packed
 
@@ -308,7 +306,7 @@ The rotating banner at the very top (Free delivery, promo code, etc.) lives in `
 Install Python from <https://python.org>. **On the first screen, tick "Add Python to PATH"** — this is the #1 cause of this error.
 
 ### "Cannot reach server"
-The Flask backend isn't running. Open a terminal, go to the project folder, and run `run.bat` (Windows) or `./run.sh` (Mac/Linux).
+The Flask backend isn't running. Double-click `run.bat` (Windows), or run `python3 backend/app.py` from the project folder (Mac/Linux).
 
 ### PDF invoice downloads as `.txt` instead of `.pdf`
 Reportlab didn't install. Run manually:
