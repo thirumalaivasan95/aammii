@@ -1628,6 +1628,54 @@ function _normalize(s) {
     .replace(/\s+/g, " ").trim();
 }
 
+/* Tamil → Roman transliteration. Lets users type "saamai", "samai", or
+   "noodles" and match Tamil-only product names like "சாமை நூடல்ஸ்".
+   Casual TN romanization: ச → "s", ட → "t", த → "th", etc. */
+const _TA_VOWELS = {
+  "அ":"a","ஆ":"aa","இ":"i","ஈ":"ii","உ":"u","ஊ":"uu",
+  "எ":"e","ஏ":"ee","ஐ":"ai","ஒ":"o","ஓ":"oo","ஔ":"au","ஃ":"h"
+};
+const _TA_SIGNS = {
+  "ா":"aa","ி":"i","ீ":"ii","ு":"u","ூ":"uu",
+  "ெ":"e","ே":"ee","ை":"ai","ொ":"o","ோ":"oo","ௌ":"au"
+};
+const _TA_CONS = {
+  "க":"k","ங":"ng","ச":"s","ஞ":"nj","ட":"t","ண":"n",
+  "த":"th","ந":"n","ப":"p","ம":"m","ய":"y","ர":"r",
+  "ல":"l","வ":"v","ழ":"zh","ள":"l","ற":"r","ன":"n",
+  "ஶ":"sh","ஷ":"sh","ஸ":"s","ஹ":"h","ஜ":"j"
+};
+const _TA_VIRAMA = "்";
+
+function _transliterateTamil(s) {
+  if (!s) return "";
+  if (!/[஀-௿]/.test(s)) return "";
+  const ch = [...s];
+  let out = "";
+  for (let i = 0; i < ch.length; i++) {
+    const c = ch[i], n = ch[i + 1];
+    if (_TA_CONS[c]) {
+      out += _TA_CONS[c];
+      if (n === _TA_VIRAMA) { i++; }                 // pure consonant
+      else if (_TA_SIGNS[n]) { out += _TA_SIGNS[n]; i++; }
+      else { out += "a"; }                           // inherent vowel
+    } else if (_TA_VOWELS[c]) {
+      out += _TA_VOWELS[c];
+    } else if (/\s/.test(c)) {
+      out += " ";
+    } else if (/[A-Za-z0-9]/.test(c)) {
+      out += c.toLowerCase();
+    }
+  }
+  return out.replace(/\s+/g, " ").trim();
+}
+
+/* Collapse repeated vowels (saamai → samai, oo → o) so users don't have
+   to guess long-vowel doubling when typing Tamil words in English. */
+function _collapseVowels(s) {
+  return (s || "").replace(/([aeiou])\1+/g, "$1");
+}
+
 /* Levenshtein edit distance (capped at maxD for speed). */
 function _editDistance(a, b, maxD = 3) {
   if (a === b) return 0;
@@ -1650,39 +1698,57 @@ function _editDistance(a, b, maxD = 3) {
   return prev[bl];
 }
 
+/* Cache the romanized search index per product so we transliterate once. */
+function _searchHay(p) {
+  if (p._hay) return p._hay;
+  const name  = _normalize(p.name);
+  const cat   = _normalize(p.category);
+  const code  = _normalize(p.code || p.id);
+  const trans = _normalize(_transliterateTamil(p.name));
+  return (p._hay = { name, cat, code, trans });
+}
+
 /* Score a single product against the query. Higher = better. 0 = no match. */
 function _scoreProduct(p, qNorm, qTokens) {
-  const name = _normalize(p.name);
-  const cat  = _normalize(p.category);
-  const code = _normalize(p.code || p.id);
-  const hay  = `${name} ${cat} ${code}`;
+  const h = _searchHay(p);
+  const hay      = `${h.name} ${h.cat} ${h.code} ${h.trans}`;
+  const hayLoose = _collapseVowels(hay);
+  const qLoose   = _collapseVowels(qNorm);
 
   let score = 0;
-  // Exact substring is strongest.
-  if (hay.includes(qNorm)) score += 100;
+  // Exact substring is strongest. Loose match handles long-vowel variants.
+  if (hay.includes(qNorm))         score += 100;
+  else if (hayLoose.includes(qLoose)) score += 80;
   // Code exact / starts-with is very strong.
-  if (code === qNorm) score += 200;
-  if (code.startsWith(qNorm)) score += 60;
+  if (h.code === qNorm) score += 200;
+  if (h.code.startsWith(qNorm)) score += 60;
   // Token-by-token contribution: prefix > inclusion > fuzzy.
+  const words = hay.split(" ");
+  const wordsLoose = words.map(_collapseVowels);
   for (const t of qTokens) {
     if (!t) continue;
+    const tLoose = _collapseVowels(t);
     let best = 0;
-    for (const w of hay.split(" ")) {
-      if (!w) continue;
-      if (w === t)              best = Math.max(best, 50);
-      else if (w.startsWith(t)) best = Math.max(best, 35);
-      else if (w.includes(t))   best = Math.max(best, 20);
+    for (let i = 0; i < words.length; i++) {
+      const w = words[i]; if (!w) continue;
+      const wLoose = wordsLoose[i];
+      if (w === t)                 best = Math.max(best, 50);
+      else if (w.startsWith(t))    best = Math.max(best, 35);
+      else if (w.includes(t))      best = Math.max(best, 20);
+      else if (wLoose === tLoose)        best = Math.max(best, 45);
+      else if (wLoose.startsWith(tLoose))best = Math.max(best, 32);
+      else if (wLoose.includes(tLoose))  best = Math.max(best, 18);
       else if (t.length >= 4) {
-        // Fuzzy — typo tolerance.
+        // Fuzzy — typo tolerance, against the loose form for vowel slack.
         const maxD = t.length <= 5 ? 1 : t.length <= 8 ? 2 : 3;
-        const d = _editDistance(w, t, maxD);
+        const d = _editDistance(wLoose, tLoose, maxD);
         if (d <= maxD) best = Math.max(best, 18 - d * 4);
       }
     }
     score += best;
   }
   // Prefer category match.
-  if (qTokens.some(t => t && cat.includes(t))) score += 4;
+  if (qTokens.some(t => t && h.cat.includes(t))) score += 4;
   // Tiny popularity bias — favor newer / cheaper items as tiebreaker.
   if (isNew(p)) score += 1;
   return score;

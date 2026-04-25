@@ -271,7 +271,7 @@ Already works. Your delivery person collects cash. Most authentic local Tamil bu
 ## 9. Customising look & text
 
 ### Brand colors
-Edit the CSS variables at the top of `frontend/style.css`:
+Edit the CSS variables at the top of `frontend/css/tokens.css`:
 ```css
 :root {
   --forest:  #14532D;   /* main brand green */
@@ -281,8 +281,10 @@ Edit the CSS variables at the top of `frontend/style.css`:
 ```
 Every button, header, and card updates instantly.
 
+The CSS is split across `frontend/css/{tokens,layout,home,pages,chrome,responsive}.css`. Each file owns one concern — pick the right file by name and edit there. The load order is fixed in `index.html`; don't rename or reorder the `<link>` tags.
+
 ### Logo
-Replace `frontend/logo.svg` with your own SVG logo (keeps it crisp at any size).
+Replace `frontend/logo.svg` with your own logo. SVG, PNG, or WebP all work — the file is also read by the backend (via Pillow) and embedded in the PDF invoice header, so make sure it's square and looks good at ~13mm.
 
 ### Home page copy
 Edit `renderHome()` in `frontend/app.js`. Every headline, testimonial, and section title is right there — plain HTML inside JavaScript template strings.
@@ -337,6 +339,18 @@ Two possible reasons:
 
 ### Site styling looks broken
 Hard-refresh with `Ctrl+Shift+R` (Windows/Linux) or `Cmd+Shift+R` (Mac) to clear cached old CSS.
+
+### Search isn't finding a Tamil-only product
+The header search transliterates Tamil names to roman so typing `samai`, `saamai`, `noodles`, or `varagu` matches `சாமை நூடல்ஸ்` / `வரகு நூடல்ஸ்`. If a particular word never matches:
+1. Open `frontend/app.js`, find `_transliterateTamil`.
+2. Run the function on the failing product name in your browser console: `_transliterateTamil("சாமை நூடல்ஸ்")`.
+3. Check whether the user's typed query is within edit-distance 1–2 of the result (after collapsing repeated vowels). If not, add the missing mapping in `_TA_CONS` / `_TA_SIGNS`.
+
+### Invoice logo is missing or shows colored circles
+The PDF invoice tries to embed `frontend/logo.svg` via Pillow. If Pillow can't read the file (rare — Pillow handles PNG, JPEG, WebP, BMP), the backend falls back to a painted-circle placeholder. Check the server console for `[pdf] Could not load logo image` and:
+- Confirm the file exists at `frontend/logo.svg`.
+- Try saving it as a fresh PNG and overwriting `logo.svg`.
+- Make sure Pillow is installed: `pip install pillow`.
 
 ---
 

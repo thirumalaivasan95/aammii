@@ -53,10 +53,13 @@ try:
     from reportlab.pdfgen import canvas as rl_canvas
     from reportlab.pdfbase import pdfmetrics
     from reportlab.pdfbase.ttfonts import TTFont
+    from reportlab.lib.utils import ImageReader
     REPORTLAB_OK = True
 except ImportError:
     REPORTLAB_OK = False
     print("  [pdf] reportlab not available — installing it enables PDF invoices", flush=True)
+
+LOGO_PATH = os.path.join(FRONT, "logo.svg")  # actually a WebP — Pillow handles it
 
 # ═══════════════════════════════════════════════════════════════
 # 3. COMPANY DETAILS (used on invoice)
@@ -396,6 +399,43 @@ def compute_invoice_rows(items: list) -> tuple:
     }
 
 
+_LOGO_READER = None
+_LOGO_TRIED  = False
+def _get_logo_reader():
+    """Cache an ImageReader of the logo file. Returns None if unavailable."""
+    global _LOGO_READER, _LOGO_TRIED
+    if _LOGO_TRIED:
+        return _LOGO_READER
+    _LOGO_TRIED = True
+    if not REPORTLAB_OK or not os.path.exists(LOGO_PATH):
+        return None
+    try:
+        # ImageReader → uses Pillow under the hood; handles WebP/PNG/JPEG/etc.
+        from PIL import Image          # noqa: F401  (verify Pillow is present)
+        _LOGO_READER = ImageReader(LOGO_PATH)
+        return _LOGO_READER
+    except Exception as e:
+        print(f"  [pdf] Could not load logo image ({LOGO_PATH}): {e}", flush=True)
+        return None
+
+
+def _draw_logo(c, cx: float, cy: float, r: float) -> bool:
+    """Draw the company logo centered at (cx, cy) with radius r. True if drawn."""
+    reader = _get_logo_reader()
+    if not reader:
+        return False
+    try:
+        size = r * 2
+        c.drawImage(
+            reader, cx - r, cy - r, width=size, height=size,
+            preserveAspectRatio=True, mask="auto",
+        )
+        return True
+    except Exception as e:
+        print(f"  [pdf] drawImage logo failed: {e}", flush=True)
+        return False
+
+
 def build_pdf_invoice(order: dict) -> bytes:
     """Generate an A4 PDF invoice matching the Aammii reference layout."""
     if not REPORTLAB_OK:
@@ -422,12 +462,15 @@ def build_pdf_invoice(order: dict) -> bytes:
         else:
             c.setFont("Helvetica", size)
 
-    # ── Logo ──
+    # ── Logo (real image from frontend/logo.svg — actually a WebP file) ──
     cx, cy = W / 2, H - 18 * mm
-    c.setFillColor(AMBER)
-    c.circle(cx, cy, 5.5 * mm, stroke=0, fill=1)
-    c.setFillColor(GREEN)
-    c.circle(cx + 1.8 * mm, cy + 0.6 * mm, 1.6 * mm, stroke=0, fill=1)
+    logo_r = 6.5 * mm
+    if not _draw_logo(c, cx, cy, logo_r):
+        # Fallback if Pillow / image read fails: simple painted circles
+        c.setFillColor(AMBER)
+        c.circle(cx, cy, 5.5 * mm, stroke=0, fill=1)
+        c.setFillColor(GREEN)
+        c.circle(cx + 1.8 * mm, cy + 0.6 * mm, 1.6 * mm, stroke=0, fill=1)
 
     # ── Company header (centered) ──
     y = H - 26 * mm

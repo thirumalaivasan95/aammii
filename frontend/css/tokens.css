@@ -1,0 +1,114 @@
+/* ═══════════════════════════════════════════════════════════════
+   AAMMII THARCHARBU SANTHAI — E-Commerce Design System v4
+   Multi-page SPA · Light + Dark · Mobile-first · Tamil/English
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── 1. DESIGN TOKENS ────────────────────────────────────────── */
+:root {
+  --forest:        #14532D;
+  --forest-dk:     #0A2E18;
+  --forest-mid:    #22703E;
+  --leaf:          #4ADE80;
+  --amber:         #D97706;
+  --amber-dk:      #B45309;
+  --amber-lt:      #FFFBEB;
+  --gold:          #FBBF24;
+
+  --bg:            #FAFAF7;
+  --surface:       #FFFFFF;
+  --surface-2:     #F5F3EC;
+  --surface-3:     #EBE7DC;
+  --border:        #E2DED3;
+  --border-strong: #BFB9AA;
+  --border-soft:   #F0ECE2;
+
+  --text:          #151F1A;
+  --text-2:        #4A5A51;
+  --text-3:        #8A9A91;
+
+  --red:           #DC2626;
+  --red-lt:        #FEE2E2;
+  --green:         #16A34A;
+  --green-lt:      #D1FAE5;
+  --blue:          #0369A1;
+  --blue-lt:       #DBEAFE;
+
+  --sh-xs: 0 1px 2px rgba(20,50,35,.04);
+  --sh-sm: 0 1px 3px rgba(20,50,35,.07), 0 1px 2px rgba(20,50,35,.05);
+  --sh:    0 4px 10px rgba(20,50,35,.08), 0 2px 4px rgba(20,50,35,.04);
+  --sh-md: 0 10px 20px rgba(20,50,35,.09), 0 4px 8px rgba(20,50,35,.04);
+  --sh-lg: 0 20px 40px rgba(20,50,35,.12), 0 8px 16px rgba(20,50,35,.06);
+  --sh-xl: 0 32px 60px rgba(20,50,35,.15), 0 12px 24px rgba(20,50,35,.08);
+
+  --r-xs:  4px;
+  --r-sm:  8px;
+  --r:     12px;
+  --r-lg:  18px;
+  --r-xl:  24px;
+  --r-full: 9999px;
+
+  --t-fast: .15s ease;
+  --t:      .22s ease;
+  --t-med:  .35s cubic-bezier(.4,0,.2,1);
+
+  --container: 1280px;
+  --container-wide: 1440px;
+}
+
+body.dark {
+  --bg:            #081410;
+  --surface:       #0E1C15;
+  --surface-2:     #122A1F;
+  --surface-3:     #1A3828;
+  --border:        #1C3025;
+  --border-strong: #2E4A38;
+  --border-soft:   #142A1F;
+  --text:          #ECF3EC;
+  --text-2:        #8AA898;
+  --text-3:        #4A6A58;
+  --amber:         #FBBF24;
+  --amber-dk:      #D97706;
+  --amber-lt:      #1A0E00;
+  --leaf:          #86EFAC;
+  --red:           #F87171;
+  --red-lt:        #2A0E0E;
+  --green:         #4ADE80;
+  --green-lt:      #0A2A18;
+  --blue:          #38BDF8;
+  --blue-lt:       #0A1E2E;
+  --sh-xs: 0 1px 2px rgba(0,0,0,.3);
+  --sh-sm: 0 1px 3px rgba(0,0,0,.4);
+  --sh:    0 4px 10px rgba(0,0,0,.45);
+  --sh-md: 0 10px 20px rgba(0,0,0,.55);
+  --sh-lg: 0 20px 40px rgba(0,0,0,.65);
+  --sh-xl: 0 32px 60px rgba(0,0,0,.75);
+}
+
+/* ─── 2. BASE RESET ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 14px; line-height: 1.55;
+  background: var(--bg); color: var(--text);
+  overflow-x: hidden; min-height: 100vh;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; font-size: inherit; color: inherit; }
+img { max-width: 100%; display: block; }
+input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+.hidden { display: none !important; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; border-radius: var(--r-xs); }
+.tamil { font-family: 'Noto Sans Tamil', 'Latha', sans-serif; }
+.serif { font-family: 'Playfair Display', Georgia, serif; }
+body, h1, h2, h3, h4, p, span, div, a, button {
+  transition: background-color var(--t-med), border-color var(--t-med), color .15s ease;
+}
+
+/* ─── 3. SCROLLBAR ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: var(--r-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+* { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }

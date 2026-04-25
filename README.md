@@ -1,246 +1,203 @@
-# 🌿 Aammii Natural Shop — Production v5.0
+# Aammii Tharcharbu Santhai — E-Commerce Site
 
-**Full-stack e-commerce site for Aammii Tharcharbu Santhai Pvt. Ltd.**
-Apple-quality design × Amazon structure × Heritage botanical aesthetic × Live payment portal.
-
----
-
-## ✨ What's New in v5.0
-
-- **486 preloaded products** across 24 categories, extracted from the official Aammii catalogue
-- **PDF upload** — supports text-based, image-based, and scanned PDFs
-- **Smart PDF detection** — recognises the Aammii catalogue and loads all products instantly
-- **🌙 Dark mode** — one-click toggle in the header; respects your OS preference automatically; choice is remembered across sessions
-- **Full-page hero** with animated background orbs, floating category badges, and live stats counter
-- **24-card category grid** with emoji icons and hover animations
-- **Product grid** with auto-generated SVG images, category badges, and product codes
-- **Real-time search** across product name, code, and category
-- **Category filter chips** and price/name sorting
-- **Shopping cart** with quantity controls, subtotals, and live grand total
-- **Order invoice** — auto-downloads a formatted `.txt` invoice on checkout
-- **Responsive design** — works on desktop, tablet, and mobile
+Full-stack store for **Aammii Tharcharbu Santhai Pvt. Ltd.** — natural farm-direct
+products from Tamil Nadu. Flask backend + vanilla-JS hash-router SPA. **No build
+step, no Node toolchain, no database server.** Double-click and ship.
 
 ---
 
-## 🚀 Quick Start
+## What it does
 
+- **Storefront** — 12-page SPA: Home, Browse, Category, Product, Cart, Checkout,
+  Orders, Order Detail, Account, Admin, About, Contact.
+- **Catalogue** — 450+ products in [uploads/products.json](uploads/products.json),
+  Tamil + English names, 25 categories.
+- **Search** — predictive, typo-tolerant, **Tamil-aware**: typing `samai` /
+  `saamai` / `noodles` finds `சாமை நூடல்ஸ்`. Browse and the header dropdown
+  share the same scoring logic.
+- **PDF invoices** — generated server-side with `reportlab`, real selectable
+  Tamil + English text, embedded brand logo, GST breakdown (CGST/SGST per HSN
+  code), saved per order under `orders/`.
+- **Auth** — optional Firebase login (email, Google, GitHub, phone OTP).
+- **Theming** — light + dark mode, persistent.
+- **Admin** — `#/admin` for PDF catalogue upload, image URL management, mark
+  products as new.
+
+---
+
+## Quick start
+
+**Windows** — double-click [run.bat](run.bat). It auto-installs deps and opens
+the browser.
+
+**macOS / Linux**
 ```bash
-# 1. Place your products.json in uploads/
-cp path/to/products.json uploads/products.json
-
-# 2. Set Razorpay keys (get from https://razorpay.com)
-export RAZORPAY_KEY_ID="rzp_live_XXXXXXXXXXXXXXXX"
-export RAZORPAY_KEY_SECRET="your_secret_here"
-
-# 3. Run
-# Windows: double-click run.bat
-# Mac/Linux: python3 backend/app.py
+pip install flask flask-cors pdfplumber pillow reportlab
+python3 backend/app.py
 ```
 
-Open: **http://localhost:5000**
+Open http://localhost:5000.
 
 ---
 
-## 🌙 Dark Mode
-
-Click the **🌙 / ☀️** button in the top-right of the header to switch between light and dark themes.
-
-- **Auto-detect** — on first visit the theme matches your OS/system preference (`prefers-color-scheme`)
-- **Persistent** — your choice is saved to `localStorage` and remembered across sessions
-- **Instant** — theme is applied before the page renders to avoid a flash of the wrong mode
-- The hero section is always dark by design; dark mode applies to the category grid, product cards, filter bar, and cart panel
-
----
-
-## 📁 Project Structure
+## Project structure
 
 ```
-aammii-shop/
-├── run.bat                   # Windows: double-click to start
-├── aammii.db                 # SQLite DB (auto-created)
+aammii/
+├── run.bat                       # Windows: double-click to start
+├── README.md                     # this file
+├── BUSINESS_GUIDE.md             # operations / customisation guide
+├── netlify.toml                  # static-frontend deploy config
 │
 ├── backend/
-│   ├── app.py                # Flask app · all API routes
-│   ├── database.py           # Schema · seed · helpers
-│   ├── config.py             # Keys · paths · settings
-│   └── admin.py              # CLI admin tool
+│   ├── app.py                    # Flask app · all API routes · PDF invoice
+│   ├── admin.py                  # CLI admin tool
+│   ├── pdf_parser.py             # extract products from supplier PDFs
+│   ├── config.py                 # paths · settings
+│   ├── database.py               # legacy SQLite helpers (unused by app.py)
+│   └── requirements.txt          # flask · flask-cors · gunicorn
 │
 ├── frontend/
-│   ├── index.html                # Full-page shop UI
-│   ├── style.css                 # Dark earthy design system + dark mode
-│   └── app.js                    # Cart, search, filter, order, dark-mode logic
+│   ├── index.html                # SPA shell (header / footer / view)
+│   ├── app.js                    # router · pages · cart · search
+│   ├── auth.js                   # Firebase compat SDK wrapper
+│   ├── firebase-config.js        # Firebase keys (client-safe)
+│   ├── logo.svg                  # brand logo (rendered in PDF too)
+│   └── css/                      # modular stylesheets — see below
+│       ├── tokens.css            # design variables · base reset · scrollbar
+│       ├── layout.css            # announce · nav · mobile-nav · view
+│       ├── home.css              # hero · sections · tiles · product card
+│       ├── pages.css             # browse · product · cart · checkout · orders · admin · about
+│       ├── chrome.css            # auth modal · cart drawer · toast · footer · search
+│       └── responsive.css        # breakpoints + print
 │
 ├── uploads/
-│   └── products.json         # Seed data (486 products)
+│   └── products.json             # product catalogue (450+ items)
 │
-└── orders/                   # PDF invoices saved per order
+└── orders/
+    ├── orders.json               # all orders (newest first, capped at 500)
+    └── INV-XXXXX.pdf             # one invoice file per order
 ```
+
+### Why modular CSS?
+
+The earlier codebase shipped two files: `style.css` and `styles-new.css`.
+`styles-new.css` was a leftover from an older design system — it referenced
+variables (`--earth1`, `--gold-light`, `--brand-green`) and class names
+(`.tamil-name`, `.user-menu`, `.new-card`) that no longer exist anywhere in
+the JS, and it was never linked from `index.html`. It has been deleted.
+
+`style.css` (1,604 lines) was sliced into six topic-focused files in
+[frontend/css/](frontend/css/) above. The split is byte-equivalent to the
+original (whitespace-normalised) — cascade order is preserved by loading
+the files in a fixed sequence in `index.html`. Edit one concern at a time
+without scrolling through unrelated rules.
 
 ---
 
-## 💳 Payment Setup (Razorpay)
+## REST API
 
-1. Sign up at **https://razorpay.com** (free)
-2. Go to **Settings → API Keys → Generate Test Key**
-3. Set environment variables:
+All routes are JSON; static frontend at `/`.
 
-```bash
-export RAZORPAY_KEY_ID="rzp_test_XXXXXXXXXXXXXXXX"
-export RAZORPAY_KEY_SECRET="your_secret_here"
+| Endpoint                          | Method | Description |
+|-----------------------------------|--------|-------------|
+| `GET  /api/products`              | GET    | All products (with computed `hsn` + `gst_rate`) |
+| `PATCH /api/products/<id>`        | PATCH  | Update `image` URL · `hsn` · `gst_rate` · `name` · `qty` · `price` · `category` |
+| `POST /api/upload`                | POST   | Upload a supplier PDF; parsed products replace the catalogue |
+| `POST /api/mark-new`              | POST   | Mark product IDs as newly added (sets `date_added` to today) |
+| `POST /api/order`                 | POST   | Place an order — returns the PDF invoice as the response body |
+| `GET  /api/orders`                | GET    | All orders, newest first (capped at 500) |
+| `GET  /api/orders/<id>`           | GET    | Single order by `id` (e.g. `ORD-XXXX`) or `invoice_no` |
+
+`POST /api/order` request body:
+```json
+{
+  "items":    [{"code":"FD-017","name":"...","price":80,"qty":2,"category":"Noodles & Vermicelli"}],
+  "customer": {"name":"...","phone":"...","email":"...","address":"..."},
+  "payment":  "COD"
+}
 ```
-
-4. For **live payments**, use `rzp_live_...` keys
-
-**Supported payment methods (automatic):**
-- 📱 UPI (GPay, PhonePe, BHIM, Paytm)
-- 💳 Credit / Debit cards (Visa, Mastercard, Amex, RuPay)
-- 🏦 Net Banking (all major banks)
-- 👛 Wallets (Amazon Pay, Mobikwik, FreeCharge)
+Response: `Content-Type: application/pdf`, headers `X-Order-Id` + `X-Invoice-No`
+expose the assigned IDs.
 
 ---
 
-## 🛠️ Admin CLI
+## Search — how it works
 
-```bash
-cd backend
+User types in the header search → [_scoreProduct](frontend/app.js) is called
+per product with the normalised query. Sources mixed into the haystack:
 
-# Overview stats
-python3 admin.py stats
+1. Product name (Tamil + English)
+2. Category
+3. Code (e.g. `FD-017`)
+4. **Roman transliteration of the Tamil portion** — `சாமை நூடல்ஸ்` → `saamai nuutals`
 
-# List all products
-python3 admin.py list-products
+Matching is then run twice: strict (`samai` ↔ `samai`) and **vowel-collapsed**
+(`saamai` ↔ `samai` after `aa` → `a`). Levenshtein edit distance covers
+typos. Same scorer powers both the dropdown and the Browse-page filter.
 
-# List out-of-stock products
-python3 admin.py list-products --oos
-
-# List products in a category
-python3 admin.py list-products --category="Millets & Grains"
-
-# Update stock (use 999 for unlimited)
-python3 admin.py set-stock <product_id> 50
-python3 admin.py set-stock <product_id> 0     # → out of stock
-
-# Mark as new launch
-python3 admin.py set-new-launch <product_id> 1
-python3 admin.py set-new-launch <product_id> 0
-
-# Add a new product (interactive)
-python3 admin.py add-product
-
-# View orders
-python3 admin.py list-orders
-python3 admin.py list-orders --status=placed
-```
+To extend the transliterator, edit `_TA_VOWELS` / `_TA_SIGNS` / `_TA_CONS`
+in `frontend/app.js` near the search section.
 
 ---
 
-## 🔌 REST API
+## Storage model
 
-### Products
+No database server. Everything is on disk:
 
-| Endpoint | Method | Description |
-|---|---|---|
-| `GET /api/products` | GET | Paginated list. Params: `category`, `q`, `sort`, `page`, `limit`, `new_launch`, `in_stock` |
-| `GET /api/products/new-launches` | GET | Up to 12 new-launch products |
-| `GET /api/products/<id>` | GET | Single product detail |
-| `POST /api/admin/products` | POST | Add product (needs `X-Admin-Key` header) |
-| `PATCH /api/admin/products/<id>` | PATCH | Update product fields |
-| `PATCH /api/admin/products/<id>/stock` | PATCH | Quick stock update |
+- `uploads/products.json` — catalogue. Mutate via `/api/products/<id>` PATCH or edit the file directly.
+- `orders/orders.json` — order log. Capped at 500; oldest entries roll off.
+- `orders/INV-XXXXX.pdf` — one file per placed order, kept indefinitely.
+- `aammii.db` — only present if you ran the legacy `database.py` seed; the live `app.py` does **not** read it.
 
-### Payment & Orders
-
-| Endpoint | Method | Description |
-|---|---|---|
-| `POST /api/payment/create-order` | POST | Creates Razorpay order, returns checkout params |
-| `POST /api/payment/verify` | POST | Verifies signature, saves order to DB |
-| `POST /api/payment/cod` | POST | Cash-on-delivery order (no payment verification) |
-| `GET /api/orders/<order_number>` | GET | Order detail + items |
+Back up `uploads/` and `orders/` weekly. That is the entire business record.
 
 ---
 
-## 📦 Adding Products
+## Deployment
 
-### Option A — Edit products.json and re-seed
-1. Edit `uploads/products.json`
-2. Delete `aammii.db`
-3. Restart the server (DB will be re-seeded)
+### Render.com (recommended)
 
-### Option B — CLI
-```bash
-cd backend
-python3 admin.py add-product
-```
+1. Push to GitHub.
+2. New → Web Service → connect repo.
+3. **Build:** `pip install flask flask-cors pdfplumber pillow reportlab gunicorn`
+4. **Start:** `cd backend && gunicorn app:app`
 
-### Option C — REST API
-```bash
-curl -X POST http://localhost:5000/api/admin/products \
-  -H "Content-Type: application/json" \
-  -H "X-Admin-Key: aammii-secret-change-in-prod-2024" \
-  -d '{
-    "name": "Organic Moringa Powder",
-    "code": "HB-099",
-    "category": "Herbal Powder",
-    "price": 280,
-    "qty_unit": "100g",
-    "stock_quantity": 200,
-    "is_new_launch": 1
-  }'
-```
+For Linux servers, install a Tamil font: `apt install fonts-noto-tamil`,
+otherwise the PDF Tamil text falls back to the Helvetica box glyph (English
+parts are unaffected).
+
+### Custom domain
+
+Buy domain → in Render add Custom Domain → update DNS as instructed → done in ~1 hour.
+
+### Live online payments
+
+Out of the box, checkout records the customer's preferred payment method
+(COD / UPI / Card / Net Banking) — the actual collection happens on delivery.
+For online prepaid, follow the Razorpay snippet in section 8 of
+[BUSINESS_GUIDE.md](BUSINESS_GUIDE.md).
 
 ---
 
-## 🎨 Design System
+## Customising
 
-- **Palette (Light):** Warm cream `#FAF6EE` · Forest green `#2B5E3C` · Amber `#C47A22`
-- **Palette (Dark):** Charcoal `#100E0A` · Forest `#4A8C5E` · Amber `#D4923C`
-- **Display font:** Fraunces (variable serif — retro, elegant)
-- **Body font:** Sora (clean modern sans)
-- **Texture:** Subtle paper grain overlay via SVG filter
-- **Structure:** Sticky header → New Launches → Marquee → Category grid → Product grid with sidebar filters → Cart drawer → Checkout modal
+- **Brand palette** — edit the CSS variables at the top of [frontend/css/tokens.css](frontend/css/tokens.css).
+- **Logo** — replace [frontend/logo.svg](frontend/logo.svg) (PNG / WebP also accepted; the file is read by Pillow for the PDF invoice).
+- **Home copy** — edit `renderHome()` in [frontend/app.js](frontend/app.js).
+- **Announcement bar** — the rotating top strip lives in [frontend/index.html](frontend/index.html) under `class="announce"`.
+- **Contact info** — search for `9500655548` and `aammii.com` across `frontend/index.html`, `frontend/app.js`, `backend/app.py`.
 
----
-
-## 🌐 Production Deployment
-
-- **Aesthetic:** Dark earthy organic marketplace with warm gold accents
-- **Fonts:** Playfair Display (headings) + DM Sans (body)
-- **Palette:** Deep brown, forest green, warm gold, cream
-- **Dark mode:** Deep charcoal backgrounds (`#141010`) with warm card surfaces (`#231d18`) — same gold and green accents, higher shadow contrast
-- **Hero:** Full-viewport with animated gradient orbs, floating category pills, live product count
-- **Cards:** Colour-coded SVG images per category, hover lift effects
-- **Cart:** Slide-in panel with quantity controls and real-time totals
-
-```bash
-# Install nginx + gunicorn
-pip install gunicorn
-
-# Run with gunicorn
-cd backend
-gunicorn -w 4 -b 0.0.0.0:5000 app:app
-
-# nginx reverse proxy config
-# (point localhost:80 → localhost:5000)
-```
-
-### Environment Variables
-
-```bash
-SECRET_KEY=your-long-random-secret
-RAZORPAY_KEY_ID=rzp_live_XXXXXXXXXXXXXXXX
-RAZORPAY_KEY_SECRET=your_secret_here
-DEBUG=false
-```
-
-> ⚠️ Razorpay requires **HTTPS** for live payments. Use nginx + Let's Encrypt (certbot) to set up SSL.
+For business-flow customisation (orders, invoices, GST rates, image
+replacement, Firebase setup) see [BUSINESS_GUIDE.md](BUSINESS_GUIDE.md).
 
 ---
 
-## 📞 Contact
+## Contact
 
 **Aammii Tharcharbu Santhai Private Limited**
-No.49, Thirupathy Nagar, Near Perumal Temple, Kovaipudur, Coimbatore – 641 042. TN.
-📞 +91 95006 55548 · ✉️ aammiisanthai@gmail.com · 🌐 www.aammii.com
+Door No.5/177, Arumuga kavundanur, Thanneer thotti stop, Roja street, perur chettipalayam(po), kovaipudhur main road, Coimbatore – 641010, Tamil Nadu, India.
+GSTIN: `33AAZCA4586H1Z3` · FSSAI: `12419003001497`
++91 95006 55548 · www.aammii.com
 
----
-
-*Built with Flask · pdfplumber · Python · Vanilla JS*
+— _வாழ்க வளமுடன்_

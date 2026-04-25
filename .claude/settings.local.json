@@ -25,7 +25,15 @@
       "Bash(curl -sX POST http://localhost:5000/api/order -H \"Content-Type: application/json\" -d '{\"items\":[{\"code\":\"G-1193\",\"id\":\"G-1193\",\"name\":\"Almond / Almond badam nuts 200gm\",\"price\":340,\"qty\":2,\"category\":\"Dry Fruits & Nuts\"},{\"code\":\"G-1002\",\"id\":\"G-1002\",\"name\":\"Laundry washer / Laundry washer 500ml\",\"price\":239,\"qty\":2,\"category\":\"Home Care\"},{\"code\":\"G-274\",\"id\":\"G-274\",\"name\":\"Honey amla / Honey amla 1pcs\",\"price\":12,\"qty\":2,\"category\":\"Honey\"}],\"customer\":{\"name\":\"Thirumalai Vasan\",\"phone\":\"9003419708\",\"email\":\"x@y.com\",\"address\":\"No. 11, Gandhi Street, Shanthi Nagar, Lawspet, Puducherry. 605008., Poducherry \\(TN\\), Tamilnadu, 605008\"},\"payment\":\"Direct\"}' -o \"c:/Users/thiru/Downloads/Project/aammii/orders/_test_inv2.pdf\" -w \"%{http_code}\\\\n\")",
       "Bash(netstat -ano)",
       "Bash(awk '{print $NF}')",
-      "Bash(xargs -I{} taskkill //F //PID {})"
+      "Bash(xargs -I{} taskkill //F //PID {})",
+      "Bash(where py *)",
+      "Bash(py -V)",
+      "Bash(python -V)",
+      "Bash(python3 -V)",
+      "Bash(python c:/Users/thiru/Downloads/Project/aammii/backend/_logo_test.py)",
+      "Bash(python c:/Users/thiru/Downloads/Project/aammii/_split_css.py)",
+      "Bash(curl -s -X POST -H \"Content-Type: application/json\" -o c:/tmp/test-invoice.pdf -w \"status=%{http_code} size=%{size_download} type=%{content_type}\\\\n\" -d '{\"items\":[{\"code\":\"FD-017\",\"name\":\"சாமை நூடல்ஸ் / Little Millet Noodles\",\"price\":80,\"qty\":2,\"category\":\"Noodles & Vermicelli\"}],\"customer\":{\"name\":\"Smoke Test\",\"phone\":\"9000000000\",\"email\":\"s@t\",\"address\":\"Test Addr\"},\"payment\":\"COD\"}' http://localhost:5000/api/order)",
+      "Bash(taskkill //F //FI \"PID eq $\\(netstat -ano)"
     ]
   }
 }

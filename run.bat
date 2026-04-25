@@ -50,17 +50,16 @@ if not exist "orders"  mkdir orders
 REM --- Auto-open browser after short delay ---
 start "" cmd /c "timeout /t 3 /nobreak >nul && start http://localhost:5000"
 
-REM --- Start the Flask server ---
-echo  Starting server...
+REM --- Start the Flask server in a new window ---
+echo  Starting server in new window...
 echo  Open your browser at:  http://localhost:5000
 echo  Admin panel:           http://localhost:5000/#/admin
 echo.
-echo  Press Ctrl+C to stop the server.
+echo  The server window will stay open. Close it to stop the server.
 echo.
 
-cd /d "%~dp0backend"
-!PYTHON! app.py
+start "Aammii Server" cmd /k "cd /d "%~dp0backend" && !PYTHON! app.py"
 
 echo.
-echo  Server stopped.
+echo  Setup complete. You can close this window.
 pause
