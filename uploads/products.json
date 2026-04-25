@@ -6,7 +6,7 @@
     "qty": "1kg",
     "price": 195.0,
     "category": "Millets & Grains",
-    "image": "/images/A-033.svg"
+    "image": ""
   },
   {
     "id": "A-034",
@@ -15,7 +15,7 @@
     "qty": "1kg",
     "price": 180.0,
     "category": "Millets & Grains",
-    "image": "/images/A-034.svg"
+    "image": ""
   },
   {
     "id": "A-035",
@@ -24,7 +24,7 @@
     "qty": "1kg",
     "price": 170.0,
     "category": "Millets & Grains",
-    "image": "/images/A-035.svg"
+    "image": ""
   },
   {
     "id": "A-036",
@@ -33,7 +33,7 @@
     "qty": "1kg",
     "price": 190.0,
     "category": "Millets & Grains",
-    "image": "/images/A-036.svg"
+    "image": ""
   },
   {
     "id": "A-037",
@@ -42,7 +42,7 @@
     "qty": "1kg",
     "price": 90.0,
     "category": "Millets & Grains",
-    "image": "/images/A-037.svg"
+    "image": ""
   },
   {
     "id": "G-485",
@@ -51,7 +51,7 @@
     "qty": "500gm",
     "price": 65.0,
     "category": "Millets & Grains",
-    "image": "/images/G-485.svg"
+    "image": ""
   },
   {
     "id": "G-487",
@@ -60,7 +60,7 @@
     "qty": "1kg",
     "price": 140.0,
     "category": "Millets & Grains",
-    "image": "/images/G-487.svg"
+    "image": ""
   },
   {
     "id": "G-488",
@@ -69,7 +69,7 @@
     "qty": "1kg",
     "price": 125.0,
     "category": "Millets & Grains",
-    "image": "/images/G-488.svg"
+    "image": ""
   },
   {
     "id": "G-489",
@@ -78,7 +78,7 @@
     "qty": "1kg",
     "price": 170.0,
     "category": "Millets & Grains",
-    "image": "/images/G-489.svg"
+    "image": ""
   },
   {
     "id": "G-490",
@@ -87,7 +87,7 @@
     "qty": "1kg",
     "price": 105.0,
     "category": "Millets & Grains",
-    "image": "/images/G-490.svg"
+    "image": ""
   },
   {
     "id": "G-491",
@@ -96,7 +96,7 @@
     "qty": "1kg",
     "price": 130.0,
     "category": "Millets & Grains",
-    "image": "/images/G-491.svg"
+    "image": ""
   },
   {
     "id": "G-493",
@@ -105,7 +105,7 @@
     "qty": "500gm",
     "price": 180.0,
     "category": "Millets & Grains",
-    "image": "/images/G-493.svg"
+    "image": ""
   },
   {
     "id": "G-497",
@@ -114,7 +114,7 @@
     "qty": "1kg",
     "price": 105.0,
     "category": "Millets & Grains",
-    "image": "/images/G-497.svg"
+    "image": ""
   },
   {
     "id": "G-615",
@@ -123,7 +123,7 @@
     "qty": "1kg",
     "price": 195.0,
     "category": "Millets & Grains",
-    "image": "/images/G-615.svg"
+    "image": ""
   },
   {
     "id": "A-038",
@@ -132,7 +132,7 @@
     "qty": "1kg",
     "price": 230.0,
     "category": "Millets & Grains",
-    "image": "/images/A-038.svg"
+    "image": ""
   },
   {
     "id": "G-616",
@@ -141,7 +141,7 @@
     "qty": "1kg",
     "price": 130.0,
     "category": "Millets & Grains",
-    "image": "/images/G-616.svg"
+    "image": ""
   },
   {
     "id": "G-617",
@@ -150,7 +150,7 @@
     "qty": "1kg",
     "price": 120.0,
     "category": "Millets & Grains",
-    "image": "/images/G-617.svg"
+    "image": ""
   },
   {
     "id": "G-618",
@@ -159,7 +159,7 @@
     "qty": "500gm",
     "price": 80.0,
     "category": "Millets & Grains",
-    "image": "/images/G-618.svg"
+    "image": ""
   },
   {
     "id": "G-619",
@@ -168,7 +168,7 @@
     "qty": "1kg",
     "price": 130.0,
     "category": "Millets & Grains",
-    "image": "/images/G-619.svg"
+    "image": ""
   },
   {
     "id": "G-625",
@@ -177,7 +177,7 @@
     "qty": "500gm",
     "price": 115.0,
     "category": "Millets & Grains",
-    "image": "/images/G-625.svg"
+    "image": ""
   },
   {
     "id": "G-626",
@@ -186,7 +186,7 @@
     "qty": "1kg",
     "price": 320.0,
     "category": "Millets & Grains",
-    "image": "/images/G-626.svg"
+    "image": ""
   },
   {
     "id": "G-718",
@@ -195,7 +195,7 @@
     "qty": "25kg",
     "price": 3100.0,
     "category": "Millets & Grains",
-    "image": "/images/G-718.svg"
+    "image": ""
   },
   {
     "id": "G-1095",
@@ -204,7 +204,7 @@
     "qty": "250gm",
     "price": 85.0,
     "category": "Millets & Grains",
-    "image": "/images/G-1095.svg"
+    "image": ""
   },
   {
     "id": "G-652",
@@ -213,7 +213,7 @@
     "qty": "200gm",
     "price": 65.0,
     "category": "Millets & Grains",
-    "image": "/images/G-652.svg"
+    "image": ""
   },
   {
     "id": "G-496",
@@ -222,7 +222,7 @@
     "qty": "500gm",
     "price": 110.0,
     "category": "Pulses & Dals",
-    "image": "/images/G-496.svg"
+    "image": ""
   },
   {
     "id": "G-494",
@@ -231,7 +231,7 @@
     "qty": "500gm",
     "price": 130.0,
     "category": "Pulses & Dals",
-    "image": "/images/G-494.svg"
+    "image": ""
   },
   {
     "id": "G-495",
@@ -240,7 +240,7 @@
     "qty": "1kg",
     "price": 300.0,
     "category": "Pulses & Dals",
-    "image": "/images/G-495.svg"
+    "image": ""
   },
   {
     "id": "G-500",
@@ -249,7 +249,7 @@
     "qty": "250gm",
     "price": 140.0,
     "category": "Pulses & Dals",
-    "image": "/images/G-500.svg"
+    "image": ""
   },
   {
     "id": "G-611",
@@ -258,7 +258,7 @@
     "qty": "500gm",
     "price": 140.0,
     "category": "Pulses & Dals",
-    "image": "/images/G-611.svg"
+    "image": ""
   },
   {
     "id": "G-612",
@@ -267,7 +267,7 @@
     "qty": "500gm",
     "price": 120.0,
     "category": "Pulses & Dals",
-    "image": "/images/G-612.svg"
+    "image": ""
   },
   {
     "id": "G-613",
@@ -276,7 +276,7 @@
     "qty": "500gm",
     "price": 90.0,
     "category": "Pulses & Dals",
-    "image": "/images/G-613.svg"
+    "image": ""
   },
   {
     "id": "G-1015",
@@ -285,7 +285,7 @@
     "qty": "500gm",
     "price": 82.0,
     "category": "Pulses & Dals",
-    "image": "/images/G-1015.svg"
+    "image": ""
   },
   {
     "id": "G-1017",
@@ -294,7 +294,7 @@
     "qty": "500gm",
     "price": 95.0,
     "category": "Pulses & Dals",
-    "image": "/images/G-1017.svg"
+    "image": ""
   },
   {
     "id": "G-1019",
@@ -303,7 +303,7 @@
     "qty": "500gm",
     "price": 105.0,
     "category": "Pulses & Dals",
-    "image": "/images/G-1019.svg"
+    "image": ""
   },
   {
     "id": "G-021",
@@ -312,7 +312,7 @@
     "qty": "500gm",
     "price": 70.0,
     "category": "Sweeteners",
-    "image": "/images/G-021.svg"
+    "image": ""
   },
   {
     "id": "G-111",
@@ -321,7 +321,7 @@
     "qty": "100gm",
     "price": 100.0,
     "category": "Sweeteners",
-    "image": "/images/G-111.svg"
+    "image": ""
   },
   {
     "id": "G-424",
@@ -330,7 +330,7 @@
     "qty": "5kg",
     "price": 450.0,
     "category": "Sweeteners",
-    "image": "/images/G-424.svg"
+    "image": ""
   },
   {
     "id": "G-431",
@@ -339,7 +339,7 @@
     "qty": "1kg",
     "price": 95.0,
     "category": "Sweeteners",
-    "image": "/images/G-431.svg"
+    "image": ""
   },
   {
     "id": "G-622",
@@ -348,7 +348,7 @@
     "qty": "500gm",
     "price": 75.0,
     "category": "Sweeteners",
-    "image": "/images/G-622.svg"
+    "image": ""
   },
   {
     "id": "G-1191",
@@ -357,7 +357,7 @@
     "qty": "200gm",
     "price": 199.0,
     "category": "Honey",
-    "image": "/images/G-1191.svg"
+    "image": ""
   },
   {
     "id": "G-049",
@@ -366,7 +366,7 @@
     "qty": "500gm",
     "price": 399.0,
     "category": "Honey",
-    "image": "/images/G-049.svg"
+    "image": ""
   },
   {
     "id": "G-215",
@@ -375,7 +375,7 @@
     "qty": "250gm",
     "price": 240.0,
     "category": "Honey",
-    "image": "/images/G-215.svg"
+    "image": ""
   },
   {
     "id": "G-216",
@@ -384,7 +384,7 @@
     "qty": "250gm",
     "price": 270.0,
     "category": "Honey",
-    "image": "/images/G-216.svg"
+    "image": ""
   },
   {
     "id": "S-037",
@@ -393,7 +393,7 @@
     "qty": "100gm",
     "price": 120.0,
     "category": "Beverages",
-    "image": "/images/S-037.svg"
+    "image": ""
   },
   {
     "id": "G-019",
@@ -402,7 +402,7 @@
     "qty": "100gm",
     "price": 110.0,
     "category": "Beverages",
-    "image": "/images/G-019.svg"
+    "image": ""
   },
   {
     "id": "G-398",
@@ -411,7 +411,7 @@
     "qty": "100gm",
     "price": 75.0,
     "category": "Beverages",
-    "image": "/images/G-398.svg"
+    "image": ""
   },
   {
     "id": "G-426",
@@ -420,7 +420,7 @@
     "qty": "100gm",
     "price": 190.0,
     "category": "Beverages",
-    "image": "/images/G-426.svg"
+    "image": ""
   },
   {
     "id": "G-427",
@@ -429,7 +429,7 @@
     "qty": "100gm",
     "price": 100.0,
     "category": "Beverages",
-    "image": "/images/G-427.svg"
+    "image": ""
   },
   {
     "id": "G-448",
@@ -438,7 +438,7 @@
     "qty": "500ml",
     "price": 141.0,
     "category": "Beverages",
-    "image": "/images/G-448.svg"
+    "image": ""
   },
   {
     "id": "G-545",
@@ -447,7 +447,7 @@
     "qty": "500ml",
     "price": 141.0,
     "category": "Beverages",
-    "image": "/images/G-545.svg"
+    "image": ""
   },
   {
     "id": "G-546",
@@ -456,7 +456,7 @@
     "qty": "500ml",
     "price": 180.0,
     "category": "Beverages",
-    "image": "/images/G-546.svg"
+    "image": ""
   },
   {
     "id": "G-825",
@@ -465,7 +465,7 @@
     "qty": "400gm",
     "price": 220.0,
     "category": "Beverages",
-    "image": "/images/G-825.svg"
+    "image": ""
   },
   {
     "id": "G-1023",
@@ -474,7 +474,7 @@
     "qty": "200gm",
     "price": 200.0,
     "category": "Beverages",
-    "image": "/images/G-1023.svg"
+    "image": ""
   },
   {
     "id": "G-1022",
@@ -483,7 +483,7 @@
     "qty": "200gm",
     "price": 165.0,
     "category": "Beverages",
-    "image": "/images/G-1022.svg"
+    "image": ""
   },
   {
     "id": "G-1020",
@@ -492,7 +492,7 @@
     "qty": "200gm",
     "price": 175.0,
     "category": "Beverages",
-    "image": "/images/G-1020.svg"
+    "image": ""
   },
   {
     "id": "G-1021",
@@ -501,7 +501,7 @@
     "qty": "200gm",
     "price": 200.0,
     "category": "Beverages",
-    "image": "/images/G-1021.svg"
+    "image": ""
   },
   {
     "id": "G-1178",
@@ -510,7 +510,7 @@
     "qty": "300gm",
     "price": 450.0,
     "category": "Beverages",
-    "image": "/images/G-1178.svg"
+    "image": ""
   },
   {
     "id": "G-1179",
@@ -519,7 +519,7 @@
     "qty": "500ml",
     "price": 400.0,
     "category": "Beverages",
-    "image": "/images/G-1179.svg"
+    "image": ""
   },
   {
     "id": "G-1181",
@@ -528,7 +528,7 @@
     "qty": "300gm",
     "price": 145.0,
     "category": "Beverages",
-    "image": "/images/G-1181.svg"
+    "image": ""
   },
   {
     "id": "G-831",
@@ -537,7 +537,7 @@
     "qty": "200gm",
     "price": 110.0,
     "category": "Beverages",
-    "image": "/images/G-831.svg"
+    "image": ""
   },
   {
     "id": "G-1076",
@@ -546,7 +546,7 @@
     "qty": "200ml",
     "price": 225.0,
     "category": "Beverages",
-    "image": "/images/G-1076.svg"
+    "image": ""
   },
   {
     "id": "G-295",
@@ -555,7 +555,7 @@
     "qty": "200ml",
     "price": 400.0,
     "category": "Healthcare",
-    "image": "/images/G-295.svg"
+    "image": ""
   },
   {
     "id": "G-1250",
@@ -564,7 +564,7 @@
     "qty": "500ml",
     "price": 950.0,
     "category": "Healthcare",
-    "image": "/images/G-1250.svg"
+    "image": ""
   },
   {
     "id": "G-1231",
@@ -573,7 +573,7 @@
     "qty": "200ml",
     "price": 330.0,
     "category": "Healthcare",
-    "image": "/images/G-1231.svg"
+    "image": ""
   },
   {
     "id": "Combo28",
@@ -582,7 +582,7 @@
     "qty": "500ml x 2",
     "price": 1650.0,
     "category": "Healthcare",
-    "image": "/images/Combo28.svg"
+    "image": ""
   },
   {
     "id": "Op37",
@@ -591,7 +591,7 @@
     "qty": "1pc",
     "price": 180.0,
     "category": "Healthcare",
-    "image": "/images/Op37.svg"
+    "image": ""
   },
   {
     "id": "T-036",
@@ -600,7 +600,7 @@
     "qty": "8ml",
     "price": 45.0,
     "category": "Healthcare",
-    "image": "/images/T-036.svg"
+    "image": ""
   },
   {
     "id": "G-032",
@@ -609,7 +609,7 @@
     "qty": "250gm",
     "price": 190.0,
     "category": "Healthcare",
-    "image": "/images/G-032.svg"
+    "image": ""
   },
   {
     "id": "G-432",
@@ -618,7 +618,7 @@
     "qty": "15gm",
     "price": 33.0,
     "category": "Healthcare",
-    "image": "/images/G-432.svg"
+    "image": ""
   },
   {
     "id": "G-433",
@@ -627,7 +627,7 @@
     "qty": "250gm",
     "price": 175.0,
     "category": "Healthcare",
-    "image": "/images/G-433.svg"
+    "image": ""
   },
   {
     "id": "G-1175",
@@ -636,7 +636,7 @@
     "qty": "100gm",
     "price": 190.0,
     "category": "Healthcare",
-    "image": "/images/G-1175.svg"
+    "image": ""
   },
   {
     "id": "G-1176",
@@ -645,7 +645,7 @@
     "qty": "100ml",
     "price": 360.0,
     "category": "Healthcare",
-    "image": "/images/G-1176.svg"
+    "image": ""
   },
   {
     "id": "G-1227",
@@ -654,7 +654,7 @@
     "qty": "1pc",
     "price": 2450.0,
     "category": "Healthcare",
-    "image": "/images/G-1227.svg"
+    "image": ""
   },
   {
     "id": "G-291",
@@ -663,7 +663,7 @@
     "qty": "500ml",
     "price": 245.0,
     "category": "Healthcare",
-    "image": "/images/G-291.svg"
+    "image": ""
   },
   {
     "id": "G-434",
@@ -672,7 +672,7 @@
     "qty": "15gm",
     "price": 28.0,
     "category": "Healthcare",
-    "image": "/images/G-434.svg"
+    "image": ""
   },
   {
     "id": "G-435",
@@ -681,7 +681,7 @@
     "qty": "10ml",
     "price": 20.0,
     "category": "Healthcare",
-    "image": "/images/G-435.svg"
+    "image": ""
   },
   {
     "id": "G-438",
@@ -690,7 +690,7 @@
     "qty": "125gm",
     "price": 90.0,
     "category": "Healthcare",
-    "image": "/images/G-438.svg"
+    "image": ""
   },
   {
     "id": "G-442",
@@ -699,7 +699,7 @@
     "qty": "250gm",
     "price": 164.0,
     "category": "Healthcare",
-    "image": "/images/G-442.svg"
+    "image": ""
   },
   {
     "id": "G-444",
@@ -708,7 +708,7 @@
     "qty": "250gm",
     "price": 145.0,
     "category": "Healthcare",
-    "image": "/images/G-444.svg"
+    "image": ""
   },
   {
     "id": "G-445",
@@ -717,7 +717,7 @@
     "qty": "5ml",
     "price": 30.0,
     "category": "Healthcare",
-    "image": "/images/G-445.svg"
+    "image": ""
   },
   {
     "id": "G-507",
@@ -726,7 +726,7 @@
     "qty": "50gm",
     "price": 75.0,
     "category": "Healthcare",
-    "image": "/images/G-507.svg"
+    "image": ""
   },
   {
     "id": "G-654",
@@ -735,7 +735,7 @@
     "qty": "100ml",
     "price": 28.0,
     "category": "Healthcare",
-    "image": "/images/G-654.svg"
+    "image": ""
   },
   {
     "id": "G-655",
@@ -744,7 +744,7 @@
     "qty": "15ml",
     "price": 28.0,
     "category": "Healthcare",
-    "image": "/images/G-655.svg"
+    "image": ""
   },
   {
     "id": "G-656",
@@ -753,7 +753,7 @@
     "qty": "200gm",
     "price": 84.0,
     "category": "Healthcare",
-    "image": "/images/G-656.svg"
+    "image": ""
   },
   {
     "id": "G-657",
@@ -762,7 +762,7 @@
     "qty": "100ml",
     "price": 42.0,
     "category": "Healthcare",
-    "image": "/images/G-657.svg"
+    "image": ""
   },
   {
     "id": "G-659",
@@ -771,7 +771,7 @@
     "qty": "100ml",
     "price": 90.0,
     "category": "Healthcare",
-    "image": "/images/G-659.svg"
+    "image": ""
   },
   {
     "id": "G-661",
@@ -780,7 +780,7 @@
     "qty": "100ml",
     "price": 136.0,
     "category": "Healthcare",
-    "image": "/images/G-661.svg"
+    "image": ""
   },
   {
     "id": "G-660",
@@ -789,7 +789,7 @@
     "qty": "50gm",
     "price": 50.0,
     "category": "Healthcare",
-    "image": "/images/G-660.svg"
+    "image": ""
   },
   {
     "id": "G-664",
@@ -798,7 +798,7 @@
     "qty": "100ml",
     "price": 65.0,
     "category": "Healthcare",
-    "image": "/images/G-664.svg"
+    "image": ""
   },
   {
     "id": "G-666",
@@ -807,7 +807,7 @@
     "qty": "100ml",
     "price": 90.0,
     "category": "Healthcare",
-    "image": "/images/G-666.svg"
+    "image": ""
   },
   {
     "id": "G-689",
@@ -816,7 +816,7 @@
     "qty": "200gm",
     "price": 330.0,
     "category": "Healthcare",
-    "image": "/images/G-689.svg"
+    "image": ""
   },
   {
     "id": "G-985",
@@ -825,7 +825,7 @@
     "qty": "1 Pack",
     "price": 275.0,
     "category": "Healthcare",
-    "image": "/images/G-985.svg"
+    "image": ""
   },
   {
     "id": "G-439",
@@ -834,7 +834,7 @@
     "qty": "100ml",
     "price": 100.0,
     "category": "Healthcare",
-    "image": "/images/G-439.svg"
+    "image": ""
   },
   {
     "id": "G-241",
@@ -843,7 +843,7 @@
     "qty": "100ml",
     "price": 950.0,
     "category": "Healthcare",
-    "image": "/images/G-241.svg"
+    "image": ""
   },
   {
     "id": "G-314",
@@ -852,7 +852,7 @@
     "qty": "50ml",
     "price": 175.0,
     "category": "Healthcare",
-    "image": "/images/G-314.svg"
+    "image": ""
   },
   {
     "id": "G-467",
@@ -861,7 +861,7 @@
     "qty": "300gm",
     "price": 85.0,
     "category": "Pickles",
-    "image": "/images/G-467.svg"
+    "image": ""
   },
   {
     "id": "G-464",
@@ -870,7 +870,7 @@
     "qty": "300gm",
     "price": 80.0,
     "category": "Pickles",
-    "image": "/images/G-464.svg"
+    "image": ""
   },
   {
     "id": "G-465",
@@ -879,7 +879,7 @@
     "qty": "300gm",
     "price": 80.0,
     "category": "Pickles",
-    "image": "/images/G-465.svg"
+    "image": ""
   },
   {
     "id": "G-466",
@@ -888,7 +888,7 @@
     "qty": "300gm",
     "price": 85.0,
     "category": "Pickles",
-    "image": "/images/G-466.svg"
+    "image": ""
   },
   {
     "id": "G-1088",
@@ -897,7 +897,7 @@
     "qty": "300gm",
     "price": 100.0,
     "category": "Pickles",
-    "image": "/images/G-1088.svg"
+    "image": ""
   },
   {
     "id": "G-1104",
@@ -906,7 +906,7 @@
     "qty": "300gm",
     "price": 80.0,
     "category": "Pickles",
-    "image": "/images/G-1104.svg"
+    "image": ""
   },
   {
     "id": "G-1105",
@@ -915,7 +915,7 @@
     "qty": "300gm",
     "price": 100.0,
     "category": "Pickles",
-    "image": "/images/G-1105.svg"
+    "image": ""
   },
   {
     "id": "G-1107",
@@ -924,7 +924,7 @@
     "qty": "300gm",
     "price": 85.0,
     "category": "Pickles",
-    "image": "/images/G-1107.svg"
+    "image": ""
   },
   {
     "id": "G-1197",
@@ -933,7 +933,7 @@
     "qty": "300gm",
     "price": 160.0,
     "category": "Pickles",
-    "image": "/images/G-1197.svg"
+    "image": ""
   },
   {
     "id": "G-1198",
@@ -942,7 +942,7 @@
     "qty": "300gm",
     "price": 100.0,
     "category": "Pickles",
-    "image": "/images/G-1198.svg"
+    "image": ""
   },
   {
     "id": "G-022",
@@ -951,7 +951,7 @@
     "qty": "500gm",
     "price": 50.0,
     "category": "Salt",
-    "image": "/images/G-022.svg"
+    "image": ""
   },
   {
     "id": "G-109",
@@ -960,7 +960,7 @@
     "qty": "1kg",
     "price": 30.0,
     "category": "Salt",
-    "image": "/images/G-109.svg"
+    "image": ""
   },
   {
     "id": "G-213",
@@ -969,7 +969,7 @@
     "qty": "500gm",
     "price": 50.0,
     "category": "Salt",
-    "image": "/images/G-213.svg"
+    "image": ""
   },
   {
     "id": "G-1195",
@@ -978,7 +978,7 @@
     "qty": "200gm",
     "price": 320.0,
     "category": "Dry Fruits & Nuts",
-    "image": "/images/G-1195.svg"
+    "image": ""
   },
   {
     "id": "G-1193",
@@ -987,7 +987,7 @@
     "qty": "200gm",
     "price": 340.0,
     "category": "Dry Fruits & Nuts",
-    "image": "/images/G-1193.svg"
+    "image": ""
   },
   {
     "id": "G-272",
@@ -996,7 +996,7 @@
     "qty": "200gm",
     "price": 140.0,
     "category": "Dry Fruits & Nuts",
-    "image": "/images/G-272.svg"
+    "image": ""
   },
   {
     "id": "G-274",
@@ -1005,7 +1005,7 @@
     "qty": "1pc",
     "price": 12.0,
     "category": "Dry Fruits & Nuts",
-    "image": "/images/G-274.svg"
+    "image": ""
   },
   {
     "id": "G-1194",
@@ -1014,7 +1014,7 @@
     "qty": "200gm",
     "price": 170.0,
     "category": "Dry Fruits & Nuts",
-    "image": "/images/G-1194.svg"
+    "image": ""
   },
   {
     "id": "G-1199",
@@ -1023,7 +1023,7 @@
     "qty": "200gm",
     "price": 120.0,
     "category": "Dry Fruits & Nuts",
-    "image": "/images/G-1199.svg"
+    "image": ""
   },
   {
     "id": "G-294",
@@ -1032,7 +1032,7 @@
     "qty": "150gm",
     "price": 70.0,
     "category": "Dry Fruits & Nuts",
-    "image": "/images/G-294.svg"
+    "image": ""
   },
   {
     "id": "G-1200",
@@ -1041,7 +1041,7 @@
     "qty": "200gm",
     "price": 380.0,
     "category": "Dry Fruits & Nuts",
-    "image": "/images/G-1200.svg"
+    "image": ""
   },
   {
     "id": "G-1077",
@@ -1050,7 +1050,7 @@
     "qty": "100gm",
     "price": 95.0,
     "category": "Dry Fruits & Nuts",
-    "image": "/images/G-1077.svg"
+    "image": ""
   },
   {
     "id": "S-038",
@@ -1059,7 +1059,7 @@
     "qty": "150gm",
     "price": 95.0,
     "category": "Health Mix",
-    "image": "/images/S-038.svg"
+    "image": ""
   },
   {
     "id": "S-040",
@@ -1068,7 +1068,7 @@
     "qty": "100gm",
     "price": 160.0,
     "category": "Health Mix",
-    "image": "/images/S-040.svg"
+    "image": ""
   },
   {
     "id": "G-278",
@@ -1077,7 +1077,7 @@
     "qty": "250gm",
     "price": 240.0,
     "category": "Health Mix",
-    "image": "/images/G-278.svg"
+    "image": ""
   },
   {
     "id": "G-1192",
@@ -1086,7 +1086,7 @@
     "qty": "250gm",
     "price": 275.0,
     "category": "Health Mix",
-    "image": "/images/G-1192.svg"
+    "image": ""
   },
   {
     "id": "G-544",
@@ -1095,7 +1095,7 @@
     "qty": "500gm",
     "price": 222.0,
     "category": "Health Mix",
-    "image": "/images/G-544.svg"
+    "image": ""
   },
   {
     "id": "G-663",
@@ -1104,7 +1104,7 @@
     "qty": "750gm",
     "price": 267.0,
     "category": "Health Mix",
-    "image": "/images/G-663.svg"
+    "image": ""
   },
   {
     "id": "G-550",
@@ -1113,7 +1113,7 @@
     "qty": "250gm",
     "price": 160.0,
     "category": "Health Mix",
-    "image": "/images/G-550.svg"
+    "image": ""
   },
   {
     "id": "G-927",
@@ -1122,7 +1122,7 @@
     "qty": "500gm",
     "price": 340.0,
     "category": "Health Mix",
-    "image": "/images/G-927.svg"
+    "image": ""
   },
   {
     "id": "G-1130",
@@ -1131,7 +1131,7 @@
     "qty": "250gm",
     "price": 180.0,
     "category": "Health Mix",
-    "image": "/images/G-1130.svg"
+    "image": ""
   },
   {
     "id": "G-1183",
@@ -1140,7 +1140,7 @@
     "qty": "250gm",
     "price": 200.0,
     "category": "Health Mix",
-    "image": "/images/G-1183.svg"
+    "image": ""
   },
   {
     "id": "G-1182",
@@ -1149,7 +1149,7 @@
     "qty": "300gm",
     "price": 165.0,
     "category": "Health Mix",
-    "image": "/images/G-1182.svg"
+    "image": ""
   },
   {
     "id": "G-1248",
@@ -1158,7 +1158,7 @@
     "qty": "200gm",
     "price": 180.0,
     "category": "Health Mix",
-    "image": "/images/G-1248.svg"
+    "image": ""
   },
   {
     "id": "T-026",
@@ -1167,7 +1167,7 @@
     "qty": "100gm",
     "price": 90.0,
     "category": "Spices",
-    "image": "/images/T-026.svg"
+    "image": ""
   },
   {
     "id": "G-008",
@@ -1176,7 +1176,7 @@
     "qty": "250gm",
     "price": 100.0,
     "category": "Spices",
-    "image": "/images/G-008.svg"
+    "image": ""
   },
   {
     "id": "G-020",
@@ -1185,7 +1185,7 @@
     "qty": "100gm",
     "price": 135.0,
     "category": "Spices",
-    "image": "/images/G-020.svg"
+    "image": ""
   },
   {
     "id": "G-303",
@@ -1194,7 +1194,7 @@
     "qty": "150gm",
     "price": 100.0,
     "category": "Spices",
-    "image": "/images/G-303.svg"
+    "image": ""
   },
   {
     "id": "G-474",
@@ -1203,7 +1203,7 @@
     "qty": "250gm",
     "price": 55.0,
     "category": "Spices",
-    "image": "/images/G-474.svg"
+    "image": ""
   },
   {
     "id": "G-475",
@@ -1212,7 +1212,7 @@
     "qty": "250gm",
     "price": 55.0,
     "category": "Spices",
-    "image": "/images/G-475.svg"
+    "image": ""
   },
   {
     "id": "G-477",
@@ -1221,7 +1221,7 @@
     "qty": "100gm",
     "price": 40.0,
     "category": "Spices",
-    "image": "/images/G-477.svg"
+    "image": ""
   },
   {
     "id": "G-928",
@@ -1230,7 +1230,7 @@
     "qty": "100gm",
     "price": 55.0,
     "category": "Spices",
-    "image": "/images/G-928.svg"
+    "image": ""
   },
   {
     "id": "G-479",
@@ -1239,7 +1239,7 @@
     "qty": "100gm",
     "price": 45.0,
     "category": "Spices",
-    "image": "/images/G-479.svg"
+    "image": ""
   },
   {
     "id": "G-480",
@@ -1248,7 +1248,7 @@
     "qty": "100gm",
     "price": 95.0,
     "category": "Spices",
-    "image": "/images/G-480.svg"
+    "image": ""
   },
   {
     "id": "G-481",
@@ -1257,7 +1257,7 @@
     "qty": "100gm",
     "price": 50.0,
     "category": "Spices",
-    "image": "/images/G-481.svg"
+    "image": ""
   },
   {
     "id": "G-482",
@@ -1266,7 +1266,7 @@
     "qty": "100gm",
     "price": 55.0,
     "category": "Spices",
-    "image": "/images/G-482.svg"
+    "image": ""
   },
   {
     "id": "G-483",
@@ -1275,7 +1275,7 @@
     "qty": "100gm",
     "price": 85.0,
     "category": "Spices",
-    "image": "/images/G-483.svg"
+    "image": ""
   },
   {
     "id": "G-484",
@@ -1284,7 +1284,7 @@
     "qty": "50gm",
     "price": 95.0,
     "category": "Spices",
-    "image": "/images/G-484.svg"
+    "image": ""
   },
   {
     "id": "G-508",
@@ -1293,7 +1293,7 @@
     "qty": "100gm",
     "price": 130.0,
     "category": "Spices",
-    "image": "/images/G-508.svg"
+    "image": ""
   },
   {
     "id": "G-933",
@@ -1302,7 +1302,7 @@
     "qty": "100gm",
     "price": 70.0,
     "category": "Spices",
-    "image": "/images/G-933.svg"
+    "image": ""
   },
   {
     "id": "G-926",
@@ -1311,7 +1311,7 @@
     "qty": "50gm",
     "price": 170.0,
     "category": "Spices",
-    "image": "/images/G-926.svg"
+    "image": ""
   },
   {
     "id": "G-791",
@@ -1320,7 +1320,7 @@
     "qty": "15gm",
     "price": 85.0,
     "category": "Spices",
-    "image": "/images/G-791.svg"
+    "image": ""
   },
   {
     "id": "T-025",
@@ -1329,7 +1329,7 @@
     "qty": "100gm",
     "price": 90.0,
     "category": "Spices",
-    "image": "/images/T-025.svg"
+    "image": ""
   },
   {
     "id": "G-1180",
@@ -1338,7 +1338,7 @@
     "qty": "100gm",
     "price": 95.0,
     "category": "Spices",
-    "image": "/images/G-1180.svg"
+    "image": ""
   },
   {
     "id": "G-1249",
@@ -1347,7 +1347,7 @@
     "qty": "100gm",
     "price": 130.0,
     "category": "Spices",
-    "image": "/images/G-1249.svg"
+    "image": ""
   },
   {
     "id": "G-501",
@@ -1356,7 +1356,7 @@
     "qty": "200ml",
     "price": 325.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-501.svg"
+    "image": ""
   },
   {
     "id": "G-502",
@@ -1365,7 +1365,7 @@
     "qty": "500ml",
     "price": 765.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-502.svg"
+    "image": ""
   },
   {
     "id": "G-503",
@@ -1374,7 +1374,7 @@
     "qty": "1ltr",
     "price": 1490.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-503.svg"
+    "image": ""
   },
   {
     "id": "G-014",
@@ -1383,7 +1383,7 @@
     "qty": "500ml",
     "price": 350.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-014.svg"
+    "image": ""
   },
   {
     "id": "G-015",
@@ -1392,7 +1392,7 @@
     "qty": "1ltr",
     "price": 650.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-015.svg"
+    "image": ""
   },
   {
     "id": "G-016",
@@ -1401,7 +1401,7 @@
     "qty": "500ml",
     "price": 190.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-016.svg"
+    "image": ""
   },
   {
     "id": "G-063",
@@ -1410,7 +1410,7 @@
     "qty": "1ltr",
     "price": 360.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-063.svg"
+    "image": ""
   },
   {
     "id": "G-017",
@@ -1419,7 +1419,7 @@
     "qty": "500ml",
     "price": 255.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-017.svg"
+    "image": ""
   },
   {
     "id": "G-064",
@@ -1428,7 +1428,7 @@
     "qty": "1ltr",
     "price": 490.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-064.svg"
+    "image": ""
   },
   {
     "id": "G-279",
@@ -1437,7 +1437,7 @@
     "qty": "200ml",
     "price": 95.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-279.svg"
+    "image": ""
   },
   {
     "id": "G-280",
@@ -1446,7 +1446,7 @@
     "qty": "200ml",
     "price": 95.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-280.svg"
+    "image": ""
   },
   {
     "id": "G-018",
@@ -1455,7 +1455,7 @@
     "qty": "250ml",
     "price": 170.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-018.svg"
+    "image": ""
   },
   {
     "id": "G-1122",
@@ -1464,7 +1464,7 @@
     "qty": "5kg",
     "price": 1690.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-1122.svg"
+    "image": ""
   },
   {
     "id": "B-003",
@@ -1473,7 +1473,7 @@
     "qty": "15kg",
     "price": 4400.0,
     "category": "Oils & Ghee",
-    "image": "/images/B-003.svg"
+    "image": ""
   },
   {
     "id": "G-390",
@@ -1482,7 +1482,7 @@
     "qty": "200ml",
     "price": 240.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-390.svg"
+    "image": ""
   },
   {
     "id": "G-423",
@@ -1491,7 +1491,7 @@
     "qty": "100ml",
     "price": 690.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-423.svg"
+    "image": ""
   },
   {
     "id": "G-658",
@@ -1500,7 +1500,7 @@
     "qty": "100ml",
     "price": 80.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-658.svg"
+    "image": ""
   },
   {
     "id": "G-217",
@@ -1509,7 +1509,7 @@
     "qty": "600ml",
     "price": 75.0,
     "category": "Oils & Ghee",
-    "image": "/images/G-217.svg"
+    "image": ""
   },
   {
     "id": "FD-015",
@@ -1518,7 +1518,7 @@
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-015.svg"
+    "image": ""
   },
   {
     "id": "FD-016",
@@ -1527,7 +1527,7 @@
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-016.svg"
+    "image": ""
   },
   {
     "id": "FD-017",
@@ -1536,7 +1536,7 @@
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-017.svg"
+    "image": ""
   },
   {
     "id": "FD-018",
@@ -1545,7 +1545,7 @@
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-018.svg"
+    "image": ""
   },
   {
     "id": "FD-019",
@@ -1554,7 +1554,7 @@
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-019.svg"
+    "image": ""
   },
   {
     "id": "FD-020",
@@ -1563,7 +1563,7 @@
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-020.svg"
+    "image": ""
   },
   {
     "id": "FD-021",
@@ -1572,7 +1572,7 @@
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-021.svg"
+    "image": ""
   },
   {
     "id": "FD-022",
@@ -1581,7 +1581,7 @@
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-022.svg"
+    "image": ""
   },
   {
     "id": "FD-023",
@@ -1590,7 +1590,7 @@
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-023.svg"
+    "image": ""
   },
   {
     "id": "FD-024",
@@ -1599,7 +1599,7 @@
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-024.svg"
+    "image": ""
   },
   {
     "id": "FD-025",
@@ -1608,7 +1608,7 @@
     "qty": "200gm",
     "price": 80.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-025.svg"
+    "image": ""
   },
   {
     "id": "FD-001",
@@ -1617,7 +1617,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-001.svg"
+    "image": ""
   },
   {
     "id": "FD-002",
@@ -1626,7 +1626,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-002.svg"
+    "image": ""
   },
   {
     "id": "FD-003",
@@ -1635,7 +1635,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-003.svg"
+    "image": ""
   },
   {
     "id": "FD-004",
@@ -1644,7 +1644,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-004.svg"
+    "image": ""
   },
   {
     "id": "FD-005",
@@ -1653,7 +1653,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-005.svg"
+    "image": ""
   },
   {
     "id": "FD-006",
@@ -1662,7 +1662,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-006.svg"
+    "image": ""
   },
   {
     "id": "FD-007",
@@ -1671,7 +1671,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-007.svg"
+    "image": ""
   },
   {
     "id": "FD-008",
@@ -1680,7 +1680,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-008.svg"
+    "image": ""
   },
   {
     "id": "FD-009",
@@ -1689,7 +1689,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-009.svg"
+    "image": ""
   },
   {
     "id": "FD-010",
@@ -1698,7 +1698,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-010.svg"
+    "image": ""
   },
   {
     "id": "FD-011",
@@ -1707,7 +1707,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-011.svg"
+    "image": ""
   },
   {
     "id": "FD-012",
@@ -1716,7 +1716,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-012.svg"
+    "image": ""
   },
   {
     "id": "FD-013",
@@ -1725,7 +1725,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-013.svg"
+    "image": ""
   },
   {
     "id": "FD-014",
@@ -1734,7 +1734,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-014.svg"
+    "image": ""
   },
   {
     "id": "FD-026",
@@ -1743,7 +1743,7 @@
     "qty": "180gm",
     "price": 60.0,
     "category": "Noodles & Vermicelli",
-    "image": "/images/FD-026.svg"
+    "image": ""
   },
   {
     "id": "G-533",
@@ -1752,7 +1752,7 @@
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-533.svg"
+    "image": ""
   },
   {
     "id": "G-534",
@@ -1761,7 +1761,7 @@
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-534.svg"
+    "image": ""
   },
   {
     "id": "G-535",
@@ -1770,7 +1770,7 @@
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-535.svg"
+    "image": ""
   },
   {
     "id": "G-536",
@@ -1779,7 +1779,7 @@
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-536.svg"
+    "image": ""
   },
   {
     "id": "G-537",
@@ -1788,7 +1788,7 @@
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-537.svg"
+    "image": ""
   },
   {
     "id": "G-572",
@@ -1797,7 +1797,7 @@
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-572.svg"
+    "image": ""
   },
   {
     "id": "G-573",
@@ -1806,7 +1806,7 @@
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-573.svg"
+    "image": ""
   },
   {
     "id": "G-574",
@@ -1815,7 +1815,7 @@
     "qty": "50gm",
     "price": 25.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-574.svg"
+    "image": ""
   },
   {
     "id": "G-575",
@@ -1824,7 +1824,7 @@
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-575.svg"
+    "image": ""
   },
   {
     "id": "G-576",
@@ -1833,7 +1833,7 @@
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-576.svg"
+    "image": ""
   },
   {
     "id": "G-577",
@@ -1842,7 +1842,7 @@
     "qty": "200gm",
     "price": 105.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-577.svg"
+    "image": ""
   },
   {
     "id": "G-578",
@@ -1851,7 +1851,7 @@
     "qty": "200gm",
     "price": 105.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-578.svg"
+    "image": ""
   },
   {
     "id": "G-580",
@@ -1860,7 +1860,7 @@
     "qty": "100gm",
     "price": 50.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-580.svg"
+    "image": ""
   },
   {
     "id": "G-1144",
@@ -1869,7 +1869,7 @@
     "qty": "200gm",
     "price": 70.0,
     "category": "Vadagam & Appalam",
-    "image": "/images/G-1144.svg"
+    "image": ""
   },
   {
     "id": "G-259",
@@ -1878,7 +1878,7 @@
     "qty": "100gm",
     "price": 110.0,
     "category": "Face Pack",
-    "image": "/images/G-259.svg"
+    "image": ""
   },
   {
     "id": "G-260",
@@ -1887,7 +1887,7 @@
     "qty": "100gm",
     "price": 110.0,
     "category": "Face Pack",
-    "image": "/images/G-260.svg"
+    "image": ""
   },
   {
     "id": "G-261",
@@ -1896,7 +1896,7 @@
     "qty": "100gm",
     "price": 110.0,
     "category": "Face Pack",
-    "image": "/images/G-261.svg"
+    "image": ""
   },
   {
     "id": "G-262",
@@ -1905,7 +1905,7 @@
     "qty": "100gm",
     "price": 110.0,
     "category": "Face Pack",
-    "image": "/images/G-262.svg"
+    "image": ""
   },
   {
     "id": "G-263",
@@ -1914,7 +1914,7 @@
     "qty": "100gm",
     "price": 160.0,
     "category": "Face Pack",
-    "image": "/images/G-263.svg"
+    "image": ""
   },
   {
     "id": "G-264",
@@ -1923,7 +1923,7 @@
     "qty": "100gm",
     "price": 110.0,
     "category": "Face Pack",
-    "image": "/images/G-264.svg"
+    "image": ""
   },
   {
     "id": "G-436",
@@ -1932,7 +1932,7 @@
     "qty": "70gm",
     "price": 160.0,
     "category": "Face Pack",
-    "image": "/images/G-436.svg"
+    "image": ""
   },
   {
     "id": "G-1149",
@@ -1941,7 +1941,7 @@
     "qty": "100gm",
     "price": 140.0,
     "category": "Face Pack",
-    "image": "/images/G-1149.svg"
+    "image": ""
   },
   {
     "id": "G-1150",
@@ -1950,7 +1950,7 @@
     "qty": "100gm",
     "price": 160.0,
     "category": "Face Pack",
-    "image": "/images/G-1150.svg"
+    "image": ""
   },
   {
     "id": "G-041",
@@ -1959,7 +1959,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-041.svg"
+    "image": ""
   },
   {
     "id": "G-042",
@@ -1968,7 +1968,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-042.svg"
+    "image": ""
   },
   {
     "id": "G-043",
@@ -1977,7 +1977,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-043.svg"
+    "image": ""
   },
   {
     "id": "G-044",
@@ -1986,7 +1986,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-044.svg"
+    "image": ""
   },
   {
     "id": "G-045",
@@ -1995,7 +1995,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-045.svg"
+    "image": ""
   },
   {
     "id": "G-046",
@@ -2004,7 +2004,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-046.svg"
+    "image": ""
   },
   {
     "id": "G-047",
@@ -2013,7 +2013,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-047.svg"
+    "image": ""
   },
   {
     "id": "G-081",
@@ -2022,7 +2022,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-081.svg"
+    "image": ""
   },
   {
     "id": "G-247",
@@ -2031,7 +2031,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-247.svg"
+    "image": ""
   },
   {
     "id": "G-248",
@@ -2040,7 +2040,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-248.svg"
+    "image": ""
   },
   {
     "id": "G-249",
@@ -2049,7 +2049,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-249.svg"
+    "image": ""
   },
   {
     "id": "G-250",
@@ -2058,7 +2058,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-250.svg"
+    "image": ""
   },
   {
     "id": "G-276",
@@ -2067,7 +2067,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-276.svg"
+    "image": ""
   },
   {
     "id": "G-1139",
@@ -2076,7 +2076,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-1139.svg"
+    "image": ""
   },
   {
     "id": "G-1140",
@@ -2085,7 +2085,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-1140.svg"
+    "image": ""
   },
   {
     "id": "G-1141",
@@ -2094,7 +2094,7 @@
     "qty": "90gm",
     "price": 85.0,
     "category": "Soap",
-    "image": "/images/G-1141.svg"
+    "image": ""
   },
   {
     "id": "G-001",
@@ -2103,7 +2103,7 @@
     "qty": "100gm",
     "price": 60.0,
     "category": "Personal Care",
-    "image": "/images/G-001.svg"
+    "image": ""
   },
   {
     "id": "G-002",
@@ -2112,7 +2112,7 @@
     "qty": "250gm",
     "price": 140.0,
     "category": "Personal Care",
-    "image": "/images/G-002.svg"
+    "image": ""
   },
   {
     "id": "G-004",
@@ -2121,7 +2121,7 @@
     "qty": "250gm",
     "price": 70.0,
     "category": "Personal Care",
-    "image": "/images/G-004.svg"
+    "image": ""
   },
   {
     "id": "G-005",
@@ -2130,7 +2130,7 @@
     "qty": "500gm",
     "price": 130.0,
     "category": "Personal Care",
-    "image": "/images/G-005.svg"
+    "image": ""
   },
   {
     "id": "G-006",
@@ -2139,7 +2139,7 @@
     "qty": "50gm",
     "price": 60.0,
     "category": "Personal Care",
-    "image": "/images/G-006.svg"
+    "image": ""
   },
   {
     "id": "G-038",
@@ -2148,7 +2148,7 @@
     "qty": "200gm",
     "price": 100.0,
     "category": "Personal Care",
-    "image": "/images/G-038.svg"
+    "image": ""
   },
   {
     "id": "G-1196",
@@ -2157,7 +2157,7 @@
     "qty": "25gm",
     "price": 80.0,
     "category": "Personal Care",
-    "image": "/images/G-1196.svg"
+    "image": ""
   },
   {
     "id": "G-298",
@@ -2166,7 +2166,7 @@
     "qty": "75gm",
     "price": 145.0,
     "category": "Personal Care",
-    "image": "/images/G-298.svg"
+    "image": ""
   },
   {
     "id": "G-300",
@@ -2175,7 +2175,7 @@
     "qty": "75gm",
     "price": 145.0,
     "category": "Personal Care",
-    "image": "/images/G-300.svg"
+    "image": ""
   },
   {
     "id": "G-302",
@@ -2184,7 +2184,7 @@
     "qty": "75gm",
     "price": 145.0,
     "category": "Personal Care",
-    "image": "/images/G-302.svg"
+    "image": ""
   },
   {
     "id": "G-313",
@@ -2193,7 +2193,7 @@
     "qty": "100ml",
     "price": 89.0,
     "category": "Personal Care",
-    "image": "/images/G-313.svg"
+    "image": ""
   },
   {
     "id": "G-183",
@@ -2202,7 +2202,7 @@
     "qty": "1kg",
     "price": 150.0,
     "category": "Personal Care",
-    "image": "/images/G-183.svg"
+    "image": ""
   },
   {
     "id": "G-414",
@@ -2211,7 +2211,7 @@
     "qty": "5gm",
     "price": 110.0,
     "category": "Personal Care",
-    "image": "/images/G-414.svg"
+    "image": ""
   },
   {
     "id": "G-840",
@@ -2220,7 +2220,7 @@
     "qty": "25gm",
     "price": 80.0,
     "category": "Personal Care",
-    "image": "/images/G-840.svg"
+    "image": ""
   },
   {
     "id": "G-925",
@@ -2229,7 +2229,7 @@
     "qty": "40gm",
     "price": 19.0,
     "category": "Personal Care",
-    "image": "/images/G-925.svg"
+    "image": ""
   },
   {
     "id": "T-007",
@@ -2238,7 +2238,7 @@
     "qty": "25gm",
     "price": 40.0,
     "category": "Personal Care",
-    "image": "/images/T-007.svg"
+    "image": ""
   },
   {
     "id": "T-016",
@@ -2247,7 +2247,7 @@
     "qty": "1pc",
     "price": 200.0,
     "category": "Personal Care",
-    "image": "/images/T-016.svg"
+    "image": ""
   },
   {
     "id": "T-017",
@@ -2256,7 +2256,7 @@
     "qty": "1pc",
     "price": 200.0,
     "category": "Personal Care",
-    "image": "/images/T-017.svg"
+    "image": ""
   },
   {
     "id": "G-013",
@@ -2265,7 +2265,7 @@
     "qty": "25gm",
     "price": 35.0,
     "category": "Personal Care",
-    "image": "/images/G-013.svg"
+    "image": ""
   },
   {
     "id": "G-299",
@@ -2274,7 +2274,7 @@
     "qty": "75gm",
     "price": 145.0,
     "category": "Personal Care",
-    "image": "/images/G-299.svg"
+    "image": ""
   },
   {
     "id": "G-301",
@@ -2283,7 +2283,7 @@
     "qty": "75gm",
     "price": 145.0,
     "category": "Personal Care",
-    "image": "/images/G-301.svg"
+    "image": ""
   },
   {
     "id": "G-430",
@@ -2292,7 +2292,7 @@
     "qty": "200gm",
     "price": 230.0,
     "category": "Personal Care",
-    "image": "/images/G-430.svg"
+    "image": ""
   },
   {
     "id": "G-437",
@@ -2301,7 +2301,7 @@
     "qty": "100gm",
     "price": 58.0,
     "category": "Personal Care",
-    "image": "/images/G-437.svg"
+    "image": ""
   },
   {
     "id": "G-542",
@@ -2310,7 +2310,7 @@
     "qty": "15ml",
     "price": 115.0,
     "category": "Personal Care",
-    "image": "/images/G-542.svg"
+    "image": ""
   },
   {
     "id": "G-810",
@@ -2319,7 +2319,7 @@
     "qty": "60ml",
     "price": 185.0,
     "category": "Personal Care",
-    "image": "/images/G-810.svg"
+    "image": ""
   },
   {
     "id": "G-847",
@@ -2328,7 +2328,7 @@
     "qty": "1",
     "price": 70.0,
     "category": "Personal Care",
-    "image": "/images/G-847.svg"
+    "image": ""
   },
   {
     "id": "G-932",
@@ -2337,7 +2337,7 @@
     "qty": "30gm",
     "price": 71.0,
     "category": "Personal Care",
-    "image": "/images/G-932.svg"
+    "image": ""
   },
   {
     "id": "G-923",
@@ -2346,7 +2346,7 @@
     "qty": "50gm",
     "price": 175.0,
     "category": "Personal Care",
-    "image": "/images/G-923.svg"
+    "image": ""
   },
   {
     "id": "G-1145",
@@ -2355,7 +2355,7 @@
     "qty": "1",
     "price": 100.0,
     "category": "Personal Care",
-    "image": "/images/G-1145.svg"
+    "image": ""
   },
   {
     "id": "G-1146",
@@ -2364,7 +2364,7 @@
     "qty": "1",
     "price": 60.0,
     "category": "Personal Care",
-    "image": "/images/G-1146.svg"
+    "image": ""
   },
   {
     "id": "G-1189",
@@ -2373,7 +2373,7 @@
     "qty": "100ml",
     "price": 120.0,
     "category": "Personal Care",
-    "image": "/images/G-1189.svg"
+    "image": ""
   },
   {
     "id": "G-1267",
@@ -2382,7 +2382,7 @@
     "qty": "1pcs",
     "price": 90.0,
     "category": "Personal Care",
-    "image": "/images/G-1267.svg"
+    "image": ""
   },
   {
     "id": "G-1268",
@@ -2391,7 +2391,7 @@
     "qty": "1pcs",
     "price": 60.0,
     "category": "Personal Care",
-    "image": "/images/G-1268.svg"
+    "image": ""
   },
   {
     "id": "G-1269",
@@ -2400,7 +2400,7 @@
     "qty": "1pcs",
     "price": 100.0,
     "category": "Personal Care",
-    "image": "/images/G-1269.svg"
+    "image": ""
   },
   {
     "id": "G-1270",
@@ -2409,7 +2409,7 @@
     "qty": "1pcs",
     "price": 35.0,
     "category": "Personal Care",
-    "image": "/images/G-1270.svg"
+    "image": ""
   },
   {
     "id": "G-1271",
@@ -2418,7 +2418,7 @@
     "qty": "1pcs",
     "price": 60.0,
     "category": "Personal Care",
-    "image": "/images/G-1271.svg"
+    "image": ""
   },
   {
     "id": "G-1272",
@@ -2427,7 +2427,7 @@
     "qty": "1pcs",
     "price": 50.0,
     "category": "Personal Care",
-    "image": "/images/G-1272.svg"
+    "image": ""
   },
   {
     "id": "G-1273",
@@ -2436,7 +2436,7 @@
     "qty": "1pcs",
     "price": 100.0,
     "category": "Personal Care",
-    "image": "/images/G-1273.svg"
+    "image": ""
   },
   {
     "id": "G-010",
@@ -2445,7 +2445,7 @@
     "qty": "100gm",
     "price": 30.0,
     "category": "Herbal Powder",
-    "image": "/images/G-010.svg"
+    "image": ""
   },
   {
     "id": "G-030",
@@ -2454,7 +2454,7 @@
     "qty": "200gm",
     "price": 80.0,
     "category": "Herbal Powder",
-    "image": "/images/G-030.svg"
+    "image": ""
   },
   {
     "id": "G-133",
@@ -2463,7 +2463,7 @@
     "qty": "50gm",
     "price": 30.0,
     "category": "Herbal Powder",
-    "image": "/images/G-133.svg"
+    "image": ""
   },
   {
     "id": "G-135",
@@ -2472,7 +2472,7 @@
     "qty": "50gm",
     "price": 55.0,
     "category": "Herbal Powder",
-    "image": "/images/G-135.svg"
+    "image": ""
   },
   {
     "id": "G-143",
@@ -2481,7 +2481,7 @@
     "qty": "50gm",
     "price": 25.0,
     "category": "Herbal Powder",
-    "image": "/images/G-143.svg"
+    "image": ""
   },
   {
     "id": "G-146",
@@ -2490,7 +2490,7 @@
     "qty": "50gm",
     "price": 35.0,
     "category": "Herbal Powder",
-    "image": "/images/G-146.svg"
+    "image": ""
   },
   {
     "id": "G-150",
@@ -2499,7 +2499,7 @@
     "qty": "50gm",
     "price": 70.0,
     "category": "Herbal Powder",
-    "image": "/images/G-150.svg"
+    "image": ""
   },
   {
     "id": "G-151",
@@ -2508,7 +2508,7 @@
     "qty": "50gm",
     "price": 35.0,
     "category": "Herbal Powder",
-    "image": "/images/G-151.svg"
+    "image": ""
   },
   {
     "id": "G-152",
@@ -2517,7 +2517,7 @@
     "qty": "25gm",
     "price": 60.0,
     "category": "Herbal Powder",
-    "image": "/images/G-152.svg"
+    "image": ""
   },
   {
     "id": "G-154",
@@ -2526,7 +2526,7 @@
     "qty": "50gm",
     "price": 45.0,
     "category": "Herbal Powder",
-    "image": "/images/G-154.svg"
+    "image": ""
   },
   {
     "id": "G-158",
@@ -2535,7 +2535,7 @@
     "qty": "50gm",
     "price": 25.0,
     "category": "Herbal Powder",
-    "image": "/images/G-158.svg"
+    "image": ""
   },
   {
     "id": "G-171",
@@ -2544,7 +2544,7 @@
     "qty": "50gm",
     "price": 20.0,
     "category": "Herbal Powder",
-    "image": "/images/G-171.svg"
+    "image": ""
   },
   {
     "id": "G-172",
@@ -2553,7 +2553,7 @@
     "qty": "25gm",
     "price": 45.0,
     "category": "Herbal Powder",
-    "image": "/images/G-172.svg"
+    "image": ""
   },
   {
     "id": "G-173",
@@ -2562,7 +2562,7 @@
     "qty": "50gm",
     "price": 50.0,
     "category": "Herbal Powder",
-    "image": "/images/G-173.svg"
+    "image": ""
   },
   {
     "id": "G-292",
@@ -2571,7 +2571,7 @@
     "qty": "100gm",
     "price": 120.0,
     "category": "Herbal Powder",
-    "image": "/images/G-292.svg"
+    "image": ""
   },
   {
     "id": "G-473",
@@ -2580,7 +2580,7 @@
     "qty": "50gm",
     "price": 35.0,
     "category": "Herbal Powder",
-    "image": "/images/G-473.svg"
+    "image": ""
   },
   {
     "id": "G-842",
@@ -2589,7 +2589,7 @@
     "qty": "50gm",
     "price": 45.0,
     "category": "Herbal Powder",
-    "image": "/images/G-842.svg"
+    "image": ""
   },
   {
     "id": "G-900",
@@ -2598,7 +2598,7 @@
     "qty": "25gm",
     "price": 35.0,
     "category": "Herbal Powder",
-    "image": "/images/G-900.svg"
+    "image": ""
   },
   {
     "id": "G-843",
@@ -2607,7 +2607,7 @@
     "qty": "50gm",
     "price": 25.0,
     "category": "Herbal Powder",
-    "image": "/images/G-843.svg"
+    "image": ""
   },
   {
     "id": "G-1173",
@@ -2616,7 +2616,7 @@
     "qty": "25gm",
     "price": 50.0,
     "category": "Herbal Powder",
-    "image": "/images/G-1173.svg"
+    "image": ""
   },
   {
     "id": "G-137",
@@ -2625,7 +2625,7 @@
     "qty": "50gm",
     "price": 25.0,
     "category": "Herbal Powder",
-    "image": "/images/G-137.svg"
+    "image": ""
   },
   {
     "id": "G-139",
@@ -2634,7 +2634,7 @@
     "qty": "50gm",
     "price": 40.0,
     "category": "Herbal Powder",
-    "image": "/images/G-139.svg"
+    "image": ""
   },
   {
     "id": "G-136",
@@ -2643,7 +2643,7 @@
     "qty": "50gm",
     "price": 50.0,
     "category": "Herbal Powder",
-    "image": "/images/G-136.svg"
+    "image": ""
   },
   {
     "id": "G-138",
@@ -2652,7 +2652,7 @@
     "qty": "50gm",
     "price": 25.0,
     "category": "Herbal Powder",
-    "image": "/images/G-138.svg"
+    "image": ""
   },
   {
     "id": "G-140",
@@ -2661,7 +2661,7 @@
     "qty": "50gm",
     "price": 35.0,
     "category": "Herbal Powder",
-    "image": "/images/G-140.svg"
+    "image": ""
   },
   {
     "id": "G-141",
@@ -2670,7 +2670,7 @@
     "qty": "50gm",
     "price": 50.0,
     "category": "Herbal Powder",
-    "image": "/images/G-141.svg"
+    "image": ""
   },
   {
     "id": "G-504",
@@ -2679,7 +2679,7 @@
     "qty": "100gm",
     "price": 35.0,
     "category": "Divine Products",
-    "image": "/images/G-504.svg"
+    "image": ""
   },
   {
     "id": "G-505",
@@ -2688,7 +2688,7 @@
     "qty": "50gm",
     "price": 35.0,
     "category": "Divine Products",
-    "image": "/images/G-505.svg"
+    "image": ""
   },
   {
     "id": "G-506",
@@ -2697,7 +2697,7 @@
     "qty": "20nos",
     "price": 40.0,
     "category": "Divine Products",
-    "image": "/images/G-506.svg"
+    "image": ""
   },
   {
     "id": "G-543",
@@ -2706,7 +2706,7 @@
     "qty": "30nos",
     "price": 40.0,
     "category": "Divine Products",
-    "image": "/images/G-543.svg"
+    "image": ""
   },
   {
     "id": "G-1047",
@@ -2715,7 +2715,7 @@
     "qty": "12nos",
     "price": 140.0,
     "category": "Divine Products",
-    "image": "/images/G-1047.svg"
+    "image": ""
   },
   {
     "id": "G-245",
@@ -2724,7 +2724,7 @@
     "qty": "200ml",
     "price": 90.0,
     "category": "Divine Products",
-    "image": "/images/G-245.svg"
+    "image": ""
   },
   {
     "id": "G-1177",
@@ -2733,7 +2733,7 @@
     "qty": "1pc",
     "price": 195.0,
     "category": "Divine Products",
-    "image": "/images/G-1177.svg"
+    "image": ""
   },
   {
     "id": "G-551",
@@ -2742,7 +2742,7 @@
     "qty": "1pc",
     "price": 340.0,
     "category": "Copper Products",
-    "image": "/images/G-551.svg"
+    "image": ""
   },
   {
     "id": "G-570",
@@ -2751,7 +2751,7 @@
     "qty": "1pc",
     "price": 370.0,
     "category": "Copper Products",
-    "image": "/images/G-570.svg"
+    "image": ""
   },
   {
     "id": "G-571",
@@ -2760,7 +2760,7 @@
     "qty": "1pc",
     "price": 200.0,
     "category": "Copper Products",
-    "image": "/images/G-571.svg"
+    "image": ""
   },
   {
     "id": "G-807",
@@ -2769,7 +2769,7 @@
     "qty": "1pc",
     "price": 345.0,
     "category": "Copper Products",
-    "image": "/images/G-807.svg"
+    "image": ""
   },
   {
     "id": "G-808",
@@ -2778,7 +2778,7 @@
     "qty": "1pc",
     "price": 360.0,
     "category": "Copper Products",
-    "image": "/images/G-808.svg"
+    "image": ""
   },
   {
     "id": "G-1170",
@@ -2787,7 +2787,7 @@
     "qty": "1pc",
     "price": 390.0,
     "category": "Copper Products",
-    "image": "/images/G-1170.svg"
+    "image": ""
   },
   {
     "id": "G-1251",
@@ -2796,7 +2796,7 @@
     "qty": "1 No",
     "price": 120.0,
     "category": "Wellness Tools",
-    "image": "/images/G-1251.svg"
+    "image": ""
   },
   {
     "id": "G-1161",
@@ -2805,7 +2805,7 @@
     "qty": "1",
     "price": 490.0,
     "category": "Wellness Tools",
-    "image": "/images/G-1161.svg"
+    "image": ""
   },
   {
     "id": "G-1160",
@@ -2814,7 +2814,7 @@
     "qty": "1",
     "price": 490.0,
     "category": "Wellness Tools",
-    "image": "/images/G-1160.svg"
+    "image": ""
   },
   {
     "id": "G-206",
@@ -2823,7 +2823,7 @@
     "qty": "500ml",
     "price": 80.0,
     "category": "Home Care",
-    "image": "/images/G-206.svg"
+    "image": ""
   },
   {
     "id": "G-1003",
@@ -2832,7 +2832,7 @@
     "qty": "100ml",
     "price": 149.0,
     "category": "Home Care",
-    "image": "/images/G-1003.svg"
+    "image": ""
   },
   {
     "id": "G-1004",
@@ -2841,7 +2841,7 @@
     "qty": "100ml",
     "price": 129.0,
     "category": "Home Care",
-    "image": "/images/G-1004.svg"
+    "image": ""
   },
   {
     "id": "G-999",
@@ -2850,7 +2850,7 @@
     "qty": "500ml",
     "price": 239.0,
     "category": "Home Care",
-    "image": "/images/G-999.svg"
+    "image": ""
   },
   {
     "id": "G-1001",
@@ -2859,7 +2859,7 @@
     "qty": "500ml",
     "price": 189.0,
     "category": "Home Care",
-    "image": "/images/G-1001.svg"
+    "image": ""
   },
   {
     "id": "G-1002",
@@ -2868,7 +2868,7 @@
     "qty": "500ml",
     "price": 239.0,
     "category": "Home Care",
-    "image": "/images/G-1002.svg"
+    "image": ""
   },
   {
     "id": "G-1000",
@@ -2877,7 +2877,7 @@
     "qty": "500ml",
     "price": 199.0,
     "category": "Home Care",
-    "image": "/images/G-1000.svg"
+    "image": ""
   },
   {
     "id": "G-1142",
@@ -2886,7 +2886,7 @@
     "qty": "100ml",
     "price": 179.0,
     "category": "Home Care",
-    "image": "/images/G-1142.svg"
+    "image": ""
   },
   {
     "id": "G-1143",
@@ -2895,7 +2895,7 @@
     "qty": "100ml",
     "price": 119.0,
     "category": "Home Care",
-    "image": "/images/G-1143.svg"
+    "image": ""
   },
   {
     "id": "G-1236",
@@ -2904,7 +2904,7 @@
     "qty": "100gm",
     "price": 80.0,
     "category": "Home Care",
-    "image": "/images/G-1236.svg"
+    "image": ""
   },
   {
     "id": "G-1075",
@@ -2913,7 +2913,7 @@
     "qty": "500ml",
     "price": 140.0,
     "category": "Home Care",
-    "image": "/images/G-1075.svg"
+    "image": ""
   },
   {
     "id": "G-1031",
@@ -2922,7 +2922,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1031.svg"
+    "image": ""
   },
   {
     "id": "G-1032",
@@ -2931,7 +2931,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1032.svg"
+    "image": ""
   },
   {
     "id": "G-1027",
@@ -2940,7 +2940,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1027.svg"
+    "image": ""
   },
   {
     "id": "G-1041",
@@ -2949,7 +2949,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1041.svg"
+    "image": ""
   },
   {
     "id": "G-1045",
@@ -2958,7 +2958,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1045.svg"
+    "image": ""
   },
   {
     "id": "G-1044",
@@ -2967,7 +2967,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1044.svg"
+    "image": ""
   },
   {
     "id": "G-1036",
@@ -2976,7 +2976,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1036.svg"
+    "image": ""
   },
   {
     "id": "G-1042",
@@ -2985,7 +2985,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1042.svg"
+    "image": ""
   },
   {
     "id": "G-1024",
@@ -2994,7 +2994,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1024.svg"
+    "image": ""
   },
   {
     "id": "G-1043",
@@ -3003,7 +3003,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1043.svg"
+    "image": ""
   },
   {
     "id": "G-1033",
@@ -3012,7 +3012,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1033.svg"
+    "image": ""
   },
   {
     "id": "G-1039",
@@ -3021,7 +3021,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1039.svg"
+    "image": ""
   },
   {
     "id": "G-1026",
@@ -3030,7 +3030,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1026.svg"
+    "image": ""
   },
   {
     "id": "G-1028",
@@ -3039,7 +3039,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1028.svg"
+    "image": ""
   },
   {
     "id": "G-1040",
@@ -3048,7 +3048,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1040.svg"
+    "image": ""
   },
   {
     "id": "G-1038",
@@ -3057,7 +3057,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1038.svg"
+    "image": ""
   },
   {
     "id": "G-1025",
@@ -3066,7 +3066,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1025.svg"
+    "image": ""
   },
   {
     "id": "G-1034",
@@ -3075,7 +3075,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1034.svg"
+    "image": ""
   },
   {
     "id": "G-1035",
@@ -3084,7 +3084,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1035.svg"
+    "image": ""
   },
   {
     "id": "G-1029",
@@ -3093,7 +3093,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1029.svg"
+    "image": ""
   },
   {
     "id": "G-1030",
@@ -3102,7 +3102,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1030.svg"
+    "image": ""
   },
   {
     "id": "G-1037",
@@ -3111,7 +3111,7 @@
     "qty": "1 Packet",
     "price": 20.0,
     "category": "Seeds",
-    "image": "/images/G-1037.svg"
+    "image": ""
   },
   {
     "id": "Op124",
@@ -3120,7 +3120,7 @@
     "qty": "KIT",
     "price": 290.0,
     "category": "Seeds",
-    "image": "/images/Op124.svg"
+    "image": ""
   },
   {
     "id": "G-205",
@@ -3129,7 +3129,7 @@
     "qty": "120gm",
     "price": 145.0,
     "category": "Readymade Mix",
-    "image": "/images/G-205.svg"
+    "image": ""
   },
   {
     "id": "G-458",
@@ -3138,7 +3138,7 @@
     "qty": "100gm",
     "price": 50.0,
     "category": "Readymade Mix",
-    "image": "/images/G-458.svg"
+    "image": ""
   },
   {
     "id": "G-469",
@@ -3147,7 +3147,7 @@
     "qty": "300gm",
     "price": 100.0,
     "category": "Readymade Mix",
-    "image": "/images/G-469.svg"
+    "image": ""
   },
   {
     "id": "G-470",
@@ -3156,7 +3156,7 @@
     "qty": "300gm",
     "price": 110.0,
     "category": "Readymade Mix",
-    "image": "/images/G-470.svg"
+    "image": ""
   },
   {
     "id": "G-471",
@@ -3165,7 +3165,7 @@
     "qty": "300gm",
     "price": 110.0,
     "category": "Readymade Mix",
-    "image": "/images/G-471.svg"
+    "image": ""
   },
   {
     "id": "G-1106",
@@ -3174,7 +3174,7 @@
     "qty": "300gm",
     "price": 100.0,
     "category": "Readymade Mix",
-    "image": "/images/G-1106.svg"
+    "image": ""
   },
   {
     "id": "G-457",
@@ -3183,7 +3183,7 @@
     "qty": "100gm",
     "price": 54.0,
     "category": "Readymade Mix",
-    "image": "/images/G-457.svg"
+    "image": ""
   },
   {
     "id": "G-1087",
@@ -3192,7 +3192,7 @@
     "qty": "100gm",
     "price": 60.0,
     "category": "Readymade Mix",
-    "image": "/images/G-1087.svg"
+    "image": ""
   },
   {
     "id": "G-1089",
@@ -3201,7 +3201,7 @@
     "qty": "300gm",
     "price": 120.0,
     "category": "Readymade Mix",
-    "image": "/images/G-1089.svg"
+    "image": ""
   },
   {
     "id": "G-1090",
@@ -3210,7 +3210,7 @@
     "qty": "300gm",
     "price": 110.0,
     "category": "Readymade Mix",
-    "image": "/images/G-1090.svg"
+    "image": ""
   },
   {
     "id": "G-1091",
@@ -3219,7 +3219,7 @@
     "qty": "300gm",
     "price": 110.0,
     "category": "Readymade Mix",
-    "image": "/images/G-1091.svg"
+    "image": ""
   },
   {
     "id": "G-1108",
@@ -3228,7 +3228,7 @@
     "qty": "100gm",
     "price": 60.0,
     "category": "Readymade Mix",
-    "image": "/images/G-1108.svg"
+    "image": ""
   },
   {
     "id": "G-1109",
@@ -3237,7 +3237,7 @@
     "qty": "100gm",
     "price": 60.0,
     "category": "Readymade Mix",
-    "image": "/images/G-1109.svg"
+    "image": ""
   },
   {
     "id": "G-1110",
@@ -3246,7 +3246,7 @@
     "qty": "100gm",
     "price": 60.0,
     "category": "Readymade Mix",
-    "image": "/images/G-1110.svg"
+    "image": ""
   },
   {
     "id": "OP65",
@@ -3255,7 +3255,7 @@
     "qty": "Book",
     "price": 288.0,
     "category": "Books & DVDs",
-    "image": "/images/OP65.svg"
+    "image": ""
   },
   {
     "id": "OP66",
@@ -3264,7 +3264,7 @@
     "qty": "Book",
     "price": 288.0,
     "category": "Books & DVDs",
-    "image": "/images/OP66.svg"
+    "image": ""
   },
   {
     "id": "ATF45",
@@ -3273,7 +3273,7 @@
     "qty": "Book",
     "price": 299.0,
     "category": "Books & DVDs",
-    "image": "/images/ATF45.svg"
+    "image": ""
   },
   {
     "id": "ATF50",
@@ -3282,7 +3282,7 @@
     "qty": "Book",
     "price": 100.0,
     "category": "Books & DVDs",
-    "image": "/images/ATF50.svg"
+    "image": ""
   },
   {
     "id": "ATF43",
@@ -3291,7 +3291,7 @@
     "qty": "Book",
     "price": 299.0,
     "category": "Books & DVDs",
-    "image": "/images/ATF43.svg"
+    "image": ""
   },
   {
     "id": "ATF44",
@@ -3300,7 +3300,7 @@
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
-    "image": "/images/ATF44.svg"
+    "image": ""
   },
   {
     "id": "ATF42",
@@ -3309,7 +3309,7 @@
     "qty": "Book",
     "price": 299.0,
     "category": "Books & DVDs",
-    "image": "/images/ATF42.svg"
+    "image": ""
   },
   {
     "id": "ATF47",
@@ -3318,7 +3318,7 @@
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
-    "image": "/images/ATF47.svg"
+    "image": ""
   },
   {
     "id": "ATF49",
@@ -3327,7 +3327,7 @@
     "qty": "Book",
     "price": 50.0,
     "category": "Books & DVDs",
-    "image": "/images/ATF49.svg"
+    "image": ""
   },
   {
     "id": "ATF162",
@@ -3336,7 +3336,7 @@
     "qty": "Book",
     "price": 299.0,
     "category": "Books & DVDs",
-    "image": "/images/ATF162.svg"
+    "image": ""
   },
   {
     "id": "ATF178",
@@ -3345,7 +3345,7 @@
     "qty": "Book",
     "price": 25.0,
     "category": "Books & DVDs",
-    "image": "/images/ATF178.svg"
+    "image": ""
   },
   {
     "id": "G-937",
@@ -3354,7 +3354,7 @@
     "qty": "Book",
     "price": 350.0,
     "category": "Books & DVDs",
-    "image": "/images/G-937.svg"
+    "image": ""
   },
   {
     "id": "G-1093",
@@ -3363,7 +3363,7 @@
     "qty": "Book",
     "price": 270.0,
     "category": "Books & DVDs",
-    "image": "/images/G-1093.svg"
+    "image": ""
   },
   {
     "id": "G-1096",
@@ -3372,7 +3372,7 @@
     "qty": "Book",
     "price": 375.0,
     "category": "Books & DVDs",
-    "image": "/images/G-1096.svg"
+    "image": ""
   },
   {
     "id": "OP1",
@@ -3381,7 +3381,7 @@
     "qty": "Book",
     "price": 100.0,
     "category": "Books & DVDs",
-    "image": "/images/OP1.svg"
+    "image": ""
   },
   {
     "id": "OP2",
@@ -3390,7 +3390,7 @@
     "qty": "Book",
     "price": 100.0,
     "category": "Books & DVDs",
-    "image": "/images/OP2.svg"
+    "image": ""
   },
   {
     "id": "OP3",
@@ -3399,7 +3399,7 @@
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
-    "image": "/images/OP3.svg"
+    "image": ""
   },
   {
     "id": "OP4",
@@ -3408,7 +3408,7 @@
     "qty": "Book",
     "price": 70.0,
     "category": "Books & DVDs",
-    "image": "/images/OP4.svg"
+    "image": ""
   },
   {
     "id": "OP5",
@@ -3417,7 +3417,7 @@
     "qty": "Book",
     "price": 30.0,
     "category": "Books & DVDs",
-    "image": "/images/OP5.svg"
+    "image": ""
   },
   {
     "id": "OP6",
@@ -3426,7 +3426,7 @@
     "qty": "Book",
     "price": 100.0,
     "category": "Books & DVDs",
-    "image": "/images/OP6.svg"
+    "image": ""
   },
   {
     "id": "OP7",
@@ -3435,7 +3435,7 @@
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
-    "image": "/images/OP7.svg"
+    "image": ""
   },
   {
     "id": "OP8",
@@ -3444,7 +3444,7 @@
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
-    "image": "/images/OP8.svg"
+    "image": ""
   },
   {
     "id": "OP10",
@@ -3453,7 +3453,7 @@
     "qty": "Book",
     "price": 60.0,
     "category": "Books & DVDs",
-    "image": "/images/OP10.svg"
+    "image": ""
   },
   {
     "id": "Op12",
@@ -3462,7 +3462,7 @@
     "qty": "Book",
     "price": 40.0,
     "category": "Books & DVDs",
-    "image": "/images/Op12.svg"
+    "image": ""
   },
   {
     "id": "OP13",
@@ -3471,7 +3471,7 @@
     "qty": "Book",
     "price": 50.0,
     "category": "Books & DVDs",
-    "image": "/images/OP13.svg"
+    "image": ""
   },
   {
     "id": "OP131",
@@ -3480,7 +3480,7 @@
     "qty": "Book",
     "price": 150.0,
     "category": "Books & DVDs",
-    "image": "/images/OP131.svg"
+    "image": ""
   },
   {
     "id": "OP132",
@@ -3489,7 +3489,7 @@
     "qty": "Book",
     "price": 200.0,
     "category": "Books & DVDs",
-    "image": "/images/OP132.svg"
+    "image": ""
   },
   {
     "id": "Op191",
@@ -3498,7 +3498,7 @@
     "qty": "Book",
     "price": 10.0,
     "category": "Books & DVDs",
-    "image": "/images/Op191.svg"
+    "image": ""
   },
   {
     "id": "OP62",
@@ -3507,7 +3507,7 @@
     "qty": "Book",
     "price": 520.0,
     "category": "Books & DVDs",
-    "image": "/images/OP62.svg"
+    "image": ""
   },
   {
     "id": "OP109",
@@ -3516,7 +3516,7 @@
     "qty": "Book",
     "price": 550.0,
     "category": "Books & DVDs",
-    "image": "/images/OP109.svg"
+    "image": ""
   },
   {
     "id": "OP110",
@@ -3525,7 +3525,7 @@
     "qty": "Book",
     "price": 230.0,
     "category": "Books & DVDs",
-    "image": "/images/OP110.svg"
+    "image": ""
   },
   {
     "id": "OP112",
@@ -3534,7 +3534,7 @@
     "qty": "Book",
     "price": 350.0,
     "category": "Books & DVDs",
-    "image": "/images/OP112.svg"
+    "image": ""
   },
   {
     "id": "OP136",
@@ -3543,7 +3543,7 @@
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
-    "image": "/images/OP136.svg"
+    "image": ""
   },
   {
     "id": "OP142",
@@ -3552,7 +3552,7 @@
     "qty": "Book",
     "price": 275.0,
     "category": "Books & DVDs",
-    "image": "/images/OP142.svg"
+    "image": ""
   },
   {
     "id": "G-453",
@@ -3561,7 +3561,7 @@
     "qty": "Book",
     "price": 420.0,
     "category": "Books & DVDs",
-    "image": "/images/G-453.svg"
+    "image": ""
   },
   {
     "id": "OP-143",
@@ -3570,7 +3570,7 @@
     "qty": "Book",
     "price": 650.0,
     "category": "Books & DVDs",
-    "image": "/images/OP-143.svg"
+    "image": ""
   },
   {
     "id": "OP27",
@@ -3579,7 +3579,7 @@
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
-    "image": "/images/OP27.svg"
+    "image": ""
   },
   {
     "id": "OP28",
@@ -3588,7 +3588,7 @@
     "qty": "Book",
     "price": 400.0,
     "category": "Books & DVDs",
-    "image": "/images/OP28.svg"
+    "image": ""
   },
   {
     "id": "OP29",
@@ -3597,7 +3597,7 @@
     "qty": "Book",
     "price": 200.0,
     "category": "Books & DVDs",
-    "image": "/images/OP29.svg"
+    "image": ""
   },
   {
     "id": "OP125",
@@ -3606,7 +3606,7 @@
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
-    "image": "/images/OP125.svg"
+    "image": ""
   },
   {
     "id": "OP126",
@@ -3615,7 +3615,7 @@
     "qty": "Book",
     "price": 450.0,
     "category": "Books & DVDs",
-    "image": "/images/OP126.svg"
+    "image": ""
   },
   {
     "id": "OP127",
@@ -3624,7 +3624,7 @@
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
-    "image": "/images/OP127.svg"
+    "image": ""
   },
   {
     "id": "Op151",
@@ -3633,7 +3633,7 @@
     "qty": "Book",
     "price": 200.0,
     "category": "Books & DVDs",
-    "image": "/images/Op151.svg"
+    "image": ""
   },
   {
     "id": "Op152",
@@ -3642,7 +3642,7 @@
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
-    "image": "/images/Op152.svg"
+    "image": ""
   },
   {
     "id": "G-312",
@@ -3651,7 +3651,7 @@
     "qty": "Book",
     "price": 250.0,
     "category": "Books & DVDs",
-    "image": "/images/G-312.svg"
+    "image": ""
   },
   {
     "id": "OP16",
@@ -3660,7 +3660,7 @@
     "qty": "Book",
     "price": 499.0,
     "category": "Books & DVDs",
-    "image": "/images/OP16.svg"
+    "image": ""
   },
   {
     "id": "Op17",
@@ -3669,7 +3669,7 @@
     "qty": "Book",
     "price": 699.0,
     "category": "Books & DVDs",
-    "image": "/images/Op17.svg"
+    "image": ""
   },
   {
     "id": "OP18",
@@ -3678,7 +3678,7 @@
     "qty": "Book",
     "price": 699.0,
     "category": "Books & DVDs",
-    "image": "/images/OP18.svg"
+    "image": ""
   },
   {
     "id": "OP19",
@@ -3687,7 +3687,7 @@
     "qty": "Book",
     "price": 999.0,
     "category": "Books & DVDs",
-    "image": "/images/OP19.svg"
+    "image": ""
   },
   {
     "id": "OP20",
@@ -3696,7 +3696,7 @@
     "qty": "Book",
     "price": 499.0,
     "category": "Books & DVDs",
-    "image": "/images/OP20.svg"
+    "image": ""
   },
   {
     "id": "OP21",
@@ -3705,7 +3705,7 @@
     "qty": "Book",
     "price": 495.0,
     "category": "Books & DVDs",
-    "image": "/images/OP21.svg"
+    "image": ""
   },
   {
     "id": "OP22",
@@ -3714,7 +3714,7 @@
     "qty": "Book",
     "price": 699.0,
     "category": "Books & DVDs",
-    "image": "/images/OP22.svg"
+    "image": ""
   },
   {
     "id": "OP23",
@@ -3723,7 +3723,7 @@
     "qty": "Book",
     "price": 799.0,
     "category": "Books & DVDs",
-    "image": "/images/OP23.svg"
+    "image": ""
   },
   {
     "id": "Op26",
@@ -3732,7 +3732,7 @@
     "qty": "Book",
     "price": 350.0,
     "category": "Books & DVDs",
-    "image": "/images/Op26.svg"
+    "image": ""
   },
   {
     "id": "OP67",
@@ -3741,7 +3741,7 @@
     "qty": "Book",
     "price": 90.0,
     "category": "Books & DVDs",
-    "image": "/images/OP67.svg"
+    "image": ""
   },
   {
     "id": "OP68",
@@ -3750,7 +3750,7 @@
     "qty": "Book",
     "price": 90.0,
     "category": "Books & DVDs",
-    "image": "/images/OP68.svg"
+    "image": ""
   },
   {
     "id": "OP69",
@@ -3759,7 +3759,7 @@
     "qty": "Book",
     "price": 85.0,
     "category": "Books & DVDs",
-    "image": "/images/OP69.svg"
+    "image": ""
   },
   {
     "id": "OP72",
@@ -3768,7 +3768,7 @@
     "qty": "Book",
     "price": 135.0,
     "category": "Books & DVDs",
-    "image": "/images/OP72.svg"
+    "image": ""
   },
   {
     "id": "OP73",
@@ -3777,7 +3777,7 @@
     "qty": "Book",
     "price": 155.0,
     "category": "Books & DVDs",
-    "image": "/images/OP73.svg"
+    "image": ""
   },
   {
     "id": "OP71",
@@ -3786,7 +3786,7 @@
     "qty": "Book",
     "price": 150.0,
     "category": "Books & DVDs",
-    "image": "/images/OP71.svg"
+    "image": ""
   },
   {
     "id": "OP74",
@@ -3795,7 +3795,7 @@
     "qty": "Book",
     "price": 55.0,
     "category": "Books & DVDs",
-    "image": "/images/OP74.svg"
+    "image": ""
   },
   {
     "id": "OP75",
@@ -3804,7 +3804,7 @@
     "qty": "Book",
     "price": 70.0,
     "category": "Books & DVDs",
-    "image": "/images/OP75.svg"
+    "image": ""
   },
   {
     "id": "OP76",
@@ -3813,7 +3813,7 @@
     "qty": "Book",
     "price": 35.0,
     "category": "Books & DVDs",
-    "image": "/images/OP76.svg"
+    "image": ""
   },
   {
     "id": "OP77",
@@ -3822,7 +3822,7 @@
     "qty": "Book",
     "price": 50.0,
     "category": "Books & DVDs",
-    "image": "/images/OP77.svg"
+    "image": ""
   },
   {
     "id": "OP78",
@@ -3831,7 +3831,7 @@
     "qty": "Book",
     "price": 70.0,
     "category": "Books & DVDs",
-    "image": "/images/OP78.svg"
+    "image": ""
   },
   {
     "id": "Op79",
@@ -3840,7 +3840,7 @@
     "qty": "Book",
     "price": 55.0,
     "category": "Books & DVDs",
-    "image": "/images/Op79.svg"
+    "image": ""
   },
   {
     "id": "OP80",
@@ -3849,7 +3849,7 @@
     "qty": "Book",
     "price": 70.0,
     "category": "Books & DVDs",
-    "image": "/images/OP80.svg"
+    "image": ""
   },
   {
     "id": "OP81",
@@ -3858,7 +3858,7 @@
     "qty": "Book",
     "price": 70.0,
     "category": "Books & DVDs",
-    "image": "/images/OP81.svg"
+    "image": ""
   },
   {
     "id": "OP82",
@@ -3867,7 +3867,7 @@
     "qty": "Book",
     "price": 110.0,
     "category": "Books & DVDs",
-    "image": "/images/OP82.svg"
+    "image": ""
   },
   {
     "id": "OP83",
@@ -3876,7 +3876,7 @@
     "qty": "Book",
     "price": 45.0,
     "category": "Books & DVDs",
-    "image": "/images/OP83.svg"
+    "image": ""
   },
   {
     "id": "OP84",
@@ -3885,7 +3885,7 @@
     "qty": "Book",
     "price": 85.0,
     "category": "Books & DVDs",
-    "image": "/images/OP84.svg"
+    "image": ""
   },
   {
     "id": "OP85",
@@ -3894,7 +3894,7 @@
     "qty": "Book",
     "price": 40.0,
     "category": "Books & DVDs",
-    "image": "/images/OP85.svg"
+    "image": ""
   },
   {
     "id": "OP106",
@@ -3903,7 +3903,7 @@
     "qty": "Book",
     "price": 45.0,
     "category": "Books & DVDs",
-    "image": "/images/OP106.svg"
+    "image": ""
   },
   {
     "id": "G-315",
@@ -3912,7 +3912,7 @@
     "qty": "Book",
     "price": 100.0,
     "category": "Books & DVDs",
-    "image": "/images/G-315.svg"
+    "image": ""
   },
   {
     "id": "G-991",
@@ -3921,7 +3921,7 @@
     "qty": "Book",
     "price": 160.0,
     "category": "Books & DVDs",
-    "image": "/images/G-991.svg"
+    "image": ""
   },
   {
     "id": "G-992",
@@ -3930,7 +3930,7 @@
     "qty": "Book",
     "price": 110.0,
     "category": "Books & DVDs",
-    "image": "/images/G-992.svg"
+    "image": ""
   },
   {
     "id": "G-993",
@@ -3939,7 +3939,7 @@
     "qty": "Book",
     "price": 160.0,
     "category": "Books & DVDs",
-    "image": "/images/G-993.svg"
+    "image": ""
   },
   {
     "id": "G-986",
@@ -3948,7 +3948,7 @@
     "qty": "Book",
     "price": 225.0,
     "category": "Books & DVDs",
-    "image": "/images/G-986.svg"
+    "image": ""
   },
   {
     "id": "G-984",
@@ -3957,7 +3957,7 @@
     "qty": "Book",
     "price": 100.0,
     "category": "Books & DVDs",
-    "image": "/images/G-984.svg"
+    "image": ""
   },
   {
     "id": "G-988",
@@ -3966,7 +3966,7 @@
     "qty": "Book",
     "price": 170.0,
     "category": "Books & DVDs",
-    "image": "/images/G-988.svg"
+    "image": ""
   },
   {
     "id": "G-990",
@@ -3975,7 +3975,7 @@
     "qty": "Book",
     "price": 120.0,
     "category": "Books & DVDs",
-    "image": "/images/G-990.svg"
+    "image": ""
   },
   {
     "id": "G-987",
@@ -3984,7 +3984,7 @@
     "qty": "Book",
     "price": 299.0,
     "category": "Books & DVDs",
-    "image": "/images/G-987.svg"
+    "image": ""
   },
   {
     "id": "G-1151",
@@ -3993,7 +3993,7 @@
     "qty": "Book",
     "price": 300.0,
     "category": "Books & DVDs",
-    "image": "/images/G-1151.svg"
+    "image": ""
   },
   {
     "id": "G-1148",
@@ -4002,7 +4002,7 @@
     "qty": "Book",
     "price": 1000.0,
     "category": "Books & DVDs",
-    "image": "/images/G-1148.svg"
+    "image": ""
   },
   {
     "id": "G-1147",
@@ -4011,7 +4011,7 @@
     "qty": "Book",
     "price": 1800.0,
     "category": "Books & DVDs",
-    "image": "/images/G-1147.svg"
+    "image": ""
   },
   {
     "id": "G-1185",
@@ -4020,7 +4020,7 @@
     "qty": "Book",
     "price": 350.0,
     "category": "Books & DVDs",
-    "image": "/images/G-1185.svg"
+    "image": ""
   },
   {
     "id": "G-1186",
@@ -4029,7 +4029,7 @@
     "qty": "Book",
     "price": 230.0,
     "category": "Books & DVDs",
-    "image": "/images/G-1186.svg"
+    "image": ""
   },
   {
     "id": "G-1187",
@@ -4038,7 +4038,7 @@
     "qty": "Book",
     "price": 320.0,
     "category": "Books & DVDs",
-    "image": "/images/G-1187.svg"
+    "image": ""
   },
   {
     "id": "G-1188",
@@ -4047,6 +4047,6 @@
     "qty": "Book",
     "price": 160.0,
     "category": "Books & DVDs",
-    "image": "/images/G-1188.svg"
+    "image": ""
   }
 ]

@@ -33,7 +33,8 @@ export RAZORPAY_KEY_ID="rzp_live_XXXXXXXXXXXXXXXX"
 export RAZORPAY_KEY_SECRET="your_secret_here"
 
 # 3. Run
-bash run.sh
+# Windows: double-click run.bat
+# Mac/Linux: python3 backend/app.py
 ```
 
 Open: **http://localhost:5000**
@@ -55,7 +56,7 @@ Click the **🌙 / ☀️** button in the top-right of the header to switch betw
 
 ```
 aammii-shop/
-├── run.sh                    # One-command startup
+├── run.bat                   # Windows: double-click to start
 ├── aammii.db                 # SQLite DB (auto-created)
 │
 ├── backend/
@@ -72,8 +73,7 @@ aammii-shop/
 ├── uploads/
 │   └── products.json         # Seed data (486 products)
 │
-├── generated_images/         # Auto-generated SVG product images
-└── orders/                   # (legacy text invoices, kept for compat)
+└── orders/                   # PDF invoices saved per order
 ```
 
 ---
