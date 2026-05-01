@@ -1086,23 +1086,41 @@ async function submitCheckout() {
   try {
     const r = await fetch(`${API}/api/order`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
       body: JSON.stringify(payload),
     });
-    if (!r.ok) throw new Error(`Order failed (${r.status})`);
+    if (!r.ok) {
+      let msg = `Order failed (${r.status})`;
+      try { const j = await r.json(); if (j.error) msg = j.error; } catch (_) {}
+      throw new Error(msg);
+    }
 
-    const orderId = r.headers.get("X-Order-Id") || "ORD-LOCAL";
-    /* Download the PDF invoice */
-    const blob = await r.blob();
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement("a");
-    a.href = url;
-    a.download = `${orderId}.pdf`;
-    document.body.appendChild(a); a.click(); a.remove();
-    URL.revokeObjectURL(url);
+    const j = await r.json();
+    const orderId   = j.order_id   || "ORD-LOCAL";
+    const invoiceNo = j.invoice_no || "";
+    const invoiceUrl = j.invoice_url || (invoiceNo ? `/api/invoice/${invoiceNo}` : "");
 
-    saveOrderLocal({ id: orderId, created: Date.now(), ...payload, status: "confirmed" });
+    saveOrderLocal({
+      id: orderId, invoice_no: invoiceNo, created: Date.now(),
+      ...payload, status: "confirmed",
+    });
     clearCart();
+
+    /* Trigger PDF download — use a real anchor click; fall back to window.open
+       if the host (e.g. sandboxed preview) blocks the download attribute. */
+    if (invoiceUrl) {
+      try {
+        const a = document.createElement("a");
+        a.href = invoiceUrl;
+        a.download = `${invoiceNo || orderId}.pdf`;
+        a.rel = "noopener";
+        a.target = "_self";
+        document.body.appendChild(a); a.click(); a.remove();
+      } catch (_) {
+        window.open(invoiceUrl, "_blank", "noopener");
+      }
+    }
+
     go(`/order-placed/${orderId}`);
   } catch (e) {
     showToast("❌ " + e.message);
@@ -1116,17 +1134,29 @@ window.submitCheckout = submitCheckout;
    ═══════════════════════════════════════════════════════════════ */
 
 function renderOrderPlaced(view, orderId) {
+  /* Look up the invoice number from the latest local order, if available. */
+  let invoiceNo = "";
+  try {
+    const list = JSON.parse(localStorage.getItem("aammii_orders") || "[]");
+    const match = list.find(o => o && o.id === orderId);
+    invoiceNo = (match && match.invoice_no) || "";
+  } catch (_) {}
+  const invoiceUrl = invoiceNo ? `/api/invoice/${invoiceNo}` : "";
+
   view.innerHTML = `
     <div class="page page-narrow">
       <div class="ck-card" style="text-align:center;padding:48px 24px">
         <div style="font-size:64px;margin-bottom:12px">🎉</div>
         <h1 style="font-size:28px;font-weight:900;margin-bottom:8px">Order Confirmed!</h1>
         <p style="color:var(--text-2);margin-bottom:22px">
-          Thank you for shopping with Aammii. Your invoice PDF has been downloaded to your device.
+          Thank you for shopping with Aammii. If your invoice did not download automatically,
+          tap the button below.
         </p>
         <div style="background:var(--surface-2);padding:16px;border-radius:var(--r);display:inline-block;margin-bottom:24px">
           <div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:1.2px">Order ID</div>
           <div style="font-size:22px;font-weight:900;color:var(--forest);font-family:monospace">${esc(orderId || "—")}</div>
+          ${invoiceNo ? `<div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:1.2px;margin-top:8px">Invoice</div>
+          <div style="font-size:16px;font-weight:700;font-family:monospace">${esc(invoiceNo)}</div>` : ""}
         </div>
         <div style="color:var(--text-2);font-size:14px;line-height:1.8;margin-bottom:24px">
           📧 A confirmation will be emailed shortly<br/>
@@ -1134,7 +1164,8 @@ function renderOrderPlaced(view, orderId) {
           💬 We will call to confirm the order & address
         </div>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-          <a class="btn-primary" href="#/orders">Track My Orders →</a>
+          ${invoiceUrl ? `<a class="btn-primary" href="${invoiceUrl}" download="${esc(invoiceNo)}.pdf">⬇ Download Invoice</a>` : ""}
+          <a class="btn-secondary" href="#/orders">Track My Orders →</a>
           <a class="btn-secondary" href="#/browse">Continue Shopping</a>
         </div>
       </div>

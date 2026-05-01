@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.aammii.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.aammii.com/#/browse</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.aammii.com/#/category/Millets%20%26%20Grains</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.aammii.com/#/category/Spices</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.aammii.com/#/category/Oils%20%26%20Ghee</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.aammii.com/#/category/Honey</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.aammii.com/#/category/Personal%20Care</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.aammii.com/#/category/Herbal%20Powder</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.aammii.com/#/about</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.aammii.com/#/contact</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+</urlset>

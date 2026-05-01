@@ -31,13 +31,13 @@ for /f "tokens=*" %%v in ('!PYTHON! --version 2^>^&1') do set PY_VER=%%v
 echo  Python found: !PY_VER!
 echo.
 
-REM --- Install / upgrade required packages ---
+REM --- Install / upgrade required packages (pinned in backend/requirements.txt) ---
 echo  Installing dependencies (first run takes a minute)...
 !PYTHON! -m pip install --upgrade pip --quiet 2>nul
-!PYTHON! -m pip install flask flask-cors pdfplumber pillow reportlab --quiet
+!PYTHON! -m pip install -r backend\requirements.txt --quiet
 if %ERRORLEVEL% NEQ 0 (
   echo  WARNING: Some packages may not have installed correctly.
-  echo  Run manually:  pip install flask flask-cors pdfplumber pillow reportlab
+  echo  Run manually:  pip install -r backend\requirements.txt
   echo.
 )
 echo  Dependencies ready.
@@ -46,6 +46,16 @@ echo.
 REM --- Create required directories ---
 if not exist "uploads" mkdir uploads
 if not exist "orders"  mkdir orders
+if not exist "logs"    mkdir logs
+
+REM --- Seed .env on first run if missing ---
+if not exist ".env" (
+  if exist ".env.example" (
+    copy /y ".env.example" ".env" >nul
+    echo  Created .env from .env.example - edit it to set ADMIN_TOKEN before going live.
+    echo.
+  )
+)
 
 REM --- Auto-open browser after short delay ---
 start "" cmd /c "timeout /t 3 /nobreak >nul && start http://localhost:5000"

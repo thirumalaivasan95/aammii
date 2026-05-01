@@ -14,7 +14,8 @@ echo "────────────────────────�
 # ── 1. System packages ────────────────────────────────────────────
 echo "[1/8] Installing system packages..."
 sudo apt-get update -y -q
-sudo apt-get install -y -q python3 python3-pip python3-venv nginx git ufw
+sudo apt-get install -y -q python3 python3-pip python3-venv nginx git ufw \
+    fonts-noto fonts-noto-extra
 
 # ── 2. Clone or update repo ───────────────────────────────────────
 echo "[2/8] Setting up app directory..."
@@ -36,7 +37,20 @@ echo "[3/8] Setting up Python environment..."
 python3 -m venv venv
 source venv/bin/activate
 pip install --upgrade pip -q
-pip install flask flask-cors gunicorn -q
+pip install -r backend/requirements.txt -q
+
+# ── 3b. Seed .env if missing ──────────────────────────────────
+if [ ! -f .env ] && [ -f .env.example ]; then
+    cp .env.example .env
+    # Generate strong tokens for production
+    SECRET=$(python3 -c 'import secrets;print(secrets.token_urlsafe(48))')
+    ADMIN=$(python3 -c 'import secrets;print(secrets.token_urlsafe(32))')
+    sed -i "s|^SECRET_KEY=.*|SECRET_KEY=$SECRET|" .env
+    sed -i "s|^ADMIN_TOKEN=.*|ADMIN_TOKEN=$ADMIN|" .env
+    sed -i "s|^DEBUG=.*|DEBUG=false|" .env
+    echo "   ✅  Generated .env with strong SECRET_KEY and ADMIN_TOKEN"
+    echo "   ⚠️   Save this admin token somewhere safe: $ADMIN"
+fi
 
 # ── 4. Systemd service ────────────────────────────────────────────
 echo "[4/8] Creating systemd service..."
@@ -49,7 +63,8 @@ After=network.target
 User=$USER
 WorkingDirectory=$APP_DIR/backend
 Environment="PATH=$APP_DIR/venv/bin"
-ExecStart=$APP_DIR/venv/bin/gunicorn --workers 2 --bind 127.0.0.1:5000 app:app
+EnvironmentFile=$APP_DIR/.env
+ExecStart=$APP_DIR/venv/bin/gunicorn --workers 2 --bind 127.0.0.1:5000 wsgi:application
 Restart=always
 RestartSec=3
 
