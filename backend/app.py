@@ -463,7 +463,7 @@ def build_pdf_invoice(order: dict) -> bytes:
             c.setFont("Helvetica", size)
 
     # ── Logo (real image from frontend/logo.svg — actually a WebP file) ──
-    cx, cy = W / 2, H - 18 * mm
+    cx, cy = W / 2, H - 13 * mm
     logo_r = 6.5 * mm
     if not _draw_logo(c, cx, cy, logo_r):
         # Fallback if Pillow / image read fails: simple painted circles
