@@ -33,18 +33,24 @@
 
 **macOS / Linux** — Open Terminal in the folder and run:
 ```
+cp .env.example .env                       # one-time
+pip install -r backend/requirements.txt    # one-time
 python3 backend/app.py
 ```
-(after installing once: `pip install flask flask-cors pdfplumber pillow reportlab`)
 
 The Windows script will:
 1. Auto-detect Python
-2. Install Flask, CORS, pdfplumber, Pillow, reportlab
-3. Create `uploads/`, `orders/` folders
-4. Start the backend on http://localhost:5000
-5. Auto-open your browser
+2. Install pinned deps from `backend/requirements.txt`
+3. Copy `.env.example` → `.env` if missing (edit `ADMIN_TOKEN` before going live)
+4. Create `uploads/`, `orders/`, `logs/` folders
+5. Start the backend on http://localhost:5000
+6. Auto-open your browser
 
-Once you see **`Open in browser → http://localhost:5000`**, you're live.
+Once you see the **`Listening on http://0.0.0.0:5000`** log line, you're live.
+
+> 🔐 **Production hardening, admin auth, Docker, CI, and tests are documented
+> separately in [PROFESSIONAL.md](PROFESSIONAL.md).** This guide focuses on
+> running and customising the store as a business owner.
 
 ---
 
@@ -213,23 +219,19 @@ Firebase keys in `firebase-config.js` are safe to commit — they're designed to
 2. Sign up at <https://render.com>
 3. **New → Web Service** → connect your GitHub repo
 4. Settings:
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `cd backend && gunicorn app:app`
-   - **Environment**: Python 3
-5. Add `requirements.txt` at the project root:
-   ```
-   flask
-   flask-cors
-   pdfplumber
-   pillow
-   reportlab
-   gunicorn
-   ```
-6. Deploy. Your site is live at `https://your-app.onrender.com`
+   - **Build Command**: `pip install -r backend/requirements.txt`
+   - **Start Command**: `cd backend && gunicorn wsgi:application`
+   - **Environment**: Python 3.11
+5. The pinned dep list lives in `backend/requirements.txt` — Render uses it automatically.
+6. Add environment variables (Settings → Environment):
+   - `ADMIN_TOKEN` — strong random string (required for admin endpoints)
+   - `SECRET_KEY` — strong random string
+   - `CORS_ORIGINS` — your domain, e.g. `https://aammii.com,https://www.aammii.com`
+7. Deploy. Your site is live at `https://your-app.onrender.com`
 
 ### Alternative: PythonAnywhere, Railway, Fly.io, or your own VPS
 
-All work identically. You just need Python 3 + those 5 libraries. The SQLite-free design means **no database setup needed** — just a writable disk.
+All work identically. You just need Python 3 plus the deps in `backend/requirements.txt`. SQLite is bundled with Python — no DB server to install, just a writable disk for `aammii.db`, `uploads/`, and `orders/`.
 
 ### Your own domain
 1. Buy a domain (e.g. GoDaddy, Namecheap): ~₹800/year

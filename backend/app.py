@@ -26,14 +26,21 @@ if hasattr(sys.stderr, "reconfigure"):
 # ═══════════════════════════════════════════════════════════════
 # 2. IMPORTS & PATHS
 # ═══════════════════════════════════════════════════════════════
-import json, random, string, datetime, io
+import json, random, string, datetime, io, tempfile
 from flask import Flask, request, jsonify, send_from_directory, Response
 from flask_cors import CORS
 
-BASE  = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FRONT = os.path.join(BASE, "frontend")
-UPL   = os.path.join(BASE, "uploads")
-ORD   = os.path.join(BASE, "orders")
+import config
+from app_logger import get_logger
+from security import require_admin, validate_order_payload, ValidationError
+import order_store
+
+log = get_logger("aammii.app")
+
+BASE  = str(config.BASE_DIR)
+FRONT = str(config.FRONTEND)
+UPL   = config.UPLOAD_DIR
+ORD   = config.ORDERS_DIR
 PJSON = os.path.join(UPL, "products.json")
 OJSON = os.path.join(ORD, "orders.json")
 
@@ -41,7 +48,11 @@ for d in [UPL, ORD]:
     os.makedirs(d, exist_ok=True)
 
 app = Flask(__name__, static_folder=FRONT)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+app.config["SECRET_KEY"] = config.SECRET_KEY
+
+_cors_origins = config.CORS_ORIGINS or ["*"]
+CORS(app, resources={r"/api/*": {"origins": _cors_origins}}, supports_credentials=False)
+log.info("CORS allowed origins: %s", _cors_origins)
 
 IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
 
@@ -57,7 +68,13 @@ try:
     REPORTLAB_OK = True
 except ImportError:
     REPORTLAB_OK = False
-    print("  [pdf] reportlab not available — installing it enables PDF invoices", flush=True)
+    log.warning("reportlab not available — text invoices will be used")
+
+try:
+    import qrcode
+    QRCODE_OK = True
+except ImportError:
+    QRCODE_OK = False
 
 LOGO_PATH = os.path.join(FRONT, "logo.svg")  # actually a WebP — Pillow handles it
 
@@ -122,8 +139,19 @@ def load_products() -> list:
         return []
 
 def save_products(products: list) -> None:
-    with open(PJSON, "w", encoding="utf-8") as f:
-        json.dump(products, f, ensure_ascii=False, indent=2)
+    """Atomic write: tempfile in same dir + os.replace."""
+    os.makedirs(os.path.dirname(PJSON), exist_ok=True)
+    fd, tmp = tempfile.mkstemp(prefix=".products.", suffix=".tmp", dir=os.path.dirname(PJSON))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(products, f, ensure_ascii=False, indent=2)
+        os.replace(tmp, PJSON)
+    except Exception:
+        try:
+            os.unlink(tmp)
+        except Exception:
+            pass
+        raise
 
 def migrate_products() -> None:
     """Strip legacy SVG image references — frontend now renders fallbacks inline.
@@ -139,7 +167,7 @@ def migrate_products() -> None:
             changed = True
     if changed:
         save_products(prods)
-        print(f"  [migrate] cleaned legacy image refs on {len(prods)} products", flush=True)
+        log.info("Cleaned legacy image refs on %d products", len(prods))
 
 def gst_rate_for(p: dict) -> float:
     """Per-product GST rate (decimal). Fallbacks: product.gst_rate → category default → 5%."""
@@ -158,33 +186,14 @@ def hsn_for(p: dict) -> str:
 # 5. ORDERS I/O
 # ═══════════════════════════════════════════════════════════════
 def load_orders() -> list:
-    if not os.path.exists(OJSON):
-        return []
-    try:
-        with open(OJSON, encoding="utf-8") as f:
-            data = json.load(f)
-            return data if isinstance(data, list) else []
-    except Exception:
-        return []
-
-def save_orders(orders: list) -> None:
-    with open(OJSON, "w", encoding="utf-8") as f:
-        json.dump(orders, f, ensure_ascii=False, indent=2)
+    return order_store.list_orders()
 
 def append_order(order: dict) -> None:
-    orders = load_orders()
-    orders.insert(0, order)
-    orders = orders[:500]  # cap at 500 most recent
-    save_orders(orders)
+    order_store.record_order(order)
 
 def next_invoice_no() -> str:
-    """Sequential invoice numbers — start at INV-11000, increment from highest used."""
-    orders = load_orders()
-    nums = []
-    for o in orders:
-        n = str(o.get("invoice_no", "")).replace("INV-", "").strip()
-        if n.isdigit(): nums.append(int(n))
-    return f"INV-{(max(nums) if nums else 11000) + 1}"
+    """Atomic, race-free invoice numbering via SQLite counter."""
+    return order_store.next_invoice_no()
 
 # ═══════════════════════════════════════════════════════════════
 # 6. STATIC ROUTES
@@ -210,6 +219,7 @@ def api_products():
     return jsonify(prods)
 
 @app.route("/api/products/<pid>", methods=["PATCH", "PUT"])
+@require_admin
 def api_product_update(pid):
     """Update a product's editable fields (image URL, HSN, GST rate, name, qty, price)."""
     data = request.get_json(silent=True) or {}
@@ -242,6 +252,7 @@ def api_product_update(pid):
     return jsonify({"error": "Product not found"}), 404
 
 @app.route("/api/upload", methods=["POST"])
+@require_admin
 def api_upload():
     if "pdf" not in request.files:
         return jsonify({"error": "No PDF provided"}), 400
@@ -260,9 +271,9 @@ def api_upload():
         from pdf_parser import parse_pdf
         parsed = parse_pdf(pdf_path) or []
     except ImportError:
-        print("  [pdf] pdf_parser module not available", flush=True)
+        log.warning("pdf_parser module not available")
     except Exception as e:
-        print(f"  [pdf] parse error: {e}", flush=True)
+        log.exception("PDF parse error: %s", e)
 
     if parsed:
         for i, p in enumerate(parsed):
@@ -272,7 +283,7 @@ def api_upload():
             p.setdefault("date_added", datetime.datetime.now(IST).date().isoformat())
             p.setdefault("image", "")  # empty = use frontend fallback
         save_products(parsed)
-        print(f"  [pdf] Parsed {len(parsed)} products from PDF", flush=True)
+        log.info("Parsed %d products from PDF", len(parsed))
         return jsonify({
             "count": len(parsed), "products": parsed, "source": "pdf",
             "note": f"Extracted {len(parsed)} products from uploaded PDF"
@@ -287,6 +298,7 @@ def api_upload():
     return jsonify({"error": "No products data found."}), 422
 
 @app.route("/api/mark-new", methods=["POST"])
+@require_admin
 def api_mark_new():
     data    = request.get_json(silent=True) or {}
     ids     = data.get("ids", [])
@@ -337,10 +349,10 @@ def ensure_tamil_font():
         try:
             pdfmetrics.registerFont(TTFont(name, path))
             _TAMIL_FONT_NAME = name
-            print(f"  [pdf] Tamil font registered: {name} ({path})", flush=True)
+            log.info("Tamil font registered: %s (%s)", name, path)
             return name
         except Exception as e:
-            print(f"  [pdf] Font register failed: {e}", flush=True)
+            log.warning("Font register failed: %s", e)
     _TAMIL_FONT_NAME = ""
     return None
 
@@ -367,7 +379,14 @@ def compute_invoice_rows(items: list) -> tuple:
     for it in items:
         mrp     = float(it.get("price", 0))
         qty     = int(it.get("qty", 1))
-        rate    = float(it.get("gst_rate") or (0.18 if it.get("category") in HIGH_GST_CATS else 0.05))
+        # Distinguish explicit 0 from "not provided" — `or` would clobber 0.
+        rate_raw = it.get("gst_rate")
+        if rate_raw is None or rate_raw == "":
+            rate = 0.18 if it.get("category") in HIGH_GST_CATS else 0.05
+        else:
+            try:    rate = float(rate_raw)
+            except (TypeError, ValueError):
+                rate = 0.18 if it.get("category") in HIGH_GST_CATS else 0.05
         if rate > 1: rate = rate / 100
         cgst_pct = sgst_pct = rate / 2
         gross   = mrp * qty
@@ -415,7 +434,7 @@ def _get_logo_reader():
         _LOGO_READER = ImageReader(LOGO_PATH)
         return _LOGO_READER
     except Exception as e:
-        print(f"  [pdf] Could not load logo image ({LOGO_PATH}): {e}", flush=True)
+        log.warning("Could not load logo image (%s): %s", LOGO_PATH, e)
         return None
 
 
@@ -432,7 +451,7 @@ def _draw_logo(c, cx: float, cy: float, r: float) -> bool:
         )
         return True
     except Exception as e:
-        print(f"  [pdf] drawImage logo failed: {e}", flush=True)
+        log.warning("drawImage logo failed: %s", e)
         return False
 
 
@@ -658,14 +677,30 @@ def build_pdf_invoice(order: dict) -> bytes:
             if val is None: continue
             draw_cell(val, i, row_y, row_h, font_size=7)
 
-        # Product cell (col 2): tamil top, english bottom
+        # Product cell (col 2): tamil top, english bottom.
+        # Use the Tamil-capable font (Nirmala has Latin glyphs too) for BOTH lines
+        # so neither Tamil combining marks nor mixed text get rendered as .notdef.
+        # Shrink-to-fit by measured width — never slice by character index, which
+        # would break Tamil grapheme clusters (vowel signs, virama).
         x0 = col_x[2]; x1 = col_x[3]
-        max_chars = 36
-        set_font(7.5, tamil=True, bold=True); c.setFillColor(BLACK)
-        c.drawString(x0 + 1.5 * mm, row_y - 4 * mm, tam[:max_chars])
+        cell_w = (x1 - x0) - 3 * mm  # padding on both sides
+        name_font = tamil_font or "Helvetica-Bold"
+
+        def _fit_size(text, base_size, min_size=5.5):
+            sz = base_size
+            while sz > min_size and pdfmetrics.stringWidth(text, name_font, sz) > cell_w:
+                sz -= 0.25
+            return sz
+
+        c.setFillColor(BLACK)
+        tam_size = _fit_size(tam, 7.5)
+        c.setFont(name_font, tam_size)
+        c.drawString(x0 + 1.5 * mm, row_y - 4 * mm, tam)
         if eng:
-            set_font(6.5); c.setFillColor(DARK)
-            c.drawString(x0 + 1.5 * mm, row_y - 8.5 * mm, eng[:max_chars])
+            c.setFillColor(DARK)
+            eng_size = _fit_size(eng, 6.5)
+            c.setFont(name_font, eng_size)
+            c.drawString(x0 + 1.5 * mm, row_y - 8.5 * mm, eng)
 
         row_y -= row_h
 
@@ -693,6 +728,25 @@ def build_pdf_invoice(order: dict) -> bytes:
 
     set_font(7); c.setFillColor(DARK)
     c.drawRightString(val_x, totals_y - 23 * mm, "(inclusive of all taxes)")
+
+    # ── QR code (left side, beside totals): order tracking URL ──
+    if QRCODE_OK:
+        try:
+            track_url = f"{config.BUSINESS_WEBSITE.rstrip('/')}/#/order/{order.get('id','')}"
+            qr_img = qrcode.make(track_url)
+            qr_buf = io.BytesIO()
+            qr_img.save(qr_buf, format="PNG")
+            qr_buf.seek(0)
+            qr_reader = ImageReader(qr_buf)
+            qr_size = 28 * mm
+            qr_x = M
+            qr_y = totals_y - 23 * mm
+            c.drawImage(qr_reader, qr_x, qr_y, width=qr_size, height=qr_size,
+                        preserveAspectRatio=True, mask="auto")
+            set_font(7); c.setFillColor(DARK)
+            c.drawString(qr_x, qr_y - 4 * mm, "Scan to track your order")
+        except Exception as e:
+            log.warning("QR render failed: %s", e)
 
     c.showPage(); c.save()
     buf.seek(0)
@@ -736,10 +790,12 @@ def build_text_invoice(order: dict) -> str:
 @app.route("/api/order", methods=["POST"])
 def api_order():
     try:
-        d = request.get_json(silent=True) or {}
-        items = d.get("items", [])
-        if not items:
-            return jsonify({"error": "No items in order"}), 400
+        raw = request.get_json(silent=True) or {}
+        try:
+            d = validate_order_payload(raw)
+        except ValidationError as ve:
+            return jsonify({"error": str(ve)}), 400
+        items = d["items"]
 
         # Enrich items with HSN and gst_rate from products.json so the invoice
         # has accurate tax details even if frontend didn't send them.
@@ -779,49 +835,80 @@ def api_order():
             with open(os.path.join(ORD, filename), "wb") as f:
                 f.write(pdf_bytes)
         except Exception as e:
-            print(f"  [order] Could not save invoice file: {e}", flush=True)
+            log.warning("Could not save invoice file: %s", e)
+        log.info("Order placed: %s invoice=%s grand=%s", oid, inv, d.get("totals", {}).get("grand"))
 
-        mimetype = "application/pdf" if is_pdf else "text/plain; charset=utf-8"
-        return Response(
-            pdf_bytes, status=200, mimetype=mimetype,
-            headers={
-                "Content-Disposition": f'attachment; filename="{filename}"',
-                "X-Order-Id":   oid,
-                "X-Invoice-No": inv,
-                "Access-Control-Expose-Headers": "X-Order-Id, X-Invoice-No, Content-Disposition",
-            }
-        )
+        # Decide response shape: JSON (default) or stream PDF (legacy / ?download=1).
+        want_pdf = request.args.get("download") in ("1", "true", "yes")
+        if want_pdf:
+            mimetype = "application/pdf" if is_pdf else "text/plain; charset=utf-8"
+            return Response(
+                pdf_bytes, status=200, mimetype=mimetype,
+                headers={
+                    "Content-Disposition": f'attachment; filename="{filename}"',
+                    "X-Order-Id":   oid,
+                    "X-Invoice-No": inv,
+                    "Access-Control-Expose-Headers": "X-Order-Id, X-Invoice-No, Content-Disposition",
+                }
+            )
+        return jsonify({
+            "ok": True,
+            "order_id":   oid,
+            "invoice_no": inv,
+            "filename":   filename,
+            "invoice_url": f"/api/invoice/{inv}",
+        })
     except Exception as e:
-        print(f"  [order] Error: {e}", flush=True)
-        import traceback; traceback.print_exc()
-        return jsonify({"error": str(e)}), 500
+        log.exception("Order placement failed: %s", e)
+        return jsonify({"error": "Internal error"}), 500
+
+@app.route("/api/invoice/<inv>")
+def api_invoice(inv):
+    """Stream a previously-generated invoice PDF (or .txt fallback) by invoice number."""
+    inv = inv.strip()
+    # Only allow safe invoice tokens (e.g. "INV-11001"); refuse path traversal.
+    if not all(ch.isalnum() or ch in "-_" for ch in inv):
+        return jsonify({"error": "Invalid invoice id"}), 400
+    for ext, mt in (("pdf", "application/pdf"), ("txt", "text/plain; charset=utf-8")):
+        path = os.path.join(ORD, f"{inv}.{ext}")
+        if os.path.exists(path):
+            disp = "inline" if request.args.get("inline") else "attachment"
+            return send_from_directory(
+                ORD, f"{inv}.{ext}", mimetype=mt,
+                as_attachment=(disp == "attachment"),
+                download_name=f"{inv}.{ext}",
+            )
+    return jsonify({"error": "Invoice not found"}), 404
 
 @app.route("/api/orders")
+@require_admin
 def api_orders():
     return jsonify(load_orders())
 
 @app.route("/api/orders/<oid>")
+@require_admin
 def api_order_detail(oid):
-    orders = load_orders()
-    for o in orders:
-        if o.get("id") == oid or o.get("invoice_no") == oid:
-            return jsonify(o)
+    o = order_store.find_order(oid)
+    if o:
+        return jsonify(o)
     return jsonify({"error": "Order not found"}), 404
+
+@app.route("/api/health")
+def api_health():
+    return jsonify({"status": "ok", "reportlab": REPORTLAB_OK, "qrcode": QRCODE_OK})
 
 # ═══════════════════════════════════════════════════════════════
 # 10. SERVER ENTRY
 # ═══════════════════════════════════════════════════════════════
 if __name__ == "__main__":
-    print("\n  ╔══════════════════════════════════════════╗")
-    print("  ║   Aammii Tharcharbu Santhai              ║")
-    print("  ║   Natural Lifestyle Products             ║")
-    print("  ╚══════════════════════════════════════════╝\n")
+    log.info("Aammii Tharcharbu Santhai — booting")
+    order_store.init_store()
     migrate_products()
     ensure_tamil_font()
     if not REPORTLAB_OK:
-        print("  [!] reportlab not installed — text invoices will be used.")
-        print("      Run: pip install reportlab")
-    print("  [*] Open in browser → http://localhost:5000")
-    print("  [*] Admin panel     → http://localhost:5000/#/admin")
-    print("  [*] Product images: paste an image URL via Admin → Manage Images\n")
-    app.run(host="0.0.0.0", port=5000, debug=False)
+        log.warning("reportlab not installed — text invoices will be used. Run: pip install reportlab")
+    if not config.ADMIN_TOKEN:
+        log.warning("ADMIN_TOKEN is empty — admin endpoints are UNPROTECTED. Set it in .env for production.")
+    log.info("Listening on http://%s:%d", config.HOST, config.PORT)
+    log.info("Admin panel     → http://%s:%d/#/admin", config.HOST, config.PORT)
+    app.run(host=config.HOST, port=config.PORT, debug=config.DEBUG)

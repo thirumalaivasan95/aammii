@@ -2,7 +2,11 @@
 
 Full-stack store for **Aammii Tharcharbu Santhai Pvt. Ltd.** — natural farm-direct
 products from Tamil Nadu. Flask backend + vanilla-JS hash-router SPA. **No build
-step, no Node toolchain, no database server.** Double-click and ship.
+step, no Node toolchain.** Double-click and ship.
+
+Production extras (auth, validation, atomic invoice numbering, structured
+logging, QR codes on PDFs, Docker, CI, pytest) are documented in
+[PROFESSIONAL.md](PROFESSIONAL.md).
 
 ---
 
@@ -27,16 +31,31 @@ step, no Node toolchain, no database server.** Double-click and ship.
 
 ## Quick start
 
-**Windows** — double-click [run.bat](run.bat). It auto-installs deps and opens
-the browser.
+**Windows** — double-click [run.bat](run.bat). It installs from
+`backend/requirements.txt`, copies `.env.example` → `.env`, and opens the browser.
 
 **macOS / Linux**
 ```bash
-pip install flask flask-cors pdfplumber pillow reportlab
-python3 backend/app.py
+cp .env.example .env                   # then edit ADMIN_TOKEN before going live
+pip install -r backend/requirements.txt
+python3 backend/app.py                 # development
+# or, for production:
+python3 backend/wsgi.py                # waitress, single-process, Windows-friendly
 ```
 
 Open http://localhost:5000.
+
+### Run the test suite
+
+```bash
+pytest                                 # 21 tests — invoice math, validation, e2e
+```
+
+### Run with Docker
+
+```bash
+docker compose up --build -d           # see Dockerfile + docker-compose.yml
+```
 
 ---
 
@@ -46,16 +65,29 @@ Open http://localhost:5000.
 aammii/
 ├── run.bat                       # Windows: double-click to start
 ├── README.md                     # this file
+├── PROFESSIONAL.md               # production hardening notes (auth, CI, Docker)
 ├── BUSINESS_GUIDE.md             # operations / customisation guide
-├── netlify.toml                  # static-frontend deploy config
+├── .env.example                  # copy to .env and fill in real values
+├── Dockerfile                    # production container image
+├── docker-compose.yml            # one-command local stack
+├── deploy.sh                     # Ubuntu/Nginx + systemd + gunicorn deployment
+├── netlify.toml                  # static-frontend-only deploy (proxies /api)
+├── pytest.ini                    # test runner config
 │
 ├── backend/
-│   ├── app.py                    # Flask app · all API routes · PDF invoice
+│   ├── app.py                    # Flask app · routes · PDF invoice (with QR)
+│   ├── wsgi.py                   # production entrypoint (waitress / gunicorn)
+│   ├── config.py                 # env-driven configuration (loads .env)
+│   ├── app_logger.py             # structured rotating logger
+│   ├── security.py               # admin-token decorator + payload validation
+│   ├── order_store.py            # SQLite-backed atomic invoice counter
+│   ├── database.py               # extra schema (categories, settings, etc.)
 │   ├── admin.py                  # CLI admin tool
 │   ├── pdf_parser.py             # extract products from supplier PDFs
-│   ├── config.py                 # paths · settings
-│   ├── database.py               # legacy SQLite helpers (unused by app.py)
-│   └── requirements.txt          # flask · flask-cors · gunicorn
+│   └── requirements.txt          # pinned production deps
+│
+├── tests/                        # pytest suite (invoice math, validation, e2e)
+├── .github/workflows/ci.yml      # GitHub Actions: tests + Docker build
 │
 ├── frontend/
 │   ├── index.html                # SPA shell (header / footer / view)
@@ -97,28 +129,41 @@ without scrolling through unrelated rules.
 
 ## REST API
 
-All routes are JSON; static frontend at `/`.
+All routes are JSON; static frontend at `/`. Routes marked **🔒** require the
+`X-Admin-Token` header (value from `.env` → `ADMIN_TOKEN`).
 
 | Endpoint                          | Method | Description |
 |-----------------------------------|--------|-------------|
+| `GET  /api/health`                | GET    | Liveness probe — returns feature flags |
 | `GET  /api/products`              | GET    | All products (with computed `hsn` + `gst_rate`) |
-| `PATCH /api/products/<id>`        | PATCH  | Update `image` URL · `hsn` · `gst_rate` · `name` · `qty` · `price` · `category` |
-| `POST /api/upload`                | POST   | Upload a supplier PDF; parsed products replace the catalogue |
-| `POST /api/mark-new`              | POST   | Mark product IDs as newly added (sets `date_added` to today) |
-| `POST /api/order`                 | POST   | Place an order — returns the PDF invoice as the response body |
-| `GET  /api/orders`                | GET    | All orders, newest first (capped at 500) |
-| `GET  /api/orders/<id>`           | GET    | Single order by `id` (e.g. `ORD-XXXX`) or `invoice_no` |
+| `PATCH /api/products/<id>` 🔒     | PATCH  | Update `image` · `hsn` · `gst_rate` · `name` · `qty` · `price` · `category` |
+| `POST /api/upload` 🔒             | POST   | Upload a supplier PDF; parsed products replace the catalogue |
+| `POST /api/mark-new` 🔒           | POST   | Mark product IDs as newly added (sets `date_added` to today) |
+| `POST /api/order`                 | POST   | Place an order — strict payload validation, atomic invoice number |
+| `GET  /api/invoice/<inv>`         | GET    | Stream a previously-generated PDF (e.g. `/api/invoice/INV-11042`) |
+| `GET  /api/orders` 🔒             | GET    | All orders, newest first |
+| `GET  /api/orders/<id>` 🔒       | GET    | Single order by `id` or `invoice_no` |
 
 `POST /api/order` request body:
 ```json
 {
   "items":    [{"code":"FD-017","name":"...","price":80,"qty":2,"category":"Noodles & Vermicelli"}],
-  "customer": {"name":"...","phone":"...","email":"...","address":"..."},
-  "payment":  "COD"
+  "customer": {"name":"...","phone":"+91...","email":"...","address":"..."},
+  "payment":  "cod"
 }
 ```
-Response: `Content-Type: application/pdf`, headers `X-Order-Id` + `X-Invoice-No`
-expose the assigned IDs.
+**Response (default)** — JSON:
+```json
+{ "ok": true, "order_id": "ORD-XXXX", "invoice_no": "INV-11042",
+  "filename": "INV-11042.pdf", "invoice_url": "/api/invoice/INV-11042" }
+```
+Add `?download=1` to receive the PDF as the response body instead.
+
+Validation rejects empty items, bad phone/email format, qty out of `[1..999]`,
+price out of `[0..1_000_000]`, and unknown payment methods.
+
+If `ADMIN_TOKEN` is empty, the auth decorator falls through with a logged
+warning — development convenience only. **Set it in `.env` for production.**
 
 ---
 
@@ -143,29 +188,42 @@ in `frontend/app.js` near the search section.
 
 ## Storage model
 
-No database server. Everything is on disk:
-
-- `uploads/products.json` — catalogue. Mutate via `/api/products/<id>` PATCH or edit the file directly.
-- `orders/orders.json` — order log. Capped at 500; oldest entries roll off.
+- `uploads/products.json` — catalogue. Mutate via `PATCH /api/products/<id>`
+  (atomic write via tempfile + `os.replace`) or edit the file directly.
+- `orders/orders.json` — mirror of placed orders for the admin UI. Capped at 500.
 - `orders/INV-XXXXX.pdf` — one file per placed order, kept indefinitely.
-- `aammii.db` — only present if you ran the legacy `database.py` seed; the live `app.py` does **not** read it.
+- `aammii.db` — **SQLite (WAL)** holding the atomic invoice-number counter and a
+  log of every order. Created automatically on first run; back this up too.
 
-Back up `uploads/` and `orders/` weekly. That is the entire business record.
+Back up `uploads/`, `orders/` and `aammii.db` weekly — that is the entire business record.
 
 ---
 
 ## Deployment
 
-### Render.com (recommended)
+### Docker (any host)
+
+```bash
+docker compose up --build -d
+```
+The `Dockerfile` already installs `fonts-noto` so Tamil PDF rendering works.
+
+### Ubuntu / Oracle Cloud (one-command)
+
+```bash
+bash deploy.sh
+```
+Installs Python, nginx, ufw, fonts-noto; creates a venv, generates a strong
+`.env` (with random `ADMIN_TOKEN` and `SECRET_KEY`), wires a `systemd` unit
+running `gunicorn wsgi:application`, and configures nginx as a reverse proxy.
+
+### Render.com
 
 1. Push to GitHub.
 2. New → Web Service → connect repo.
-3. **Build:** `pip install flask flask-cors pdfplumber pillow reportlab gunicorn`
-4. **Start:** `cd backend && gunicorn app:app`
-
-For Linux servers, install a Tamil font: `apt install fonts-noto-tamil`,
-otherwise the PDF Tamil text falls back to the Helvetica box glyph (English
-parts are unaffected).
+3. **Build:** `pip install -r backend/requirements.txt`
+4. **Start:** `cd backend && gunicorn wsgi:application`
+5. Add env vars from `.env.example` (especially `ADMIN_TOKEN`, `CORS_ORIGINS`).
 
 ### Custom domain
 
