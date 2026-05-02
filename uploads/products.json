@@ -6,7 +6,14 @@
     "qty": "1kg",
     "price": 195.0,
     "category": "Millets & Grains",
-    "image": "https://admin.aammii.com/public//storage/products/rIJ4QAY9AEWeIsKOhxZqfJ6YcZyEhQTeW4St5pLw.jpg"
+    "image": "https://admin.aammii.com/public//storage/products/rIJ4QAY9AEWeIsKOhxZqfJ6YcZyEhQTeW4St5pLw.jpg",
+    "images": [
+      "https://admin.aammii.com/public//storage/products/T9PDno79S8KiIxNhr1htYDkDI5gQar5Htb0AtVzI.jpg",
+      "https://admin.aammii.com/public//storage/products/qwvBHt0qXgxxOHy4kF3JmPlYEsoGU3pqaMlw3uvP.jpg",
+      "https://admin.aammii.com/public//storage/products/4l3VRE9ENnHjzEHHYFrvJMny2dP6FFR2kVDdKJnD.jpg",
+      "https://admin.aammii.com/public//storage/products/tlbpGTAC4nxYwsv4XHDB3tYFZSBEdbwnzVtu2XZo.jpg",
+      "https://admin.aammii.com/public//storage/products/iDGJVzCD0xxNSBy0DyrWkrZdbIrzvn09dJO7RV1w.jpg"
+    ]
   },
   {
     "id": "A-034",
@@ -96,7 +103,14 @@
     "qty": "1kg",
     "price": 105.0,
     "category": "Millets & Grains",
-    "image": ""
+    "image": "https://admin.aammii.com/public//storage/products/uucEqElq3q8gXsWobKdSfYvvKjGxcb2jH4eRL4JG.jpg",
+    "images": [
+      "https://admin.aammii.com/public//storage/products/mTUn6HiIJkkz9QkMmRQE7zaEOwEFG5ro5TbVIESl.jpg",
+      "https://admin.aammii.com/public//storage/products/HyK2Zr5h4ZmObXwTNplINIdSHiFXJEOWpJvoItw9.jpg",
+      "https://admin.aammii.com/public//storage/products/nb5AGydsM9CZVFBTjDtOiRM3SvsX0tLwULBZy4S5.jpg",
+      "https://admin.aammii.com/public//storage/products/73vfB5v0ggSqMIgoTv1tWYC49zCK0mBpRPOcIrQ6.jpg",
+      "https://admin.aammii.com/public//storage/products/u7ciMskCqp2sIr7oLdTcM8lnIZaSkypK56fNA6E6.jpg"
+    ]
   },
   {
     "id": "G-491",
