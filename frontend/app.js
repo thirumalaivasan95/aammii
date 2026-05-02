@@ -2143,20 +2143,121 @@ window.closeCartDrawer = closeCartDrawer;
    24. LOCATION
    ═══════════════════════════════════════════════════════════════ */
 
-function changeLocation(loc) {
+function changeLocation(loc, pin) {
   if (loc) {
     STATE.location = loc;
     localStorage.setItem("aammii-loc", loc);
+    if (pin) localStorage.setItem("aammii-pin", String(pin));
     const el = $("deliverLoc"); if (el) el.textContent = loc;
     showToast(`📍 Delivering to ${loc}`);
     return;
   }
-  /* Simple cycling switcher if called with no arg */
-  const cycle = ["Tamil Nadu", "Chennai", "Coimbatore", "Madurai", "Tiruchirapalli"];
-  const i = cycle.indexOf(STATE.location);
-  changeLocation(cycle[(i + 1) % cycle.length]);
+  openLocationPicker();
 }
 window.changeLocation = changeLocation;
+
+/* ── Location picker modal ─────────────────────────────────────── */
+function openLocationPicker() {
+  $("locBackdrop")?.classList.add("visible");
+  $("locBox")?.classList.add("open");
+  setLocMsg("", "");
+  const pin = localStorage.getItem("aammii-pin") || "";
+  const inp = $("locPinInput");
+  if (inp) { inp.value = pin; setTimeout(() => inp.focus(), 150); }
+}
+function closeLocationPicker() {
+  $("locBackdrop")?.classList.remove("visible");
+  $("locBox")?.classList.remove("open");
+}
+window.openLocationPicker = openLocationPicker;
+window.closeLocationPicker = closeLocationPicker;
+
+function setLocMsg(text, kind) {
+  const el = $("locMsg"); if (!el) return;
+  el.textContent = text || "";
+  el.className = "loc-msg" + (kind ? " " + kind : "");
+}
+
+async function detectMyLocation() {
+  const btn = $("locDetectBtn");
+  const lbl = $("locDetectLabel");
+  if (!navigator.geolocation) {
+    setLocMsg("Your browser doesn't support location detection. Please enter a PIN code.", "error");
+    return;
+  }
+  btn.disabled = true; if (lbl) lbl.textContent = "Locating…";
+  setLocMsg("Requesting your location…", "");
+
+  navigator.geolocation.getCurrentPosition(async (pos) => {
+    try {
+      if (lbl) lbl.textContent = "Identifying area…";
+      const { latitude, longitude } = pos.coords;
+      const r = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&zoom=10&addressdetails=1`,
+        { headers: { "Accept": "application/json" } }
+      );
+      if (!r.ok) throw new Error("Reverse geocoding failed");
+      const data = await r.json();
+      const a = data.address || {};
+      const city = a.city || a.town || a.village || a.suburb || a.county || a.state_district || "";
+      const state = a.state || "";
+      const pin = a.postcode || "";
+      const label = [city, state].filter(Boolean).join(", ") || data.display_name || "Detected location";
+      changeLocation(label, pin);
+      setLocMsg(`✓ Detected: ${label}${pin ? " · " + pin : ""}`, "success");
+      setTimeout(closeLocationPicker, 900);
+    } catch (e) {
+      console.error(e);
+      setLocMsg("Couldn't identify your area. Please try a PIN code instead.", "error");
+    } finally {
+      btn.disabled = false; if (lbl) lbl.textContent = "Use my current location";
+    }
+  }, (err) => {
+    btn.disabled = false; if (lbl) lbl.textContent = "Use my current location";
+    const msg = err.code === err.PERMISSION_DENIED
+      ? "Location permission denied. Please enter a PIN code."
+      : err.code === err.TIMEOUT
+      ? "Location request timed out. Please try again or enter a PIN."
+      : "Couldn't get your location. Please enter a PIN code.";
+    setLocMsg(msg, "error");
+  }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 });
+}
+window.detectMyLocation = detectMyLocation;
+
+async function submitPincode() {
+  const inp = $("locPinInput");
+  const btn = $("locPinBtn");
+  const pin = (inp?.value || "").trim();
+  if (!/^\d{6}$/.test(pin)) {
+    setLocMsg("Please enter a valid 6-digit PIN code.", "error");
+    inp?.focus();
+    return;
+  }
+  btn.disabled = true; const oldLbl = btn.textContent; btn.textContent = "Looking up…";
+  setLocMsg("Looking up PIN code…", "");
+  try {
+    const r = await fetch(`https://api.postalpincode.in/pincode/${pin}`);
+    const data = await r.json();
+    const entry = Array.isArray(data) ? data[0] : null;
+    if (!entry || entry.Status !== "Success" || !entry.PostOffice?.length) {
+      setLocMsg("No location found for that PIN. Please double-check.", "error");
+      return;
+    }
+    const po = entry.PostOffice[0];
+    const district = po.District || po.Block || po.Name || "";
+    const state = po.State || "";
+    const label = [district, state].filter(Boolean).join(", ") || `PIN ${pin}`;
+    changeLocation(label, pin);
+    setLocMsg(`✓ Delivering to ${label}`, "success");
+    setTimeout(closeLocationPicker, 900);
+  } catch (e) {
+    console.error(e);
+    setLocMsg("Couldn't reach the PIN lookup service. Check your connection.", "error");
+  } finally {
+    btn.disabled = false; btn.textContent = oldLbl;
+  }
+}
+window.submitPincode = submitPincode;
 
 /* ═══════════════════════════════════════════════════════════════
    25. TOAST / CONFIRM

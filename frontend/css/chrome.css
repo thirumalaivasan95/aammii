@@ -144,6 +144,36 @@ body.dark .dr-price { color: var(--gold); }
 .confirm-box p { font-size: 14px; color: var(--text-2); margin-bottom: 18px; line-height: 1.6; }
 .confirm-actions { display: flex; gap: 10px; justify-content: flex-end; }
 
+/* ─── LOCATION PICKER ─────────────────────────────────────────── */
+.loc-box { width: min(96vw, 440px); }
+.loc-detect-btn {
+  width: 100%; display: flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 12px 16px; font-size: 15px; font-weight: 700;
+  margin-top: 4px;
+}
+.loc-detect-btn[disabled] { opacity: .65; cursor: wait; }
+.loc-divider {
+  display: flex; align-items: center; gap: 12px;
+  margin: 16px 0; color: var(--text-3); font-size: 12px; font-weight: 600;
+  letter-spacing: 1px;
+}
+.loc-divider::before, .loc-divider::after {
+  content: ""; flex: 1; height: 1px; background: var(--border);
+}
+.loc-pin-form label {
+  display: block; font-size: 12px; font-weight: 700;
+  color: var(--text-2); margin-bottom: 6px; letter-spacing: .3px;
+}
+.loc-pin-row { display: flex; gap: 8px; }
+.loc-pin-row .inp { flex: 1; }
+.loc-pin-row .btn-primary { flex-shrink: 0; padding: 0 18px; }
+.loc-msg {
+  margin-top: 12px; min-height: 18px; font-size: 13px;
+  color: var(--text-2); line-height: 1.5;
+}
+.loc-msg.error { color: #c1121f; }
+.loc-msg.success { color: var(--green); font-weight: 600; }
+
 /* ─── 26. FOOTER ──────────────────────────────────────────────── */
 .foot {
   background: var(--forest-dk); color: rgba(255,255,255,.7);
