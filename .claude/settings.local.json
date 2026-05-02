@@ -33,7 +33,9 @@
       "Bash(python c:/Users/thiru/Downloads/Project/aammii/backend/_logo_test.py)",
       "Bash(python c:/Users/thiru/Downloads/Project/aammii/_split_css.py)",
       "Bash(curl -s -X POST -H \"Content-Type: application/json\" -o c:/tmp/test-invoice.pdf -w \"status=%{http_code} size=%{size_download} type=%{content_type}\\\\n\" -d '{\"items\":[{\"code\":\"FD-017\",\"name\":\"சாமை நூடல்ஸ் / Little Millet Noodles\",\"price\":80,\"qty\":2,\"category\":\"Noodles & Vermicelli\"}],\"customer\":{\"name\":\"Smoke Test\",\"phone\":\"9000000000\",\"email\":\"s@t\",\"address\":\"Test Addr\"},\"payment\":\"COD\"}' http://localhost:5000/api/order)",
-      "Bash(taskkill //F //FI \"PID eq $\\(netstat -ano)"
+      "Bash(taskkill //F //FI \"PID eq $\\(netstat -ano)",
+      "Bash(awk 'BEGIN{prev=0} /\"image\":/ {if \\(prev==NR-1\\) print \"Line \" NR \" has consecutive image\"; prev=NR}' \"c:/Users/thiru/Downloads/Project/aammii/uploads/products.json\")",
+      "PowerShell(try { $j = Get-Content \"c:\\\\Users\\\\thiru\\\\Downloads\\\\Project\\\\aammii\\\\uploads\\\\products.json\" -Raw -Encoding UTF8 | ConvertFrom-Json; Write-Output \\(\"OK: \" + $j.Count + \" products\"\\) } catch { Write-Output \\(\"ERR: \" + $_.Exception.Message\\) })"
     ]
   }
 }

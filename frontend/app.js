@@ -82,12 +82,23 @@ function money(n) { return "₹" + Number(n || 0).toFixed(2); }
 function moneyR(n) { return "₹" + Math.round(Number(n || 0)); }
 
 /* Image system — modular URL based.
-   Pasted image URL wins; everything else falls back to a category-tinted SVG. */
-function imageUrl(p) {
-  const img = (p?.image || "").trim();
-  if (img && (img.startsWith("http://") || img.startsWith("https://") || img.startsWith("data:"))) {
-    return img;
+   Pasted image URL wins; everything else falls back to a category-tinted SVG.
+   Products may carry a single `image` string OR an `images` array (gallery). */
+function isValidImg(s) {
+  const t = (s || "").trim();
+  return !!t && (t.startsWith("http://") || t.startsWith("https://") || t.startsWith("data:"));
+}
+function productImages(p) {
+  const list = [];
+  if (Array.isArray(p?.images)) {
+    for (const u of p.images) if (isValidImg(u)) list.push(u.trim());
   }
+  if (isValidImg(p?.image) && !list.includes(p.image.trim())) list.unshift(p.image.trim());
+  return list;
+}
+function imageUrl(p) {
+  const arr = productImages(p);
+  if (arr.length) return arr[0];
   return fallbackSVG(280, p?.category);
 }
 
@@ -229,6 +240,11 @@ async function route() {
 
   window.scrollTo(0, 0);
   updateNavCart();
+
+  if (typeof _pdSlideTimer !== "undefined" && _pdSlideTimer) {
+    clearInterval(_pdSlideTimer);
+    _pdSlideTimer = null;
+  }
 
   // Route dispatch
   const first = parts[0] || "";
@@ -745,14 +761,40 @@ function renderProduct(view, id) {
       </div>
 
       <div class="pd-wrap">
-        <div class="pd-gallery">
+        ${(() => {
+          const imgs = productImages(p);
+          const slides = imgs.length ? imgs : [imageUrl(p)];
+          const multi = slides.length > 1;
+          return `
+        <div class="pd-gallery" data-multi="${multi ? '1' : '0'}">
           <div class="pd-main-img">
-            <img src="${imageUrl(p)}" alt="${esc(p.name)}" id="pdMainImg" onerror="this.src='${fallbackSVG()}'"/>
+            ${slides.map((src, i) => `
+              <img src="${esc(src)}" alt="${esc(p.name)}" class="pd-slide ${i === 0 ? 'active' : ''}"
+                   data-idx="${i}" onerror="this.src='${fallbackSVG()}'"/>
+            `).join("")}
+            ${multi ? `
+              <button class="pd-nav pd-nav-prev" aria-label="Previous image" onclick="pdSlide(-1)">‹</button>
+              <button class="pd-nav pd-nav-next" aria-label="Next image" onclick="pdSlide(1)">›</button>
+              <div class="pd-dots">
+                ${slides.map((_, i) => `<button class="pd-dot ${i === 0 ? 'active' : ''}" data-idx="${i}" onclick="pdGoTo(${i})" aria-label="Go to image ${i+1}"></button>`).join("")}
+              </div>
+            ` : ""}
           </div>
-          <div class="pd-thumbs">
-            <div class="pd-thumb active"><img src="${imageUrl(p)}" alt=""/></div>
-          </div>
-        </div>
+          ${multi ? `
+            <div class="pd-thumbs">
+              ${slides.map((src, i) => `
+                <div class="pd-thumb ${i === 0 ? 'active' : ''}" data-idx="${i}" onclick="pdGoTo(${i})">
+                  <img src="${esc(src)}" alt="" onerror="this.src='${fallbackSVG(70, p.category)}'"/>
+                </div>
+              `).join("")}
+            </div>
+          ` : `
+            <div class="pd-thumbs">
+              <div class="pd-thumb active"><img src="${esc(slides[0])}" alt=""/></div>
+            </div>
+          `}
+        </div>`;
+        })()}
 
         <div class="pd-info">
           <div class="pd-code">Product code: ${esc(p.code || p.id)}</div>
@@ -826,9 +868,46 @@ function renderProduct(view, id) {
         </section>` : ""}
     </div>
   `;
+
+  _pdSlideIdx = 0;
+  _pdRestartAuto();
 }
 
 let _pdQty = 1;
+let _pdSlideIdx = 0;
+let _pdSlideTimer = null;
+
+function _pdApplySlide() {
+  qa(".pd-slide").forEach(el => {
+    el.classList.toggle("active", Number(el.dataset.idx) === _pdSlideIdx);
+  });
+  qa(".pd-thumb[data-idx]").forEach(el => {
+    el.classList.toggle("active", Number(el.dataset.idx) === _pdSlideIdx);
+  });
+  qa(".pd-dot").forEach(el => {
+    el.classList.toggle("active", Number(el.dataset.idx) === _pdSlideIdx);
+  });
+}
+function _pdRestartAuto() {
+  if (_pdSlideTimer) clearInterval(_pdSlideTimer);
+  const total = qa(".pd-slide").length;
+  if (total > 1) _pdSlideTimer = setInterval(() => window.pdSlide(1), 4000);
+}
+window.pdSlide = dir => {
+  const total = qa(".pd-slide").length;
+  if (total < 2) return;
+  _pdSlideIdx = (_pdSlideIdx + dir + total) % total;
+  _pdApplySlide();
+  _pdRestartAuto();
+};
+window.pdGoTo = i => {
+  const total = qa(".pd-slide").length;
+  if (total < 2) return;
+  _pdSlideIdx = ((i % total) + total) % total;
+  _pdApplySlide();
+  _pdRestartAuto();
+};
+
 window.pdChangeQty = d => {
   _pdQty = Math.max(1, _pdQty + d);
   $("pdQty").textContent = _pdQty;
