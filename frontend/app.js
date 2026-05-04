@@ -1581,6 +1581,7 @@ function renderImgMgr() {
   }
   list.innerHTML = prods.map(p => {
     const n = splitName(p.name);
+    const galleryCount = Array.isArray(p.images) ? p.images.length : 0;
     return `
       <div class="img-mgr-row">
         <img class="img-mgr-thumb" src="${imageUrl(p)}" alt="" onerror="this.src='${fallbackSVG(60, p.category)}'"/>
@@ -1592,6 +1593,10 @@ function renderImgMgr() {
                value="${esc(p.image && (p.image.startsWith('http')||p.image.startsWith('data:')) ? p.image : '')}"
                placeholder="https://example.com/image.jpg"/>
         <button class="btn-primary img-mgr-save" onclick="saveProductImage('${esc(p.id)}', this)">Save</button>
+        <button class="btn-secondary img-mgr-gallery" onclick="openGalleryEditor('${esc(p.id)}')"
+                style="grid-column:1/-1;margin-top:6px">
+          🖼 Gallery (${galleryCount})
+        </button>
       </div>
     `;
   }).join("");
@@ -1662,6 +1667,118 @@ async function uploadPDF(input) {
   }
 }
 window.uploadPDF = uploadPDF;
+
+/* ── Gallery (multi-image) editor ─────────────────────────────── */
+let _galleryPid = null;
+
+window.openGalleryEditor = function (pid) {
+  _galleryPid = pid;
+  const p = STATE.products.find(x => x.id === pid || x.code === pid);
+  if (!p) return;
+  const urls = Array.isArray(p.images) ? p.images.slice() : [];
+  const n = splitName(p.name);
+
+  const wrap = document.createElement("div");
+  wrap.id = "galleryModal";
+  wrap.className = "modal-back visible";
+  wrap.style.zIndex = "1100";
+  wrap.onclick = (e) => { if (e.target === wrap) closeGalleryEditor(); };
+
+  const box = document.createElement("div");
+  box.className = "confirm-box open";
+  box.style.maxWidth = "600px";
+  box.innerHTML = `
+    <button class="x-close" onclick="closeGalleryEditor()" aria-label="Close">&times;</button>
+    <h3>🖼 Gallery — ${esc(n.tamil)}</h3>
+    <p style="font-size:13px;color:var(--text-2);margin-bottom:12px">
+      Paste full image URLs (https://…). One per row. Drag-reorder not supported — use the arrow buttons.
+    </p>
+    <div id="galleryList" style="display:flex;flex-direction:column;gap:8px;max-height:50vh;overflow-y:auto;margin-bottom:12px"></div>
+    <button class="btn-secondary" onclick="addGalleryRow()" style="margin-bottom:14px">+ Add image URL</button>
+    <div class="confirm-actions">
+      <button class="btn-secondary" onclick="closeGalleryEditor()">Cancel</button>
+      <button class="btn-primary" onclick="saveGallery()">Save gallery</button>
+    </div>
+  `;
+  wrap.appendChild(box);
+  document.body.appendChild(wrap);
+
+  renderGalleryRows(urls);
+};
+
+function renderGalleryRows(urls) {
+  const list = $("galleryList"); if (!list) return;
+  if (!urls.length) {
+    list.innerHTML = `<div style="color:var(--text-3);font-size:13px;padding:8px">No additional images yet. Click + Add to start.</div>`;
+    return;
+  }
+  list.innerHTML = urls.map((u, i) => `
+    <div class="gallery-row" style="display:grid;grid-template-columns:48px 1fr auto auto auto;gap:8px;align-items:center">
+      <img src="${esc(u)}" alt="" style="width:48px;height:48px;object-fit:cover;border-radius:6px;border:1px solid var(--border)" onerror="this.style.opacity='.3'"/>
+      <input class="inp gallery-url" type="url" value="${esc(u)}" data-idx="${i}" placeholder="https://…"/>
+      <button class="btn-secondary" onclick="moveGalleryRow(${i},-1)" ${i === 0 ? 'disabled' : ''} style="padding:6px 10px">↑</button>
+      <button class="btn-secondary" onclick="moveGalleryRow(${i},1)" ${i === urls.length - 1 ? 'disabled' : ''} style="padding:6px 10px">↓</button>
+      <button class="btn-secondary" onclick="removeGalleryRow(${i})" style="padding:6px 10px;color:var(--red)">✕</button>
+    </div>
+  `).join("");
+}
+
+function readGalleryUrls() {
+  return [...document.querySelectorAll(".gallery-url")].map(i => i.value.trim()).filter(Boolean);
+}
+
+window.addGalleryRow = function () {
+  const urls = readGalleryUrls();
+  urls.push("");
+  renderGalleryRows(urls);
+  const inputs = document.querySelectorAll(".gallery-url");
+  inputs[inputs.length - 1]?.focus();
+};
+window.removeGalleryRow = function (i) {
+  const urls = readGalleryUrls();
+  urls.splice(i, 1);
+  renderGalleryRows(urls);
+};
+window.moveGalleryRow = function (i, dir) {
+  const urls = readGalleryUrls();
+  const j = i + dir;
+  if (j < 0 || j >= urls.length) return;
+  [urls[i], urls[j]] = [urls[j], urls[i]];
+  renderGalleryRows(urls);
+};
+window.closeGalleryEditor = function () {
+  document.getElementById("galleryModal")?.remove();
+  _galleryPid = null;
+};
+window.saveGallery = async function () {
+  if (!_galleryPid) return;
+  const urls = readGalleryUrls();
+  for (const u of urls) {
+    if (!/^https?:\/\//i.test(u)) {
+      showToast("❌ All URLs must start with http:// or https://");
+      return;
+    }
+  }
+  try {
+    const r = await fetch(`${API}/api/products/${encodeURIComponent(_galleryPid)}`, {
+      method: "PATCH",
+      headers: adminHeaders({ "Content-Type": "application/json" }),
+      body: JSON.stringify({ images: urls }),
+    });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.error || "Save failed");
+    const p = STATE.products.find(x => x.id === _galleryPid || x.code === _galleryPid);
+    if (p) {
+      if (urls.length) p.images = urls;
+      else delete p.images;
+    }
+    showToast(`✓ Gallery saved (${urls.length} image${urls.length === 1 ? '' : 's'})`);
+    closeGalleryEditor();
+    renderImgMgr();
+  } catch (e) {
+    showToast("❌ " + e.message);
+  }
+};
 
 window.saveAdminTokenBtn = function () {
   const v = ($("adminTokenInput")?.value || "").trim();

@@ -218,12 +218,20 @@ def api_products():
         p["gst_rate"] = gst_rate_for(p)
     return jsonify(prods)
 
+def _clean_image_url(v: str) -> str:
+    s = (v or "").strip()
+    if not s:
+        return ""
+    if not (s.startswith("http://") or s.startswith("https://")):
+        raise ValueError("Image must be a full URL (http/https)")
+    return s
+
 @app.route("/api/products/<pid>", methods=["PATCH", "PUT"])
 @require_admin
 def api_product_update(pid):
-    """Update a product's editable fields (image URL, HSN, GST rate, name, qty, price)."""
+    """Update a product's editable fields (image, images[], HSN, GST rate, name, qty, price, category)."""
     data = request.get_json(silent=True) or {}
-    allowed = {"image", "hsn", "gst_rate", "name", "qty", "price", "category"}
+    allowed = {"image", "images", "hsn", "gst_rate", "name", "qty", "price", "category"}
     patch = {k: v for k, v in data.items() if k in allowed}
     if not patch:
         return jsonify({"error": "Nothing to update"}), 400
@@ -233,11 +241,25 @@ def api_product_update(pid):
         if str(p.get("id")) == pid or str(p.get("code")) == pid:
             for k, v in patch.items():
                 if k == "image":
-                    img = (v or "").strip()
-                    # Only accept full URLs or empty (clear)
-                    if img and not (img.startswith("http://") or img.startswith("https://")):
-                        return jsonify({"error": "Image must be a full URL (http/https)"}), 400
-                    p["image"] = img
+                    try:
+                        p["image"] = _clean_image_url(v)
+                    except ValueError as e:
+                        return jsonify({"error": str(e)}), 400
+                elif k == "images":
+                    if not isinstance(v, list):
+                        return jsonify({"error": "images must be a list of URLs"}), 400
+                    cleaned = []
+                    for item in v:
+                        try:
+                            url = _clean_image_url(item)
+                        except ValueError as e:
+                            return jsonify({"error": str(e)}), 400
+                        if url:
+                            cleaned.append(url)
+                    if cleaned:
+                        p["images"] = cleaned
+                    else:
+                        p.pop("images", None)
                 elif k == "gst_rate":
                     try:
                         r = float(v)
