@@ -11,8 +11,9 @@
    ═══════════════════════════════════════════════════════════════ */
 
 const API = (window.location.hostname === "localhost" ||
-             window.location.hostname === "127.0.0.1")
-            ? "" : "";
+             window.location.hostname === "127.0.0.1" ||
+             window.location.hostname.endsWith(".pythonanywhere.com"))
+            ? "" : "https://thirumalaivasan.pythonanywhere.com";
 
 const STATE = {
   products:    [],
