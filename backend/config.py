@@ -47,7 +47,7 @@ PORT       = int(os.environ.get("PORT", "5000"))
 
 # ── Security ──
 ADMIN_TOKEN  = os.environ.get("ADMIN_TOKEN", "")  # empty = auth disabled (dev only)
-_DEFAULT_CORS_ORIGINS = "https://aammii-store.pages.dev,http://localhost:5000"
+_DEFAULT_CORS_ORIGINS = "https://aammii-store.thirumalaithiruvasan.workers.dev,https://aammii-store.pages.dev,http://localhost:5000"
 CORS_ORIGINS = _csv(os.environ.get("CORS_ORIGINS", _DEFAULT_CORS_ORIGINS))
 
 # ── Logging ──
