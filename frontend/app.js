@@ -26,6 +26,19 @@ const STATE = {
 const CART_KEY  = "aammii-cart";
 const ORDERS_KEY = "aammii-orders-local";   /* local order shadow for anon users */
 const FAV_KEY   = "aammii-favs";
+const ADMIN_TOKEN_KEY = "aammii-admin-token";
+
+function adminToken() {
+  try { return localStorage.getItem(ADMIN_TOKEN_KEY) || ""; } catch { return ""; }
+}
+function adminHeaders(extra = {}) {
+  const t = adminToken();
+  return t ? { ...extra, "X-Admin-Token": t } : extra;
+}
+function setAdminToken(t) {
+  try { localStorage.setItem(ADMIN_TOKEN_KEY, (t || "").trim()); } catch {}
+}
+window.setAdminToken = setAdminToken;
 
 /* ═══════════════════════════════════════════════════════════════
    2. CATEGORY METADATA
@@ -292,7 +305,7 @@ async function loadProducts() {
 
 async function fetchOrders() {
   try {
-    const r = await fetch(`${API}/api/orders`);
+    const r = await fetch(`${API}/api/orders`, { headers: adminHeaders() });
     if (r.ok) return await r.json();
   } catch {}
   /* fallback to local shadow */
@@ -1483,6 +1496,21 @@ function renderAdmin(view) {
       <h1 class="page-title">Admin Panel</h1>
       <p class="page-sub">Manage your catalogue, upload price lists, and oversee the store.</p>
 
+      <div class="ck-card" style="margin-bottom:18px">
+        <div class="ck-title" style="margin-bottom:8px">🔑 Admin token</div>
+        <p style="font-size:13px;color:var(--text-2);margin-bottom:10px">
+          Required for upload, image edit, and orders. Stored locally in your browser only.
+        </p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <input class="inp" id="adminTokenInput" type="password" autocomplete="off"
+                 placeholder="Paste your ADMIN_TOKEN here" value="${esc(adminToken())}"
+                 style="flex:1;min-width:200px"/>
+          <button class="btn-primary" onclick="saveAdminTokenBtn()">Save</button>
+          <button class="btn-secondary" onclick="clearAdminTokenBtn()">Clear</button>
+        </div>
+        <div id="adminTokenMsg" style="font-size:12px;color:var(--text-3);margin-top:8px"></div>
+      </div>
+
       <div class="admin-tiles">
         <div class="admin-tile"><div class="admin-tile-n">${STATE.products.length}</div><div class="admin-tile-l">Total Products</div></div>
         <div class="admin-tile"><div class="admin-tile-n">${Object.keys(byCat).length}</div><div class="admin-tile-l">Categories</div></div>
@@ -1578,7 +1606,7 @@ async function saveProductImage(pid, btn) {
   try {
     const r = await fetch(`${API}/api/products/${encodeURIComponent(pid)}`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json" },
+      headers: adminHeaders({ "Content-Type": "application/json" }),
       body: JSON.stringify({ image: url }),
     });
     const data = await r.json();
@@ -1618,7 +1646,7 @@ async function uploadPDF(input) {
 
   try {
     const fd = new FormData(); fd.append("pdf", f);
-    const r = await fetch(`${API}/api/upload`, { method: "POST", body: fd });
+    const r = await fetch(`${API}/api/upload`, { method: "POST", body: fd, headers: adminHeaders() });
     clearInterval(iv);
     fill.style.width = "100%";
     const data = await r.json();
@@ -1634,6 +1662,20 @@ async function uploadPDF(input) {
   }
 }
 window.uploadPDF = uploadPDF;
+
+window.saveAdminTokenBtn = function () {
+  const v = ($("adminTokenInput")?.value || "").trim();
+  setAdminToken(v);
+  const msg = $("adminTokenMsg");
+  if (msg) msg.textContent = v ? "✓ Token saved" : "Token cleared";
+  showToast(v ? "✓ Admin token saved" : "Admin token cleared");
+};
+window.clearAdminTokenBtn = function () {
+  setAdminToken("");
+  const inp = $("adminTokenInput"); if (inp) inp.value = "";
+  const msg = $("adminTokenMsg"); if (msg) msg.textContent = "Token cleared";
+  showToast("Admin token cleared");
+};
 
 /* ═══════════════════════════════════════════════════════════════
    18. PAGE: ABOUT
