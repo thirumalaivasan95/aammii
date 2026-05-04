@@ -189,8 +189,7 @@ function addToCart(id, qty = 1, silent = false) {
   else STATE.cart[p.id] = { ...p, qty };
   saveCart(); updateNavCart();
   if (!silent) {
-    showToast(`🛒 ${splitName(p.name).tamil} added`);
-    openCartDrawer(p);
+    showToast(`🛒 ${splitName(p.name).tamil} added to cart`);
   }
 }
 function setQty(id, qty) {
@@ -907,6 +906,15 @@ window.pdGoTo = i => {
   _pdApplySlide();
   _pdRestartAuto();
 };
+
+document.addEventListener("keydown", (e) => {
+  if (!parseHash().path.startsWith("/product")) return;
+  if (qa(".pd-slide").length < 2) return;
+  const tag = (e.target.tagName || "").toLowerCase();
+  if (tag === "input" || tag === "textarea" || tag === "select" || e.target.isContentEditable) return;
+  if (e.key === "ArrowRight") { e.preventDefault(); window.pdSlide(1); }
+  else if (e.key === "ArrowLeft") { e.preventDefault(); window.pdSlide(-1); }
+});
 
 window.pdChangeQty = d => {
   _pdQty = Math.max(1, _pdQty + d);

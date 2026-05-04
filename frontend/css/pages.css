@@ -82,10 +82,11 @@ body.dark .filter-cat-btn.active { background: rgba(251,191,36,.14); }
 }
 
 /* ─── 16. PRODUCT DETAIL ───────────────────────────────────────── */
-.pd-wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: flex-start; }
+.pd-wrap { display: grid; grid-template-columns: minmax(0, 460px) 1fr; gap: 40px; align-items: flex-start; }
 .pd-gallery {
   display: flex; flex-direction: column; gap: 12px;
-  position: sticky; top: 130px;
+  position: sticky; top: 90px;
+  max-width: 460px; width: 100%;
 }
 .pd-main-img {
   position: relative;
@@ -96,9 +97,10 @@ body.dark .filter-cat-btn.active { background: rgba(251,191,36,.14); }
 .pd-main-img img,
 .pd-main-img .pd-slide {
   position: absolute; inset: 0;
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%; height: 100%; object-fit: contain;
   opacity: 0; transition: opacity .45s ease;
   pointer-events: none;
+  background: var(--surface-2);
 }
 .pd-main-img .pd-slide.active { opacity: 1; }
 .pd-gallery[data-multi="0"] .pd-main-img .pd-slide { opacity: 1; position: static; }
