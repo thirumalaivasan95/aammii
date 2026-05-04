@@ -27,3 +27,9 @@ uploads/catalogue.pdf
 # OS
 Thumbs.db
 .DS_Store
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
