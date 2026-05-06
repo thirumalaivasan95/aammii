@@ -226,7 +226,15 @@
     "qty": "25kg",
     "price": 3100.0,
     "category": "Millets & Grains",
-    "image": ""
+    "image": "https://admin.aammii.com/public//storage/products/UusE74UQJG1irMnnSfQNHaaI9Mv7UaigBE5Z726s.jpg",
+    "images": [
+      "https://admin.aammii.com/public//storage/products/3wb7aiCEkAne8cQjSVff9Ul6im1eIQHWYHvrb05Y.jpg",
+      "https://admin.aammii.com/public//storage/products/0rp6thKeHihYu0Kpc0sC9muunjpPFJUZXrx2vnIr.jpg",
+      "https://admin.aammii.com/public//storage/products/Jo1qiTcn9aG0tdSPcAR2v5NDfs03SScc959I0Cf5.jpg",
+      "https://admin.aammii.com/public//storage/products/B5vdZGcZn0THufoAjJ19lHjxFjn5snSbxhKOyKPh.jpg",
+      "https://admin.aammii.com/public//storage/products/Zh6PjpQIbBiBDrEb6J1l4pKYt6QYYEWK2OXWYDw8.jpg",
+      "https://admin.aammii.com/public//storage/products/prpzy24HwEasAHNUvKpBPqq3PZOECuH2XEew3UZZ.jpg"
+    ]
   },
   {
     "id": "G-1095",
