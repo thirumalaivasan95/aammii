@@ -1036,7 +1036,16 @@
     "qty": "1pc",
     "price": 12.0,
     "category": "Dry Fruits & Nuts",
-    "image": ""
+    "image": "https://admin.aammii.com/public//storage/products/RrLjZUZODz8aCcgKZNMzRgUC1pSs1EWl6bc4IgVt.jpg",
+    "images": [
+      "https://admin.aammii.com/public//storage/products/E4CslE1ejQ1JYwQg1CKq1Oy8otHxPZQu1p8Qcm1p.jpg",
+      "https://admin.aammii.com/public//storage/products/40Sw3t3NVqgVOnwgDLzUj8QGzzjd3xQ55LR7iTrs.jpg",
+      "https://admin.aammii.com/public//storage/products/QLx0MkkdhfG3IwLb7qDI2gEiDclspuTSMQ8KcvlU.jpg",
+      "https://admin.aammii.com/public//storage/products/NGlHt4H84h5AHiZj3RChNVSRsaMJ1gQi8ayjz7jI.jpg",
+      "https://admin.aammii.com/public//storage/products/IJNXzHAZB7t1sW1urobN7nLnl8NwdoB3jfJtIcp1.jpg",
+      "https://admin.aammii.com/public//storage/products/IFoP94QrsgLgOgZVqjyEDjFxCwSinE6SxoxeUvfE.jpg",
+      "https://admin.aammii.com/public//storage/products/oHdy3LzogeM1A7GH04N1HyHfITH29I0vzuiJllNG.jpg"
+    ]
   },
   {
     "id": "G-1194",
@@ -1063,7 +1072,15 @@
     "qty": "150gm",
     "price": 70.0,
     "category": "Dry Fruits & Nuts",
-    "image": ""
+    "image": "https://admin.aammii.com/public//storage/products/AnRGkjoLAZ4jm9ue38KSYlOX4WaFhfgRIQxpM85N.jpg",
+    "images": [
+      "https://admin.aammii.com/public//storage/products/hrjCC2wJje6syKSZpIKTOCzV5vUgyndK30Z2kesv.jpg",
+      "https://admin.aammii.com/public//storage/products/UMFO7EuC6WGIM98jf911zU8FebdG58UVKarHeqbG.jpg",
+      "https://admin.aammii.com/public//storage/products/sL6EnSsM1fR5O06A2kYMPhN0XemSBtg7yN6XgF6R.jpg",
+      "https://admin.aammii.com/public//storage/products/nLzcJvDr7jKNzbTeTxPQCvJcZ9aHfxsZF2H4MOuY.jpg",
+      "https://admin.aammii.com/public//storage/products/y10FrBEW5cfV375zIUOgTjep9PpfsWfUL9NXUx3w.jpg",
+      "https://admin.aammii.com/public//storage/products/Ghv9tIt8HpMTsTO3Cu9BHvIL4NDmicDw3MaD07KJ.jpg"
+    ]
   },
   {
     "id": "G-1200",
