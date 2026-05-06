@@ -123,7 +123,7 @@
         <option value="">All</option>
       </select>
       <input type="search" id="searchInput" class="search-input"
-             placeholder="Search products — typos OK"
+             placeholder="Search products…"
              oninput="onSearchInput()"
              onfocus="onSearchInput()"
              onkeydown="onSearchKey(event)"
@@ -308,22 +308,6 @@
     </div>
   </div>
 </div>
-
-<!-- ═══════════════════════════════════════════════════════════════
-     QUICK-VIEW CART DRAWER
-     ═══════════════════════════════════════════════════════════════ -->
-<div class="drawer-back" id="drawerBack" onclick="closeCartDrawer()"></div>
-<aside class="drawer" id="cartDrawer">
-  <div class="drawer-head">
-    <h3>Added to Cart ✓</h3>
-    <button class="x-close" onclick="closeCartDrawer()">&times;</button>
-  </div>
-  <div class="drawer-body" id="drawerBody"></div>
-  <div class="drawer-foot">
-    <a href="#/cart" onclick="closeCartDrawer()" class="btn-primary">View Cart</a>
-    <a href="#/checkout" onclick="closeCartDrawer()" class="btn-secondary">Checkout →</a>
-  </div>
-</aside>
 
 <!-- ═══════════════════════════════════════════════════════════════
      TOAST  /  CONFIRM DIALOG

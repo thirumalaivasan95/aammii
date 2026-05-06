@@ -299,14 +299,11 @@ Edit `renderHome()` in `frontend/app.js`. Every headline, testimonial, and secti
 
 ### Contact info
 Search for `+91 95006 55548` and `orders@aammii.com` across:
-- `frontend/index.html` (footer, announcement bar)
+- `frontend/index.html` (footer)
 - `frontend/app.js` (contact page)
 - `backend/app.py` (PDF invoice)
 
 Replace with your actual numbers.
-
-### Announcement bar
-The rotating banner at the very top (Free delivery, promo code, etc.) lives in `index.html` around `class="announce"`. Edit those spans directly.
 
 ---
 

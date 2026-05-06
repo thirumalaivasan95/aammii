@@ -21,7 +21,12 @@ logs/
 # Generated files
 orders/*.pdf
 orders/*.txt
+orders/orders.json
 uploads/catalogue.pdf
+aammii.db
+aammii.db-journal
+aammii.db-wal
+aammii.db-shm
 
 # IDE
 .vscode/

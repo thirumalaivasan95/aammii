@@ -328,6 +328,79 @@ async function loadProducts() {
     }
   } catch (e) { console.error("loadProducts", e); STATE.products = []; }
   populateSearchCats();
+  startSearchTypewriter();
+}
+
+/* ── Typewriter placeholder in the search bar ──
+   Cycles real product names: types each char, holds, deletes, picks the next.
+   Pauses while the input has focus or content. */
+let _typewriterRunning = false;
+const _sleep = ms => new Promise(r => setTimeout(r, ms));
+
+function _typewriterCandidates() {
+  const seen = new Set(); const out = [];
+  for (const p of STATE.products) {
+    const raw = (p?.name || "").trim();
+    if (!raw) continue;
+    // Prefer the English half of "English / Tamil" or "Tamil / English"
+    const parts = raw.split(/\s*\/\s*/);
+    let pick = parts.find(s => /[A-Za-z]/.test(s)) || parts[0] || "";
+    // Drop "1kg", "100g", trailing pack info, and anything after a comma
+    pick = pick.split(",")[0].trim();
+    pick = pick.replace(/\s+\d+\s*(?:kg|g|gm|ml|ltr|l|nos|pcs)\b/i, "").trim();
+    pick = pick.replace(/\s{2,}/g, " ");
+    if (!pick || pick.length < 3 || pick.length > 28) continue;
+    // Capitalise first letter for visual neatness
+    pick = pick.charAt(0).toUpperCase() + pick.slice(1);
+    const key = pick.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(pick);
+  }
+  // Fisher–Yates shuffle
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out.slice(0, 40); // cap so we don't loop through all 450
+}
+
+async function startSearchTypewriter() {
+  const inp = $("searchInput");
+  if (!inp || _typewriterRunning) return;
+  const words = _typewriterCandidates();
+  if (!words.length) return;
+  _typewriterRunning = true;
+
+  const PREFIX = "Search for: ";
+  let idx = 0;
+  while (_typewriterRunning) {
+    const word = words[idx % words.length];
+    idx++;
+
+    // Type
+    for (let i = 1; i <= word.length; i++) {
+      if (!_typewriterRunning) return;
+      if (document.activeElement === inp || inp.value) {
+        await _sleep(600); i--; continue; // hold off while user is using it
+      }
+      inp.placeholder = PREFIX + word.slice(0, i) + "▎";
+      await _sleep(60 + Math.random() * 60);
+    }
+    inp.placeholder = PREFIX + word;
+    await _sleep(1200);
+
+    // Erase
+    for (let i = word.length; i >= 0; i--) {
+      if (!_typewriterRunning) return;
+      if (document.activeElement === inp || inp.value) {
+        await _sleep(600); continue;
+      }
+      inp.placeholder = PREFIX + word.slice(0, i) + (i ? "▎" : "");
+      await _sleep(35 + Math.random() * 30);
+    }
+    await _sleep(250);
+  }
 }
 
 async function fetchOrders() {
@@ -2499,41 +2572,7 @@ function toggleMobileNav() {
 window.toggleMobileNav = toggleMobileNav;
 
 /* ═══════════════════════════════════════════════════════════════
-   23. CART DRAWER
-   ═══════════════════════════════════════════════════════════════ */
-
-function openCartDrawer(p) {
-  const body = $("drawerBody"); if (!body) return;
-  const n = splitName(p.name);
-  const total = cartTotal();
-  body.innerHTML = `
-    <div class="dr-item">
-      <img class="dr-img" src="${imageUrl(p)}" onerror="this.src='${fallbackSVG(52)}'"/>
-      <div class="dr-info">
-        <div class="dr-name tamil">${esc(n.tamil)}</div>
-        <div class="dr-meta">${esc(n.english)} · ${esc(p.qty || "")}</div>
-        <div class="dr-price">${money(p.price)}</div>
-      </div>
-    </div>
-    <div style="padding-top:14px;font-size:13px;color:var(--text-2)">
-      <div style="display:flex;justify-content:space-between"><span>Items in cart</span><strong>${cartCount()}</strong></div>
-      <div style="display:flex;justify-content:space-between;font-size:16px;font-weight:900;color:var(--text);margin-top:6px"><span>Subtotal</span><span>${money(total)}</span></div>
-    </div>
-  `;
-  $("cartDrawer").classList.add("open");
-  $("drawerBack").classList.add("visible");
-  clearTimeout(window._drawerTimer);
-  window._drawerTimer = setTimeout(closeCartDrawer, 5000);
-}
-function closeCartDrawer() {
-  $("cartDrawer")?.classList.remove("open");
-  $("drawerBack")?.classList.remove("visible");
-  clearTimeout(window._drawerTimer);
-}
-window.closeCartDrawer = closeCartDrawer;
-
-/* ═══════════════════════════════════════════════════════════════
-   24. LOCATION
+   23. LOCATION
    ═══════════════════════════════════════════════════════════════ */
 
 function changeLocation(loc, pin) {

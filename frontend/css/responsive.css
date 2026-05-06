@@ -162,7 +162,6 @@
   .auth-modal { padding: 20px; max-width: 100%; width: calc(100vw - 24px); }
 
   /* Drawer */
-  .drawer { width: 100%; max-width: 100%; }
 
   /* Touch targets for buttons */
   .btn-primary, .btn-secondary, .btn-big { min-height: 44px; }
@@ -214,6 +213,6 @@
 
 /* ─── 30. PRINT ───────────────────────────────────────────────── */
 @media print {
-  .nav, .subnav, .foot, .drawer, .cart-summary-card, .toast, .back-top, .announce { display: none !important; }
+  .nav, .subnav, .foot, .cart-summary-card, .toast, .back-top { display: none !important; }
   .view { padding: 0; }
 }

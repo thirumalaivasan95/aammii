@@ -98,10 +98,10 @@ aammii/
 │   ├── logo.svg                  # brand logo (rendered in PDF too)
 │   └── css/                      # modular stylesheets — see below
 │       ├── tokens.css            # design variables · base reset · scrollbar
-│       ├── layout.css            # announce · nav · mobile-nav · view
+│       ├── layout.css            # nav · mobile-nav · view
 │       ├── home.css              # hero · sections · tiles · product card
-│       ├── pages.css             # browse · product · cart · checkout · orders · admin · about
-│       ├── chrome.css            # auth modal · cart drawer · toast · footer · search
+│       ├── pages.css             # browse · product · cart · checkout · confirm · orders · admin · about
+│       ├── chrome.css            # auth modal · toast · footer · search
 │       └── responsive.css        # breakpoints + print
 │
 ├── uploads/

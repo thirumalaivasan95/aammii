@@ -1,16 +1,4 @@
-/* ─── 4. ANNOUNCEMENT STRIP ───────────────────────────────────── */
-.announce {
-  background: var(--forest-dk); color: rgba(255,255,255,.85);
-  font-size: 12px; padding: 8px 16px;
-  overflow: hidden; position: relative;
-}
-.announce-track {
-  display: flex; gap: 28px; justify-content: center; flex-wrap: wrap;
-  letter-spacing: .2px;
-}
-.announce-track .dot { opacity: .4; }
-
-/* ─── 5. MAIN NAV ─────────────────────────────────────────────── */
+/* ─── 4. MAIN NAV ─────────────────────────────────────────────── */
 .nav {
   position: sticky; top: 0; z-index: 500;
   background: var(--forest);
