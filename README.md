@@ -12,8 +12,9 @@ logging, QR codes on PDFs, Docker, CI, pytest) are documented in
 
 ## What it does
 
-- **Storefront** — 12-page SPA: Home, Browse, Category, Product, Cart, Checkout,
-  Orders, Order Detail, Account, Admin, About, Contact.
+- **Storefront** — 13-page SPA: Home, Browse, Category, Product, Cart, Checkout,
+  Confirm (quotation/invoice review), Order Placed, Orders, Order Detail,
+  Account, Admin, About, Contact.
 - **Catalogue** — 450+ products in [uploads/products.json](uploads/products.json),
   Tamil + English names, 25 categories.
 - **Search** — predictive, typo-tolerant, **Tamil-aware**: typing `samai` /
@@ -24,8 +25,8 @@ logging, QR codes on PDFs, Docker, CI, pytest) are documented in
   code), saved per order under `orders/`.
 - **Auth** — optional Firebase login (email, Google, GitHub, phone OTP).
 - **Theming** — light + dark mode, persistent.
-- **Admin** — `#/admin` for PDF catalogue upload, image URL management, mark
-  products as new.
+- **Admin** — `#/admin` for PDF catalogue upload, single + multi-image
+  (gallery) management per product, and admin-token entry stored locally.
 
 ---
 
@@ -136,7 +137,7 @@ All routes are JSON; static frontend at `/`. Routes marked **🔒** require the
 |-----------------------------------|--------|-------------|
 | `GET  /api/health`                | GET    | Liveness probe — returns feature flags |
 | `GET  /api/products`              | GET    | All products (with computed `hsn` + `gst_rate`) |
-| `PATCH /api/products/<id>` 🔒     | PATCH  | Update `image` · `hsn` · `gst_rate` · `name` · `qty` · `price` · `category` |
+| `PATCH /api/products/<id>` 🔒     | PATCH  | Update `image` · `images[]` (gallery) · `hsn` · `gst_rate` · `name` · `qty` · `price` · `category` |
 | `POST /api/upload` 🔒             | POST   | Upload a supplier PDF; parsed products replace the catalogue |
 | `POST /api/mark-new` 🔒           | POST   | Mark product IDs as newly added (sets `date_added` to today) |
 | `POST /api/order`                 | POST   | Place an order — strict payload validation, atomic invoice number |
@@ -225,6 +226,48 @@ running `gunicorn wsgi:application`, and configures nginx as a reverse proxy.
 4. **Start:** `cd backend && gunicorn wsgi:application`
 5. Add env vars from `.env.example` (especially `ADMIN_TOKEN`, `CORS_ORIGINS`).
 
+### Free split deploy — Cloudflare Pages + PythonAnywhere
+
+The current production setup. Frontend is served from Cloudflare's CDN
+(global edge cache, free SSL); backend Flask runs on PythonAnywhere
+(persistent disk, no spin-down on the free tier).
+
+**Backend (PythonAnywhere)**
+1. Open a Bash console: `git clone https://github.com/<user>/aammii.git`
+2. `python3.10 -m venv venv && source venv/bin/activate && pip install -r aammii/backend/requirements.txt`
+3. **Web tab** — Manual configuration → Python 3.10. Set:
+   - **Source code:** `/home/<user>/aammii/backend`
+   - **Working directory:** `/home/<user>/aammii/backend`
+   - **Virtualenv:** `/home/<user>/aammii/venv`
+4. **WSGI file** — replace contents with:
+   ```python
+   import sys
+   PROJECT_PATH = '/home/<user>/aammii/backend'
+   if PROJECT_PATH not in sys.path:
+       sys.path.insert(0, PROJECT_PATH)
+   from wsgi import application  # noqa
+   ```
+5. Add env vars (`ADMIN_TOKEN`, `SECRET_KEY`) and click **Reload**.
+
+**Frontend (Cloudflare Pages)**
+1. Zip the `frontend/` folder.
+2. dash.cloudflare.com → **Workers & Pages → Create → Pages → Upload assets**.
+3. Project name: e.g. `aammii-store` → drag the zip → **Deploy**.
+4. URL becomes `https://<project>.pages.dev` (or `<project>.<sub>.workers.dev`
+   in the new unified UI).
+
+**Wire them together**
+- Frontend [frontend/app.js](frontend/app.js) auto-points API at PythonAnywhere
+  on any non-localhost host.
+- Backend `CORS_ORIGINS` default in [backend/config.py](backend/config.py)
+  includes the Pages and Workers URLs; edit and `git pull` on PA to add more.
+
+**Future updates**
+| Changed | Steps |
+|---|---|
+| Frontend code | Re-zip `frontend/` → Pages dashboard → **Create deployment** → upload zip |
+| Backend code | `git push` locally → on PA: `cd ~/aammii && git pull && touch /var/www/<user>_pythonanywhere_com_wsgi.py` |
+
 ### Custom domain
 
 Buy domain → in Render add Custom Domain → update DNS as instructed → done in ~1 hour.
@@ -243,7 +286,6 @@ For online prepaid, follow the Razorpay snippet in section 8 of
 - **Brand palette** — edit the CSS variables at the top of [frontend/css/tokens.css](frontend/css/tokens.css).
 - **Logo** — replace [frontend/logo.svg](frontend/logo.svg) (PNG / WebP also accepted; the file is read by Pillow for the PDF invoice).
 - **Home copy** — edit `renderHome()` in [frontend/app.js](frontend/app.js).
-- **Announcement bar** — the rotating top strip lives in [frontend/index.html](frontend/index.html) under `class="announce"`.
 - **Contact info** — search for `9500655548` and `aammii.com` across `frontend/index.html`, `frontend/app.js`, `backend/app.py`.
 
 For business-flow customisation (orders, invoices, GST rates, image

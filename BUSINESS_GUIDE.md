@@ -56,23 +56,29 @@ Once you see the **`Listening on http://0.0.0.0:5000`** log line, you're live.
 
 ## 2. What's included (the pages)
 
-Your store comes with **12 distinct, professional pages**:
+Your store comes with **13 distinct, professional pages**:
 
 | Page | URL | What it does |
 |------|-----|-------------|
 | **Home** | `#/` | Hero, featured categories, new arrivals, bestsellers, testimonials |
 | **Browse** | `#/browse` | Full catalogue with search, filters, sort |
 | **Category** | `#/category/<name>` | Filtered by category (e.g. Millets) |
-| **Product** | `#/product/<id>` | Detail page: gallery, description, related items |
+| **Product** | `#/product/<id>` | Detail page: gallery (multi-image), description, related items |
 | **Cart** | `#/cart` | Full cart with qty controls, promo codes, totals |
-| **Checkout** | `#/checkout` | Address form, payment options, order review |
-| **Order Confirmed** | `#/order-placed/<id>` | Thank-you page + PDF invoice download |
+| **Checkout** | `#/checkout` | Address form, payment options |
+| **Confirm** | `#/confirm` | Quotation/invoice review with per-item GST + **Pay Now** |
+| **Order Placed** | `#/order-placed/<id>` | Thank-you page + PDF invoice download |
 | **Orders** | `#/orders` | Order history with status tracking |
 | **Order Detail** | `#/order/<id>` | Single order view |
 | **Account** | `#/account` | Profile, preferences |
-| **Admin** | `#/admin` | PDF upload, catalogue stats, image replacement |
+| **Admin** | `#/admin` | Token entry, PDF upload, single + gallery image management |
 | **About** | `#/about` | Your story |
 | **Contact** | `#/contact` | Phone, WhatsApp, email, contact form |
+
+The checkout is **two-step** to give customers a clear pre-payment review:
+they fill the form on `#/checkout`, hit *Review & Pay*, and land on
+`#/confirm` showing each line with GST, shipping, grand total, and an
+*Edit* button. *Pay Now* commits the order and downloads the invoice.
 
 ---
 

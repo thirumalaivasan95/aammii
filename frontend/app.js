@@ -27,6 +27,32 @@ const CART_KEY  = "aammii-cart";
 const ORDERS_KEY = "aammii-orders-local";   /* local order shadow for anon users */
 const FAV_KEY   = "aammii-favs";
 const ADMIN_TOKEN_KEY = "aammii-admin-token";
+const PENDING_KEY = "aammii-pending-order";
+
+function loadPending() {
+  try { return JSON.parse(localStorage.getItem(PENDING_KEY)); } catch { return null; }
+}
+function savePending(p) {
+  try { localStorage.setItem(PENDING_KEY, JSON.stringify(p)); } catch {}
+}
+function clearPending() {
+  try { localStorage.removeItem(PENDING_KEY); } catch {}
+}
+
+/* GST rate per cart item — mirrors backend HIGH_GST_CATS logic.
+   `gst_rate` (decimal) wins if explicitly set on the product. */
+const HIGH_GST_CATEGORIES = new Set([
+  "Home Care", "Soap", "Personal Care", "Face Pack",
+  "Copper Products", "Wellness Tools", "Books & DVDs"
+]);
+function gstRateFor(item) {
+  const r = item?.gst_rate;
+  if (r != null && r !== "") {
+    const n = Number(r);
+    if (!isNaN(n)) return n > 1 ? n / 100 : n;
+  }
+  return HIGH_GST_CATEGORIES.has(item?.category) ? 0.18 : 0.05;
+}
 
 function adminToken() {
   try { return localStorage.getItem(ADMIN_TOKEN_KEY) || ""; } catch { return ""; }
@@ -268,6 +294,7 @@ async function route() {
     if (first === "product")      return renderProduct(view, parts[1]);
     if (first === "cart")         return renderCart(view);
     if (first === "checkout")     return renderCheckout(view);
+    if (first === "confirm")      return renderConfirm(view);
     if (first === "order-placed") return renderOrderPlaced(view, parts[1]);
     if (first === "orders")       return renderOrders(view);
     if (first === "order")        return renderOrderDetail(view, parts[1]);
@@ -1057,9 +1084,17 @@ function renderCheckout(view) {
   const grand    = subtotal + shipping + tax;
 
   const u = window._currentUser || {};
-  const prefName    = u.displayName || "";
-  const prefEmail   = u.email || "";
-  const prefPhone   = u.phoneNumber || "";
+  const pend = loadPending() || {};
+  const pc = pend.customer || {};
+  const prefName    = pc.name    || u.displayName || "";
+  const prefEmail   = pc.email   || u.email       || "";
+  const prefPhone   = pc.phone   || u.phoneNumber || "";
+  const prefAddr1   = pc.addr1   || "";
+  const prefAddr2   = pc.addr2   || "";
+  const prefCity    = pc.city    || "";
+  const prefPin     = pc.pincode || "";
+  const prefNotes   = pc.notes   || "";
+  const prefPay     = pend.payment || "cod";
 
   view.innerHTML = `
     <div class="page">
@@ -1082,11 +1117,11 @@ function renderCheckout(view) {
               <div class="form-row"><label>Full name</label><input class="inp" name="name" required value="${esc(prefName)}" placeholder="Thirumalai Vasan"/></div>
               <div class="form-row"><label>Phone</label><input class="inp" name="phone" required value="${esc(prefPhone)}" placeholder="+91 98765 43210"/></div>
               <div class="form-row full"><label>Email (for invoice)</label><input class="inp" type="email" name="email" required value="${esc(prefEmail)}" placeholder="you@example.com"/></div>
-              <div class="form-row full"><label>Address line 1</label><input class="inp" name="addr1" required placeholder="House no, street name"/></div>
-              <div class="form-row full"><label>Address line 2 (optional)</label><input class="inp" name="addr2" placeholder="Landmark, area"/></div>
-              <div class="form-row"><label>City</label><input class="inp" name="city" required placeholder="Chennai"/></div>
-              <div class="form-row"><label>PIN code</label><input class="inp" name="pincode" required maxlength="6" placeholder="600001"/></div>
-              <div class="form-row full"><label>Delivery note (optional)</label><textarea class="inp" name="notes" placeholder="Any special instructions..."></textarea></div>
+              <div class="form-row full"><label>Address line 1</label><input class="inp" name="addr1" required value="${esc(prefAddr1)}" placeholder="House no, street name"/></div>
+              <div class="form-row full"><label>Address line 2 (optional)</label><input class="inp" name="addr2" value="${esc(prefAddr2)}" placeholder="Landmark, area"/></div>
+              <div class="form-row"><label>City</label><input class="inp" name="city" required value="${esc(prefCity)}" placeholder="Chennai"/></div>
+              <div class="form-row"><label>PIN code</label><input class="inp" name="pincode" required maxlength="6" value="${esc(prefPin)}" placeholder="600001"/></div>
+              <div class="form-row full"><label>Delivery note (optional)</label><textarea class="inp" name="notes" placeholder="Any special instructions...">${esc(prefNotes)}</textarea></div>
             </div>
           </div>
 
@@ -1119,7 +1154,7 @@ function renderCheckout(view) {
           </div>
 
           <button type="submit" class="btn-big" id="ckSubmit" style="padding:16px;font-size:15px">
-            Place Order · ${money(grand)}
+            Review &amp; Pay · ${money(grand)}
           </button>
           <a href="#/cart" style="display:block;text-align:center;margin-top:10px;color:var(--text-3);font-size:13px">← Back to Cart</a>
         </form>
@@ -1154,6 +1189,16 @@ function renderCheckout(view) {
     opt.classList.add("active");
     q("input[type=radio]", opt).checked = true;
   }));
+
+  /* Restore previously chosen payment if user returns from /confirm */
+  if (prefPay && prefPay !== "cod") {
+    const target = qa(".pay-opt").find(o => o.dataset.pay === prefPay);
+    if (target) {
+      qa(".pay-opt").forEach(o => o.classList.remove("active"));
+      target.classList.add("active");
+      q("input[type=radio]", target).checked = true;
+    }
+  }
 }
 
 async function submitCheckout() {
@@ -1161,30 +1206,61 @@ async function submitCheckout() {
   const data = Object.fromEntries(new FormData(form).entries());
   const items = Object.values(STATE.cart);
   if (!items.length) return;
-  const btn = $("ckSubmit"); btn.disabled = true; btn.textContent = "Placing order…";
 
-  const subtotal = cartTotal();
-  const shipping = subtotal >= 500 ? 0 : 49;
-  const tax      = Math.round(subtotal * 0.05);
-  const grand    = subtotal + shipping + tax;
-
-  const payload = {
+  savePending({
     customer: {
       name:    data.name,
       email:   data.email,
       phone:   data.phone,
-      address: [data.addr1, data.addr2, data.city, data.pincode].filter(Boolean).join(", "),
+      addr1:   data.addr1,
+      addr2:   data.addr2 || "",
+      city:    data.city,
+      pincode: data.pincode,
+      state:   data.state || "Tamil Nadu",
       notes:   data.notes || "",
     },
     payment:  data.payment || "cod",
+  });
+  go("/confirm");
+}
+window.submitCheckout = submitCheckout;
+
+/* Take the pending order to the live /api/order endpoint. Triggered by Pay Now. */
+async function payNow() {
+  const pending = loadPending();
+  const items = Object.values(STATE.cart);
+  if (!pending || !items.length) { go("/cart"); return; }
+  const btn = $("payNowBtn"); if (btn) { btn.disabled = true; btn.textContent = "Processing…"; }
+
+  const cust = pending.customer;
+  const totals = computeQuoteTotals(items);
+
+  const payload = {
+    customer: {
+      name:    cust.name,
+      email:   cust.email,
+      phone:   cust.phone,
+      address: [cust.addr1, cust.addr2, cust.city, cust.state, cust.pincode]
+                 .filter(Boolean).join(", "),
+      notes:   cust.notes || "",
+    },
+    payment:  pending.payment || "cod",
     items:    items.map(i => ({
       code: i.code || i.id, name: i.name, qty: i.qty,
-      price: i.price, qty_unit: i.qty_unit || "", category: i.category
+      price: i.price, qty_unit: i.qty_unit || "", category: i.category,
+      gst_rate: gstRateFor(i),
     })),
-    totals: { subtotal, shipping, tax, grand },
+    totals: {
+      subtotal: totals.subtotal,
+      shipping: totals.shipping,
+      tax:      totals.tax,
+      grand:    totals.grand,
+    },
   };
 
   try {
+    /* TODO: when Razorpay keys are live, branch here on payload.payment !== 'cod'
+       to open Razorpay checkout, then call /api/order on payment success. */
     const r = await fetch(`${API}/api/order`, {
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
@@ -1206,29 +1282,178 @@ async function submitCheckout() {
       ...payload, status: "confirmed",
     });
     clearCart();
+    clearPending();
 
-    /* Trigger PDF download — use a real anchor click; fall back to window.open
-       if the host (e.g. sandboxed preview) blocks the download attribute. */
     if (invoiceUrl) {
       try {
         const a = document.createElement("a");
         a.href = invoiceUrl;
         a.download = `${invoiceNo || orderId}.pdf`;
-        a.rel = "noopener";
-        a.target = "_self";
+        a.rel = "noopener"; a.target = "_self";
         document.body.appendChild(a); a.click(); a.remove();
       } catch (_) {
         window.open(invoiceUrl, "_blank", "noopener");
       }
     }
-
     go(`/order-placed/${orderId}`);
   } catch (e) {
     showToast("❌ " + e.message);
-    btn.disabled = false; btn.textContent = `Place Order · ${money(grand)}`;
+    if (btn) { btn.disabled = false; btn.textContent = "Pay Now"; }
   }
 }
-window.submitCheckout = submitCheckout;
+window.payNow = payNow;
+
+/* Compute totals for quotation page — line by line, GST per item. */
+function computeQuoteTotals(items) {
+  let subSale = 0, gstSum = 0, totalQty = 0;
+  const rows = items.map(it => {
+    const rate = gstRateFor(it);
+    const qty  = Number(it.qty || 1);
+    const mrp  = Number(it.price || 0);
+    const gross = mrp * qty;
+    const sale  = rate > 0 ? gross / (1 + rate) : gross;
+    const gst   = gross - sale;
+    subSale += sale; gstSum += gst; totalQty += qty;
+    return {
+      name: it.name, qty, mrp, rate,
+      sale: +sale.toFixed(2), gst: +gst.toFixed(2), total: +gross.toFixed(2),
+    };
+  });
+  const subtotalGross = subSale + gstSum;
+  const shipping = subtotalGross >= 500 ? 0 : 49;
+  const grand    = subtotalGross + shipping;
+  return {
+    rows, totalQty,
+    subtotal: +subSale.toFixed(2),
+    tax:      +gstSum.toFixed(2),
+    subtotalGross: +subtotalGross.toFixed(2),
+    shipping,
+    grand:    +grand.toFixed(2),
+  };
+}
+
+function quoteId() {
+  /* QTN-YY-MM-####-Rn  (matches the user's reference format) */
+  const d = new Date();
+  const yr = String(d.getFullYear()).slice(-2);
+  const mo = String(d.getMonth() + 1).padStart(2, "0");
+  const seq = Math.floor(Math.random() * 9000 + 1000);
+  return `QTN${yr}-${mo}-${seq}-R1`;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   13b. PAGE: QUOTATION / CONFIRM
+   ═══════════════════════════════════════════════════════════════ */
+function renderConfirm(view) {
+  const items = Object.values(STATE.cart);
+  if (!items.length) { go("/cart"); return; }
+  const pending = loadPending();
+  if (!pending) { go("/checkout"); return; }
+
+  const t = computeQuoteTotals(items);
+  const c = pending.customer;
+  const qid = quoteId();
+
+  const stateLabel = c.state || "Tamil Nadu";
+  const stateAbbr  = stateLabel.toLowerCase().includes("tamil") ? "TN"
+                   : stateLabel.toLowerCase().includes("pondicher") || stateLabel.toLowerCase().includes("puducher") ? "PY"
+                   : stateLabel.toLowerCase().includes("kerala") ? "KL"
+                   : stateLabel.slice(0, 2).toUpperCase();
+
+  view.innerHTML = `
+    <div class="page page-wide">
+      <div class="crumbs">
+        <a href="#/">Home</a><span class="sep">›</span>
+        <a href="#/cart">Cart</a><span class="sep">›</span>
+        <a href="#/checkout">Checkout</a><span class="sep">›</span>
+        <span>Confirm</span>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:18px">
+        <h1 class="page-title" style="color:var(--forest);margin:0">Quotation / Invoice</h1>
+        <a href="#/checkout" class="btn-secondary" style="padding:8px 16px">← Back</a>
+      </div>
+
+      <div style="margin-bottom:18px;font-size:14px;color:var(--text-2)">
+        <strong style="color:var(--text)">Quotation Id:</strong> &nbsp;<span style="font-family:monospace;font-weight:700">${qid}</span>
+      </div>
+
+      <div class="ck-card" style="padding:0;overflow:hidden;margin-bottom:24px">
+        <div style="overflow-x:auto">
+          <table class="quote-tbl" style="width:100%;border-collapse:collapse;min-width:680px">
+            <thead>
+              <tr style="background:var(--forest-dk);color:#fff">
+                <th style="padding:12px 10px;text-align:left;font-size:13px">#</th>
+                <th style="padding:12px 10px;text-align:left;font-size:13px">Product Name</th>
+                <th style="padding:12px 10px;text-align:center;font-size:13px">Qty</th>
+                <th style="padding:12px 10px;text-align:right;font-size:13px">Cost (₹)</th>
+                <th style="padding:12px 10px;text-align:right;font-size:13px">GST</th>
+                <th style="padding:12px 10px;text-align:right;font-size:13px">Total with GST (₹)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${t.rows.map((r, i) => `
+                <tr style="border-bottom:1px solid var(--border)">
+                  <td style="padding:12px 10px;font-size:13px">${i + 1}</td>
+                  <td style="padding:12px 10px;font-size:13px" class="tamil">${esc(r.name)}</td>
+                  <td style="padding:12px 10px;text-align:center;font-size:13px">${r.qty}</td>
+                  <td style="padding:12px 10px;text-align:right;font-size:13px">${r.sale.toFixed(2)}</td>
+                  <td style="padding:12px 10px;text-align:right;font-size:13px">${(r.rate * 100).toFixed(2)}%</td>
+                  <td style="padding:12px 10px;text-align:right;font-size:13px;font-weight:700">${r.total.toFixed(2)}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px" class="quote-bottom">
+        <div class="ck-card">
+          <h3 style="font-size:18px;font-weight:800;margin:0 0 14px">Shipping Address</h3>
+          <div style="font-size:14px;line-height:1.9;color:var(--text-2)">
+            <div><strong style="color:var(--text)">Name:</strong> ${esc(c.name || "")}</div>
+            <div><strong style="color:var(--text)">Address:</strong> ${esc([c.addr1, c.addr2].filter(Boolean).join(", "))}</div>
+            <div><strong style="color:var(--text)">City:</strong> ${esc(c.city || "")} <span style="color:var(--text-3)">(${esc(stateAbbr)})</span> &nbsp; <strong style="color:var(--text)">State:</strong> ${esc(stateLabel)}</div>
+            <div><strong style="color:var(--text)">Pincode:</strong> ${esc(c.pincode || "")}</div>
+            <div><strong style="color:var(--text)">Email:</strong> ${esc(c.email || "")}</div>
+            <div><strong style="color:var(--text)">Mobile:</strong> ${esc(c.phone || "")}</div>
+          </div>
+          <button class="btn-secondary" onclick="go('/checkout')" style="margin-top:14px;padding:8px 22px">Edit</button>
+        </div>
+
+        <div class="ck-card">
+          <div style="font-size:14px;line-height:1.9">
+            <div style="display:flex;justify-content:space-between"><strong>Total Quantity:</strong><span>${t.totalQty}</span></div>
+            <div style="display:flex;justify-content:space-between"><strong>Total Cost:</strong><span>${money(t.subtotal)}</span></div>
+            <div style="display:flex;justify-content:space-between"><strong>Total Cost with GST:</strong><span>${money(t.subtotalGross)}</span></div>
+            <div style="display:flex;justify-content:space-between"><strong>Shipping Charges:</strong><span>${t.shipping ? money(t.shipping) : "₹0.00"}</span></div>
+            <div style="display:flex;justify-content:space-between;border-top:2px solid var(--border);margin-top:10px;padding-top:10px;font-size:18px;font-weight:900">
+              <strong>Grand Total:</strong><span>${money(t.grand)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:10px">
+        <a href="#/checkout" class="btn-secondary" style="padding:12px 26px">Edit</a>
+        <button id="payNowBtn" class="btn-primary" onclick="payNow()" style="padding:12px 32px;font-size:15px">Pay Now</button>
+      </div>
+
+      <p style="font-size:12px;color:var(--text-3);text-align:right;margin-top:10px">
+        ${pending.payment === "cod"
+          ? "Cash on Delivery — pay when your order arrives."
+          : "Online payment integration coming soon — for now this places the order and you'll be contacted to confirm payment."}
+      </p>
+    </div>
+
+    <style>
+      .quote-tbl tbody tr:nth-child(even) { background: var(--surface-2); }
+      @media (max-width: 760px) {
+        .quote-bottom { grid-template-columns: 1fr !important; }
+      }
+    </style>
+  `;
+}
 
 /* ═══════════════════════════════════════════════════════════════
    14. PAGE: ORDER PLACED
